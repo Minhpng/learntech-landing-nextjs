@@ -1,60 +1,20 @@
 {
   "pages": {
     "/layout": [
-      "static/chunks/webpack-dc42a258f201690c.js",
-      "static/chunks/fd9d1056-3881893f43483c7e.js",
-      "static/chunks/596-15646e4de5745a50.js",
-      "static/chunks/main-app-ab5a827c50b08e96.js",
-      "static/css/deb0cdf56e486b4b.css",
-      "static/chunks/app/layout-08dde95a342af4da.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/page": [
-      "static/chunks/webpack-dc42a258f201690c.js",
-      "static/chunks/fd9d1056-3881893f43483c7e.js",
-      "static/chunks/596-15646e4de5745a50.js",
-      "static/chunks/main-app-ab5a827c50b08e96.js",
-      "static/chunks/15-47e1b173de14fdc8.js",
-      "static/chunks/app/page-ecea7befbda3ccad.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
     ],
     "/chinh-sach-bao-mat/page": [
-      "static/chunks/webpack-dc42a258f201690c.js",
-      "static/chunks/fd9d1056-3881893f43483c7e.js",
-      "static/chunks/596-15646e4de5745a50.js",
-      "static/chunks/main-app-ab5a827c50b08e96.js",
-      "static/chunks/app/chinh-sach-bao-mat/page-847ee11ba56a003e.js"
-    ],
-    "/chinh-sach-thanh-toan/page": [
-      "static/chunks/webpack-dc42a258f201690c.js",
-      "static/chunks/fd9d1056-3881893f43483c7e.js",
-      "static/chunks/596-15646e4de5745a50.js",
-      "static/chunks/main-app-ab5a827c50b08e96.js",
-      "static/chunks/app/chinh-sach-thanh-toan/page-86dabbffc0368ba0.js"
-    ],
-    "/payment/page": [
-      "static/chunks/webpack-dc42a258f201690c.js",
-      "static/chunks/fd9d1056-3881893f43483c7e.js",
-      "static/chunks/596-15646e4de5745a50.js",
-      "static/chunks/main-app-ab5a827c50b08e96.js",
-      "static/chunks/15-47e1b173de14fdc8.js",
-      "static/chunks/295-5302f2dfcff981d2.js",
-      "static/css/ee1c25919982a437.css",
-      "static/chunks/app/payment/page-0a5145a73d162dce.js"
-    ],
-    "/payment/layout": [
-      "static/chunks/webpack-dc42a258f201690c.js",
-      "static/chunks/fd9d1056-3881893f43483c7e.js",
-      "static/chunks/596-15646e4de5745a50.js",
-      "static/chunks/main-app-ab5a827c50b08e96.js",
-      "static/css/ee1c25919982a437.css",
-      "static/chunks/app/payment/layout-187fde352b1507df.js"
-    ],
-    "/payment/payment-transfer/page": [
-      "static/chunks/webpack-dc42a258f201690c.js",
-      "static/chunks/fd9d1056-3881893f43483c7e.js",
-      "static/chunks/596-15646e4de5745a50.js",
-      "static/chunks/main-app-ab5a827c50b08e96.js",
-      "static/css/ee1c25919982a437.css",
-      "static/chunks/app/payment/payment-transfer/page-ab9cdb1b4f5701a6.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/chinh-sach-bao-mat/page.js"
     ]
   }
 }
