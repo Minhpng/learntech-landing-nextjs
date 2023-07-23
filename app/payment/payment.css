@@ -1,0 +1,367 @@
+.paymentHero {
+	padding-block: 1.125rem;
+}
+
+.paymentHeroHotline {
+	text-align: center;
+	font-size: 1.5rem;
+}
+
+.paymentHeroHotline a {
+	color: yellow;
+}
+
+.paymentVideoWrapper {
+	width: min(100%, 600px);
+	display: block;
+}
+
+.paymentHeader,
+.paymentSubtitle {
+	color: white;
+	font-size: clamp(2rem, 1px + 5vw, 2.5rem);
+	text-align: center;
+	font-weight: 700;
+	font-family: Montserrat, sans-serif;
+	line-height: 1.3;
+	margin-bottom: 2rem;
+	max-width: 43.75rem;
+	margin-inline: auto;
+}
+.paymentSubtitle {
+	font-size: 1.25rem;
+	font-weight: 500;
+	margin-bottom: 1rem;
+}
+
+.paymentSubHeading {
+	font-size: 1.525rem;
+	font-weight: 700;
+	color: var(--clr-org);
+}
+
+/* === === === === FORM WRAPPER === === === === */
+.paymentWrapper {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 1.25rem;
+}
+
+@media screen and (max-width: 800px) {
+	.paymentWrapper {
+		flex-direction: column;
+	}
+}
+
+.paymentFormWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+	gap: 1.5rem;
+	max-width: 600px;
+	margin-inline: auto;
+
+	padding: 1.5rem;
+	border: 1px solid #cdcdcd;
+	border-radius: 5px;
+}
+
+.userPaymentInfoWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.paymentInfoHeading {
+	font-size: 1.5rem;
+	font-weight: 700;
+	line-height: 1.2;
+	/* margin-bottom: 1em; */
+}
+
+.userInfoItem {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 0.3125rem;
+}
+
+.userInfoItem label {
+	font-size: 0.9375rem;
+	color: var(--clr-gray-600);
+}
+
+.userInfoItem input {
+	font-size: 1.125rem;
+	height: 50px;
+	border: 1px solid var(--clr-gray-400);
+	border-radius: 5px;
+	padding-inline: 1.25rem;
+	width: min(100%, 31.25rem);
+}
+
+.userInfoExplain {
+	font-size: 1.125rem;
+	color: var(--clr-blue);
+	padding-block: 0.625rem;
+	cursor: pointer;
+}
+
+.paymentDivider {
+	height: 1px;
+	width: 100%;
+	background-color: var(--clr-gray-300);
+}
+
+/* === === === === BILLING INFO  === === === === */
+
+.billingDetailWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.billingUserInfo,
+.billingProductItem {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 10px;
+	/* margin-bottom: 1.125rem; */
+}
+
+.billingUserAccount,
+.billingItemMainText {
+	font-size: 1.25rem;
+	font-weight: 700;
+	line-height: 1.4;
+}
+
+.billingUserAccount {
+	color: var(--clr-org);
+}
+
+.billingTotalPrice {
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 1.3;
+}
+
+/* === === === === DISCOUNT INPUT === === === === */
+.paymentDiscount {
+	margin-block: 1.5rem;
+}
+.discountInputWrapper {
+	display: flex;
+	align-items: stretch;
+	justify-content: flex-start;
+	gap: 0.3rem;
+	margin-bottom: 0.5rem;
+}
+
+.discountInputWrapper input {
+	display: inline-block;
+	font-size: 1.125rem;
+	height: 50px;
+	border: 1px solid var(--clr-gray-400);
+	border-radius: 5px;
+	padding-inline: 1rem;
+	width: min(100%, 31.25rem);
+	height: 50px;
+}
+
+.discountInputWrapper button {
+	display: inline-block;
+	background-color: #f16335;
+	color: white;
+	width: 150px;
+	border: none;
+	border-radius: 5px;
+	height: 50px;
+	cursor: pointer;
+}
+
+.discountErrorText {
+	color: var(--clr-red);
+}
+/* === === === === PAYMENT METHODS  === === === === */
+
+.paymentMethodsWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+	gap: 0.3rem;
+}
+
+.paymentMethodItem {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+}
+
+.methodItemOption {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 1.125rem;
+	padding-block: 0.625rem;
+	cursor: pointer;
+	padding-left: 10px;
+	border-radius: 0.625rem;
+}
+
+.methodItemOption:hover {
+	background-color: var(--clr-gray-300);
+}
+
+.methodItemOption label {
+	font-size: 1.125rem;
+	line-height: 1.4;
+	cursor: pointer;
+}
+
+.methodItemOption input[type="radio"] {
+	scale: 1.5;
+}
+
+.methodItemDesc {
+	display: block;
+	background-color: var(--clr-gray-300);
+	padding-block: 0.625rem;
+	padding-inline: 0.9375rem;
+	position: relative;
+	margin-top: 10px;
+	margin-left: 40px;
+	max-width: 600px;
+}
+
+.methodItemDesc:before {
+	content: "";
+	width: 5px;
+	height: 5px;
+	border: 15px solid transparent;
+	border-bottom-color: var(--clr-gray-300);
+	position: absolute;
+	top: -30px;
+	left: 10px;
+}
+
+/* === === === ===  PROCESS PAYMENT BUTTON === === === ===  */
+.processPaymentBtn {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding-inline: 1.25rem;
+
+	padding-block: 1rem;
+	border: none;
+	border-radius: 5px;
+	background-color: #f16335;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+/* === === === ===  PROCESS PAYMENT BUTTON === === === ===  */
+.paymentSupportWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+	gap: 1.5rem;
+	max-width: 600px;
+	margin-inline: auto;
+
+	padding: 1.5rem;
+	border: 1px solid #cdcdcd;
+	border-top: 10px solid cornflowerblue;
+	border-radius: 5px;
+}
+
+.supportListWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 15px;
+}
+
+.paymentSupportImage {
+	width: 50px;
+	height: 50px;
+}
+
+.supportListWrapper a {
+	font-size: 1.25rem;
+	line-height: 1.4;
+}
+
+/* === === === === BANKING TRANSFER === === === === */
+.bankingTransferWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+	gap: 1.5rem;
+	max-width: 600px;
+	margin-inline: auto;
+
+	padding: 1.5rem;
+	border: 1px solid #cdcdcd;
+	border-radius: 5px;
+}
+.bankingInfo {
+	margin-bottom: 20px;
+}
+
+.bankingInfoItem {
+	display: grid;
+	grid-template-columns: 150px 10px 1fr;
+	align-items: flex-start;
+	justify-items: flex-start;
+	font-size: 1.25rem;
+	font-weight: 700;
+	margin-bottom: 0.5rem;
+}
+
+.bankLogo {
+	width: 150px;
+	/* margin-inline: auto; */
+}
+
+.bankingContentText {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-wrap: nowrap;
+	gap: 8px;
+}
+
+.bankingDescHeading {
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: rgb(0, 136, 255);
+	line-height: 1.3;
+	margin-bottom: 0.625rem;
+}
+
+.bankingDesc ol {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 0.725rem;
+	padding-left: 1.25rem;
+	margin-bottom: 1rem;
+
+	font-size: 1.125rem;
+}
