@@ -27,7 +27,7 @@ function PaymentTransferMethod() {
         <div className={styles.bankingTransferWrapper}>
             <div className={styles.bankingInfo}>
                 <div className={styles.bankLogo}>
-                    <img src='/logo-wooribank.png' />
+                    <img src='/mb-bank-logo.jpg' />
                 </div>
                 <div className={`${styles.bankingInfoItem}`}>
                     <div className={styles.bankingHeading}>
@@ -35,8 +35,8 @@ function PaymentTransferMethod() {
                     </div>
                     <span >:</span>
                     <div className={styles.bankingContentWrapper}>
-                        <p className={styles.bankingContentText}>Wooribank<i className="fa-regular fa-copy"></i></p>
-                        <p className={styles.bankingContentText}>Chi nhánh Hà nội</p>
+                        <p className={styles.bankingContentText}>MB Mbank<i className="fa-regular fa-copy"></i></p>
+                        <p className={styles.bankingContentText}>Chi nhánh Tây sài gòn</p>
 
                     </div>
                 </div>
@@ -46,7 +46,7 @@ function PaymentTransferMethod() {
                     </div>
                     <span >:</span>
                     <div className={styles.bankingContentWrapper}>
-                        <p className={styles.bankingContentText}><span className='text-blue-accent'>HELLOCHAO PAY</span><i className="fa-regular fa-copy"></i></p>
+                        <p className={styles.bankingContentText}><span className='text-blue-accent'>LEARNTECH CO. LTD</span><i className="fa-regular fa-copy"></i></p>
                         {/* {isCopied && <span>Đã sao chép</span>} */}
                     </div>
                 </div>

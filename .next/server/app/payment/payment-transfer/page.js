@@ -272,7 +272,7 @@ function PaymentTransferMethod() {
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                             className: (_payment_module_css__WEBPACK_IMPORTED_MODULE_2___default().bankLogo),
                             children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
-                                src: "/logo-wooribank.png"
+                                src: "/mb-bank-logo.jpg"
                             })
                         }),
                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -293,7 +293,7 @@ function PaymentTransferMethod() {
                                         /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", {
                                             className: (_payment_module_css__WEBPACK_IMPORTED_MODULE_2___default().bankingContentText),
                                             children: [
-                                                "Wooribank",
+                                                "MB Mbank",
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("i", {
                                                     className: "fa-regular fa-copy"
                                                 })
@@ -301,7 +301,7 @@ function PaymentTransferMethod() {
                                         }),
                                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                                             className: (_payment_module_css__WEBPACK_IMPORTED_MODULE_2___default().bankingContentText),
-                                            children: "Chi nh\xe1nh H\xe0 nội"
+                                            children: "Chi nh\xe1nh T\xe2y s\xe0i g\xf2n"
                                         })
                                     ]
                                 })
@@ -326,7 +326,7 @@ function PaymentTransferMethod() {
                                         children: [
                                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("span", {
                                                 className: "text-blue-accent",
-                                                children: "HELLOCHAO PAY"
+                                                children: "LEARNTECH CO. LTD"
                                             }),
                                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("i", {
                                                 className: "fa-regular fa-copy"

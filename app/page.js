@@ -45,6 +45,33 @@ export default function Home() {
         </div>
       </section>
 
+      {/* === === === === SECTION ABOUT LANG KINGDOM APP === === === === === */}
+      <section className="section">
+        <div className="container">
+          <div className="appIntroWrapper">
+            <div className="hero-content">
+              <h1 className="body-text">ỨNG DỤNG LANG KINGDOM</h1>
+              <p className="primary-heading">
+                Tự học tiếng Anh chưa bao giờ dễ dàng đến thế
+              </p>
+              <p className="body-text">
+                Ứng dụng Lang Kingdom có bài giảng vô cùng chi tiết cho từng câu/từ/cụm giúp cho việc tự học của bạn vô cùng dễ dàng.
+              </p>
+              <p className="body-text">
+                Luyện nghe-nói tiếng Anh qua các bài hội thoại, bài học đơn giản, gần gũi trong cuộc sống thường ngày.
+              </p>
+              <p className="body-text">
+                Bạn có thể học ở mọi lúc mọi nơi, dừng và tiếp tục bất cứ khi nào bạn muốn. Ứng dụng sẽ ghi nhớ tiến trình của bạn để bạn luôn bắt nhịp.
+              </p>
+
+            </div>
+            <div className="app-intro-image">
+              <img src="/main-screen-2.png" alt="Lang Kingdom main feature" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* <!-- SECTION 6 PHUONG PHAP --> */}
 
       <section className="section">

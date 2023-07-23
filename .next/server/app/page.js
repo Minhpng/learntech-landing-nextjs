@@ -318,6 +318,49 @@ function Home() {
             }),
             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("section", {
                 className: "section",
+                children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                    className: "container",
+                    children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                        className: "appIntroWrapper",
+                        children: [
+                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                                className: "hero-content",
+                                children: [
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
+                                        className: "body-text",
+                                        children: "ỨNG DỤNG LANG KINGDOM"
+                                    }),
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                        className: "primary-heading",
+                                        children: "Tự học tiếng Anh chưa bao giờ dễ d\xe0ng đến thế"
+                                    }),
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                        className: "body-text",
+                                        children: "Ứng dụng Lang Kingdom c\xf3 b\xe0i giảng v\xf4 c\xf9ng chi tiết cho từng c\xe2u/từ/cụm gi\xfap cho việc tự học của bạn v\xf4 c\xf9ng dễ d\xe0ng."
+                                    }),
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                        className: "body-text",
+                                        children: "Luyện nghe-n\xf3i tiếng Anh qua c\xe1c b\xe0i hội thoại, b\xe0i học đơn giản, gần gũi trong cuộc sống thường ng\xe0y."
+                                    }),
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                        className: "body-text",
+                                        children: "Bạn c\xf3 thể học ở mọi l\xfac mọi nơi, dừng v\xe0 tiếp tục bất cứ khi n\xe0o bạn muốn. Ứng dụng sẽ ghi nhớ tiến tr\xecnh của bạn để bạn lu\xf4n bắt nhịp."
+                                    })
+                                ]
+                            }),
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                                className: "app-intro-image",
+                                children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
+                                    src: "/main-screen-2.png",
+                                    alt: "Lang Kingdom main feature"
+                                })
+                            })
+                        ]
+                    })
+                })
+            }),
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("section", {
+                className: "section",
                 children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                     className: "container section-methods",
                     children: [

@@ -23,7 +23,7 @@
 	--clr-gray-300: hsl(0, 0%, 90%);
 
 	--text-color: #333;
-	--text-color-sec: var(--clr-gray-500);
+	--text-color-sec: var(--clr-gray-700);
 
 	/* // font size */
 	--fs-300: 0.875rem;
@@ -382,6 +382,28 @@ button:hover {
 	}
 }
 
+/* ============== SIX METHODS ================== */
+.appIntroWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+}
+
+.appIntroWrapper .primary-heading {
+	text-align: left;
+	margin-bottom: 2rem;
+}
+
+.app-intro-image {
+	max-width: 300px;
+}
+
+@media screen and (max-width: 768px) {
+	.appIntroWrapper {
+		flex-direction: column;
+	}
+}
 /* ============== SIX METHODS ================== */
 
 .section-methods {
