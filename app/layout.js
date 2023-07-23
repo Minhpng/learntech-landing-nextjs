@@ -75,7 +75,7 @@ export default function RootLayout({ children }) {
               <div className="footer-item">
                 <div className="item-heading">Download App</div>
                 <p className="link-desc">
-                  <a href="">
+                  <a target="_blank" href="https://play.google.com/store/apps/details?id=com.langkingdom.langkingdom">
                     <img
                       src="/Get_it_on_Google_play.png"
                       alt=" Lang kingdom Google play"
@@ -83,7 +83,7 @@ export default function RootLayout({ children }) {
                   </a>
                 </p>
                 <p className="link-desc">
-                  <a href=""
+                  <a target="_blank" href="https://apps.apple.com/us/app/lang-kingdom-gi%E1%BB%8Fi-ti%E1%BA%BFng-anh/id1353744959"
                   ><img src="/App_Store_Badge.png" alt="Lang Kingdom appstore"
                     /></a>
                 </p>

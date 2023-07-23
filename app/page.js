@@ -3,20 +3,6 @@ import Script from "next/script";
 export default function Home() {
   return (
     <main>
-      <header>
-        <div className="main-header bg-dark">
-          <div className="container">
-            <div className="header-wrapper">
-              <div className="logo">
-                <img src="/logo.png" alt="Learntech logo" />
-              </div>
-              <div className="header-cta">
-                <a href="#pricing" className="header-button">Mua tài khoản</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
       <section className="section section-hero bg-dark">
         <div className="container hero">
           <div className="hero-content">
@@ -33,13 +19,13 @@ export default function Home() {
             </p>
             <div className="download-app-cta">
               <div className="download-app-button-wrapper">
-                <a href="" className="download-app-button">
+                <a target="_blank" href="https://play.google.com/store/apps/details?id=com.langkingdom.langkingdom" className="download-app-button">
                   <img
                     src="/Get_it_on_Google_play.png"
                     alt="download from Google play"
                   />
                 </a>
-                <a href="" className="download-app-button">
+                <a target="_blank" href="https://apps.apple.com/us/app/lang-kingdom-gi%E1%BB%8Fi-ti%E1%BA%BFng-anh/id1353744959" className="download-app-button">
                   <img
                     src="/App_Store_Badge.png"
                     alt="download from Apple store"
@@ -370,11 +356,10 @@ export default function Home() {
               <div className="faq-item-icon"></div>
               <div className="faq-item-content-wrapper">
                 <h4 className="faq-heading heading-4">
-                  Kích hoạt License code LANG KINGDOM như thế nào?
+                  Nâng cấp tài khoản LANG KINGDOM như thế nào?
                 </h4>
                 <p className="faq-desc">
-                  Sau khi đã mua license code Elsa Speak Pro bạn vui lòng truy
-                  cập vào địa chỉ bên dưới để xem hướng dẫn kich hoạt license
+                  Sau khi đã thanh toán thành công, tài khoản Lang Kingdom của bạn sẽ được tự động nâng cấp.
                 </p>
               </div>
             </div>
@@ -383,11 +368,13 @@ export default function Home() {
               <div className="faq-item-icon"></div>
               <div className="faq-item-content-wrapper">
                 <h4 className="faq-heading heading-4">
-                  Kích hoạt License code LANG KINGDOM như thế nào?
+                  LANG KINGDOM hoạt động trên điện thoại, máy tinh bảng hay máy tính?
                 </h4>
                 <p className="faq-desc">
-                  Sau khi đã mua license code Elsa Speak Pro bạn vui lòng truy
-                  cập vào địa chỉ bên dưới để xem hướng dẫn kich hoạt license
+                  Hiện tại, LANG KINGDOM có thể sử dụng được trên điện thoại Android/iOS và trên máy trình duyệt máy tính. Trong tương lai, LANG KINGDOM sẽ cố gắng cải tiến để phục vụ người dùng tốt nhất.
+                </p>
+                <p className="faq-desc">
+                  Đối với máy tính bảng hãy lưu ý riêng với iPad, hãy tải LANG KINGDOM từ iTune store (như iPhone vậy). LANG KINGDOM chưa hỗ trợ tối đa cho các thiết bị màn hình lớn nên một số design có thể gặp lỗi. Vì vậy, để đạt chất lượng tốt nhất, hãy sử dụng LANG KINGDOM với iPhone hay điện thoại Android.
                 </p>
               </div>
             </div>
@@ -395,11 +382,10 @@ export default function Home() {
               <div className="faq-item-icon"></div>
               <div className="faq-item-content-wrapper">
                 <h4 className="faq-heading heading-4">
-                  Kích hoạt License code LANG KINGDOM như thế nào?
+                  App này có phải miễn phí không?
                 </h4>
                 <p className="faq-desc">
-                  Sau khi đã mua license code Elsa Speak Pro bạn vui lòng truy
-                  cập vào địa chỉ bên dưới để xem hướng dẫn kich hoạt license
+                  Đúng. Miễn phí tải LANG KINGDOM và thử sử dụng với những bài học mẫu. Từ đó, bạn có thể hiểu rõ phương pháp học của LANG KINGDOM. Tuy nhiên, toàn bộ khóa học có tính phí.
                 </p>
               </div>
             </div>
@@ -407,11 +393,10 @@ export default function Home() {
               <div className="faq-item-icon"></div>
               <div className="faq-item-content-wrapper">
                 <h4 className="faq-heading heading-4">
-                  Kích hoạt License code LANG KINGDOM như thế nào?
+                  Tiếng Anh của tôi khá, liệu LANG KINGDOM có phù hợp với tôi?
                 </h4>
                 <p className="faq-desc">
-                  Sau khi đã mua license code Elsa Speak Pro bạn vui lòng truy
-                  cập vào địa chỉ bên dưới để xem hướng dẫn kich hoạt license
+                  Để biết câu trả lời chính xác, hãy tài LANG KINGDOM ngay tại và làm bài test để được LANG KINGDOM đánh giá ngay.
                 </p>
               </div>
             </div>
@@ -419,86 +404,16 @@ export default function Home() {
               <div className="faq-item-icon"></div>
               <div className="faq-item-content-wrapper">
                 <h4 className="faq-heading">
-                  Kích hoạt License code LANG KINGDOM như thế nào?
+                  Tôi có thể học LANG KINGDOM khi thiết bị đang không có kết nối internet được không?
                 </h4>
                 <p className="faq-desc">
-                  Sau khi đã mua license code Elsa Speak Pro bạn vui lòng truy
-                  cập vào địa chỉ bên dưới để xem hướng dẫn kich hoạt license
+                  Không. Vì số lượng dữ liệu rất lớn để LANG KINGDOM có thể nhận diện giọng nói trực tuyến của tất cả các bạn, LANG KINGDOM cần được kết nối wifi liên tục.
                 </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* <!-- === === === === === FOOTER === ==== === === === === --> */}
-      <footer className="section footer">
-        <div className="container">
-          <div className="footer-item-wrapper">
-            <div className="footer-item">
-              <div className="item-heading">Thông tin liên hệ</div>
-              <p className="link-desc">
-                <a href="tel:0963527374">Điện thoại: 0963527374</a>
-              </p>
-              <p className="link-desc">
-                <a href="mailto:0963527374">Email: learntech@gmail.com</a>
-              </p>
-              <p className="link-desc">
-                Địa chỉ: 165 - 167 Nguyện Thị Thập, KĐT Him Lam, Phường Tân
-                Hưng, Quận 7, Thành phố Hồ Chí Minh, Việt Nam
-              </p>
-            </div>
-            <div className="footer-item">
-              <div className="item-heading">Chính sách</div>
-              <p className="link-desc">
-                <a href=""
-                ><i className="fa-solid fa-caret-right"></i> Chính sách thanh
-                  toán</a
-                >
-              </p>
-              <p className="link-desc">
-                <a href="">
-                  <i className="fa-solid fa-caret-right"></i> Chính sách giao
-                  nhận</a
-                >
-              </p>
-              <p className="link-desc">
-                <a href="">
-                  <i className="fa-solid fa-caret-right"></i> Chính sách bảo mật</a
-                >
-              </p>
-            </div>
-            <div className="footer-item">
-              <div className="item-heading">Download App</div>
-              <p className="link-desc">
-                <a href="">
-                  <img
-                    src="/Get_it_on_Google_play.png"
-                    alt=" Lang kingdom Google play"
-                  />
-                </a>
-              </p>
-              <p className="link-desc">
-                <a href=""
-                ><img src="/App_Store_Badge.png" alt="Lang Kingdom appstore"
-                  /></a>
-              </p>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <div className="footer-logo">
-              <img src="/logo.png" alt="lang kingdom logo" />
-            </div>
-            <p className="footer-bottom-desc">
-              LearnTech.vn - là chuyên trang phân phối chính thức LANG KINGDOM
-              tại Việt Nam.
-            </p>
-            <p className="footer-bottom-desc">GPKD: Công ty TNHH LearnTech</p>
-            <p className="footer-bottom-desc">MST: 0317803574</p>
-          </div>
-        </div>
-      </footer>
-
       <Script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js" />
       <Script src="/main.js" />
 

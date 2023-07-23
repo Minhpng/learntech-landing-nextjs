@@ -1,6 +1,5 @@
 {
   "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/chinh-sach-bao-mat/page": "app/chinh-sach-bao-mat/page.js",
   "/chinh-sach-thanh-toan/page": "app/chinh-sach-thanh-toan/page.js",
   "/payment/page": "app/payment/page.js",

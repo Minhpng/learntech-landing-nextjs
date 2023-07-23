@@ -148,22 +148,6 @@ module.exports = require("next/dist/shared/lib/server-inserted-html");
 
 /***/ }),
 
-/***/ 1017:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("path");
-
-/***/ }),
-
-/***/ 7310:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("url");
-
-/***/ }),
-
 /***/ 3714:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -195,24 +179,12 @@ __webpack_require__.r(__webpack_exports__);
         {
         children: ['__PAGE__', {}, {
           page: [() => Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 2114)), "/Users/mpng/coding/project/learntech-landingpage-next-js/app/page.js"],
-          metadata: {
-    icon: [(async (props) => (await Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 7481))).default(props))],
-    apple: [],
-    openGraph: [],
-    twitter: [],
-    manifest: undefined
-  }
+          
         }]
       },
         {
           'layout': [() => Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 5764)), "/Users/mpng/coding/project/learntech-landingpage-next-js/app/layout.js"],
-          metadata: {
-    icon: [(async (props) => (await Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 7481))).default(props))],
-    apple: [],
-    openGraph: [],
-    twitter: [],
-    manifest: undefined
-  }
+          
         }
       ]
       }.children;
@@ -265,34 +237,6 @@ __webpack_require__.r(__webpack_exports__);
 function Home() {
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("main", {
         children: [
-            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("header", {
-                children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                    className: "main-header bg-dark",
-                    children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                        className: "container",
-                        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "header-wrapper",
-                            children: [
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                                    className: "logo",
-                                    children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
-                                        src: "/logo.png",
-                                        alt: "Learntech logo"
-                                    })
-                                }),
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                                    className: "header-cta",
-                                    children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("a", {
-                                        href: "#pricing",
-                                        className: "header-button",
-                                        children: "Mua t\xe0i khoản"
-                                    })
-                                })
-                            ]
-                        })
-                    })
-                })
-            }),
             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("section", {
                 className: "section section-hero bg-dark",
                 children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -320,7 +264,8 @@ function Home() {
                                             className: "download-app-button-wrapper",
                                             children: [
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("a", {
-                                                    href: "",
+                                                    target: "_blank",
+                                                    href: "https://play.google.com/store/apps/details?id=com.langkingdom.langkingdom",
                                                     className: "download-app-button",
                                                     children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
                                                         src: "/Get_it_on_Google_play.png",
@@ -328,7 +273,8 @@ function Home() {
                                                     })
                                                 }),
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("a", {
-                                                    href: "",
+                                                    target: "_blank",
+                                                    href: "https://apps.apple.com/us/app/lang-kingdom-gi%E1%BB%8Fi-ti%E1%BA%BFng-anh/id1353744959",
                                                     className: "download-app-button",
                                                     children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
                                                         src: "/App_Store_Badge.png",
@@ -927,11 +873,11 @@ function Home() {
                                             children: [
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
                                                     className: "faq-heading heading-4",
-                                                    children: "K\xedch hoạt License code LANG KINGDOM như thế n\xe0o?"
+                                                    children: "N\xe2ng cấp t\xe0i khoản LANG KINGDOM như thế n\xe0o?"
                                                 }),
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                                                     className: "faq-desc",
-                                                    children: "Sau khi đ\xe3 mua license code Elsa Speak Pro bạn vui l\xf2ng truy cập v\xe0o địa chỉ b\xean dưới để xem hướng dẫn kich hoạt license"
+                                                    children: "Sau khi đ\xe3 thanh to\xe1n th\xe0nh c\xf4ng, t\xe0i khoản Lang Kingdom của bạn sẽ được tự động n\xe2ng cấp."
                                                 })
                                             ]
                                         })
@@ -948,11 +894,15 @@ function Home() {
                                             children: [
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
                                                     className: "faq-heading heading-4",
-                                                    children: "K\xedch hoạt License code LANG KINGDOM như thế n\xe0o?"
+                                                    children: "LANG KINGDOM hoạt động tr\xean điện thoại, m\xe1y tinh bảng hay m\xe1y t\xednh?"
                                                 }),
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                                                     className: "faq-desc",
-                                                    children: "Sau khi đ\xe3 mua license code Elsa Speak Pro bạn vui l\xf2ng truy cập v\xe0o địa chỉ b\xean dưới để xem hướng dẫn kich hoạt license"
+                                                    children: "Hiện tại, LANG KINGDOM c\xf3 thể sử dụng được tr\xean điện thoại Android/iOS v\xe0 tr\xean m\xe1y tr\xecnh duyệt m\xe1y t\xednh. Trong tương lai, LANG KINGDOM sẽ cố gắng cải tiến để phục vụ người d\xf9ng tốt nhất."
+                                                }),
+                                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                                    className: "faq-desc",
+                                                    children: "Đối với m\xe1y t\xednh bảng h\xe3y lưu \xfd ri\xeang với iPad, h\xe3y tải LANG KINGDOM từ iTune store (như iPhone vậy). LANG KINGDOM chưa hỗ trợ tối đa cho c\xe1c thiết bị m\xe0n h\xecnh lớn n\xean một số design c\xf3 thể gặp lỗi. V\xec vậy, để đạt chất lượng tốt nhất, h\xe3y sử dụng LANG KINGDOM với iPhone hay điện thoại Android."
                                                 })
                                             ]
                                         })
@@ -969,11 +919,11 @@ function Home() {
                                             children: [
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
                                                     className: "faq-heading heading-4",
-                                                    children: "K\xedch hoạt License code LANG KINGDOM như thế n\xe0o?"
+                                                    children: "App n\xe0y c\xf3 phải miễn ph\xed kh\xf4ng?"
                                                 }),
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                                                     className: "faq-desc",
-                                                    children: "Sau khi đ\xe3 mua license code Elsa Speak Pro bạn vui l\xf2ng truy cập v\xe0o địa chỉ b\xean dưới để xem hướng dẫn kich hoạt license"
+                                                    children: "Đ\xfang. Miễn ph\xed tải LANG KINGDOM v\xe0 thử sử dụng với những b\xe0i học mẫu. Từ đ\xf3, bạn c\xf3 thể hiểu r\xf5 phương ph\xe1p học của LANG KINGDOM. Tuy nhi\xean, to\xe0n bộ kh\xf3a học c\xf3 t\xednh ph\xed."
                                                 })
                                             ]
                                         })
@@ -990,11 +940,11 @@ function Home() {
                                             children: [
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
                                                     className: "faq-heading heading-4",
-                                                    children: "K\xedch hoạt License code LANG KINGDOM như thế n\xe0o?"
+                                                    children: "Tiếng Anh của t\xf4i kh\xe1, liệu LANG KINGDOM c\xf3 ph\xf9 hợp với t\xf4i?"
                                                 }),
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                                                     className: "faq-desc",
-                                                    children: "Sau khi đ\xe3 mua license code Elsa Speak Pro bạn vui l\xf2ng truy cập v\xe0o địa chỉ b\xean dưới để xem hướng dẫn kich hoạt license"
+                                                    children: "Để biết c\xe2u trả lời ch\xednh x\xe1c, h\xe3y t\xe0i LANG KINGDOM ngay tại v\xe0 l\xe0m b\xe0i test để được LANG KINGDOM đ\xe1nh gi\xe1 ngay."
                                                 })
                                             ]
                                         })
@@ -1011,153 +961,15 @@ function Home() {
                                             children: [
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
                                                     className: "faq-heading",
-                                                    children: "K\xedch hoạt License code LANG KINGDOM như thế n\xe0o?"
+                                                    children: "T\xf4i c\xf3 thể học LANG KINGDOM khi thiết bị đang kh\xf4ng c\xf3 kết nối internet được kh\xf4ng?"
                                                 }),
                                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                                                     className: "faq-desc",
-                                                    children: "Sau khi đ\xe3 mua license code Elsa Speak Pro bạn vui l\xf2ng truy cập v\xe0o địa chỉ b\xean dưới để xem hướng dẫn kich hoạt license"
+                                                    children: "Kh\xf4ng. V\xec số lượng dữ liệu rất lớn để LANG KINGDOM c\xf3 thể nhận diện giọng n\xf3i trực tuyến của tất cả c\xe1c bạn, LANG KINGDOM cần được kết nối wifi li\xean tục."
                                                 })
                                             ]
                                         })
                                     ]
-                                })
-                            ]
-                        })
-                    ]
-                })
-            }),
-            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("footer", {
-                className: "section footer",
-                children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                    className: "container",
-                    children: [
-                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "footer-item-wrapper",
-                            children: [
-                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                                    className: "footer-item",
-                                    children: [
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                                            className: "item-heading",
-                                            children: "Th\xf4ng tin li\xean hệ"
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                            className: "link-desc",
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("a", {
-                                                href: "tel:0963527374",
-                                                children: "Điện thoại: 0963527374"
-                                            })
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                            className: "link-desc",
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("a", {
-                                                href: "mailto:0963527374",
-                                                children: "Email: learntech@gmail.com"
-                                            })
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                            className: "link-desc",
-                                            children: "Địa chỉ: 165 - 167 Nguyện Thị Thập, KĐT Him Lam, Phường T\xe2n Hưng, Quận 7, Th\xe0nh phố Hồ Ch\xed Minh, Việt Nam"
-                                        })
-                                    ]
-                                }),
-                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                                    className: "footer-item",
-                                    children: [
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                                            className: "item-heading",
-                                            children: "Ch\xednh s\xe1ch"
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                            className: "link-desc",
-                                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("a", {
-                                                href: "",
-                                                children: [
-                                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("i", {
-                                                        className: "fa-solid fa-caret-right"
-                                                    }),
-                                                    " Ch\xednh s\xe1ch thanh to\xe1n"
-                                                ]
-                                            })
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                            className: "link-desc",
-                                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("a", {
-                                                href: "",
-                                                children: [
-                                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("i", {
-                                                        className: "fa-solid fa-caret-right"
-                                                    }),
-                                                    " Ch\xednh s\xe1ch giao nhận"
-                                                ]
-                                            })
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                            className: "link-desc",
-                                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("a", {
-                                                href: "",
-                                                children: [
-                                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("i", {
-                                                        className: "fa-solid fa-caret-right"
-                                                    }),
-                                                    " Ch\xednh s\xe1ch bảo mật"
-                                                ]
-                                            })
-                                        })
-                                    ]
-                                }),
-                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                                    className: "footer-item",
-                                    children: [
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                                            className: "item-heading",
-                                            children: "Download App"
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                            className: "link-desc",
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("a", {
-                                                href: "",
-                                                children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
-                                                    src: "/Get_it_on_Google_play.png",
-                                                    alt: " Lang kingdom Google play"
-                                                })
-                                            })
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                            className: "link-desc",
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("a", {
-                                                href: "",
-                                                children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
-                                                    src: "/App_Store_Badge.png",
-                                                    alt: "Lang Kingdom appstore"
-                                                })
-                                            })
-                                        })
-                                    ]
-                                })
-                            ]
-                        }),
-                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                            className: "footer-bottom",
-                            children: [
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                                    className: "footer-logo",
-                                    children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
-                                        src: "/logo.png",
-                                        alt: "lang kingdom logo"
-                                    })
-                                }),
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                    className: "footer-bottom-desc",
-                                    children: "LearnTech.vn - l\xe0 chuy\xean trang ph\xe2n phối ch\xednh thức LANG KINGDOM tại Việt Nam."
-                                }),
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                    className: "footer-bottom-desc",
-                                    children: "GPKD: C\xf4ng ty TNHH LearnTech"
-                                }),
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                    className: "footer-bottom-desc",
-                                    children: "MST: 0317803574"
                                 })
                             ]
                         })
@@ -1206,7 +1018,7 @@ module.exports = __webpack_require__(3847);
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [697,482,173,211], () => (__webpack_exec__(3714)));
+var __webpack_exports__ = __webpack_require__.X(0, [218,173,171], () => (__webpack_exec__(3714)));
 module.exports = __webpack_exports__;
 
 })();

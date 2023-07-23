@@ -140,22 +140,6 @@ module.exports = require("next/dist/shared/lib/server-inserted-html");
 
 /***/ }),
 
-/***/ 1017:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("path");
-
-/***/ }),
-
-/***/ 7310:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("url");
-
-/***/ }),
-
 /***/ 7099:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -195,25 +179,13 @@ __webpack_require__.r(__webpack_exports__);
       },
         {
           
-          metadata: {
-    icon: [(async (props) => (await Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 7481))).default(props))],
-    apple: [],
-    openGraph: [],
-    twitter: [],
-    manifest: undefined
-  }
+          
         }
       ]
       },
         {
           'layout': [() => Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 5764)), "/Users/mpng/coding/project/learntech-landingpage-next-js/app/layout.js"],
-          metadata: {
-    icon: [(async (props) => (await Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 7481))).default(props))],
-    apple: [],
-    openGraph: [],
-    twitter: [],
-    manifest: undefined
-  }
+          
         }
       ]
       }.children;
@@ -402,7 +374,7 @@ function PrivacyPolicy() {
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [697,482,211], () => (__webpack_exec__(7099)));
+var __webpack_exports__ = __webpack_require__.X(0, [218,171], () => (__webpack_exec__(7099)));
 module.exports = __webpack_exports__;
 
 })();

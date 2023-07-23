@@ -3,128 +3,827 @@ exports.id = 218;
 exports.ids = [218];
 exports.modules = {
 
-/***/ 7057:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    prefixes: function() {
-        return prefixes;
-    },
-    wait: function() {
-        return wait;
-    },
-    error: function() {
-        return error;
-    },
-    warn: function() {
-        return warn;
-    },
-    ready: function() {
-        return ready;
-    },
-    info: function() {
-        return info;
-    },
-    event: function() {
-        return event;
-    },
-    trace: function() {
-        return trace;
-    },
-    warnOnce: function() {
-        return warnOnce;
-    }
-});
-const _chalk = /*#__PURE__*/ _interop_require_default(__webpack_require__(2642));
-function _interop_require_default(obj) {
-    return obj && obj.__esModule ? obj : {
-        default: obj
-    };
-}
-const prefixes = {
-    wait: "- " + _chalk.default.cyan("wait"),
-    error: "- " + _chalk.default.red("error"),
-    warn: "- " + _chalk.default.yellow("warn"),
-    ready: "- " + _chalk.default.green("ready"),
-    info: "- " + _chalk.default.cyan("info"),
-    event: "- " + _chalk.default.magenta("event"),
-    trace: "- " + _chalk.default.magenta("trace")
-};
-function wait(...message) {
-    console.log(prefixes.wait, ...message);
-}
-function error(...message) {
-    console.error(prefixes.error, ...message);
-}
-function warn(...message) {
-    console.warn(prefixes.warn, ...message);
-}
-function ready(...message) {
-    console.log(prefixes.ready, ...message);
-}
-function info(...message) {
-    console.log(prefixes.info, ...message);
-}
-function event(...message) {
-    console.log(prefixes.event, ...message);
-}
-function trace(...message) {
-    console.log(prefixes.trace, ...message);
-}
-const warnOnceMessages = new Set();
-function warnOnce(...message) {
-    if (!warnOnceMessages.has(message[0])) {
-        warnOnceMessages.add(message.join(" "));
-        warn(...message);
-    }
-} //# sourceMappingURL=log.js.map
-
-
-/***/ }),
-
-/***/ 3641:
+/***/ 4578:
 /***/ ((module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
-Object.defineProperty(exports, "DraftMode", ({
+Object.defineProperty(exports, "addBasePath", ({
     enumerable: true,
     get: function() {
-        return DraftMode;
+        return addBasePath;
     }
 }));
-const _staticgenerationbailout = __webpack_require__(6164);
-class DraftMode {
-    get isEnabled() {
-        return this._provider.isEnabled;
+const _addpathprefix = __webpack_require__(893);
+const _normalizetrailingslash = __webpack_require__(1094);
+const basePath =  false || "";
+function addBasePath(path, required) {
+    return (0, _normalizetrailingslash.normalizePathTrailingSlash)( false ? 0 : (0, _addpathprefix.addPathPrefix)(path, basePath));
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=add-base-path.js.map
+
+
+/***/ }),
+
+/***/ 6937:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "callServer", ({
+    enumerable: true,
+    get: function() {
+        return callServer;
     }
-    enable() {
-        if ((0, _staticgenerationbailout.staticGenerationBailout)("draftMode().enable()")) {
+}));
+const _approuter = __webpack_require__(2987);
+async function callServer(actionId, actionArgs) {
+    const actionDispatcher = (0, _approuter.getServerActionDispatcher)();
+    if (!actionDispatcher) {
+        throw new Error("Invariant: missing action dispatcher.");
+    }
+    return new Promise((resolve, reject)=>{
+        actionDispatcher({
+            actionId,
+            actionArgs,
+            resolve,
+            reject
+        });
+    });
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=app-call-server.js.map
+
+
+/***/ }),
+
+/***/ 3049:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "AppRouterAnnouncer", ({
+    enumerable: true,
+    get: function() {
+        return AppRouterAnnouncer;
+    }
+}));
+const _react = __webpack_require__(8038);
+const _reactdom = __webpack_require__(8704);
+const ANNOUNCER_TYPE = "next-route-announcer";
+const ANNOUNCER_ID = "__next-route-announcer__";
+function getAnnouncerNode() {
+    var _existingAnnouncer_shadowRoot;
+    const existingAnnouncer = document.getElementsByName(ANNOUNCER_TYPE)[0];
+    if (existingAnnouncer == null ? void 0 : (_existingAnnouncer_shadowRoot = existingAnnouncer.shadowRoot) == null ? void 0 : _existingAnnouncer_shadowRoot.childNodes[0]) {
+        return existingAnnouncer.shadowRoot.childNodes[0];
+    } else {
+        const container = document.createElement(ANNOUNCER_TYPE);
+        container.style.cssText = "position:absolute";
+        const announcer = document.createElement("div");
+        announcer.ariaLive = "assertive";
+        announcer.id = ANNOUNCER_ID;
+        announcer.role = "alert";
+        announcer.style.cssText = "position:absolute;border:0;height:1px;margin:-1px;padding:0;width:1px;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap;word-wrap:normal";
+        // Use shadow DOM here to avoid any potential CSS bleed
+        const shadow = container.attachShadow({
+            mode: "open"
+        });
+        shadow.appendChild(announcer);
+        document.body.appendChild(container);
+        return announcer;
+    }
+}
+function AppRouterAnnouncer(param) {
+    let { tree } = param;
+    const [portalNode, setPortalNode] = (0, _react.useState)(null);
+    (0, _react.useEffect)(()=>{
+        const announcer = getAnnouncerNode();
+        setPortalNode(announcer);
+        return ()=>{
+            const container = document.getElementsByTagName(ANNOUNCER_TYPE)[0];
+            if (container == null ? void 0 : container.isConnected) {
+                document.body.removeChild(container);
+            }
+        };
+    }, []);
+    const [routeAnnouncement, setRouteAnnouncement] = (0, _react.useState)("");
+    const previousTitle = (0, _react.useRef)();
+    (0, _react.useEffect)(()=>{
+        let currentTitle = "";
+        if (document.title) {
+            currentTitle = document.title;
+        } else {
+            const pageHeader = document.querySelector("h1");
+            if (pageHeader) {
+                currentTitle = pageHeader.innerText || pageHeader.textContent || "";
+            }
+        }
+        // Only announce the title change, but not for the first load because screen
+        // readers do that automatically.
+        if (previousTitle.current !== undefined) {
+            setRouteAnnouncement(currentTitle);
+        }
+        previousTitle.current = currentTitle;
+    }, [
+        tree
+    ]);
+    return portalNode ? /*#__PURE__*/ (0, _reactdom.createPortal)(routeAnnouncement, portalNode) : null;
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=app-router-announcer.js.map
+
+
+/***/ }),
+
+/***/ 6265:
+/***/ ((module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    RSC: function() {
+        return RSC;
+    },
+    ACTION: function() {
+        return ACTION;
+    },
+    NEXT_ROUTER_STATE_TREE: function() {
+        return NEXT_ROUTER_STATE_TREE;
+    },
+    NEXT_ROUTER_PREFETCH: function() {
+        return NEXT_ROUTER_PREFETCH;
+    },
+    NEXT_URL: function() {
+        return NEXT_URL;
+    },
+    FETCH_CACHE_HEADER: function() {
+        return FETCH_CACHE_HEADER;
+    },
+    RSC_CONTENT_TYPE_HEADER: function() {
+        return RSC_CONTENT_TYPE_HEADER;
+    },
+    RSC_VARY_HEADER: function() {
+        return RSC_VARY_HEADER;
+    },
+    FLIGHT_PARAMETERS: function() {
+        return FLIGHT_PARAMETERS;
+    },
+    NEXT_RSC_UNION_QUERY: function() {
+        return NEXT_RSC_UNION_QUERY;
+    }
+});
+const RSC = "RSC";
+const ACTION = "Next-Action";
+const NEXT_ROUTER_STATE_TREE = "Next-Router-State-Tree";
+const NEXT_ROUTER_PREFETCH = "Next-Router-Prefetch";
+const NEXT_URL = "Next-Url";
+const FETCH_CACHE_HEADER = "x-vercel-sc-headers";
+const RSC_CONTENT_TYPE_HEADER = "text/x-component";
+const RSC_VARY_HEADER = RSC + ", " + NEXT_ROUTER_STATE_TREE + ", " + NEXT_ROUTER_PREFETCH;
+const FLIGHT_PARAMETERS = [
+    [
+        RSC
+    ],
+    [
+        NEXT_ROUTER_STATE_TREE
+    ],
+    [
+        NEXT_ROUTER_PREFETCH
+    ]
+];
+const NEXT_RSC_UNION_QUERY = "_rsc";
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=app-router-headers.js.map
+
+
+/***/ }),
+
+/***/ 2987:
+/***/ ((module, exports, __webpack_require__) => {
+
+/* __next_internal_client_entry_do_not_use__  cjs */ 
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    getServerActionDispatcher: function() {
+        return getServerActionDispatcher;
+    },
+    urlToUrlWithoutFlightMarker: function() {
+        return urlToUrlWithoutFlightMarker;
+    },
+    default: function() {
+        return AppRouter;
+    }
+});
+const _interop_require_wildcard = __webpack_require__(4009);
+const _react = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(8038));
+const _approutercontext = __webpack_require__(7085);
+const _routerreducer = __webpack_require__(7189);
+const _routerreducertypes = __webpack_require__(2836);
+const _createhreffromurl = __webpack_require__(4331);
+const _hooksclientcontext = __webpack_require__(9569);
+const _usereducerwithdevtools = __webpack_require__(7951);
+const _errorboundary = __webpack_require__(1232);
+const _createinitialrouterstate = __webpack_require__(1684);
+const _isbot = __webpack_require__(8735);
+const _addbasepath = __webpack_require__(4578);
+const _approuterannouncer = __webpack_require__(3049);
+const _redirectboundary = __webpack_require__(1442);
+const _findheadincache = __webpack_require__(1333);
+const _infinitepromise = __webpack_require__(6360);
+const _approuterheaders = __webpack_require__(6265);
+const isServer = "undefined" === "undefined";
+// Ensure the initialParallelRoutes are not combined because of double-rendering in the browser with Strict Mode.
+let initialParallelRoutes = isServer ? null : new Map();
+let globalServerActionDispatcher = null;
+function getServerActionDispatcher() {
+    return globalServerActionDispatcher;
+}
+function urlToUrlWithoutFlightMarker(url) {
+    const urlWithoutFlightParameters = new URL(url, location.origin);
+    urlWithoutFlightParameters.searchParams.delete(_approuterheaders.NEXT_RSC_UNION_QUERY);
+    if (true) {
+        if (false) {}
+    }
+    return urlWithoutFlightParameters;
+}
+function isExternalURL(url) {
+    return url.origin !== window.location.origin;
+}
+function HistoryUpdater(param) {
+    let { tree, pushRef, canonicalUrl, sync } = param;
+    (0, _react.useInsertionEffect)(()=>{
+        // Identifier is shortened intentionally.
+        // __NA is used to identify if the history entry can be handled by the app-router.
+        // __N is used to identify if the history entry can be handled by the old router.
+        const historyState = {
+            __NA: true,
+            tree
+        };
+        if (pushRef.pendingPush && (0, _createhreffromurl.createHrefFromUrl)(new URL(window.location.href)) !== canonicalUrl) {
+            // This intentionally mutates React state, pushRef is overwritten to ensure additional push/replace calls do not trigger an additional history entry.
+            pushRef.pendingPush = false;
+            window.history.pushState(historyState, "", canonicalUrl);
+        } else {
+            window.history.replaceState(historyState, "", canonicalUrl);
+        }
+        sync();
+    }, [
+        tree,
+        pushRef,
+        canonicalUrl,
+        sync
+    ]);
+    return null;
+}
+const createEmptyCacheNode = ()=>({
+        status: _approutercontext.CacheStates.LAZY_INITIALIZED,
+        data: null,
+        subTreeData: null,
+        parallelRoutes: new Map()
+    });
+function useServerActionDispatcher(changeByServerResponse, dispatch, navigate) {
+    const serverActionDispatcher = (0, _react.useCallback)((actionPayload)=>{
+        (0, _react.startTransition)(()=>{
+            dispatch({
+                ...actionPayload,
+                type: _routerreducertypes.ACTION_SERVER_ACTION,
+                mutable: {},
+                navigate,
+                changeByServerResponse
+            });
+        });
+    }, [
+        changeByServerResponse,
+        dispatch,
+        navigate
+    ]);
+    globalServerActionDispatcher = serverActionDispatcher;
+}
+/**
+ * Server response that only patches the cache and tree.
+ */ function useChangeByServerResponse(dispatch) {
+    return (0, _react.useCallback)((previousTree, flightData, overrideCanonicalUrl)=>{
+        (0, _react.startTransition)(()=>{
+            dispatch({
+                type: _routerreducertypes.ACTION_SERVER_PATCH,
+                flightData,
+                previousTree,
+                overrideCanonicalUrl,
+                cache: createEmptyCacheNode(),
+                mutable: {}
+            });
+        });
+    }, [
+        dispatch
+    ]);
+}
+function useNavigate(dispatch) {
+    return (0, _react.useCallback)((href, navigateType, forceOptimisticNavigation, shouldScroll)=>{
+        const url = new URL((0, _addbasepath.addBasePath)(href), location.href);
+        return dispatch({
+            type: _routerreducertypes.ACTION_NAVIGATE,
+            url,
+            isExternalUrl: isExternalURL(url),
+            locationSearch: location.search,
+            forceOptimisticNavigation,
+            shouldScroll: shouldScroll != null ? shouldScroll : true,
+            navigateType,
+            cache: createEmptyCacheNode(),
+            mutable: {}
+        });
+    }, [
+        dispatch
+    ]);
+}
+/**
+ * The global router that wraps the application components.
+ */ function Router(param) {
+    let { buildId, initialHead, initialTree, initialCanonicalUrl, children, assetPrefix } = param;
+    const initialState = (0, _react.useMemo)(()=>(0, _createinitialrouterstate.createInitialRouterState)({
+            buildId,
+            children,
+            initialCanonicalUrl,
+            initialTree,
+            initialParallelRoutes,
+            isServer,
+            location: !isServer ? window.location : null,
+            initialHead
+        }), [
+        buildId,
+        children,
+        initialCanonicalUrl,
+        initialTree,
+        initialHead
+    ]);
+    const [{ tree, cache, prefetchCache, pushRef, focusAndScrollRef, canonicalUrl, nextUrl }, dispatch, sync] = (0, _usereducerwithdevtools.useReducerWithReduxDevtools)(_routerreducer.reducer, initialState);
+    (0, _react.useEffect)(()=>{
+        // Ensure initialParallelRoutes is cleaned up from memory once it's used.
+        initialParallelRoutes = null;
+    }, []);
+    // Add memoized pathname/query for useSearchParams and usePathname.
+    const { searchParams, pathname } = (0, _react.useMemo)(()=>{
+        const url = new URL(canonicalUrl,  true ? "http://n" : 0);
+        return {
+            // This is turned into a readonly class in `useSearchParams`
+            searchParams: url.searchParams,
+            pathname: url.pathname
+        };
+    }, [
+        canonicalUrl
+    ]);
+    const changeByServerResponse = useChangeByServerResponse(dispatch);
+    const navigate = useNavigate(dispatch);
+    useServerActionDispatcher(changeByServerResponse, dispatch, navigate);
+    /**
+   * The app router that is exposed through `useRouter`. It's only concerned with dispatching actions to the reducer, does not hold state.
+   */ const appRouter = (0, _react.useMemo)(()=>{
+        const routerInstance = {
+            back: ()=>window.history.back(),
+            forward: ()=>window.history.forward(),
+            prefetch: (href, options)=>{
+                // If prefetch has already been triggered, don't trigger it again.
+                if ((0, _isbot.isBot)(window.navigator.userAgent)) {
+                    return;
+                }
+                const url = new URL((0, _addbasepath.addBasePath)(href), location.href);
+                // External urls can't be prefetched in the same way.
+                if (isExternalURL(url)) {
+                    return;
+                }
+                (0, _react.startTransition)(()=>{
+                    var _options_kind;
+                    dispatch({
+                        type: _routerreducertypes.ACTION_PREFETCH,
+                        url,
+                        kind: (_options_kind = options == null ? void 0 : options.kind) != null ? _options_kind : _routerreducertypes.PrefetchKind.FULL
+                    });
+                });
+            },
+            replace: (href, options)=>{
+                if (options === void 0) options = {};
+                (0, _react.startTransition)(()=>{
+                    var _options_scroll;
+                    navigate(href, "replace", Boolean(options.forceOptimisticNavigation), (_options_scroll = options.scroll) != null ? _options_scroll : true);
+                });
+            },
+            push: (href, options)=>{
+                if (options === void 0) options = {};
+                (0, _react.startTransition)(()=>{
+                    var _options_scroll;
+                    navigate(href, "push", Boolean(options.forceOptimisticNavigation), (_options_scroll = options.scroll) != null ? _options_scroll : true);
+                });
+            },
+            refresh: ()=>{
+                (0, _react.startTransition)(()=>{
+                    dispatch({
+                        type: _routerreducertypes.ACTION_REFRESH,
+                        cache: createEmptyCacheNode(),
+                        mutable: {},
+                        origin: window.location.origin
+                    });
+                });
+            },
+            // @ts-ignore we don't want to expose this method at all
+            fastRefresh: ()=>{
+                if (true) {
+                    throw new Error("fastRefresh can only be used in development mode. Please use refresh instead.");
+                } else {}
+            }
+        };
+        return routerInstance;
+    }, [
+        dispatch,
+        navigate
+    ]);
+    (0, _react.useEffect)(()=>{
+        // Exists for debugging purposes. Don't use in application code.
+        if (window.next) {
+            window.next.router = appRouter;
+        }
+    }, [
+        appRouter
+    ]);
+    if (false) {}
+    // When mpaNavigation flag is set do a hard navigation to the new url.
+    // Infinitely suspend because we don't actually want to rerender any child
+    // components with the new URL and any entangled state updates shouldn't
+    // commit either (eg: useTransition isPending should stay true until the page
+    // unloads).
+    //
+    // This is a side effect in render. Don't try this at home, kids. It's
+    // probably safe because we know this is a singleton component and it's never
+    // in <Offscreen>. At least I hope so. (It will run twice in dev strict mode,
+    // but that's... fine?)
+    if (pushRef.mpaNavigation) {
+        const location1 = window.location;
+        if (pushRef.pendingPush) {
+            location1.assign(canonicalUrl);
+        } else {
+            location1.replace(canonicalUrl);
+        }
+        // TODO-APP: Should we listen to navigateerror here to catch failed
+        // navigations somehow? And should we call window.stop() if a SPA navigation
+        // should interrupt an MPA one?
+        (0, _react.use)((0, _infinitepromise.createInfinitePromise)());
+    }
+    /**
+   * Handle popstate event, this is used to handle back/forward in the browser.
+   * By default dispatches ACTION_RESTORE, however if the history entry was not pushed/replaced by app-router it will reload the page.
+   * That case can happen when the old router injected the history entry.
+   */ const onPopState = (0, _react.useCallback)((param)=>{
+        let { state } = param;
+        if (!state) {
+            // TODO-APP: this case only happens when pushState/replaceState was called outside of Next.js. It should probably reload the page in this case.
             return;
         }
-        return this._provider.enable();
-    }
-    disable() {
-        if ((0, _staticgenerationbailout.staticGenerationBailout)("draftMode().disable()")) {
+        // This case happens when the history entry was pushed by the `pages` router.
+        if (!state.__NA) {
+            window.location.reload();
             return;
         }
-        return this._provider.disable();
+        // @ts-ignore useTransition exists
+        // TODO-APP: Ideally the back button should not use startTransition as it should apply the updates synchronously
+        // Without startTransition works if the cache is there for this path
+        (0, _react.startTransition)(()=>{
+            dispatch({
+                type: _routerreducertypes.ACTION_RESTORE,
+                url: new URL(window.location.href),
+                tree: state.tree
+            });
+        });
+    }, [
+        dispatch
+    ]);
+    // Register popstate event to call onPopstate.
+    (0, _react.useEffect)(()=>{
+        window.addEventListener("popstate", onPopState);
+        return ()=>{
+            window.removeEventListener("popstate", onPopState);
+        };
+    }, [
+        onPopState
+    ]);
+    const head = (0, _react.useMemo)(()=>{
+        return (0, _findheadincache.findHeadInCache)(cache, tree[1]);
+    }, [
+        cache,
+        tree
+    ]);
+    let content = /*#__PURE__*/ _react.default.createElement(_redirectboundary.RedirectBoundary, null, head, cache.subTreeData, /*#__PURE__*/ _react.default.createElement(_approuterannouncer.AppRouterAnnouncer, {
+        tree: tree
+    }));
+    if (false) {}
+    return /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/ _react.default.createElement(HistoryUpdater, {
+        tree: tree,
+        pushRef: pushRef,
+        canonicalUrl: canonicalUrl,
+        sync: sync
+    }), /*#__PURE__*/ _react.default.createElement(_hooksclientcontext.PathnameContext.Provider, {
+        value: pathname
+    }, /*#__PURE__*/ _react.default.createElement(_hooksclientcontext.SearchParamsContext.Provider, {
+        value: searchParams
+    }, /*#__PURE__*/ _react.default.createElement(_approutercontext.GlobalLayoutRouterContext.Provider, {
+        value: {
+            buildId,
+            changeByServerResponse,
+            tree,
+            focusAndScrollRef,
+            nextUrl
+        }
+    }, /*#__PURE__*/ _react.default.createElement(_approutercontext.AppRouterContext.Provider, {
+        value: appRouter
+    }, /*#__PURE__*/ _react.default.createElement(_approutercontext.LayoutRouterContext.Provider, {
+        value: {
+            childNodes: cache.parallelRoutes,
+            tree: tree,
+            // Root node always has `url`
+            // Provided in AppTreeContext to ensure it can be overwritten in layout-router
+            url: canonicalUrl
+        }
+    }, content))))));
+}
+function AppRouter(props) {
+    const { globalErrorComponent, ...rest } = props;
+    return /*#__PURE__*/ _react.default.createElement(_errorboundary.ErrorBoundary, {
+        errorComponent: globalErrorComponent
+    }, /*#__PURE__*/ _react.default.createElement(Router, rest));
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=app-router.js.map
+
+
+/***/ }),
+
+/***/ 5661:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "bailoutToClientRendering", ({
+    enumerable: true,
+    get: function() {
+        return bailoutToClientRendering;
     }
-    constructor(provider){
-        this._provider = provider;
+}));
+const _dynamicnossr = __webpack_require__(9708);
+const _staticgenerationasyncstorage = __webpack_require__(3539);
+function bailoutToClientRendering() {
+    const staticGenerationStore = _staticgenerationasyncstorage.staticGenerationAsyncStorage.getStore();
+    if (staticGenerationStore == null ? void 0 : staticGenerationStore.forceStatic) {
+        return true;
+    }
+    if (staticGenerationStore == null ? void 0 : staticGenerationStore.isStaticGeneration) {
+        (0, _dynamicnossr.suspense)();
+    }
+    return false;
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=bailout-to-client-rendering.js.map
+
+
+/***/ }),
+
+/***/ 2633:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "clientHookInServerComponentError", ({
+    enumerable: true,
+    get: function() {
+        return clientHookInServerComponentError;
+    }
+}));
+const _interop_require_default = __webpack_require__(2147);
+const _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(8038));
+function clientHookInServerComponentError(hookName) {
+    if (false) {}
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=client-hook-in-server-component-error.js.map
+
+
+/***/ }),
+
+/***/ 1232:
+/***/ ((module, exports, __webpack_require__) => {
+
+/* __next_internal_client_entry_do_not_use__  cjs */ 
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    ErrorBoundaryHandler: function() {
+        return ErrorBoundaryHandler;
+    },
+    GlobalError: function() {
+        return GlobalError;
+    },
+    ErrorBoundary: function() {
+        return ErrorBoundary;
+    }
+});
+const _interop_require_default = __webpack_require__(2147);
+const _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(8038));
+const _navigation = __webpack_require__(696);
+const styles = {
+    error: {
+        // https://github.com/sindresorhus/modern-normalize/blob/main/modern-normalize.css#L38-L52
+        fontFamily: 'system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"',
+        height: "100vh",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    text: {
+        fontSize: "14px",
+        fontWeight: 400,
+        lineHeight: "28px",
+        margin: "0 8px"
+    }
+};
+class ErrorBoundaryHandler extends _react.default.Component {
+    static getDerivedStateFromError(error) {
+        return {
+            error
+        };
+    }
+    static getDerivedStateFromProps(props, state) {
+        /**
+     * Handles reset of the error boundary when a navigation happens.
+     * Ensures the error boundary does not stay enabled when navigating to a new page.
+     * Approach of setState in render is safe as it checks the previous pathname and then overrides
+     * it as outlined in https://react.dev/reference/react/useState#storing-information-from-previous-renders
+     */ if (props.pathname !== state.previousPathname && state.error) {
+            return {
+                error: null,
+                previousPathname: props.pathname
+            };
+        }
+        return {
+            error: state.error,
+            previousPathname: props.pathname
+        };
+    }
+    render() {
+        if (this.state.error) {
+            return /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, this.props.errorStyles, /*#__PURE__*/ _react.default.createElement(this.props.errorComponent, {
+                error: this.state.error,
+                reset: this.reset
+            }));
+        }
+        return this.props.children;
+    }
+    constructor(props){
+        super(props);
+        this.reset = ()=>{
+            this.setState({
+                error: null
+            });
+        };
+        this.state = {
+            error: null,
+            previousPathname: this.props.pathname
+        };
+    }
+}
+function GlobalError(param) {
+    let { error } = param;
+    const digest = error == null ? void 0 : error.digest;
+    return /*#__PURE__*/ _react.default.createElement("html", {
+        id: "__next_error__"
+    }, /*#__PURE__*/ _react.default.createElement("head", null), /*#__PURE__*/ _react.default.createElement("body", null, /*#__PURE__*/ _react.default.createElement("div", {
+        style: styles.error
+    }, /*#__PURE__*/ _react.default.createElement("div", null, /*#__PURE__*/ _react.default.createElement("h2", {
+        style: styles.text
+    }, "Application error: a " + (digest ? "server" : "client") + "-side exception has occurred (see the " + (digest ? "server logs" : "browser console") + " for more information)."), digest ? /*#__PURE__*/ _react.default.createElement("p", {
+        style: styles.text
+    }, "Digest: " + digest) : null))));
+}
+function ErrorBoundary(param) {
+    let { errorComponent, errorStyles, children } = param;
+    const pathname = (0, _navigation.usePathname)();
+    if (errorComponent) {
+        return /*#__PURE__*/ _react.default.createElement(ErrorBoundaryHandler, {
+            pathname: pathname,
+            errorComponent: errorComponent,
+            errorStyles: errorStyles
+        }, children);
+    }
+    return /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, children);
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=error-boundary.js.map
+
+
+/***/ }),
+
+/***/ 8047:
+/***/ ((module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    DYNAMIC_ERROR_CODE: function() {
+        return DYNAMIC_ERROR_CODE;
+    },
+    DynamicServerError: function() {
+        return DynamicServerError;
+    }
+});
+const DYNAMIC_ERROR_CODE = "DYNAMIC_SERVER_USAGE";
+class DynamicServerError extends Error {
+    constructor(type){
+        super("Dynamic server usage: " + type);
+        this.digest = DYNAMIC_ERROR_CODE;
     }
 }
 if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
@@ -133,12 +832,446 @@ if ((typeof exports.default === "function" || typeof exports.default === "object
     });
     Object.assign(exports.default, exports);
     module.exports = exports.default;
-} //# sourceMappingURL=draft-mode.js.map
+} //# sourceMappingURL=hooks-server-context.js.map
 
 
 /***/ }),
 
-/***/ 4937:
+/***/ 6360:
+/***/ ((module, exports) => {
+
+/**
+ * Used to cache in createInfinitePromise
+ */ 
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "createInfinitePromise", ({
+    enumerable: true,
+    get: function() {
+        return createInfinitePromise;
+    }
+}));
+let infinitePromise;
+function createInfinitePromise() {
+    if (!infinitePromise) {
+        // Only create the Promise once
+        infinitePromise = new Promise(()=>{
+        // This is used to debug when the rendering is never updated.
+        // setTimeout(() => {
+        //   infinitePromise = new Error('Infinite promise')
+        //   resolve()
+        // }, 5000)
+        });
+    }
+    return infinitePromise;
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=infinite-promise.js.map
+
+
+/***/ }),
+
+/***/ 831:
+/***/ ((module, exports, __webpack_require__) => {
+
+/* __next_internal_client_entry_do_not_use__  cjs */ 
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: function() {
+        return OuterLayoutRouter;
+    }
+}));
+const _interop_require_default = __webpack_require__(2147);
+const _interop_require_wildcard = __webpack_require__(4009);
+const _react = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(8038));
+const _reactdom = /*#__PURE__*/ _interop_require_default._(__webpack_require__(8704));
+const _approutercontext = __webpack_require__(7085);
+const _fetchserverresponse = __webpack_require__(8080);
+const _infinitepromise = __webpack_require__(6360);
+const _errorboundary = __webpack_require__(1232);
+const _matchsegments = __webpack_require__(7618);
+const _handlesmoothscroll = __webpack_require__(7887);
+const _redirectboundary = __webpack_require__(1442);
+const _notfoundboundary = __webpack_require__(6505);
+const _getsegmentvalue = __webpack_require__(7741);
+const _createroutercachekey = __webpack_require__(8870);
+/**
+ * Add refetch marker to router state at the point of the current layout segment.
+ * This ensures the response returned is not further down than the current layout segment.
+ */ function walkAddRefetch(segmentPathToWalk, treeToRecreate) {
+    if (segmentPathToWalk) {
+        const [segment, parallelRouteKey] = segmentPathToWalk;
+        const isLast = segmentPathToWalk.length === 2;
+        if ((0, _matchsegments.matchSegment)(treeToRecreate[0], segment)) {
+            if (treeToRecreate[1].hasOwnProperty(parallelRouteKey)) {
+                if (isLast) {
+                    const subTree = walkAddRefetch(undefined, treeToRecreate[1][parallelRouteKey]);
+                    return [
+                        treeToRecreate[0],
+                        {
+                            ...treeToRecreate[1],
+                            [parallelRouteKey]: [
+                                subTree[0],
+                                subTree[1],
+                                subTree[2],
+                                "refetch"
+                            ]
+                        }
+                    ];
+                }
+                return [
+                    treeToRecreate[0],
+                    {
+                        ...treeToRecreate[1],
+                        [parallelRouteKey]: walkAddRefetch(segmentPathToWalk.slice(2), treeToRecreate[1][parallelRouteKey])
+                    }
+                ];
+            }
+        }
+    }
+    return treeToRecreate;
+}
+// TODO-APP: Replace with new React API for finding dom nodes without a `ref` when available
+/**
+ * Wraps ReactDOM.findDOMNode with additional logic to hide React Strict Mode warning
+ */ function findDOMNode(instance) {
+    // Tree-shake for server bundle
+    if (true) return null;
+    // Only apply strict mode warning when not in production
+    if (false) {}
+    return _reactdom.default.findDOMNode(instance);
+}
+const rectProperties = [
+    "bottom",
+    "height",
+    "left",
+    "right",
+    "top",
+    "width",
+    "x",
+    "y"
+];
+/**
+ * Check if a HTMLElement is hidden.
+ */ function elementCanScroll(element) {
+    // Uses `getBoundingClientRect` to check if the element is hidden instead of `offsetParent`
+    // because `offsetParent` doesn't consider document/body
+    const rect = element.getBoundingClientRect();
+    return rectProperties.every((item)=>rect[item] === 0);
+}
+/**
+ * Check if the top corner of the HTMLElement is in the viewport.
+ */ function topOfElementInViewport(element, viewportHeight) {
+    const rect = element.getBoundingClientRect();
+    return rect.top >= 0 && rect.top <= viewportHeight;
+}
+/**
+ * Find the DOM node for a hash fragment.
+ * If `top` the page has to scroll to the top of the page. This mirrors the browser's behavior.
+ * If the hash fragment is an id, the page has to scroll to the element with that id.
+ * If the hash fragment is a name, the page has to scroll to the first element with that name.
+ */ function getHashFragmentDomNode(hashFragment) {
+    // If the hash fragment is `top` the page has to scroll to the top of the page.
+    if (hashFragment === "top") {
+        return document.body;
+    }
+    var _document_getElementById;
+    // If the hash fragment is an id, the page has to scroll to the element with that id.
+    return (_document_getElementById = document.getElementById(hashFragment)) != null ? _document_getElementById : document.getElementsByName(hashFragment)[0];
+}
+class InnerScrollAndFocusHandler extends _react.default.Component {
+    componentDidMount() {
+        this.handlePotentialScroll();
+    }
+    componentDidUpdate() {
+        // Because this property is overwritten in handlePotentialScroll it's fine to always run it when true as it'll be set to false for subsequent renders.
+        if (this.props.focusAndScrollRef.apply) {
+            this.handlePotentialScroll(true);
+        }
+    }
+    render() {
+        return this.props.children;
+    }
+    constructor(...args){
+        super(...args);
+        this.handlePotentialScroll = (isUpdate)=>{
+            // Handle scroll and focus, it's only applied once in the first useEffect that triggers that changed.
+            const { focusAndScrollRef, segmentPath } = this.props;
+            if (focusAndScrollRef.apply) {
+                // segmentPaths is an array of segment paths that should be scrolled to
+                // if the current segment path is not in the array, the scroll is not applied
+                // unless the array is empty, in which case the scroll is always applied
+                if (focusAndScrollRef.segmentPaths.length !== 0 && !focusAndScrollRef.segmentPaths.some((scrollRefSegmentPath)=>segmentPath.every((segment, index)=>(0, _matchsegments.matchSegment)(segment, scrollRefSegmentPath[index])))) {
+                    return;
+                }
+                let domNode = null;
+                const hashFragment = focusAndScrollRef.hashFragment;
+                if (hashFragment) {
+                    domNode = getHashFragmentDomNode(hashFragment);
+                }
+                // `findDOMNode` is tricky because it returns just the first child if the component is a fragment.
+                // This already caused a bug where the first child was a <link/> in head.
+                if (!domNode) {
+                    domNode = findDOMNode(this);
+                }
+                // TODO-APP: Handle the case where we couldn't select any DOM node, even higher up in the layout-router above the current segmentPath.
+                // If there is no DOM node this layout-router level is skipped. It'll be handled higher-up in the tree.
+                if (!(domNode instanceof Element)) {
+                    return;
+                }
+                // Verify if the element is a HTMLElement and if it's visible on screen (e.g. not display: none).
+                // If the element is not a HTMLElement or not visible we try to select the next sibling and try again.
+                while(!(domNode instanceof HTMLElement) || elementCanScroll(domNode)){
+                    // TODO-APP: Handle the case where we couldn't select any DOM node, even higher up in the layout-router above the current segmentPath.
+                    // No siblings found that are visible so we handle scroll higher up in the tree instead.
+                    if (domNode.nextElementSibling === null) {
+                        return;
+                    }
+                    domNode = domNode.nextElementSibling;
+                }
+                // State is mutated to ensure that the focus and scroll is applied only once.
+                focusAndScrollRef.apply = false;
+                focusAndScrollRef.hashFragment = null;
+                focusAndScrollRef.segmentPaths = [];
+                (0, _handlesmoothscroll.handleSmoothScroll)(()=>{
+                    // In case of hash scroll, we only need to scroll the element into view
+                    if (hashFragment) {
+                        domNode.scrollIntoView();
+                        return;
+                    }
+                    // Store the current viewport height because reading `clientHeight` causes a reflow,
+                    // and it won't change during this function.
+                    const htmlElement = document.documentElement;
+                    const viewportHeight = htmlElement.clientHeight;
+                    // If the element's top edge is already in the viewport, exit early.
+                    if (topOfElementInViewport(domNode, viewportHeight)) {
+                        return;
+                    }
+                    // Otherwise, try scrolling go the top of the document to be backward compatible with pages
+                    // scrollIntoView() called on `<html/>` element scrolls horizontally on chrome and firefox (that shouldn't happen)
+                    // We could use it to scroll horizontally following RTL but that also seems to be broken - it will always scroll left
+                    // scrollLeft = 0 also seems to ignore RTL and manually checking for RTL is too much hassle so we will scroll just vertically
+                    htmlElement.scrollTop = 0;
+                    // Scroll to domNode if domNode is not in viewport when scrolled to top of document
+                    if (!topOfElementInViewport(domNode, viewportHeight)) {
+                        domNode.scrollIntoView();
+                    }
+                }, {
+                    // We will force layout by querying domNode position
+                    dontForceLayout: true,
+                    onlyHashChange: !!isUpdate
+                });
+                // Set focus on the element
+                domNode.focus();
+            }
+        };
+    }
+}
+function ScrollAndFocusHandler(param) {
+    let { segmentPath, children } = param;
+    const context = (0, _react.useContext)(_approutercontext.GlobalLayoutRouterContext);
+    if (!context) {
+        throw new Error("invariant global layout router not mounted");
+    }
+    return /*#__PURE__*/ _react.default.createElement(InnerScrollAndFocusHandler, {
+        segmentPath: segmentPath,
+        focusAndScrollRef: context.focusAndScrollRef
+    }, children);
+}
+/**
+ * InnerLayoutRouter handles rendering the provided segment based on the cache.
+ */ function InnerLayoutRouter(param) {
+    let { parallelRouterKey, url, childNodes, childProp, segmentPath, tree, // isActive,
+    cacheKey } = param;
+    const context = (0, _react.useContext)(_approutercontext.GlobalLayoutRouterContext);
+    if (!context) {
+        throw new Error("invariant global layout router not mounted");
+    }
+    const { buildId, changeByServerResponse, tree: fullTree } = context;
+    // Read segment path from the parallel router cache node.
+    let childNode = childNodes.get(cacheKey);
+    // If childProp is available this means it's the Flight / SSR case.
+    if (childProp && // TODO-APP: verify if this can be null based on user code
+    childProp.current !== null) {
+        if (!childNode) {
+            // Add the segment's subTreeData to the cache.
+            // This writes to the cache when there is no item in the cache yet. It never *overwrites* existing cache items which is why it's safe in concurrent mode.
+            childNode = {
+                status: _approutercontext.CacheStates.READY,
+                data: null,
+                subTreeData: childProp.current,
+                parallelRoutes: new Map()
+            };
+            childNodes.set(cacheKey, childNode);
+        } else {
+            if (childNode.status === _approutercontext.CacheStates.LAZY_INITIALIZED) {
+                // @ts-expect-error we're changing it's type!
+                childNode.status = _approutercontext.CacheStates.READY;
+                // @ts-expect-error
+                childNode.subTreeData = childProp.current;
+            }
+        }
+    }
+    // When childNode is not available during rendering client-side we need to fetch it from the server.
+    if (!childNode || childNode.status === _approutercontext.CacheStates.LAZY_INITIALIZED) {
+        /**
+     * Router state with refetch marker added
+     */ // TODO-APP: remove ''
+        const refetchTree = walkAddRefetch([
+            "",
+            ...segmentPath
+        ], fullTree);
+        childNode = {
+            status: _approutercontext.CacheStates.DATA_FETCH,
+            data: (0, _fetchserverresponse.fetchServerResponse)(new URL(url, location.origin), refetchTree, context.nextUrl, buildId),
+            subTreeData: null,
+            head: childNode && childNode.status === _approutercontext.CacheStates.LAZY_INITIALIZED ? childNode.head : undefined,
+            parallelRoutes: childNode && childNode.status === _approutercontext.CacheStates.LAZY_INITIALIZED ? childNode.parallelRoutes : new Map()
+        };
+        /**
+     * Flight data fetch kicked off during render and put into the cache.
+     */ childNodes.set(cacheKey, childNode);
+    }
+    // This case should never happen so it throws an error. It indicates there's a bug in the Next.js.
+    if (!childNode) {
+        throw new Error("Child node should always exist");
+    }
+    // This case should never happen so it throws an error. It indicates there's a bug in the Next.js.
+    if (childNode.subTreeData && childNode.data) {
+        throw new Error("Child node should not have both subTreeData and data");
+    }
+    // If cache node has a data request we have to unwrap response by `use` and update the cache.
+    if (childNode.data) {
+        /**
+     * Flight response data
+     */ // When the data has not resolved yet `use` will suspend here.
+        const [flightData, overrideCanonicalUrl] = (0, _react.use)(childNode.data);
+        // segmentPath from the server does not match the layout's segmentPath
+        childNode.data = null;
+        // setTimeout is used to start a new transition during render, this is an intentional hack around React.
+        setTimeout(()=>{
+            (0, _react.startTransition)(()=>{
+                changeByServerResponse(fullTree, flightData, overrideCanonicalUrl);
+            });
+        });
+        // Suspend infinitely as `changeByServerResponse` will cause a different part of the tree to be rendered.
+        (0, _react.use)((0, _infinitepromise.createInfinitePromise)());
+    }
+    // If cache node has no subTreeData and no data request we have to infinitely suspend as the data will likely flow in from another place.
+    // TODO-APP: double check users can't return null in a component that will kick in here.
+    if (!childNode.subTreeData) {
+        (0, _react.use)((0, _infinitepromise.createInfinitePromise)());
+    }
+    const subtree = /*#__PURE__*/ _react.default.createElement(_approutercontext.LayoutRouterContext.Provider, {
+        value: {
+            tree: tree[1][parallelRouterKey],
+            childNodes: childNode.parallelRoutes,
+            // TODO-APP: overriding of url for parallel routes
+            url: url
+        }
+    }, childNode.subTreeData);
+    // Ensure root layout is not wrapped in a div as the root layout renders `<html>`
+    return subtree;
+}
+/**
+ * Renders suspense boundary with the provided "loading" property as the fallback.
+ * If no loading property is provided it renders the children without a suspense boundary.
+ */ function LoadingBoundary(param) {
+    let { children, loading, loadingStyles, hasLoading } = param;
+    if (hasLoading) {
+        return /*#__PURE__*/ _react.default.createElement(_react.Suspense, {
+            fallback: /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, loadingStyles, loading)
+        }, children);
+    }
+    return /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, children);
+}
+function OuterLayoutRouter(param) {
+    let { parallelRouterKey, segmentPath, childProp, error, errorStyles, templateStyles, loading, loadingStyles, hasLoading, template, notFound, notFoundStyles, styles } = param;
+    const context = (0, _react.useContext)(_approutercontext.LayoutRouterContext);
+    if (!context) {
+        throw new Error("invariant expected layout router to be mounted");
+    }
+    const { childNodes, tree, url } = context;
+    // Get the current parallelRouter cache node
+    let childNodesForParallelRouter = childNodes.get(parallelRouterKey);
+    // If the parallel router cache node does not exist yet, create it.
+    // This writes to the cache when there is no item in the cache yet. It never *overwrites* existing cache items which is why it's safe in concurrent mode.
+    if (!childNodesForParallelRouter) {
+        childNodesForParallelRouter = new Map();
+        childNodes.set(parallelRouterKey, childNodesForParallelRouter);
+    }
+    // Get the active segment in the tree
+    // The reason arrays are used in the data format is that these are transferred from the server to the browser so it's optimized to save bytes.
+    const treeSegment = tree[1][parallelRouterKey][0];
+    const childPropSegment = childProp.segment;
+    // If segment is an array it's a dynamic route and we want to read the dynamic route value as the segment to get from the cache.
+    const currentChildSegmentValue = (0, _getsegmentvalue.getSegmentValue)(treeSegment);
+    /**
+   * Decides which segments to keep rendering, all segments that are not active will be wrapped in `<Offscreen>`.
+   */ // TODO-APP: Add handling of `<Offscreen>` when it's available.
+    const preservedSegments = [
+        treeSegment
+    ];
+    return /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, styles, preservedSegments.map((preservedSegment)=>{
+        const isChildPropSegment = (0, _matchsegments.matchSegment)(preservedSegment, childPropSegment);
+        const preservedSegmentValue = (0, _getsegmentvalue.getSegmentValue)(preservedSegment);
+        const cacheKey = (0, _createroutercachekey.createRouterCacheKey)(preservedSegment);
+        return(/*
+            - Error boundary
+              - Only renders error boundary if error component is provided.
+              - Rendered for each segment to ensure they have their own error state.
+            - Loading boundary
+              - Only renders suspense boundary if loading components is provided.
+              - Rendered for each segment to ensure they have their own loading state.
+              - Passed to the router during rendering to ensure it can be immediately rendered when suspending on a Flight fetch.
+          */ /*#__PURE__*/ _react.default.createElement(_approutercontext.TemplateContext.Provider, {
+            key: (0, _createroutercachekey.createRouterCacheKey)(preservedSegment, true),
+            value: /*#__PURE__*/ _react.default.createElement(ScrollAndFocusHandler, {
+                segmentPath: segmentPath
+            }, /*#__PURE__*/ _react.default.createElement(_errorboundary.ErrorBoundary, {
+                errorComponent: error,
+                errorStyles: errorStyles
+            }, /*#__PURE__*/ _react.default.createElement(LoadingBoundary, {
+                hasLoading: hasLoading,
+                loading: loading,
+                loadingStyles: loadingStyles
+            }, /*#__PURE__*/ _react.default.createElement(_notfoundboundary.NotFoundBoundary, {
+                notFound: notFound,
+                notFoundStyles: notFoundStyles
+            }, /*#__PURE__*/ _react.default.createElement(_redirectboundary.RedirectBoundary, null, /*#__PURE__*/ _react.default.createElement(InnerLayoutRouter, {
+                parallelRouterKey: parallelRouterKey,
+                url: url,
+                tree: tree,
+                childNodes: childNodesForParallelRouter,
+                childProp: isChildPropSegment ? childProp : null,
+                segmentPath: segmentPath,
+                cacheKey: cacheKey,
+                isActive: currentChildSegmentValue === preservedSegmentValue
+            }))))))
+        }, templateStyles, template));
+    }));
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=layout-router.js.map
+
+
+/***/ }),
+
+/***/ 7618:
 /***/ ((module, exports, __webpack_require__) => {
 
 
@@ -153,55 +1286,243 @@ function _export(target, all) {
     });
 }
 _export(exports, {
-    headers: function() {
-        return headers;
+    matchSegment: function() {
+        return matchSegment;
     },
-    cookies: function() {
-        return cookies;
-    },
-    draftMode: function() {
-        return draftMode;
+    canSegmentBeOverridden: function() {
+        return canSegmentBeOverridden;
     }
 });
-const _requestcookies = __webpack_require__(9934);
-const _headers = __webpack_require__(3423);
-const _cookies = __webpack_require__(1220);
-const _requestasyncstorage = __webpack_require__(1715);
-const _actionasyncstorage = __webpack_require__(4876);
-const _staticgenerationbailout = __webpack_require__(6164);
-const _draftmode = __webpack_require__(3641);
-function headers() {
-    if ((0, _staticgenerationbailout.staticGenerationBailout)("headers")) {
-        return _headers.HeadersAdapter.seal(new Headers({}));
+const _getsegmentparam = __webpack_require__(1844);
+const matchSegment = (existingSegment, segment)=>{
+    // segment is either Array or string
+    if (typeof existingSegment === "string") {
+        if (typeof segment === "string") {
+            // Common case: segment is just a string
+            return existingSegment === segment;
+        }
+        return false;
     }
-    const requestStore = _requestasyncstorage.requestAsyncStorage.getStore();
-    if (!requestStore) {
-        throw new Error("Invariant: Method expects to have requestAsyncStorage, none available");
+    if (typeof segment === "string") {
+        return false;
     }
-    return requestStore.headers;
+    return existingSegment[0] === segment[0] && existingSegment[1] === segment[1];
+};
+const canSegmentBeOverridden = (existingSegment, segment)=>{
+    var _getSegmentParam;
+    if (Array.isArray(existingSegment) || !Array.isArray(segment)) {
+        return false;
+    }
+    return ((_getSegmentParam = (0, _getsegmentparam.getSegmentParam)(existingSegment)) == null ? void 0 : _getSegmentParam.param) === segment[0];
+};
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=match-segments.js.map
+
+
+/***/ }),
+
+/***/ 696:
+/***/ ((module, exports, __webpack_require__) => {
+
+// useLayoutSegments() // Only the segments for the current place. ['children', 'dashboard', 'children', 'integrations'] -> /dashboard/integrations (/dashboard/layout.js would get ['children', 'dashboard', 'children', 'integrations'])
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
 }
-function cookies() {
-    if ((0, _staticgenerationbailout.staticGenerationBailout)("cookies")) {
-        return _requestcookies.RequestCookiesAdapter.seal(new _cookies.RequestCookies(new Headers({})));
+_export(exports, {
+    ReadonlyURLSearchParams: function() {
+        return ReadonlyURLSearchParams;
+    },
+    useSearchParams: function() {
+        return useSearchParams;
+    },
+    usePathname: function() {
+        return usePathname;
+    },
+    ServerInsertedHTMLContext: function() {
+        return _serverinsertedhtml.ServerInsertedHTMLContext;
+    },
+    useServerInsertedHTML: function() {
+        return _serverinsertedhtml.useServerInsertedHTML;
+    },
+    useRouter: function() {
+        return useRouter;
+    },
+    useParams: function() {
+        return useParams;
+    },
+    useSelectedLayoutSegments: function() {
+        return useSelectedLayoutSegments;
+    },
+    useSelectedLayoutSegment: function() {
+        return useSelectedLayoutSegment;
+    },
+    redirect: function() {
+        return _redirect.redirect;
+    },
+    notFound: function() {
+        return _notfound.notFound;
     }
-    const requestStore = _requestasyncstorage.requestAsyncStorage.getStore();
-    if (!requestStore) {
-        throw new Error("Invariant: Method expects to have requestAsyncStorage, none available");
-    }
-    const asyncActionStore = _actionasyncstorage.actionAsyncStorage.getStore();
-    if (asyncActionStore && (asyncActionStore.isAction || asyncActionStore.isAppRoute)) {
-        // We can't conditionally return different types here based on the context.
-        // To avoid confusion, we always return the readonly type here.
-        return requestStore.mutableCookies;
-    }
-    return requestStore.cookies;
+});
+const _react = __webpack_require__(8038);
+const _approutercontext = __webpack_require__(7085);
+const _hooksclientcontext = __webpack_require__(9569);
+const _clienthookinservercomponenterror = __webpack_require__(2633);
+const _getsegmentvalue = __webpack_require__(7741);
+const _serverinsertedhtml = __webpack_require__(9618);
+const _redirect = __webpack_require__(2622);
+const _notfound = __webpack_require__(5858);
+const INTERNAL_URLSEARCHPARAMS_INSTANCE = Symbol("internal for urlsearchparams readonly");
+function readonlyURLSearchParamsError() {
+    return new Error("ReadonlyURLSearchParams cannot be modified");
 }
-function draftMode() {
-    const requestStore = _requestasyncstorage.requestAsyncStorage.getStore();
-    if (!requestStore) {
-        throw new Error("Invariant: Method expects to have requestAsyncStorage, none available");
+class ReadonlyURLSearchParams {
+    [Symbol.iterator]() {
+        return this[INTERNAL_URLSEARCHPARAMS_INSTANCE][Symbol.iterator]();
     }
-    return new _draftmode.DraftMode(requestStore.draftMode);
+    append() {
+        throw readonlyURLSearchParamsError();
+    }
+    delete() {
+        throw readonlyURLSearchParamsError();
+    }
+    set() {
+        throw readonlyURLSearchParamsError();
+    }
+    sort() {
+        throw readonlyURLSearchParamsError();
+    }
+    constructor(urlSearchParams){
+        this[INTERNAL_URLSEARCHPARAMS_INSTANCE] = urlSearchParams;
+        this.entries = urlSearchParams.entries.bind(urlSearchParams);
+        this.forEach = urlSearchParams.forEach.bind(urlSearchParams);
+        this.get = urlSearchParams.get.bind(urlSearchParams);
+        this.getAll = urlSearchParams.getAll.bind(urlSearchParams);
+        this.has = urlSearchParams.has.bind(urlSearchParams);
+        this.keys = urlSearchParams.keys.bind(urlSearchParams);
+        this.values = urlSearchParams.values.bind(urlSearchParams);
+        this.toString = urlSearchParams.toString.bind(urlSearchParams);
+    }
+}
+function useSearchParams() {
+    (0, _clienthookinservercomponenterror.clientHookInServerComponentError)("useSearchParams");
+    const searchParams = (0, _react.useContext)(_hooksclientcontext.SearchParamsContext);
+    // In the case where this is `null`, the compat types added in
+    // `next-env.d.ts` will add a new overload that changes the return type to
+    // include `null`.
+    const readonlySearchParams = (0, _react.useMemo)(()=>{
+        if (!searchParams) {
+            // When the router is not ready in pages, we won't have the search params
+            // available.
+            return null;
+        }
+        return new ReadonlyURLSearchParams(searchParams);
+    }, [
+        searchParams
+    ]);
+    if (true) {
+        // AsyncLocalStorage should not be included in the client bundle.
+        const { bailoutToClientRendering } = __webpack_require__(5661);
+        if (bailoutToClientRendering()) {
+            // TODO-APP: handle dynamic = 'force-static' here and on the client
+            return readonlySearchParams;
+        }
+    }
+    return readonlySearchParams;
+}
+function usePathname() {
+    (0, _clienthookinservercomponenterror.clientHookInServerComponentError)("usePathname");
+    // In the case where this is `null`, the compat types added in `next-env.d.ts`
+    // will add a new overload that changes the return type to include `null`.
+    return (0, _react.useContext)(_hooksclientcontext.PathnameContext);
+}
+function useRouter() {
+    (0, _clienthookinservercomponenterror.clientHookInServerComponentError)("useRouter");
+    const router = (0, _react.useContext)(_approutercontext.AppRouterContext);
+    if (router === null) {
+        throw new Error("invariant expected app router to be mounted");
+    }
+    return router;
+}
+// this function performs a depth-first search of the tree to find the selected
+// params
+function getSelectedParams(tree, params) {
+    if (params === void 0) params = {};
+    const parallelRoutes = tree[1];
+    for (const parallelRoute of Object.values(parallelRoutes)){
+        const segment = parallelRoute[0];
+        const isDynamicParameter = Array.isArray(segment);
+        const segmentValue = isDynamicParameter ? segment[1] : segment;
+        if (!segmentValue || segmentValue.startsWith("__PAGE__")) continue;
+        // Ensure catchAll and optional catchall are turned into an array
+        const isCatchAll = isDynamicParameter && (segment[2] === "c" || segment[2] === "oc");
+        if (isCatchAll) {
+            params[segment[0]] = segment[1].split("/");
+        } else if (isDynamicParameter) {
+            params[segment[0]] = segment[1];
+        }
+        params = getSelectedParams(parallelRoute, params);
+    }
+    return params;
+}
+function useParams() {
+    (0, _clienthookinservercomponenterror.clientHookInServerComponentError)("useParams");
+    const globalLayoutRouterContext = (0, _react.useContext)(_approutercontext.GlobalLayoutRouterContext);
+    if (!globalLayoutRouterContext) {
+        // This only happens in `pages`. Type is overwritten in navigation.d.ts
+        return null;
+    }
+    return getSelectedParams(globalLayoutRouterContext.tree);
+}
+// TODO-APP: handle parallel routes
+/**
+ * Get the canonical parameters from the current level to the leaf node.
+ */ function getSelectedLayoutSegmentPath(tree, parallelRouteKey, first, segmentPath) {
+    if (first === void 0) first = true;
+    if (segmentPath === void 0) segmentPath = [];
+    let node;
+    if (first) {
+        // Use the provided parallel route key on the first parallel route
+        node = tree[1][parallelRouteKey];
+    } else {
+        // After first parallel route prefer children, if there's no children pick the first parallel route.
+        const parallelRoutes = tree[1];
+        var _parallelRoutes_children;
+        node = (_parallelRoutes_children = parallelRoutes.children) != null ? _parallelRoutes_children : Object.values(parallelRoutes)[0];
+    }
+    if (!node) return segmentPath;
+    const segment = node[0];
+    const segmentValue = (0, _getsegmentvalue.getSegmentValue)(segment);
+    if (!segmentValue || segmentValue.startsWith("__PAGE__")) return segmentPath;
+    segmentPath.push(segmentValue);
+    return getSelectedLayoutSegmentPath(node, parallelRouteKey, false, segmentPath);
+}
+function useSelectedLayoutSegments(parallelRouteKey) {
+    if (parallelRouteKey === void 0) parallelRouteKey = "children";
+    (0, _clienthookinservercomponenterror.clientHookInServerComponentError)("useSelectedLayoutSegments");
+    const { tree } = (0, _react.useContext)(_approutercontext.LayoutRouterContext);
+    return getSelectedLayoutSegmentPath(tree, parallelRouteKey);
+}
+function useSelectedLayoutSegment(parallelRouteKey) {
+    if (parallelRouteKey === void 0) parallelRouteKey = "children";
+    (0, _clienthookinservercomponenterror.clientHookInServerComponentError)("useSelectedLayoutSegment");
+    const selectedLayoutSegments = useSelectedLayoutSegments(parallelRouteKey);
+    if (selectedLayoutSegments.length === 0) {
+        return null;
+    }
+    return selectedLayoutSegments[0];
 }
 if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
     Object.defineProperty(exports.default, "__esModule", {
@@ -209,12 +1530,93 @@ if ((typeof exports.default === "function" || typeof exports.default === "object
     });
     Object.assign(exports.default, exports);
     module.exports = exports.default;
-} //# sourceMappingURL=headers.js.map
+} //# sourceMappingURL=navigation.js.map
 
 
 /***/ }),
 
-/***/ 2241:
+/***/ 6505:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "NotFoundBoundary", ({
+    enumerable: true,
+    get: function() {
+        return NotFoundBoundary;
+    }
+}));
+const _interop_require_default = __webpack_require__(2147);
+const _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(8038));
+const _navigation = __webpack_require__(696);
+class NotFoundErrorBoundary extends _react.default.Component {
+    static getDerivedStateFromError(error) {
+        if ((error == null ? void 0 : error.digest) === "NEXT_NOT_FOUND") {
+            return {
+                notFoundTriggered: true
+            };
+        }
+        // Re-throw if error is not for 404
+        throw error;
+    }
+    static getDerivedStateFromProps(props, state) {
+        /**
+     * Handles reset of the error boundary when a navigation happens.
+     * Ensures the error boundary does not stay enabled when navigating to a new page.
+     * Approach of setState in render is safe as it checks the previous pathname and then overrides
+     * it as outlined in https://react.dev/reference/react/useState#storing-information-from-previous-renders
+     */ if (props.pathname !== state.previousPathname && state.notFoundTriggered) {
+            return {
+                notFoundTriggered: false,
+                previousPathname: props.pathname
+            };
+        }
+        return {
+            notFoundTriggered: state.notFoundTriggered,
+            previousPathname: props.pathname
+        };
+    }
+    render() {
+        if (this.state.notFoundTriggered) {
+            return /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/ _react.default.createElement("meta", {
+                name: "robots",
+                content: "noindex"
+            }),  false && /*#__PURE__*/ 0, this.props.notFoundStyles, this.props.notFound);
+        }
+        return this.props.children;
+    }
+    constructor(props){
+        super(props);
+        this.state = {
+            notFoundTriggered: !!props.asNotFound,
+            previousPathname: props.pathname
+        };
+    }
+}
+function NotFoundBoundary(param) {
+    let { notFound, notFoundStyles, asNotFound, children } = param;
+    const pathname = (0, _navigation.usePathname)();
+    return notFound ? /*#__PURE__*/ _react.default.createElement(NotFoundErrorBoundary, {
+        pathname: pathname,
+        notFound: notFound,
+        notFoundStyles: notFoundStyles,
+        asNotFound: asNotFound
+    }, children) : /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, children);
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=not-found-boundary.js.map
+
+
+/***/ }),
+
+/***/ 5858:
 /***/ ((module, exports) => {
 
 
@@ -257,7 +1659,203 @@ if ((typeof exports.default === "function" || typeof exports.default === "object
 
 /***/ }),
 
-/***/ 5287:
+/***/ 8811:
+/***/ ((module, exports, __webpack_require__) => {
+
+/*
+    This is a simple promise queue that allows you to limit the number of concurrent promises
+    that are running at any given time. It's used to limit the number of concurrent
+    prefetch requests that are being made to the server but could be used for other
+    things as well.
+*/ 
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "PromiseQueue", ({
+    enumerable: true,
+    get: function() {
+        return PromiseQueue;
+    }
+}));
+const _class_private_field_loose_base = __webpack_require__(8324);
+const _class_private_field_loose_key = __webpack_require__(4567);
+var _maxConcurrency = /*#__PURE__*/ _class_private_field_loose_key._("_maxConcurrency"), _runningCount = /*#__PURE__*/ _class_private_field_loose_key._("_runningCount"), _queue = /*#__PURE__*/ _class_private_field_loose_key._("_queue"), _processNext = /*#__PURE__*/ _class_private_field_loose_key._("_processNext");
+class PromiseQueue {
+    enqueue(promiseFn) {
+        let taskResolve;
+        let taskReject;
+        const taskPromise = new Promise((resolve, reject)=>{
+            taskResolve = resolve;
+            taskReject = reject;
+        });
+        const task = async ()=>{
+            try {
+                _class_private_field_loose_base._(this, _runningCount)[_runningCount]++;
+                const result = await promiseFn();
+                taskResolve(result);
+            } catch (error) {
+                taskReject(error);
+            } finally{
+                _class_private_field_loose_base._(this, _runningCount)[_runningCount]--;
+                _class_private_field_loose_base._(this, _processNext)[_processNext]();
+            }
+        };
+        const enqueueResult = {
+            promiseFn: taskPromise,
+            task
+        };
+        // wonder if we should take a LIFO approach here
+        _class_private_field_loose_base._(this, _queue)[_queue].push(enqueueResult);
+        _class_private_field_loose_base._(this, _processNext)[_processNext]();
+        return taskPromise;
+    }
+    bump(promiseFn) {
+        const index = _class_private_field_loose_base._(this, _queue)[_queue].findIndex((item)=>item.promiseFn === promiseFn);
+        if (index > -1) {
+            const bumpedItem = _class_private_field_loose_base._(this, _queue)[_queue].splice(index, 1)[0];
+            _class_private_field_loose_base._(this, _queue)[_queue].unshift(bumpedItem);
+            _class_private_field_loose_base._(this, _processNext)[_processNext](true);
+        }
+    }
+    constructor(maxConcurrency = 5){
+        Object.defineProperty(this, _processNext, {
+            value: processNext
+        });
+        Object.defineProperty(this, _maxConcurrency, {
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, _runningCount, {
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, _queue, {
+            writable: true,
+            value: void 0
+        });
+        _class_private_field_loose_base._(this, _maxConcurrency)[_maxConcurrency] = maxConcurrency;
+        _class_private_field_loose_base._(this, _runningCount)[_runningCount] = 0;
+        _class_private_field_loose_base._(this, _queue)[_queue] = [];
+    }
+}
+function processNext(forced) {
+    if (forced === void 0) forced = false;
+    if ((_class_private_field_loose_base._(this, _runningCount)[_runningCount] < _class_private_field_loose_base._(this, _maxConcurrency)[_maxConcurrency] || forced) && _class_private_field_loose_base._(this, _queue)[_queue].length > 0) {
+        var _class_private_field_loose_base__queue_shift;
+        (_class_private_field_loose_base__queue_shift = _class_private_field_loose_base._(this, _queue)[_queue].shift()) == null ? void 0 : _class_private_field_loose_base__queue_shift.task();
+    }
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=promise-queue.js.map
+
+
+/***/ }),
+
+/***/ 1442:
+/***/ ((module, exports, __webpack_require__) => {
+
+/* __next_internal_client_entry_do_not_use__  cjs */ 
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    RedirectErrorBoundary: function() {
+        return RedirectErrorBoundary;
+    },
+    RedirectBoundary: function() {
+        return RedirectBoundary;
+    }
+});
+const _interop_require_wildcard = __webpack_require__(4009);
+const _react = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(8038));
+const _navigation = __webpack_require__(696);
+const _redirect = __webpack_require__(2622);
+function HandleRedirect(param) {
+    let { redirect, reset, redirectType } = param;
+    const router = (0, _navigation.useRouter)();
+    (0, _react.useEffect)(()=>{
+        // @ts-ignore startTransition exists
+        _react.default.startTransition(()=>{
+            if (redirectType === _redirect.RedirectType.push) {
+                router.push(redirect, {});
+            } else {
+                router.replace(redirect, {});
+            }
+            reset();
+        });
+    }, [
+        redirect,
+        redirectType,
+        reset,
+        router
+    ]);
+    return null;
+}
+class RedirectErrorBoundary extends _react.default.Component {
+    static getDerivedStateFromError(error) {
+        if ((0, _redirect.isRedirectError)(error)) {
+            const url = (0, _redirect.getURLFromRedirectError)(error);
+            const redirectType = (0, _redirect.getRedirectTypeFromError)(error);
+            return {
+                redirect: url,
+                redirectType
+            };
+        }
+        // Re-throw if error is not for redirect
+        throw error;
+    }
+    render() {
+        const { redirect, redirectType } = this.state;
+        if (redirect !== null && redirectType !== null) {
+            return /*#__PURE__*/ _react.default.createElement(HandleRedirect, {
+                redirect: redirect,
+                redirectType: redirectType,
+                reset: ()=>this.setState({
+                        redirect: null
+                    })
+            });
+        }
+        return this.props.children;
+    }
+    constructor(props){
+        super(props);
+        this.state = {
+            redirect: null,
+            redirectType: null
+        };
+    }
+}
+function RedirectBoundary(param) {
+    let { children } = param;
+    const router = (0, _navigation.useRouter)();
+    return /*#__PURE__*/ _react.default.createElement(RedirectErrorBoundary, {
+        router: router
+    }, children);
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=redirect-boundary.js.map
+
+
+/***/ }),
+
+/***/ 2622:
 /***/ ((module, exports, __webpack_require__) => {
 
 
@@ -339,10090 +1937,4719 @@ if ((typeof exports.default === "function" || typeof exports.default === "object
 
 /***/ }),
 
-/***/ 6528:
-/***/ ((module) => {
-
-
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all)=>{
-    for(var name in all)__defProp(target, name, {
-        get: all[name],
-        enumerable: true
-    });
-};
-var __copyProps = (to, from, except, desc)=>{
-    if (from && typeof from === "object" || typeof from === "function") {
-        for (let key of __getOwnPropNames(from))if (!__hasOwnProp.call(to, key) && key !== except) __defProp(to, key, {
-            get: ()=>from[key],
-            enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
-        });
-    }
-    return to;
-};
-var __toCommonJS = (mod)=>__copyProps(__defProp({}, "__esModule", {
-        value: true
-    }), mod);
-// src/index.ts
-var src_exports = {};
-__export(src_exports, {
-    RequestCookies: ()=>RequestCookies,
-    ResponseCookies: ()=>ResponseCookies
-});
-module.exports = __toCommonJS(src_exports);
-// src/serialize.ts
-function serialize(c) {
-    var _a;
-    const attrs = [
-        "path" in c && c.path && `Path=${c.path}`,
-        "expires" in c && (c.expires || c.expires === 0) && `Expires=${(typeof c.expires === "number" ? new Date(c.expires) : c.expires).toUTCString()}`,
-        "maxAge" in c && typeof c.maxAge === "number" && `Max-Age=${c.maxAge}`,
-        "domain" in c && c.domain && `Domain=${c.domain}`,
-        "secure" in c && c.secure && "Secure",
-        "httpOnly" in c && c.httpOnly && "HttpOnly",
-        "sameSite" in c && c.sameSite && `SameSite=${c.sameSite}`
-    ].filter(Boolean);
-    return `${c.name}=${encodeURIComponent((_a = c.value) != null ? _a : "")}; ${attrs.join("; ")}`;
-}
-function parseCookieString(cookie) {
-    const map = /* @__PURE__ */ new Map();
-    for (const pair of cookie.split(/; */)){
-        if (!pair) continue;
-        const splitAt = pair.indexOf("=");
-        if (splitAt === -1) {
-            map.set(pair, "true");
-            continue;
-        }
-        const [key, value] = [
-            pair.slice(0, splitAt),
-            pair.slice(splitAt + 1)
-        ];
-        try {
-            map.set(key, decodeURIComponent(value != null ? value : "true"));
-        } catch  {}
-    }
-    return map;
-}
-function parseSetCookieString(setCookie) {
-    if (!setCookie) {
-        return void 0;
-    }
-    const [[name, value], ...attributes] = parseCookieString(setCookie);
-    const { domain, expires, httponly, maxage, path, samesite, secure } = Object.fromEntries(attributes.map(([key, value2])=>[
-            key.toLowerCase(),
-            value2
-        ]));
-    const cookie = {
-        name,
-        value: decodeURIComponent(value),
-        domain,
-        ...expires && {
-            expires: new Date(expires)
-        },
-        ...httponly && {
-            httpOnly: true
-        },
-        ...typeof maxage === "string" && {
-            maxAge: Number(maxage)
-        },
-        path,
-        ...samesite && {
-            sameSite: parseSameSite(samesite)
-        },
-        ...secure && {
-            secure: true
-        }
-    };
-    return compact(cookie);
-}
-function compact(t) {
-    const newT = {};
-    for(const key in t){
-        if (t[key]) {
-            newT[key] = t[key];
-        }
-    }
-    return newT;
-}
-var SAME_SITE = [
-    "strict",
-    "lax",
-    "none"
-];
-function parseSameSite(string) {
-    string = string.toLowerCase();
-    return SAME_SITE.includes(string) ? string : void 0;
-}
-// src/request-cookies.ts
-var RequestCookies = class {
-    constructor(requestHeaders){
-        /** @internal */ this._parsed = /* @__PURE__ */ new Map();
-        this._headers = requestHeaders;
-        const header = requestHeaders.get("cookie");
-        if (header) {
-            const parsed = parseCookieString(header);
-            for (const [name, value] of parsed){
-                this._parsed.set(name, {
-                    name,
-                    value
-                });
-            }
-        }
-    }
-    [Symbol.iterator]() {
-        return this._parsed[Symbol.iterator]();
-    }
-    /**
-   * The amount of cookies received from the client
-   */ get size() {
-        return this._parsed.size;
-    }
-    get(...args) {
-        const name = typeof args[0] === "string" ? args[0] : args[0].name;
-        return this._parsed.get(name);
-    }
-    getAll(...args) {
-        var _a;
-        const all = Array.from(this._parsed);
-        if (!args.length) {
-            return all.map(([_, value])=>value);
-        }
-        const name = typeof args[0] === "string" ? args[0] : (_a = args[0]) == null ? void 0 : _a.name;
-        return all.filter(([n])=>n === name).map(([_, value])=>value);
-    }
-    has(name) {
-        return this._parsed.has(name);
-    }
-    set(...args) {
-        const [name, value] = args.length === 1 ? [
-            args[0].name,
-            args[0].value
-        ] : args;
-        const map = this._parsed;
-        map.set(name, {
-            name,
-            value
-        });
-        this._headers.set("cookie", Array.from(map).map(([_, value2])=>serialize(value2)).join("; "));
-        return this;
-    }
-    /**
-   * Delete the cookies matching the passed name or names in the request.
-   */ delete(names) {
-        const map = this._parsed;
-        const result = !Array.isArray(names) ? map.delete(names) : names.map((name)=>map.delete(name));
-        this._headers.set("cookie", Array.from(map).map(([_, value])=>serialize(value)).join("; "));
-        return result;
-    }
-    /**
-   * Delete all the cookies in the cookies in the request.
-   */ clear() {
-        this.delete(Array.from(this._parsed.keys()));
-        return this;
-    }
-    /**
-   * Format the cookies in the request as a string for logging
-   */ [Symbol.for("edge-runtime.inspect.custom")]() {
-        return `RequestCookies ${JSON.stringify(Object.fromEntries(this._parsed))}`;
-    }
-    toString() {
-        return [
-            ...this._parsed.values()
-        ].map((v)=>`${v.name}=${encodeURIComponent(v.value)}`).join("; ");
-    }
-};
-// src/response-cookies.ts
-var ResponseCookies = class {
-    constructor(responseHeaders){
-        /** @internal */ this._parsed = /* @__PURE__ */ new Map();
-        var _a, _b, _c;
-        this._headers = responseHeaders;
-        const setCookie = // @ts-expect-error See https://github.com/whatwg/fetch/issues/973
-        (_c = (_b = (_a = responseHeaders.getAll) == null ? void 0 : _a.call(responseHeaders, "set-cookie")) != null ? _b : responseHeaders.get("set-cookie")) != null ? _c : [];
-        const cookieStrings = Array.isArray(setCookie) ? setCookie : splitCookiesString(setCookie);
-        for (const cookieString of cookieStrings){
-            const parsed = parseSetCookieString(cookieString);
-            if (parsed) this._parsed.set(parsed.name, parsed);
-        }
-    }
-    /**
-   * {@link https://wicg.github.io/cookie-store/#CookieStore-get CookieStore#get} without the Promise.
-   */ get(...args) {
-        const key = typeof args[0] === "string" ? args[0] : args[0].name;
-        return this._parsed.get(key);
-    }
-    /**
-   * {@link https://wicg.github.io/cookie-store/#CookieStore-getAll CookieStore#getAll} without the Promise.
-   */ getAll(...args) {
-        var _a;
-        const all = Array.from(this._parsed.values());
-        if (!args.length) {
-            return all;
-        }
-        const key = typeof args[0] === "string" ? args[0] : (_a = args[0]) == null ? void 0 : _a.name;
-        return all.filter((c)=>c.name === key);
-    }
-    /**
-   * {@link https://wicg.github.io/cookie-store/#CookieStore-set CookieStore#set} without the Promise.
-   */ set(...args) {
-        const [name, value, cookie] = args.length === 1 ? [
-            args[0].name,
-            args[0].value,
-            args[0]
-        ] : args;
-        const map = this._parsed;
-        map.set(name, normalizeCookie({
-            name,
-            value,
-            ...cookie
-        }));
-        replace(map, this._headers);
-        return this;
-    }
-    /**
-   * {@link https://wicg.github.io/cookie-store/#CookieStore-delete CookieStore#delete} without the Promise.
-   */ delete(...args) {
-        const name = typeof args[0] === "string" ? args[0] : args[0].name;
-        return this.set({
-            name,
-            value: "",
-            expires: /* @__PURE__ */ new Date(0)
-        });
-    }
-    [Symbol.for("edge-runtime.inspect.custom")]() {
-        return `ResponseCookies ${JSON.stringify(Object.fromEntries(this._parsed))}`;
-    }
-    toString() {
-        return [
-            ...this._parsed.values()
-        ].map(serialize).join("; ");
-    }
-};
-function replace(bag, headers) {
-    headers.delete("set-cookie");
-    for (const [, value] of bag){
-        const serialized = serialize(value);
-        headers.append("set-cookie", serialized);
-    }
-}
-function normalizeCookie(cookie = {
-    name: "",
-    value: ""
-}) {
-    if (typeof cookie.expires === "number") {
-        cookie.expires = new Date(cookie.expires);
-    }
-    if (cookie.maxAge) {
-        cookie.expires = new Date(Date.now() + cookie.maxAge * 1e3);
-    }
-    if (cookie.path === null || cookie.path === void 0) {
-        cookie.path = "/";
-    }
-    return cookie;
-}
-function splitCookiesString(cookiesString) {
-    if (!cookiesString) return [];
-    var cookiesStrings = [];
-    var pos = 0;
-    var start;
-    var ch;
-    var lastComma;
-    var nextStart;
-    var cookiesSeparatorFound;
-    function skipWhitespace() {
-        while(pos < cookiesString.length && /\s/.test(cookiesString.charAt(pos))){
-            pos += 1;
-        }
-        return pos < cookiesString.length;
-    }
-    function notSpecialChar() {
-        ch = cookiesString.charAt(pos);
-        return ch !== "=" && ch !== ";" && ch !== ",";
-    }
-    while(pos < cookiesString.length){
-        start = pos;
-        cookiesSeparatorFound = false;
-        while(skipWhitespace()){
-            ch = cookiesString.charAt(pos);
-            if (ch === ",") {
-                lastComma = pos;
-                pos += 1;
-                skipWhitespace();
-                nextStart = pos;
-                while(pos < cookiesString.length && notSpecialChar()){
-                    pos += 1;
-                }
-                if (pos < cookiesString.length && cookiesString.charAt(pos) === "=") {
-                    cookiesSeparatorFound = true;
-                    pos = nextStart;
-                    cookiesStrings.push(cookiesString.substring(start, lastComma));
-                    start = pos;
-                } else {
-                    pos = lastComma + 1;
-                }
-            } else {
-                pos += 1;
-            }
-        }
-        if (!cookiesSeparatorFound || pos >= cookiesString.length) {
-            cookiesStrings.push(cookiesString.substring(start, cookiesString.length));
-        }
-    }
-    return cookiesStrings;
-}
-// Annotate the CommonJS export names for ESM import in node:
-0 && (0);
-
-
-/***/ }),
-
-/***/ 1749:
-/***/ ((module) => {
-
-
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all)=>{
-    for(var name in all)__defProp(target, name, {
-        get: all[name],
-        enumerable: true
-    });
-};
-var __copyProps = (to, from, except, desc)=>{
-    if (from && typeof from === "object" || typeof from === "function") {
-        for (let key of __getOwnPropNames(from))if (!__hasOwnProp.call(to, key) && key !== except) __defProp(to, key, {
-            get: ()=>from[key],
-            enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
-        });
-    }
-    return to;
-};
-var __toCommonJS = (mod)=>__copyProps(__defProp({}, "__esModule", {
-        value: true
-    }), mod);
-// src/index.ts
-var src_exports = {};
-__export(src_exports, {
-    RequestCookies: ()=>RequestCookies,
-    ResponseCookies: ()=>ResponseCookies
-});
-module.exports = __toCommonJS(src_exports);
-// src/serialize.ts
-function serialize(c) {
-    var _a;
-    const attrs = [
-        "path" in c && c.path && `Path=${c.path}`,
-        "expires" in c && (c.expires || c.expires === 0) && `Expires=${(typeof c.expires === "number" ? new Date(c.expires) : c.expires).toUTCString()}`,
-        "maxAge" in c && typeof c.maxAge === "number" && `Max-Age=${c.maxAge}`,
-        "domain" in c && c.domain && `Domain=${c.domain}`,
-        "secure" in c && c.secure && "Secure",
-        "httpOnly" in c && c.httpOnly && "HttpOnly",
-        "sameSite" in c && c.sameSite && `SameSite=${c.sameSite}`
-    ].filter(Boolean);
-    return `${c.name}=${encodeURIComponent((_a = c.value) != null ? _a : "")}; ${attrs.join("; ")}`;
-}
-function parseCookieString(cookie) {
-    const map = /* @__PURE__ */ new Map();
-    for (const pair of cookie.split(/; */)){
-        if (!pair) continue;
-        const splitAt = pair.indexOf("=");
-        if (splitAt === -1) {
-            map.set(pair, "true");
-            continue;
-        }
-        const [key, value] = [
-            pair.slice(0, splitAt),
-            pair.slice(splitAt + 1)
-        ];
-        try {
-            map.set(key, decodeURIComponent(value != null ? value : "true"));
-        } catch  {}
-    }
-    return map;
-}
-function parseSetCookieString(setCookie) {
-    if (!setCookie) {
-        return void 0;
-    }
-    const [[name, value], ...attributes] = parseCookieString(setCookie);
-    const { domain, expires, httponly, maxage, path, samesite, secure } = Object.fromEntries(attributes.map(([key, value2])=>[
-            key.toLowerCase(),
-            value2
-        ]));
-    const cookie = {
-        name,
-        value: decodeURIComponent(value),
-        domain,
-        ...expires && {
-            expires: new Date(expires)
-        },
-        ...httponly && {
-            httpOnly: true
-        },
-        ...typeof maxage === "string" && {
-            maxAge: Number(maxage)
-        },
-        path,
-        ...samesite && {
-            sameSite: parseSameSite(samesite)
-        },
-        ...secure && {
-            secure: true
-        }
-    };
-    return compact(cookie);
-}
-function compact(t) {
-    const newT = {};
-    for(const key in t){
-        if (t[key]) {
-            newT[key] = t[key];
-        }
-    }
-    return newT;
-}
-var SAME_SITE = [
-    "strict",
-    "lax",
-    "none"
-];
-function parseSameSite(string) {
-    string = string.toLowerCase();
-    return SAME_SITE.includes(string) ? string : void 0;
-}
-// src/request-cookies.ts
-var RequestCookies = class {
-    constructor(requestHeaders){
-        /** @internal */ this._parsed = /* @__PURE__ */ new Map();
-        this._headers = requestHeaders;
-        const header = requestHeaders.get("cookie");
-        if (header) {
-            const parsed = parseCookieString(header);
-            for (const [name, value] of parsed){
-                this._parsed.set(name, {
-                    name,
-                    value
-                });
-            }
-        }
-    }
-    [Symbol.iterator]() {
-        return this._parsed[Symbol.iterator]();
-    }
-    /**
-   * The amount of cookies received from the client
-   */ get size() {
-        return this._parsed.size;
-    }
-    get(...args) {
-        const name = typeof args[0] === "string" ? args[0] : args[0].name;
-        return this._parsed.get(name);
-    }
-    getAll(...args) {
-        var _a;
-        const all = Array.from(this._parsed);
-        if (!args.length) {
-            return all.map(([_, value])=>value);
-        }
-        const name = typeof args[0] === "string" ? args[0] : (_a = args[0]) == null ? void 0 : _a.name;
-        return all.filter(([n])=>n === name).map(([_, value])=>value);
-    }
-    has(name) {
-        return this._parsed.has(name);
-    }
-    set(...args) {
-        const [name, value] = args.length === 1 ? [
-            args[0].name,
-            args[0].value
-        ] : args;
-        const map = this._parsed;
-        map.set(name, {
-            name,
-            value
-        });
-        this._headers.set("cookie", Array.from(map).map(([_, value2])=>serialize(value2)).join("; "));
-        return this;
-    }
-    /**
-   * Delete the cookies matching the passed name or names in the request.
-   */ delete(names) {
-        const map = this._parsed;
-        const result = !Array.isArray(names) ? map.delete(names) : names.map((name)=>map.delete(name));
-        this._headers.set("cookie", Array.from(map).map(([_, value])=>serialize(value)).join("; "));
-        return result;
-    }
-    /**
-   * Delete all the cookies in the cookies in the request.
-   */ clear() {
-        this.delete(Array.from(this._parsed.keys()));
-        return this;
-    }
-    /**
-   * Format the cookies in the request as a string for logging
-   */ [Symbol.for("edge-runtime.inspect.custom")]() {
-        return `RequestCookies ${JSON.stringify(Object.fromEntries(this._parsed))}`;
-    }
-    toString() {
-        return [
-            ...this._parsed.values()
-        ].map((v)=>`${v.name}=${encodeURIComponent(v.value)}`).join("; ");
-    }
-};
-// src/response-cookies.ts
-var ResponseCookies = class {
-    constructor(responseHeaders){
-        /** @internal */ this._parsed = /* @__PURE__ */ new Map();
-        var _a, _b, _c;
-        this._headers = responseHeaders;
-        const setCookie = // @ts-expect-error See https://github.com/whatwg/fetch/issues/973
-        (_c = (_b = (_a = responseHeaders.getAll) == null ? void 0 : _a.call(responseHeaders, "set-cookie")) != null ? _b : responseHeaders.get("set-cookie")) != null ? _c : [];
-        const cookieStrings = Array.isArray(setCookie) ? setCookie : splitCookiesString(setCookie);
-        for (const cookieString of cookieStrings){
-            const parsed = parseSetCookieString(cookieString);
-            if (parsed) this._parsed.set(parsed.name, parsed);
-        }
-    }
-    /**
-   * {@link https://wicg.github.io/cookie-store/#CookieStore-get CookieStore#get} without the Promise.
-   */ get(...args) {
-        const key = typeof args[0] === "string" ? args[0] : args[0].name;
-        return this._parsed.get(key);
-    }
-    /**
-   * {@link https://wicg.github.io/cookie-store/#CookieStore-getAll CookieStore#getAll} without the Promise.
-   */ getAll(...args) {
-        var _a;
-        const all = Array.from(this._parsed.values());
-        if (!args.length) {
-            return all;
-        }
-        const key = typeof args[0] === "string" ? args[0] : (_a = args[0]) == null ? void 0 : _a.name;
-        return all.filter((c)=>c.name === key);
-    }
-    /**
-   * {@link https://wicg.github.io/cookie-store/#CookieStore-set CookieStore#set} without the Promise.
-   */ set(...args) {
-        const [name, value, cookie] = args.length === 1 ? [
-            args[0].name,
-            args[0].value,
-            args[0]
-        ] : args;
-        const map = this._parsed;
-        map.set(name, normalizeCookie({
-            name,
-            value,
-            ...cookie
-        }));
-        replace(map, this._headers);
-        return this;
-    }
-    /**
-   * {@link https://wicg.github.io/cookie-store/#CookieStore-delete CookieStore#delete} without the Promise.
-   */ delete(...args) {
-        const name = typeof args[0] === "string" ? args[0] : args[0].name;
-        return this.set({
-            name,
-            value: "",
-            expires: /* @__PURE__ */ new Date(0)
-        });
-    }
-    [Symbol.for("edge-runtime.inspect.custom")]() {
-        return `ResponseCookies ${JSON.stringify(Object.fromEntries(this._parsed))}`;
-    }
-    toString() {
-        return [
-            ...this._parsed.values()
-        ].map(serialize).join("; ");
-    }
-};
-function replace(bag, headers) {
-    headers.delete("set-cookie");
-    for (const [, value] of bag){
-        const serialized = serialize(value);
-        headers.append("set-cookie", serialized);
-    }
-}
-function normalizeCookie(cookie = {
-    name: "",
-    value: ""
-}) {
-    if (typeof cookie.expires === "number") {
-        cookie.expires = new Date(cookie.expires);
-    }
-    if (cookie.maxAge) {
-        cookie.expires = new Date(Date.now() + cookie.maxAge * 1e3);
-    }
-    if (cookie.path === null || cookie.path === void 0) {
-        cookie.path = "/";
-    }
-    return cookie;
-}
-function splitCookiesString(cookiesString) {
-    if (!cookiesString) return [];
-    var cookiesStrings = [];
-    var pos = 0;
-    var start;
-    var ch;
-    var lastComma;
-    var nextStart;
-    var cookiesSeparatorFound;
-    function skipWhitespace() {
-        while(pos < cookiesString.length && /\s/.test(cookiesString.charAt(pos))){
-            pos += 1;
-        }
-        return pos < cookiesString.length;
-    }
-    function notSpecialChar() {
-        ch = cookiesString.charAt(pos);
-        return ch !== "=" && ch !== ";" && ch !== ",";
-    }
-    while(pos < cookiesString.length){
-        start = pos;
-        cookiesSeparatorFound = false;
-        while(skipWhitespace()){
-            ch = cookiesString.charAt(pos);
-            if (ch === ",") {
-                lastComma = pos;
-                pos += 1;
-                skipWhitespace();
-                nextStart = pos;
-                while(pos < cookiesString.length && notSpecialChar()){
-                    pos += 1;
-                }
-                if (pos < cookiesString.length && cookiesString.charAt(pos) === "=") {
-                    cookiesSeparatorFound = true;
-                    pos = nextStart;
-                    cookiesStrings.push(cookiesString.substring(start, lastComma));
-                    start = pos;
-                } else {
-                    pos = lastComma + 1;
-                }
-            } else {
-                pos += 1;
-            }
-        }
-        if (!cookiesSeparatorFound || pos >= cookiesString.length) {
-            cookiesStrings.push(cookiesString.substring(start, cookiesString.length));
-        }
-    }
-    return cookiesStrings;
-}
-// Annotate the CommonJS export names for ESM import in node:
-0 && (0);
-
-
-/***/ }),
-
-/***/ 1149:
-/***/ ((module) => {
-
-
-(()=>{
-    "use strict";
-    var e = {
-        339: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.ContextAPI = void 0;
-            const n = r(44);
-            const a = r(38);
-            const o = r(741);
-            const i = "context";
-            const c = new n.NoopContextManager;
-            class ContextAPI {
-                constructor(){}
-                static getInstance() {
-                    if (!this._instance) {
-                        this._instance = new ContextAPI;
-                    }
-                    return this._instance;
-                }
-                setGlobalContextManager(e) {
-                    return (0, a.registerGlobal)(i, e, o.DiagAPI.instance());
-                }
-                active() {
-                    return this._getContextManager().active();
-                }
-                with(e, t, r, ...n) {
-                    return this._getContextManager().with(e, t, r, ...n);
-                }
-                bind(e, t) {
-                    return this._getContextManager().bind(e, t);
-                }
-                _getContextManager() {
-                    return (0, a.getGlobal)(i) || c;
-                }
-                disable() {
-                    this._getContextManager().disable();
-                    (0, a.unregisterGlobal)(i, o.DiagAPI.instance());
-                }
-            }
-            t.ContextAPI = ContextAPI;
-        },
-        741: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.DiagAPI = void 0;
-            const n = r(144);
-            const a = r(871);
-            const o = r(133);
-            const i = r(38);
-            const c = "diag";
-            class DiagAPI {
-                constructor(){
-                    function _logProxy(e) {
-                        return function(...t) {
-                            const r = (0, i.getGlobal)("diag");
-                            if (!r) return;
-                            return r[e](...t);
-                        };
-                    }
-                    const e = this;
-                    const setLogger = (t, r = {
-                        logLevel: o.DiagLogLevel.INFO
-                    })=>{
-                        var n, c, s;
-                        if (t === e) {
-                            const t = new Error("Cannot use diag as the logger for itself. Please use a DiagLogger implementation like ConsoleDiagLogger or a custom implementation");
-                            e.error((n = t.stack) !== null && n !== void 0 ? n : t.message);
-                            return false;
-                        }
-                        if (typeof r === "number") {
-                            r = {
-                                logLevel: r
-                            };
-                        }
-                        const u = (0, i.getGlobal)("diag");
-                        const l = (0, a.createLogLevelDiagLogger)((c = r.logLevel) !== null && c !== void 0 ? c : o.DiagLogLevel.INFO, t);
-                        if (u && !r.suppressOverrideMessage) {
-                            const e = (s = (new Error).stack) !== null && s !== void 0 ? s : "<failed to generate stacktrace>";
-                            u.warn(`Current logger will be overwritten from ${e}`);
-                            l.warn(`Current logger will overwrite one already registered from ${e}`);
-                        }
-                        return (0, i.registerGlobal)("diag", l, e, true);
-                    };
-                    e.setLogger = setLogger;
-                    e.disable = ()=>{
-                        (0, i.unregisterGlobal)(c, e);
-                    };
-                    e.createComponentLogger = (e)=>new n.DiagComponentLogger(e);
-                    e.verbose = _logProxy("verbose");
-                    e.debug = _logProxy("debug");
-                    e.info = _logProxy("info");
-                    e.warn = _logProxy("warn");
-                    e.error = _logProxy("error");
-                }
-                static instance() {
-                    if (!this._instance) {
-                        this._instance = new DiagAPI;
-                    }
-                    return this._instance;
-                }
-            }
-            t.DiagAPI = DiagAPI;
-        },
-        128: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.MetricsAPI = void 0;
-            const n = r(333);
-            const a = r(38);
-            const o = r(741);
-            const i = "metrics";
-            class MetricsAPI {
-                constructor(){}
-                static getInstance() {
-                    if (!this._instance) {
-                        this._instance = new MetricsAPI;
-                    }
-                    return this._instance;
-                }
-                setGlobalMeterProvider(e) {
-                    return (0, a.registerGlobal)(i, e, o.DiagAPI.instance());
-                }
-                getMeterProvider() {
-                    return (0, a.getGlobal)(i) || n.NOOP_METER_PROVIDER;
-                }
-                getMeter(e, t, r) {
-                    return this.getMeterProvider().getMeter(e, t, r);
-                }
-                disable() {
-                    (0, a.unregisterGlobal)(i, o.DiagAPI.instance());
-                }
-            }
-            t.MetricsAPI = MetricsAPI;
-        },
-        930: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.PropagationAPI = void 0;
-            const n = r(38);
-            const a = r(600);
-            const o = r(625);
-            const i = r(377);
-            const c = r(701);
-            const s = r(741);
-            const u = "propagation";
-            const l = new a.NoopTextMapPropagator;
-            class PropagationAPI {
-                constructor(){
-                    this.createBaggage = c.createBaggage;
-                    this.getBaggage = i.getBaggage;
-                    this.getActiveBaggage = i.getActiveBaggage;
-                    this.setBaggage = i.setBaggage;
-                    this.deleteBaggage = i.deleteBaggage;
-                }
-                static getInstance() {
-                    if (!this._instance) {
-                        this._instance = new PropagationAPI;
-                    }
-                    return this._instance;
-                }
-                setGlobalPropagator(e) {
-                    return (0, n.registerGlobal)(u, e, s.DiagAPI.instance());
-                }
-                inject(e, t, r = o.defaultTextMapSetter) {
-                    return this._getGlobalPropagator().inject(e, t, r);
-                }
-                extract(e, t, r = o.defaultTextMapGetter) {
-                    return this._getGlobalPropagator().extract(e, t, r);
-                }
-                fields() {
-                    return this._getGlobalPropagator().fields();
-                }
-                disable() {
-                    (0, n.unregisterGlobal)(u, s.DiagAPI.instance());
-                }
-                _getGlobalPropagator() {
-                    return (0, n.getGlobal)(u) || l;
-                }
-            }
-            t.PropagationAPI = PropagationAPI;
-        },
-        967: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.TraceAPI = void 0;
-            const n = r(38);
-            const a = r(414);
-            const o = r(994);
-            const i = r(542);
-            const c = r(741);
-            const s = "trace";
-            class TraceAPI {
-                constructor(){
-                    this._proxyTracerProvider = new a.ProxyTracerProvider;
-                    this.wrapSpanContext = o.wrapSpanContext;
-                    this.isSpanContextValid = o.isSpanContextValid;
-                    this.deleteSpan = i.deleteSpan;
-                    this.getSpan = i.getSpan;
-                    this.getActiveSpan = i.getActiveSpan;
-                    this.getSpanContext = i.getSpanContext;
-                    this.setSpan = i.setSpan;
-                    this.setSpanContext = i.setSpanContext;
-                }
-                static getInstance() {
-                    if (!this._instance) {
-                        this._instance = new TraceAPI;
-                    }
-                    return this._instance;
-                }
-                setGlobalTracerProvider(e) {
-                    const t = (0, n.registerGlobal)(s, this._proxyTracerProvider, c.DiagAPI.instance());
-                    if (t) {
-                        this._proxyTracerProvider.setDelegate(e);
-                    }
-                    return t;
-                }
-                getTracerProvider() {
-                    return (0, n.getGlobal)(s) || this._proxyTracerProvider;
-                }
-                getTracer(e, t) {
-                    return this.getTracerProvider().getTracer(e, t);
-                }
-                disable() {
-                    (0, n.unregisterGlobal)(s, c.DiagAPI.instance());
-                    this._proxyTracerProvider = new a.ProxyTracerProvider;
-                }
-            }
-            t.TraceAPI = TraceAPI;
-        },
-        377: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.deleteBaggage = t.setBaggage = t.getActiveBaggage = t.getBaggage = void 0;
-            const n = r(339);
-            const a = r(421);
-            const o = (0, a.createContextKey)("OpenTelemetry Baggage Key");
-            function getBaggage(e) {
-                return e.getValue(o) || undefined;
-            }
-            t.getBaggage = getBaggage;
-            function getActiveBaggage() {
-                return getBaggage(n.ContextAPI.getInstance().active());
-            }
-            t.getActiveBaggage = getActiveBaggage;
-            function setBaggage(e, t) {
-                return e.setValue(o, t);
-            }
-            t.setBaggage = setBaggage;
-            function deleteBaggage(e) {
-                return e.deleteValue(o);
-            }
-            t.deleteBaggage = deleteBaggage;
-        },
-        496: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.BaggageImpl = void 0;
-            class BaggageImpl {
-                constructor(e){
-                    this._entries = e ? new Map(e) : new Map;
-                }
-                getEntry(e) {
-                    const t = this._entries.get(e);
-                    if (!t) {
-                        return undefined;
-                    }
-                    return Object.assign({}, t);
-                }
-                getAllEntries() {
-                    return Array.from(this._entries.entries()).map(([e, t])=>[
-                            e,
-                            t
-                        ]);
-                }
-                setEntry(e, t) {
-                    const r = new BaggageImpl(this._entries);
-                    r._entries.set(e, t);
-                    return r;
-                }
-                removeEntry(e) {
-                    const t = new BaggageImpl(this._entries);
-                    t._entries.delete(e);
-                    return t;
-                }
-                removeEntries(...e) {
-                    const t = new BaggageImpl(this._entries);
-                    for (const r of e){
-                        t._entries.delete(r);
-                    }
-                    return t;
-                }
-                clear() {
-                    return new BaggageImpl;
-                }
-            }
-            t.BaggageImpl = BaggageImpl;
-        },
-        817: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.baggageEntryMetadataSymbol = void 0;
-            t.baggageEntryMetadataSymbol = Symbol("BaggageEntryMetadata");
-        },
-        701: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.baggageEntryMetadataFromString = t.createBaggage = void 0;
-            const n = r(741);
-            const a = r(496);
-            const o = r(817);
-            const i = n.DiagAPI.instance();
-            function createBaggage(e = {}) {
-                return new a.BaggageImpl(new Map(Object.entries(e)));
-            }
-            t.createBaggage = createBaggage;
-            function baggageEntryMetadataFromString(e) {
-                if (typeof e !== "string") {
-                    i.error(`Cannot create baggage metadata from unknown type: ${typeof e}`);
-                    e = "";
-                }
-                return {
-                    __TYPE__: o.baggageEntryMetadataSymbol,
-                    toString () {
-                        return e;
-                    }
-                };
-            }
-            t.baggageEntryMetadataFromString = baggageEntryMetadataFromString;
-        },
-        388: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.context = void 0;
-            const n = r(339);
-            t.context = n.ContextAPI.getInstance();
-        },
-        44: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.NoopContextManager = void 0;
-            const n = r(421);
-            class NoopContextManager {
-                active() {
-                    return n.ROOT_CONTEXT;
-                }
-                with(e, t, r, ...n) {
-                    return t.call(r, ...n);
-                }
-                bind(e, t) {
-                    return t;
-                }
-                enable() {
-                    return this;
-                }
-                disable() {
-                    return this;
-                }
-            }
-            t.NoopContextManager = NoopContextManager;
-        },
-        421: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.ROOT_CONTEXT = t.createContextKey = void 0;
-            function createContextKey(e) {
-                return Symbol.for(e);
-            }
-            t.createContextKey = createContextKey;
-            class BaseContext {
-                constructor(e){
-                    const t = this;
-                    t._currentContext = e ? new Map(e) : new Map;
-                    t.getValue = (e)=>t._currentContext.get(e);
-                    t.setValue = (e, r)=>{
-                        const n = new BaseContext(t._currentContext);
-                        n._currentContext.set(e, r);
-                        return n;
-                    };
-                    t.deleteValue = (e)=>{
-                        const r = new BaseContext(t._currentContext);
-                        r._currentContext.delete(e);
-                        return r;
-                    };
-                }
-            }
-            t.ROOT_CONTEXT = new BaseContext;
-        },
-        920: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.diag = void 0;
-            const n = r(741);
-            t.diag = n.DiagAPI.instance();
-        },
-        144: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.DiagComponentLogger = void 0;
-            const n = r(38);
-            class DiagComponentLogger {
-                constructor(e){
-                    this._namespace = e.namespace || "DiagComponentLogger";
-                }
-                debug(...e) {
-                    return logProxy("debug", this._namespace, e);
-                }
-                error(...e) {
-                    return logProxy("error", this._namespace, e);
-                }
-                info(...e) {
-                    return logProxy("info", this._namespace, e);
-                }
-                warn(...e) {
-                    return logProxy("warn", this._namespace, e);
-                }
-                verbose(...e) {
-                    return logProxy("verbose", this._namespace, e);
-                }
-            }
-            t.DiagComponentLogger = DiagComponentLogger;
-            function logProxy(e, t, r) {
-                const a = (0, n.getGlobal)("diag");
-                if (!a) {
-                    return;
-                }
-                r.unshift(t);
-                return a[e](...r);
-            }
-        },
-        689: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.DiagConsoleLogger = void 0;
-            const r = [
-                {
-                    n: "error",
-                    c: "error"
-                },
-                {
-                    n: "warn",
-                    c: "warn"
-                },
-                {
-                    n: "info",
-                    c: "info"
-                },
-                {
-                    n: "debug",
-                    c: "debug"
-                },
-                {
-                    n: "verbose",
-                    c: "trace"
-                }
-            ];
-            class DiagConsoleLogger {
-                constructor(){
-                    function _consoleFunc(e) {
-                        return function(...t) {
-                            if (console) {
-                                let r = console[e];
-                                if (typeof r !== "function") {
-                                    r = console.log;
-                                }
-                                if (typeof r === "function") {
-                                    return r.apply(console, t);
-                                }
-                            }
-                        };
-                    }
-                    for(let e = 0; e < r.length; e++){
-                        this[r[e].n] = _consoleFunc(r[e].c);
-                    }
-                }
-            }
-            t.DiagConsoleLogger = DiagConsoleLogger;
-        },
-        871: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.createLogLevelDiagLogger = void 0;
-            const n = r(133);
-            function createLogLevelDiagLogger(e, t) {
-                if (e < n.DiagLogLevel.NONE) {
-                    e = n.DiagLogLevel.NONE;
-                } else if (e > n.DiagLogLevel.ALL) {
-                    e = n.DiagLogLevel.ALL;
-                }
-                t = t || {};
-                function _filterFunc(r, n) {
-                    const a = t[r];
-                    if (typeof a === "function" && e >= n) {
-                        return a.bind(t);
-                    }
-                    return function() {};
-                }
-                return {
-                    error: _filterFunc("error", n.DiagLogLevel.ERROR),
-                    warn: _filterFunc("warn", n.DiagLogLevel.WARN),
-                    info: _filterFunc("info", n.DiagLogLevel.INFO),
-                    debug: _filterFunc("debug", n.DiagLogLevel.DEBUG),
-                    verbose: _filterFunc("verbose", n.DiagLogLevel.VERBOSE)
-                };
-            }
-            t.createLogLevelDiagLogger = createLogLevelDiagLogger;
-        },
-        133: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.DiagLogLevel = void 0;
-            var r;
-            (function(e) {
-                e[e["NONE"] = 0] = "NONE";
-                e[e["ERROR"] = 30] = "ERROR";
-                e[e["WARN"] = 50] = "WARN";
-                e[e["INFO"] = 60] = "INFO";
-                e[e["DEBUG"] = 70] = "DEBUG";
-                e[e["VERBOSE"] = 80] = "VERBOSE";
-                e[e["ALL"] = 9999] = "ALL";
-            })(r = t.DiagLogLevel || (t.DiagLogLevel = {}));
-        },
-        38: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.unregisterGlobal = t.getGlobal = t.registerGlobal = void 0;
-            const n = r(966);
-            const a = r(520);
-            const o = r(565);
-            const i = a.VERSION.split(".")[0];
-            const c = Symbol.for(`opentelemetry.js.api.${i}`);
-            const s = n._globalThis;
-            function registerGlobal(e, t, r, n = false) {
-                var o;
-                const i = s[c] = (o = s[c]) !== null && o !== void 0 ? o : {
-                    version: a.VERSION
-                };
-                if (!n && i[e]) {
-                    const t = new Error(`@opentelemetry/api: Attempted duplicate registration of API: ${e}`);
-                    r.error(t.stack || t.message);
-                    return false;
-                }
-                if (i.version !== a.VERSION) {
-                    const t = new Error(`@opentelemetry/api: Registration of version v${i.version} for ${e} does not match previously registered API v${a.VERSION}`);
-                    r.error(t.stack || t.message);
-                    return false;
-                }
-                i[e] = t;
-                r.debug(`@opentelemetry/api: Registered a global for ${e} v${a.VERSION}.`);
-                return true;
-            }
-            t.registerGlobal = registerGlobal;
-            function getGlobal(e) {
-                var t, r;
-                const n = (t = s[c]) === null || t === void 0 ? void 0 : t.version;
-                if (!n || !(0, o.isCompatible)(n)) {
-                    return;
-                }
-                return (r = s[c]) === null || r === void 0 ? void 0 : r[e];
-            }
-            t.getGlobal = getGlobal;
-            function unregisterGlobal(e, t) {
-                t.debug(`@opentelemetry/api: Unregistering a global for ${e} v${a.VERSION}.`);
-                const r = s[c];
-                if (r) {
-                    delete r[e];
-                }
-            }
-            t.unregisterGlobal = unregisterGlobal;
-        },
-        565: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.isCompatible = t._makeCompatibilityCheck = void 0;
-            const n = r(520);
-            const a = /^(\d+)\.(\d+)\.(\d+)(-(.+))?$/;
-            function _makeCompatibilityCheck(e) {
-                const t = new Set([
-                    e
-                ]);
-                const r = new Set;
-                const n = e.match(a);
-                if (!n) {
-                    return ()=>false;
-                }
-                const o = {
-                    major: +n[1],
-                    minor: +n[2],
-                    patch: +n[3],
-                    prerelease: n[4]
-                };
-                if (o.prerelease != null) {
-                    return function isExactmatch(t) {
-                        return t === e;
-                    };
-                }
-                function _reject(e) {
-                    r.add(e);
-                    return false;
-                }
-                function _accept(e) {
-                    t.add(e);
-                    return true;
-                }
-                return function isCompatible(e) {
-                    if (t.has(e)) {
-                        return true;
-                    }
-                    if (r.has(e)) {
-                        return false;
-                    }
-                    const n = e.match(a);
-                    if (!n) {
-                        return _reject(e);
-                    }
-                    const i = {
-                        major: +n[1],
-                        minor: +n[2],
-                        patch: +n[3],
-                        prerelease: n[4]
-                    };
-                    if (i.prerelease != null) {
-                        return _reject(e);
-                    }
-                    if (o.major !== i.major) {
-                        return _reject(e);
-                    }
-                    if (o.major === 0) {
-                        if (o.minor === i.minor && o.patch <= i.patch) {
-                            return _accept(e);
-                        }
-                        return _reject(e);
-                    }
-                    if (o.minor <= i.minor) {
-                        return _accept(e);
-                    }
-                    return _reject(e);
-                };
-            }
-            t._makeCompatibilityCheck = _makeCompatibilityCheck;
-            t.isCompatible = _makeCompatibilityCheck(n.VERSION);
-        },
-        934: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.metrics = void 0;
-            const n = r(128);
-            t.metrics = n.MetricsAPI.getInstance();
-        },
-        28: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.ValueType = void 0;
-            var r;
-            (function(e) {
-                e[e["INT"] = 0] = "INT";
-                e[e["DOUBLE"] = 1] = "DOUBLE";
-            })(r = t.ValueType || (t.ValueType = {}));
-        },
-        962: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.createNoopMeter = t.NOOP_OBSERVABLE_UP_DOWN_COUNTER_METRIC = t.NOOP_OBSERVABLE_GAUGE_METRIC = t.NOOP_OBSERVABLE_COUNTER_METRIC = t.NOOP_UP_DOWN_COUNTER_METRIC = t.NOOP_HISTOGRAM_METRIC = t.NOOP_COUNTER_METRIC = t.NOOP_METER = t.NoopObservableUpDownCounterMetric = t.NoopObservableGaugeMetric = t.NoopObservableCounterMetric = t.NoopObservableMetric = t.NoopHistogramMetric = t.NoopUpDownCounterMetric = t.NoopCounterMetric = t.NoopMetric = t.NoopMeter = void 0;
-            class NoopMeter {
-                constructor(){}
-                createHistogram(e, r) {
-                    return t.NOOP_HISTOGRAM_METRIC;
-                }
-                createCounter(e, r) {
-                    return t.NOOP_COUNTER_METRIC;
-                }
-                createUpDownCounter(e, r) {
-                    return t.NOOP_UP_DOWN_COUNTER_METRIC;
-                }
-                createObservableGauge(e, r) {
-                    return t.NOOP_OBSERVABLE_GAUGE_METRIC;
-                }
-                createObservableCounter(e, r) {
-                    return t.NOOP_OBSERVABLE_COUNTER_METRIC;
-                }
-                createObservableUpDownCounter(e, r) {
-                    return t.NOOP_OBSERVABLE_UP_DOWN_COUNTER_METRIC;
-                }
-                addBatchObservableCallback(e, t) {}
-                removeBatchObservableCallback(e) {}
-            }
-            t.NoopMeter = NoopMeter;
-            class NoopMetric {
-            }
-            t.NoopMetric = NoopMetric;
-            class NoopCounterMetric extends NoopMetric {
-                add(e, t) {}
-            }
-            t.NoopCounterMetric = NoopCounterMetric;
-            class NoopUpDownCounterMetric extends NoopMetric {
-                add(e, t) {}
-            }
-            t.NoopUpDownCounterMetric = NoopUpDownCounterMetric;
-            class NoopHistogramMetric extends NoopMetric {
-                record(e, t) {}
-            }
-            t.NoopHistogramMetric = NoopHistogramMetric;
-            class NoopObservableMetric {
-                addCallback(e) {}
-                removeCallback(e) {}
-            }
-            t.NoopObservableMetric = NoopObservableMetric;
-            class NoopObservableCounterMetric extends NoopObservableMetric {
-            }
-            t.NoopObservableCounterMetric = NoopObservableCounterMetric;
-            class NoopObservableGaugeMetric extends NoopObservableMetric {
-            }
-            t.NoopObservableGaugeMetric = NoopObservableGaugeMetric;
-            class NoopObservableUpDownCounterMetric extends NoopObservableMetric {
-            }
-            t.NoopObservableUpDownCounterMetric = NoopObservableUpDownCounterMetric;
-            t.NOOP_METER = new NoopMeter;
-            t.NOOP_COUNTER_METRIC = new NoopCounterMetric;
-            t.NOOP_HISTOGRAM_METRIC = new NoopHistogramMetric;
-            t.NOOP_UP_DOWN_COUNTER_METRIC = new NoopUpDownCounterMetric;
-            t.NOOP_OBSERVABLE_COUNTER_METRIC = new NoopObservableCounterMetric;
-            t.NOOP_OBSERVABLE_GAUGE_METRIC = new NoopObservableGaugeMetric;
-            t.NOOP_OBSERVABLE_UP_DOWN_COUNTER_METRIC = new NoopObservableUpDownCounterMetric;
-            function createNoopMeter() {
-                return t.NOOP_METER;
-            }
-            t.createNoopMeter = createNoopMeter;
-        },
-        333: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.NOOP_METER_PROVIDER = t.NoopMeterProvider = void 0;
-            const n = r(962);
-            class NoopMeterProvider {
-                getMeter(e, t, r) {
-                    return n.NOOP_METER;
-                }
-            }
-            t.NoopMeterProvider = NoopMeterProvider;
-            t.NOOP_METER_PROVIDER = new NoopMeterProvider;
-        },
-        966: function(e, t, r) {
-            var n = this && this.__createBinding || (Object.create ? function(e, t, r, n) {
-                if (n === undefined) n = r;
-                Object.defineProperty(e, n, {
-                    enumerable: true,
-                    get: function() {
-                        return t[r];
-                    }
-                });
-            } : function(e, t, r, n) {
-                if (n === undefined) n = r;
-                e[n] = t[r];
-            });
-            var a = this && this.__exportStar || function(e, t) {
-                for(var r in e)if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) n(t, e, r);
-            };
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            a(r(652), t);
-        },
-        385: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t._globalThis = void 0;
-            t._globalThis = typeof globalThis === "object" ? globalThis : global;
-        },
-        652: function(e, t, r) {
-            var n = this && this.__createBinding || (Object.create ? function(e, t, r, n) {
-                if (n === undefined) n = r;
-                Object.defineProperty(e, n, {
-                    enumerable: true,
-                    get: function() {
-                        return t[r];
-                    }
-                });
-            } : function(e, t, r, n) {
-                if (n === undefined) n = r;
-                e[n] = t[r];
-            });
-            var a = this && this.__exportStar || function(e, t) {
-                for(var r in e)if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) n(t, e, r);
-            };
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            a(r(385), t);
-        },
-        251: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.propagation = void 0;
-            const n = r(930);
-            t.propagation = n.PropagationAPI.getInstance();
-        },
-        600: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.NoopTextMapPropagator = void 0;
-            class NoopTextMapPropagator {
-                inject(e, t) {}
-                extract(e, t) {
-                    return e;
-                }
-                fields() {
-                    return [];
-                }
-            }
-            t.NoopTextMapPropagator = NoopTextMapPropagator;
-        },
-        625: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.defaultTextMapSetter = t.defaultTextMapGetter = void 0;
-            t.defaultTextMapGetter = {
-                get (e, t) {
-                    if (e == null) {
-                        return undefined;
-                    }
-                    return e[t];
-                },
-                keys (e) {
-                    if (e == null) {
-                        return [];
-                    }
-                    return Object.keys(e);
-                }
-            };
-            t.defaultTextMapSetter = {
-                set (e, t, r) {
-                    if (e == null) {
-                        return;
-                    }
-                    e[t] = r;
-                }
-            };
-        },
-        978: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.trace = void 0;
-            const n = r(967);
-            t.trace = n.TraceAPI.getInstance();
-        },
-        76: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.NonRecordingSpan = void 0;
-            const n = r(304);
-            class NonRecordingSpan {
-                constructor(e = n.INVALID_SPAN_CONTEXT){
-                    this._spanContext = e;
-                }
-                spanContext() {
-                    return this._spanContext;
-                }
-                setAttribute(e, t) {
-                    return this;
-                }
-                setAttributes(e) {
-                    return this;
-                }
-                addEvent(e, t) {
-                    return this;
-                }
-                setStatus(e) {
-                    return this;
-                }
-                updateName(e) {
-                    return this;
-                }
-                end(e) {}
-                isRecording() {
-                    return false;
-                }
-                recordException(e, t) {}
-            }
-            t.NonRecordingSpan = NonRecordingSpan;
-        },
-        527: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.NoopTracer = void 0;
-            const n = r(339);
-            const a = r(542);
-            const o = r(76);
-            const i = r(994);
-            const c = n.ContextAPI.getInstance();
-            class NoopTracer {
-                startSpan(e, t, r = c.active()) {
-                    const n = Boolean(t === null || t === void 0 ? void 0 : t.root);
-                    if (n) {
-                        return new o.NonRecordingSpan;
-                    }
-                    const s = r && (0, a.getSpanContext)(r);
-                    if (isSpanContext(s) && (0, i.isSpanContextValid)(s)) {
-                        return new o.NonRecordingSpan(s);
-                    } else {
-                        return new o.NonRecordingSpan;
-                    }
-                }
-                startActiveSpan(e, t, r, n) {
-                    let o;
-                    let i;
-                    let s;
-                    if (arguments.length < 2) {
-                        return;
-                    } else if (arguments.length === 2) {
-                        s = t;
-                    } else if (arguments.length === 3) {
-                        o = t;
-                        s = r;
-                    } else {
-                        o = t;
-                        i = r;
-                        s = n;
-                    }
-                    const u = i !== null && i !== void 0 ? i : c.active();
-                    const l = this.startSpan(e, o, u);
-                    const g = (0, a.setSpan)(u, l);
-                    return c.with(g, s, undefined, l);
-                }
-            }
-            t.NoopTracer = NoopTracer;
-            function isSpanContext(e) {
-                return typeof e === "object" && typeof e["spanId"] === "string" && typeof e["traceId"] === "string" && typeof e["traceFlags"] === "number";
-            }
-        },
-        228: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.NoopTracerProvider = void 0;
-            const n = r(527);
-            class NoopTracerProvider {
-                getTracer(e, t, r) {
-                    return new n.NoopTracer;
-                }
-            }
-            t.NoopTracerProvider = NoopTracerProvider;
-        },
-        387: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.ProxyTracer = void 0;
-            const n = r(527);
-            const a = new n.NoopTracer;
-            class ProxyTracer {
-                constructor(e, t, r, n){
-                    this._provider = e;
-                    this.name = t;
-                    this.version = r;
-                    this.options = n;
-                }
-                startSpan(e, t, r) {
-                    return this._getTracer().startSpan(e, t, r);
-                }
-                startActiveSpan(e, t, r, n) {
-                    const a = this._getTracer();
-                    return Reflect.apply(a.startActiveSpan, a, arguments);
-                }
-                _getTracer() {
-                    if (this._delegate) {
-                        return this._delegate;
-                    }
-                    const e = this._provider.getDelegateTracer(this.name, this.version, this.options);
-                    if (!e) {
-                        return a;
-                    }
-                    this._delegate = e;
-                    return this._delegate;
-                }
-            }
-            t.ProxyTracer = ProxyTracer;
-        },
-        414: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.ProxyTracerProvider = void 0;
-            const n = r(387);
-            const a = r(228);
-            const o = new a.NoopTracerProvider;
-            class ProxyTracerProvider {
-                getTracer(e, t, r) {
-                    var a;
-                    return (a = this.getDelegateTracer(e, t, r)) !== null && a !== void 0 ? a : new n.ProxyTracer(this, e, t, r);
-                }
-                getDelegate() {
-                    var e;
-                    return (e = this._delegate) !== null && e !== void 0 ? e : o;
-                }
-                setDelegate(e) {
-                    this._delegate = e;
-                }
-                getDelegateTracer(e, t, r) {
-                    var n;
-                    return (n = this._delegate) === null || n === void 0 ? void 0 : n.getTracer(e, t, r);
-                }
-            }
-            t.ProxyTracerProvider = ProxyTracerProvider;
-        },
-        505: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.SamplingDecision = void 0;
-            var r;
-            (function(e) {
-                e[e["NOT_RECORD"] = 0] = "NOT_RECORD";
-                e[e["RECORD"] = 1] = "RECORD";
-                e[e["RECORD_AND_SAMPLED"] = 2] = "RECORD_AND_SAMPLED";
-            })(r = t.SamplingDecision || (t.SamplingDecision = {}));
-        },
-        542: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.getSpanContext = t.setSpanContext = t.deleteSpan = t.setSpan = t.getActiveSpan = t.getSpan = void 0;
-            const n = r(421);
-            const a = r(76);
-            const o = r(339);
-            const i = (0, n.createContextKey)("OpenTelemetry Context Key SPAN");
-            function getSpan(e) {
-                return e.getValue(i) || undefined;
-            }
-            t.getSpan = getSpan;
-            function getActiveSpan() {
-                return getSpan(o.ContextAPI.getInstance().active());
-            }
-            t.getActiveSpan = getActiveSpan;
-            function setSpan(e, t) {
-                return e.setValue(i, t);
-            }
-            t.setSpan = setSpan;
-            function deleteSpan(e) {
-                return e.deleteValue(i);
-            }
-            t.deleteSpan = deleteSpan;
-            function setSpanContext(e, t) {
-                return setSpan(e, new a.NonRecordingSpan(t));
-            }
-            t.setSpanContext = setSpanContext;
-            function getSpanContext(e) {
-                var t;
-                return (t = getSpan(e)) === null || t === void 0 ? void 0 : t.spanContext();
-            }
-            t.getSpanContext = getSpanContext;
-        },
-        430: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.TraceStateImpl = void 0;
-            const n = r(450);
-            const a = 32;
-            const o = 512;
-            const i = ",";
-            const c = "=";
-            class TraceStateImpl {
-                constructor(e){
-                    this._internalState = new Map;
-                    if (e) this._parse(e);
-                }
-                set(e, t) {
-                    const r = this._clone();
-                    if (r._internalState.has(e)) {
-                        r._internalState.delete(e);
-                    }
-                    r._internalState.set(e, t);
-                    return r;
-                }
-                unset(e) {
-                    const t = this._clone();
-                    t._internalState.delete(e);
-                    return t;
-                }
-                get(e) {
-                    return this._internalState.get(e);
-                }
-                serialize() {
-                    return this._keys().reduce((e, t)=>{
-                        e.push(t + c + this.get(t));
-                        return e;
-                    }, []).join(i);
-                }
-                _parse(e) {
-                    if (e.length > o) return;
-                    this._internalState = e.split(i).reverse().reduce((e, t)=>{
-                        const r = t.trim();
-                        const a = r.indexOf(c);
-                        if (a !== -1) {
-                            const o = r.slice(0, a);
-                            const i = r.slice(a + 1, t.length);
-                            if ((0, n.validateKey)(o) && (0, n.validateValue)(i)) {
-                                e.set(o, i);
-                            } else {}
-                        }
-                        return e;
-                    }, new Map);
-                    if (this._internalState.size > a) {
-                        this._internalState = new Map(Array.from(this._internalState.entries()).reverse().slice(0, a));
-                    }
-                }
-                _keys() {
-                    return Array.from(this._internalState.keys()).reverse();
-                }
-                _clone() {
-                    const e = new TraceStateImpl;
-                    e._internalState = new Map(this._internalState);
-                    return e;
-                }
-            }
-            t.TraceStateImpl = TraceStateImpl;
-        },
-        450: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.validateValue = t.validateKey = void 0;
-            const r = "[_0-9a-z-*/]";
-            const n = `[a-z]${r}{0,255}`;
-            const a = `[a-z0-9]${r}{0,240}@[a-z]${r}{0,13}`;
-            const o = new RegExp(`^(?:${n}|${a})$`);
-            const i = /^[ -~]{0,255}[!-~]$/;
-            const c = /,|=/;
-            function validateKey(e) {
-                return o.test(e);
-            }
-            t.validateKey = validateKey;
-            function validateValue(e) {
-                return i.test(e) && !c.test(e);
-            }
-            t.validateValue = validateValue;
-        },
-        757: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.createTraceState = void 0;
-            const n = r(430);
-            function createTraceState(e) {
-                return new n.TraceStateImpl(e);
-            }
-            t.createTraceState = createTraceState;
-        },
-        304: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.INVALID_SPAN_CONTEXT = t.INVALID_TRACEID = t.INVALID_SPANID = void 0;
-            const n = r(762);
-            t.INVALID_SPANID = "0000000000000000";
-            t.INVALID_TRACEID = "00000000000000000000000000000000";
-            t.INVALID_SPAN_CONTEXT = {
-                traceId: t.INVALID_TRACEID,
-                spanId: t.INVALID_SPANID,
-                traceFlags: n.TraceFlags.NONE
-            };
-        },
-        902: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.SpanKind = void 0;
-            var r;
-            (function(e) {
-                e[e["INTERNAL"] = 0] = "INTERNAL";
-                e[e["SERVER"] = 1] = "SERVER";
-                e[e["CLIENT"] = 2] = "CLIENT";
-                e[e["PRODUCER"] = 3] = "PRODUCER";
-                e[e["CONSUMER"] = 4] = "CONSUMER";
-            })(r = t.SpanKind || (t.SpanKind = {}));
-        },
-        994: (e, t, r)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.wrapSpanContext = t.isSpanContextValid = t.isValidSpanId = t.isValidTraceId = void 0;
-            const n = r(304);
-            const a = r(76);
-            const o = /^([0-9a-f]{32})$/i;
-            const i = /^[0-9a-f]{16}$/i;
-            function isValidTraceId(e) {
-                return o.test(e) && e !== n.INVALID_TRACEID;
-            }
-            t.isValidTraceId = isValidTraceId;
-            function isValidSpanId(e) {
-                return i.test(e) && e !== n.INVALID_SPANID;
-            }
-            t.isValidSpanId = isValidSpanId;
-            function isSpanContextValid(e) {
-                return isValidTraceId(e.traceId) && isValidSpanId(e.spanId);
-            }
-            t.isSpanContextValid = isSpanContextValid;
-            function wrapSpanContext(e) {
-                return new a.NonRecordingSpan(e);
-            }
-            t.wrapSpanContext = wrapSpanContext;
-        },
-        832: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.SpanStatusCode = void 0;
-            var r;
-            (function(e) {
-                e[e["UNSET"] = 0] = "UNSET";
-                e[e["OK"] = 1] = "OK";
-                e[e["ERROR"] = 2] = "ERROR";
-            })(r = t.SpanStatusCode || (t.SpanStatusCode = {}));
-        },
-        762: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.TraceFlags = void 0;
-            var r;
-            (function(e) {
-                e[e["NONE"] = 0] = "NONE";
-                e[e["SAMPLED"] = 1] = "SAMPLED";
-            })(r = t.TraceFlags || (t.TraceFlags = {}));
-        },
-        520: (e, t)=>{
-            Object.defineProperty(t, "__esModule", {
-                value: true
-            });
-            t.VERSION = void 0;
-            t.VERSION = "1.4.1";
-        }
-    };
-    var t = {};
-    function __nccwpck_require__(r) {
-        var n = t[r];
-        if (n !== undefined) {
-            return n.exports;
-        }
-        var a = t[r] = {
-            exports: {}
-        };
-        var o = true;
-        try {
-            e[r].call(a.exports, a, a.exports, __nccwpck_require__);
-            o = false;
-        } finally{
-            if (o) delete t[r];
-        }
-        return a.exports;
-    }
-    if (typeof __nccwpck_require__ !== "undefined") __nccwpck_require__.ab = __dirname + "/";
-    var r = {};
-    (()=>{
-        var e = r;
-        Object.defineProperty(e, "__esModule", {
-            value: true
-        });
-        e.trace = e.propagation = e.metrics = e.diag = e.context = e.INVALID_SPAN_CONTEXT = e.INVALID_TRACEID = e.INVALID_SPANID = e.isValidSpanId = e.isValidTraceId = e.isSpanContextValid = e.createTraceState = e.TraceFlags = e.SpanStatusCode = e.SpanKind = e.SamplingDecision = e.ProxyTracerProvider = e.ProxyTracer = e.defaultTextMapSetter = e.defaultTextMapGetter = e.ValueType = e.createNoopMeter = e.DiagLogLevel = e.DiagConsoleLogger = e.ROOT_CONTEXT = e.createContextKey = e.baggageEntryMetadataFromString = void 0;
-        var t = __nccwpck_require__(701);
-        Object.defineProperty(e, "baggageEntryMetadataFromString", {
-            enumerable: true,
-            get: function() {
-                return t.baggageEntryMetadataFromString;
-            }
-        });
-        var n = __nccwpck_require__(421);
-        Object.defineProperty(e, "createContextKey", {
-            enumerable: true,
-            get: function() {
-                return n.createContextKey;
-            }
-        });
-        Object.defineProperty(e, "ROOT_CONTEXT", {
-            enumerable: true,
-            get: function() {
-                return n.ROOT_CONTEXT;
-            }
-        });
-        var a = __nccwpck_require__(689);
-        Object.defineProperty(e, "DiagConsoleLogger", {
-            enumerable: true,
-            get: function() {
-                return a.DiagConsoleLogger;
-            }
-        });
-        var o = __nccwpck_require__(133);
-        Object.defineProperty(e, "DiagLogLevel", {
-            enumerable: true,
-            get: function() {
-                return o.DiagLogLevel;
-            }
-        });
-        var i = __nccwpck_require__(962);
-        Object.defineProperty(e, "createNoopMeter", {
-            enumerable: true,
-            get: function() {
-                return i.createNoopMeter;
-            }
-        });
-        var c = __nccwpck_require__(28);
-        Object.defineProperty(e, "ValueType", {
-            enumerable: true,
-            get: function() {
-                return c.ValueType;
-            }
-        });
-        var s = __nccwpck_require__(625);
-        Object.defineProperty(e, "defaultTextMapGetter", {
-            enumerable: true,
-            get: function() {
-                return s.defaultTextMapGetter;
-            }
-        });
-        Object.defineProperty(e, "defaultTextMapSetter", {
-            enumerable: true,
-            get: function() {
-                return s.defaultTextMapSetter;
-            }
-        });
-        var u = __nccwpck_require__(387);
-        Object.defineProperty(e, "ProxyTracer", {
-            enumerable: true,
-            get: function() {
-                return u.ProxyTracer;
-            }
-        });
-        var l = __nccwpck_require__(414);
-        Object.defineProperty(e, "ProxyTracerProvider", {
-            enumerable: true,
-            get: function() {
-                return l.ProxyTracerProvider;
-            }
-        });
-        var g = __nccwpck_require__(505);
-        Object.defineProperty(e, "SamplingDecision", {
-            enumerable: true,
-            get: function() {
-                return g.SamplingDecision;
-            }
-        });
-        var p = __nccwpck_require__(902);
-        Object.defineProperty(e, "SpanKind", {
-            enumerable: true,
-            get: function() {
-                return p.SpanKind;
-            }
-        });
-        var d = __nccwpck_require__(832);
-        Object.defineProperty(e, "SpanStatusCode", {
-            enumerable: true,
-            get: function() {
-                return d.SpanStatusCode;
-            }
-        });
-        var _ = __nccwpck_require__(762);
-        Object.defineProperty(e, "TraceFlags", {
-            enumerable: true,
-            get: function() {
-                return _.TraceFlags;
-            }
-        });
-        var f = __nccwpck_require__(757);
-        Object.defineProperty(e, "createTraceState", {
-            enumerable: true,
-            get: function() {
-                return f.createTraceState;
-            }
-        });
-        var b = __nccwpck_require__(994);
-        Object.defineProperty(e, "isSpanContextValid", {
-            enumerable: true,
-            get: function() {
-                return b.isSpanContextValid;
-            }
-        });
-        Object.defineProperty(e, "isValidTraceId", {
-            enumerable: true,
-            get: function() {
-                return b.isValidTraceId;
-            }
-        });
-        Object.defineProperty(e, "isValidSpanId", {
-            enumerable: true,
-            get: function() {
-                return b.isValidSpanId;
-            }
-        });
-        var v = __nccwpck_require__(304);
-        Object.defineProperty(e, "INVALID_SPANID", {
-            enumerable: true,
-            get: function() {
-                return v.INVALID_SPANID;
-            }
-        });
-        Object.defineProperty(e, "INVALID_TRACEID", {
-            enumerable: true,
-            get: function() {
-                return v.INVALID_TRACEID;
-            }
-        });
-        Object.defineProperty(e, "INVALID_SPAN_CONTEXT", {
-            enumerable: true,
-            get: function() {
-                return v.INVALID_SPAN_CONTEXT;
-            }
-        });
-        const O = __nccwpck_require__(388);
-        Object.defineProperty(e, "context", {
-            enumerable: true,
-            get: function() {
-                return O.context;
-            }
-        });
-        const P = __nccwpck_require__(920);
-        Object.defineProperty(e, "diag", {
-            enumerable: true,
-            get: function() {
-                return P.diag;
-            }
-        });
-        const N = __nccwpck_require__(934);
-        Object.defineProperty(e, "metrics", {
-            enumerable: true,
-            get: function() {
-                return N.metrics;
-            }
-        });
-        const S = __nccwpck_require__(251);
-        Object.defineProperty(e, "propagation", {
-            enumerable: true,
-            get: function() {
-                return S.propagation;
-            }
-        });
-        const C = __nccwpck_require__(978);
-        Object.defineProperty(e, "trace", {
-            enumerable: true,
-            get: function() {
-                return C.trace;
-            }
-        });
-        e["default"] = {
-            context: O.context,
-            diag: P.diag,
-            metrics: N.metrics,
-            propagation: S.propagation,
-            trace: C.trace
-        };
-    })();
-    module.exports = r;
-})();
-
-
-/***/ }),
-
-/***/ 2312:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-
-(()=>{
-    var r = {
-        535: (r, e, n)=>{
-            "use strict";
-            r = n.nmd(r);
-            const t = n(54);
-            const wrapAnsi16 = (r, e)=>function() {
-                    const n = r.apply(t, arguments);
-                    return `[${n + e}m`;
-                };
-            const wrapAnsi256 = (r, e)=>function() {
-                    const n = r.apply(t, arguments);
-                    return `[${38 + e};5;${n}m`;
-                };
-            const wrapAnsi16m = (r, e)=>function() {
-                    const n = r.apply(t, arguments);
-                    return `[${38 + e};2;${n[0]};${n[1]};${n[2]}m`;
-                };
-            function assembleStyles() {
-                const r = new Map;
-                const e = {
-                    modifier: {
-                        reset: [
-                            0,
-                            0
-                        ],
-                        bold: [
-                            1,
-                            22
-                        ],
-                        dim: [
-                            2,
-                            22
-                        ],
-                        italic: [
-                            3,
-                            23
-                        ],
-                        underline: [
-                            4,
-                            24
-                        ],
-                        inverse: [
-                            7,
-                            27
-                        ],
-                        hidden: [
-                            8,
-                            28
-                        ],
-                        strikethrough: [
-                            9,
-                            29
-                        ]
-                    },
-                    color: {
-                        black: [
-                            30,
-                            39
-                        ],
-                        red: [
-                            31,
-                            39
-                        ],
-                        green: [
-                            32,
-                            39
-                        ],
-                        yellow: [
-                            33,
-                            39
-                        ],
-                        blue: [
-                            34,
-                            39
-                        ],
-                        magenta: [
-                            35,
-                            39
-                        ],
-                        cyan: [
-                            36,
-                            39
-                        ],
-                        white: [
-                            37,
-                            39
-                        ],
-                        gray: [
-                            90,
-                            39
-                        ],
-                        redBright: [
-                            91,
-                            39
-                        ],
-                        greenBright: [
-                            92,
-                            39
-                        ],
-                        yellowBright: [
-                            93,
-                            39
-                        ],
-                        blueBright: [
-                            94,
-                            39
-                        ],
-                        magentaBright: [
-                            95,
-                            39
-                        ],
-                        cyanBright: [
-                            96,
-                            39
-                        ],
-                        whiteBright: [
-                            97,
-                            39
-                        ]
-                    },
-                    bgColor: {
-                        bgBlack: [
-                            40,
-                            49
-                        ],
-                        bgRed: [
-                            41,
-                            49
-                        ],
-                        bgGreen: [
-                            42,
-                            49
-                        ],
-                        bgYellow: [
-                            43,
-                            49
-                        ],
-                        bgBlue: [
-                            44,
-                            49
-                        ],
-                        bgMagenta: [
-                            45,
-                            49
-                        ],
-                        bgCyan: [
-                            46,
-                            49
-                        ],
-                        bgWhite: [
-                            47,
-                            49
-                        ],
-                        bgBlackBright: [
-                            100,
-                            49
-                        ],
-                        bgRedBright: [
-                            101,
-                            49
-                        ],
-                        bgGreenBright: [
-                            102,
-                            49
-                        ],
-                        bgYellowBright: [
-                            103,
-                            49
-                        ],
-                        bgBlueBright: [
-                            104,
-                            49
-                        ],
-                        bgMagentaBright: [
-                            105,
-                            49
-                        ],
-                        bgCyanBright: [
-                            106,
-                            49
-                        ],
-                        bgWhiteBright: [
-                            107,
-                            49
-                        ]
-                    }
-                };
-                e.color.grey = e.color.gray;
-                for (const n of Object.keys(e)){
-                    const t = e[n];
-                    for (const n of Object.keys(t)){
-                        const a = t[n];
-                        e[n] = {
-                            open: `[${a[0]}m`,
-                            close: `[${a[1]}m`
-                        };
-                        t[n] = e[n];
-                        r.set(a[0], a[1]);
-                    }
-                    Object.defineProperty(e, n, {
-                        value: t,
-                        enumerable: false
-                    });
-                    Object.defineProperty(e, "codes", {
-                        value: r,
-                        enumerable: false
-                    });
-                }
-                const ansi2ansi = (r)=>r;
-                const rgb2rgb = (r, e, n)=>[
-                        r,
-                        e,
-                        n
-                    ];
-                e.color.close = "\x1b[39m";
-                e.bgColor.close = "\x1b[49m";
-                e.color.ansi = {
-                    ansi: wrapAnsi16(ansi2ansi, 0)
-                };
-                e.color.ansi256 = {
-                    ansi256: wrapAnsi256(ansi2ansi, 0)
-                };
-                e.color.ansi16m = {
-                    rgb: wrapAnsi16m(rgb2rgb, 0)
-                };
-                e.bgColor.ansi = {
-                    ansi: wrapAnsi16(ansi2ansi, 10)
-                };
-                e.bgColor.ansi256 = {
-                    ansi256: wrapAnsi256(ansi2ansi, 10)
-                };
-                e.bgColor.ansi16m = {
-                    rgb: wrapAnsi16m(rgb2rgb, 10)
-                };
-                for (let r of Object.keys(t)){
-                    if (typeof t[r] !== "object") {
-                        continue;
-                    }
-                    const n = t[r];
-                    if (r === "ansi16") {
-                        r = "ansi";
-                    }
-                    if ("ansi16" in n) {
-                        e.color.ansi[r] = wrapAnsi16(n.ansi16, 0);
-                        e.bgColor.ansi[r] = wrapAnsi16(n.ansi16, 10);
-                    }
-                    if ("ansi256" in n) {
-                        e.color.ansi256[r] = wrapAnsi256(n.ansi256, 0);
-                        e.bgColor.ansi256[r] = wrapAnsi256(n.ansi256, 10);
-                    }
-                    if ("rgb" in n) {
-                        e.color.ansi16m[r] = wrapAnsi16m(n.rgb, 0);
-                        e.bgColor.ansi16m[r] = wrapAnsi16m(n.rgb, 10);
-                    }
-                }
-                return e;
-            }
-            Object.defineProperty(r, "exports", {
-                enumerable: true,
-                get: assembleStyles
-            });
-        },
-        148: (r, e, n)=>{
-            "use strict";
-            const t = n(379);
-            const a = n(535);
-            const o = n(220).stdout;
-            const s = n(299);
-            const l = process.platform === "win32" && !(process.env.TERM || "").toLowerCase().startsWith("xterm");
-            const i = [
-                "ansi",
-                "ansi",
-                "ansi256",
-                "ansi16m"
-            ];
-            const c = new Set([
-                "gray"
-            ]);
-            const u = Object.create(null);
-            function applyOptions(r, e) {
-                e = e || {};
-                const n = o ? o.level : 0;
-                r.level = e.level === undefined ? n : e.level;
-                r.enabled = "enabled" in e ? e.enabled : r.level > 0;
-            }
-            function Chalk(r) {
-                if (!this || !(this instanceof Chalk) || this.template) {
-                    const e = {};
-                    applyOptions(e, r);
-                    e.template = function() {
-                        const r = [].slice.call(arguments);
-                        return chalkTag.apply(null, [
-                            e.template
-                        ].concat(r));
-                    };
-                    Object.setPrototypeOf(e, Chalk.prototype);
-                    Object.setPrototypeOf(e.template, e);
-                    e.template.constructor = Chalk;
-                    return e.template;
-                }
-                applyOptions(this, r);
-            }
-            if (l) {
-                a.blue.open = "\x1b[94m";
-            }
-            for (const r of Object.keys(a)){
-                a[r].closeRe = new RegExp(t(a[r].close), "g");
-                u[r] = {
-                    get () {
-                        const e = a[r];
-                        return build.call(this, this._styles ? this._styles.concat(e) : [
-                            e
-                        ], this._empty, r);
-                    }
-                };
-            }
-            u.visible = {
-                get () {
-                    return build.call(this, this._styles || [], true, "visible");
-                }
-            };
-            a.color.closeRe = new RegExp(t(a.color.close), "g");
-            for (const r of Object.keys(a.color.ansi)){
-                if (c.has(r)) {
-                    continue;
-                }
-                u[r] = {
-                    get () {
-                        const e = this.level;
-                        return function() {
-                            const n = a.color[i[e]][r].apply(null, arguments);
-                            const t = {
-                                open: n,
-                                close: a.color.close,
-                                closeRe: a.color.closeRe
-                            };
-                            return build.call(this, this._styles ? this._styles.concat(t) : [
-                                t
-                            ], this._empty, r);
-                        };
-                    }
-                };
-            }
-            a.bgColor.closeRe = new RegExp(t(a.bgColor.close), "g");
-            for (const r of Object.keys(a.bgColor.ansi)){
-                if (c.has(r)) {
-                    continue;
-                }
-                const e = "bg" + r[0].toUpperCase() + r.slice(1);
-                u[e] = {
-                    get () {
-                        const e = this.level;
-                        return function() {
-                            const n = a.bgColor[i[e]][r].apply(null, arguments);
-                            const t = {
-                                open: n,
-                                close: a.bgColor.close,
-                                closeRe: a.bgColor.closeRe
-                            };
-                            return build.call(this, this._styles ? this._styles.concat(t) : [
-                                t
-                            ], this._empty, r);
-                        };
-                    }
-                };
-            }
-            const v = Object.defineProperties(()=>{}, u);
-            function build(r, e, n) {
-                const builder = function() {
-                    return applyStyle.apply(builder, arguments);
-                };
-                builder._styles = r;
-                builder._empty = e;
-                const t = this;
-                Object.defineProperty(builder, "level", {
-                    enumerable: true,
-                    get () {
-                        return t.level;
-                    },
-                    set (r) {
-                        t.level = r;
-                    }
-                });
-                Object.defineProperty(builder, "enabled", {
-                    enumerable: true,
-                    get () {
-                        return t.enabled;
-                    },
-                    set (r) {
-                        t.enabled = r;
-                    }
-                });
-                builder.hasGrey = this.hasGrey || n === "gray" || n === "grey";
-                builder.__proto__ = v;
-                return builder;
-            }
-            function applyStyle() {
-                const r = arguments;
-                const e = r.length;
-                let n = String(arguments[0]);
-                if (e === 0) {
-                    return "";
-                }
-                if (e > 1) {
-                    for(let t = 1; t < e; t++){
-                        n += " " + r[t];
-                    }
-                }
-                if (!this.enabled || this.level <= 0 || !n) {
-                    return this._empty ? "" : n;
-                }
-                const t = a.dim.open;
-                if (l && this.hasGrey) {
-                    a.dim.open = "";
-                }
-                for (const r of this._styles.slice().reverse()){
-                    n = r.open + n.replace(r.closeRe, r.open) + r.close;
-                    n = n.replace(/\r?\n/g, `${r.close}$&${r.open}`);
-                }
-                a.dim.open = t;
-                return n;
-            }
-            function chalkTag(r, e) {
-                if (!Array.isArray(e)) {
-                    return [].slice.call(arguments, 1).join(" ");
-                }
-                const n = [].slice.call(arguments, 2);
-                const t = [
-                    e.raw[0]
-                ];
-                for(let r = 1; r < e.length; r++){
-                    t.push(String(n[r - 1]).replace(/[{}\\]/g, "\\$&"));
-                    t.push(String(e.raw[r]));
-                }
-                return s(r, t.join(""));
-            }
-            Object.defineProperties(Chalk.prototype, u);
-            r.exports = Chalk();
-            r.exports.supportsColor = o;
-            r.exports["default"] = r.exports;
-        },
-        299: (r)=>{
-            "use strict";
-            const e = /(?:\\(u[a-f\d]{4}|x[a-f\d]{2}|.))|(?:\{(~)?(\w+(?:\([^)]*\))?(?:\.\w+(?:\([^)]*\))?)*)(?:[ \t]|(?=\r?\n)))|(\})|((?:.|[\r\n\f])+?)/gi;
-            const n = /(?:^|\.)(\w+)(?:\(([^)]*)\))?/g;
-            const t = /^(['"])((?:\\.|(?!\1)[^\\])*)\1$/;
-            const a = /\\(u[a-f\d]{4}|x[a-f\d]{2}|.)|([^\\])/gi;
-            const o = new Map([
-                [
-                    "n",
-                    "\n"
-                ],
-                [
-                    "r",
-                    "\r"
-                ],
-                [
-                    "t",
-                    "	"
-                ],
-                [
-                    "b",
-                    "\b"
-                ],
-                [
-                    "f",
-                    "\f"
-                ],
-                [
-                    "v",
-                    "\v"
-                ],
-                [
-                    "0",
-                    "\x00"
-                ],
-                [
-                    "\\",
-                    "\\"
-                ],
-                [
-                    "e",
-                    "\x1b"
-                ],
-                [
-                    "a",
-                    "\x07"
-                ]
-            ]);
-            function unescape(r) {
-                if (r[0] === "u" && r.length === 5 || r[0] === "x" && r.length === 3) {
-                    return String.fromCharCode(parseInt(r.slice(1), 16));
-                }
-                return o.get(r) || r;
-            }
-            function parseArguments(r, e) {
-                const n = [];
-                const o = e.trim().split(/\s*,\s*/g);
-                let s;
-                for (const e of o){
-                    if (!isNaN(e)) {
-                        n.push(Number(e));
-                    } else if (s = e.match(t)) {
-                        n.push(s[2].replace(a, (r, e, n)=>e ? unescape(e) : n));
-                    } else {
-                        throw new Error(`Invalid Chalk template style argument: ${e} (in style '${r}')`);
-                    }
-                }
-                return n;
-            }
-            function parseStyle(r) {
-                n.lastIndex = 0;
-                const e = [];
-                let t;
-                while((t = n.exec(r)) !== null){
-                    const r = t[1];
-                    if (t[2]) {
-                        const n = parseArguments(r, t[2]);
-                        e.push([
-                            r
-                        ].concat(n));
-                    } else {
-                        e.push([
-                            r
-                        ]);
-                    }
-                }
-                return e;
-            }
-            function buildStyle(r, e) {
-                const n = {};
-                for (const r of e){
-                    for (const e of r.styles){
-                        n[e[0]] = r.inverse ? null : e.slice(1);
-                    }
-                }
-                let t = r;
-                for (const r of Object.keys(n)){
-                    if (Array.isArray(n[r])) {
-                        if (!(r in t)) {
-                            throw new Error(`Unknown Chalk style: ${r}`);
-                        }
-                        if (n[r].length > 0) {
-                            t = t[r].apply(t, n[r]);
-                        } else {
-                            t = t[r];
-                        }
-                    }
-                }
-                return t;
-            }
-            r.exports = (r, n)=>{
-                const t = [];
-                const a = [];
-                let o = [];
-                n.replace(e, (e, n, s, l, i, c)=>{
-                    if (n) {
-                        o.push(unescape(n));
-                    } else if (l) {
-                        const e = o.join("");
-                        o = [];
-                        a.push(t.length === 0 ? e : buildStyle(r, t)(e));
-                        t.push({
-                            inverse: s,
-                            styles: parseStyle(l)
-                        });
-                    } else if (i) {
-                        if (t.length === 0) {
-                            throw new Error("Found extraneous } in Chalk template literal");
-                        }
-                        a.push(buildStyle(r, t)(o.join("")));
-                        o = [];
-                        t.pop();
-                    } else {
-                        o.push(c);
-                    }
-                });
-                a.push(o.join(""));
-                if (t.length > 0) {
-                    const r = `Chalk template literal is missing ${t.length} closing bracket${t.length === 1 ? "" : "s"} (\`}\`)`;
-                    throw new Error(r);
-                }
-                return a.join("");
-            };
-        },
-        117: (r, e, n)=>{
-            var t = n(251);
-            var a = {};
-            for(var o in t){
-                if (t.hasOwnProperty(o)) {
-                    a[t[o]] = o;
-                }
-            }
-            var s = r.exports = {
-                rgb: {
-                    channels: 3,
-                    labels: "rgb"
-                },
-                hsl: {
-                    channels: 3,
-                    labels: "hsl"
-                },
-                hsv: {
-                    channels: 3,
-                    labels: "hsv"
-                },
-                hwb: {
-                    channels: 3,
-                    labels: "hwb"
-                },
-                cmyk: {
-                    channels: 4,
-                    labels: "cmyk"
-                },
-                xyz: {
-                    channels: 3,
-                    labels: "xyz"
-                },
-                lab: {
-                    channels: 3,
-                    labels: "lab"
-                },
-                lch: {
-                    channels: 3,
-                    labels: "lch"
-                },
-                hex: {
-                    channels: 1,
-                    labels: [
-                        "hex"
-                    ]
-                },
-                keyword: {
-                    channels: 1,
-                    labels: [
-                        "keyword"
-                    ]
-                },
-                ansi16: {
-                    channels: 1,
-                    labels: [
-                        "ansi16"
-                    ]
-                },
-                ansi256: {
-                    channels: 1,
-                    labels: [
-                        "ansi256"
-                    ]
-                },
-                hcg: {
-                    channels: 3,
-                    labels: [
-                        "h",
-                        "c",
-                        "g"
-                    ]
-                },
-                apple: {
-                    channels: 3,
-                    labels: [
-                        "r16",
-                        "g16",
-                        "b16"
-                    ]
-                },
-                gray: {
-                    channels: 1,
-                    labels: [
-                        "gray"
-                    ]
-                }
-            };
-            for(var l in s){
-                if (s.hasOwnProperty(l)) {
-                    if (!("channels" in s[l])) {
-                        throw new Error("missing channels property: " + l);
-                    }
-                    if (!("labels" in s[l])) {
-                        throw new Error("missing channel labels property: " + l);
-                    }
-                    if (s[l].labels.length !== s[l].channels) {
-                        throw new Error("channel and label counts mismatch: " + l);
-                    }
-                    var i = s[l].channels;
-                    var c = s[l].labels;
-                    delete s[l].channels;
-                    delete s[l].labels;
-                    Object.defineProperty(s[l], "channels", {
-                        value: i
-                    });
-                    Object.defineProperty(s[l], "labels", {
-                        value: c
-                    });
-                }
-            }
-            s.rgb.hsl = function(r) {
-                var e = r[0] / 255;
-                var n = r[1] / 255;
-                var t = r[2] / 255;
-                var a = Math.min(e, n, t);
-                var o = Math.max(e, n, t);
-                var s = o - a;
-                var l;
-                var i;
-                var c;
-                if (o === a) {
-                    l = 0;
-                } else if (e === o) {
-                    l = (n - t) / s;
-                } else if (n === o) {
-                    l = 2 + (t - e) / s;
-                } else if (t === o) {
-                    l = 4 + (e - n) / s;
-                }
-                l = Math.min(l * 60, 360);
-                if (l < 0) {
-                    l += 360;
-                }
-                c = (a + o) / 2;
-                if (o === a) {
-                    i = 0;
-                } else if (c <= .5) {
-                    i = s / (o + a);
-                } else {
-                    i = s / (2 - o - a);
-                }
-                return [
-                    l,
-                    i * 100,
-                    c * 100
-                ];
-            };
-            s.rgb.hsv = function(r) {
-                var e;
-                var n;
-                var t;
-                var a;
-                var o;
-                var s = r[0] / 255;
-                var l = r[1] / 255;
-                var i = r[2] / 255;
-                var c = Math.max(s, l, i);
-                var u = c - Math.min(s, l, i);
-                var diffc = function(r) {
-                    return (c - r) / 6 / u + 1 / 2;
-                };
-                if (u === 0) {
-                    a = o = 0;
-                } else {
-                    o = u / c;
-                    e = diffc(s);
-                    n = diffc(l);
-                    t = diffc(i);
-                    if (s === c) {
-                        a = t - n;
-                    } else if (l === c) {
-                        a = 1 / 3 + e - t;
-                    } else if (i === c) {
-                        a = 2 / 3 + n - e;
-                    }
-                    if (a < 0) {
-                        a += 1;
-                    } else if (a > 1) {
-                        a -= 1;
-                    }
-                }
-                return [
-                    a * 360,
-                    o * 100,
-                    c * 100
-                ];
-            };
-            s.rgb.hwb = function(r) {
-                var e = r[0];
-                var n = r[1];
-                var t = r[2];
-                var a = s.rgb.hsl(r)[0];
-                var o = 1 / 255 * Math.min(e, Math.min(n, t));
-                t = 1 - 1 / 255 * Math.max(e, Math.max(n, t));
-                return [
-                    a,
-                    o * 100,
-                    t * 100
-                ];
-            };
-            s.rgb.cmyk = function(r) {
-                var e = r[0] / 255;
-                var n = r[1] / 255;
-                var t = r[2] / 255;
-                var a;
-                var o;
-                var s;
-                var l;
-                l = Math.min(1 - e, 1 - n, 1 - t);
-                a = (1 - e - l) / (1 - l) || 0;
-                o = (1 - n - l) / (1 - l) || 0;
-                s = (1 - t - l) / (1 - l) || 0;
-                return [
-                    a * 100,
-                    o * 100,
-                    s * 100,
-                    l * 100
-                ];
-            };
-            function comparativeDistance(r, e) {
-                return Math.pow(r[0] - e[0], 2) + Math.pow(r[1] - e[1], 2) + Math.pow(r[2] - e[2], 2);
-            }
-            s.rgb.keyword = function(r) {
-                var e = a[r];
-                if (e) {
-                    return e;
-                }
-                var n = Infinity;
-                var o;
-                for(var s in t){
-                    if (t.hasOwnProperty(s)) {
-                        var l = t[s];
-                        var i = comparativeDistance(r, l);
-                        if (i < n) {
-                            n = i;
-                            o = s;
-                        }
-                    }
-                }
-                return o;
-            };
-            s.keyword.rgb = function(r) {
-                return t[r];
-            };
-            s.rgb.xyz = function(r) {
-                var e = r[0] / 255;
-                var n = r[1] / 255;
-                var t = r[2] / 255;
-                e = e > .04045 ? Math.pow((e + .055) / 1.055, 2.4) : e / 12.92;
-                n = n > .04045 ? Math.pow((n + .055) / 1.055, 2.4) : n / 12.92;
-                t = t > .04045 ? Math.pow((t + .055) / 1.055, 2.4) : t / 12.92;
-                var a = e * .4124 + n * .3576 + t * .1805;
-                var o = e * .2126 + n * .7152 + t * .0722;
-                var s = e * .0193 + n * .1192 + t * .9505;
-                return [
-                    a * 100,
-                    o * 100,
-                    s * 100
-                ];
-            };
-            s.rgb.lab = function(r) {
-                var e = s.rgb.xyz(r);
-                var n = e[0];
-                var t = e[1];
-                var a = e[2];
-                var o;
-                var l;
-                var i;
-                n /= 95.047;
-                t /= 100;
-                a /= 108.883;
-                n = n > .008856 ? Math.pow(n, 1 / 3) : 7.787 * n + 16 / 116;
-                t = t > .008856 ? Math.pow(t, 1 / 3) : 7.787 * t + 16 / 116;
-                a = a > .008856 ? Math.pow(a, 1 / 3) : 7.787 * a + 16 / 116;
-                o = 116 * t - 16;
-                l = 500 * (n - t);
-                i = 200 * (t - a);
-                return [
-                    o,
-                    l,
-                    i
-                ];
-            };
-            s.hsl.rgb = function(r) {
-                var e = r[0] / 360;
-                var n = r[1] / 100;
-                var t = r[2] / 100;
-                var a;
-                var o;
-                var s;
-                var l;
-                var i;
-                if (n === 0) {
-                    i = t * 255;
-                    return [
-                        i,
-                        i,
-                        i
-                    ];
-                }
-                if (t < .5) {
-                    o = t * (1 + n);
-                } else {
-                    o = t + n - t * n;
-                }
-                a = 2 * t - o;
-                l = [
-                    0,
-                    0,
-                    0
-                ];
-                for(var c = 0; c < 3; c++){
-                    s = e + 1 / 3 * -(c - 1);
-                    if (s < 0) {
-                        s++;
-                    }
-                    if (s > 1) {
-                        s--;
-                    }
-                    if (6 * s < 1) {
-                        i = a + (o - a) * 6 * s;
-                    } else if (2 * s < 1) {
-                        i = o;
-                    } else if (3 * s < 2) {
-                        i = a + (o - a) * (2 / 3 - s) * 6;
-                    } else {
-                        i = a;
-                    }
-                    l[c] = i * 255;
-                }
-                return l;
-            };
-            s.hsl.hsv = function(r) {
-                var e = r[0];
-                var n = r[1] / 100;
-                var t = r[2] / 100;
-                var a = n;
-                var o = Math.max(t, .01);
-                var s;
-                var l;
-                t *= 2;
-                n *= t <= 1 ? t : 2 - t;
-                a *= o <= 1 ? o : 2 - o;
-                l = (t + n) / 2;
-                s = t === 0 ? 2 * a / (o + a) : 2 * n / (t + n);
-                return [
-                    e,
-                    s * 100,
-                    l * 100
-                ];
-            };
-            s.hsv.rgb = function(r) {
-                var e = r[0] / 60;
-                var n = r[1] / 100;
-                var t = r[2] / 100;
-                var a = Math.floor(e) % 6;
-                var o = e - Math.floor(e);
-                var s = 255 * t * (1 - n);
-                var l = 255 * t * (1 - n * o);
-                var i = 255 * t * (1 - n * (1 - o));
-                t *= 255;
-                switch(a){
-                    case 0:
-                        return [
-                            t,
-                            i,
-                            s
-                        ];
-                    case 1:
-                        return [
-                            l,
-                            t,
-                            s
-                        ];
-                    case 2:
-                        return [
-                            s,
-                            t,
-                            i
-                        ];
-                    case 3:
-                        return [
-                            s,
-                            l,
-                            t
-                        ];
-                    case 4:
-                        return [
-                            i,
-                            s,
-                            t
-                        ];
-                    case 5:
-                        return [
-                            t,
-                            s,
-                            l
-                        ];
-                }
-            };
-            s.hsv.hsl = function(r) {
-                var e = r[0];
-                var n = r[1] / 100;
-                var t = r[2] / 100;
-                var a = Math.max(t, .01);
-                var o;
-                var s;
-                var l;
-                l = (2 - n) * t;
-                o = (2 - n) * a;
-                s = n * a;
-                s /= o <= 1 ? o : 2 - o;
-                s = s || 0;
-                l /= 2;
-                return [
-                    e,
-                    s * 100,
-                    l * 100
-                ];
-            };
-            s.hwb.rgb = function(r) {
-                var e = r[0] / 360;
-                var n = r[1] / 100;
-                var t = r[2] / 100;
-                var a = n + t;
-                var o;
-                var s;
-                var l;
-                var i;
-                if (a > 1) {
-                    n /= a;
-                    t /= a;
-                }
-                o = Math.floor(6 * e);
-                s = 1 - t;
-                l = 6 * e - o;
-                if ((o & 1) !== 0) {
-                    l = 1 - l;
-                }
-                i = n + l * (s - n);
-                var c;
-                var u;
-                var v;
-                switch(o){
-                    default:
-                    case 6:
-                    case 0:
-                        c = s;
-                        u = i;
-                        v = n;
-                        break;
-                    case 1:
-                        c = i;
-                        u = s;
-                        v = n;
-                        break;
-                    case 2:
-                        c = n;
-                        u = s;
-                        v = i;
-                        break;
-                    case 3:
-                        c = n;
-                        u = i;
-                        v = s;
-                        break;
-                    case 4:
-                        c = i;
-                        u = n;
-                        v = s;
-                        break;
-                    case 5:
-                        c = s;
-                        u = n;
-                        v = i;
-                        break;
-                }
-                return [
-                    c * 255,
-                    u * 255,
-                    v * 255
-                ];
-            };
-            s.cmyk.rgb = function(r) {
-                var e = r[0] / 100;
-                var n = r[1] / 100;
-                var t = r[2] / 100;
-                var a = r[3] / 100;
-                var o;
-                var s;
-                var l;
-                o = 1 - Math.min(1, e * (1 - a) + a);
-                s = 1 - Math.min(1, n * (1 - a) + a);
-                l = 1 - Math.min(1, t * (1 - a) + a);
-                return [
-                    o * 255,
-                    s * 255,
-                    l * 255
-                ];
-            };
-            s.xyz.rgb = function(r) {
-                var e = r[0] / 100;
-                var n = r[1] / 100;
-                var t = r[2] / 100;
-                var a;
-                var o;
-                var s;
-                a = e * 3.2406 + n * -1.5372 + t * -.4986;
-                o = e * -.9689 + n * 1.8758 + t * .0415;
-                s = e * .0557 + n * -.204 + t * 1.057;
-                a = a > .0031308 ? 1.055 * Math.pow(a, 1 / 2.4) - .055 : a * 12.92;
-                o = o > .0031308 ? 1.055 * Math.pow(o, 1 / 2.4) - .055 : o * 12.92;
-                s = s > .0031308 ? 1.055 * Math.pow(s, 1 / 2.4) - .055 : s * 12.92;
-                a = Math.min(Math.max(0, a), 1);
-                o = Math.min(Math.max(0, o), 1);
-                s = Math.min(Math.max(0, s), 1);
-                return [
-                    a * 255,
-                    o * 255,
-                    s * 255
-                ];
-            };
-            s.xyz.lab = function(r) {
-                var e = r[0];
-                var n = r[1];
-                var t = r[2];
-                var a;
-                var o;
-                var s;
-                e /= 95.047;
-                n /= 100;
-                t /= 108.883;
-                e = e > .008856 ? Math.pow(e, 1 / 3) : 7.787 * e + 16 / 116;
-                n = n > .008856 ? Math.pow(n, 1 / 3) : 7.787 * n + 16 / 116;
-                t = t > .008856 ? Math.pow(t, 1 / 3) : 7.787 * t + 16 / 116;
-                a = 116 * n - 16;
-                o = 500 * (e - n);
-                s = 200 * (n - t);
-                return [
-                    a,
-                    o,
-                    s
-                ];
-            };
-            s.lab.xyz = function(r) {
-                var e = r[0];
-                var n = r[1];
-                var t = r[2];
-                var a;
-                var o;
-                var s;
-                o = (e + 16) / 116;
-                a = n / 500 + o;
-                s = o - t / 200;
-                var l = Math.pow(o, 3);
-                var i = Math.pow(a, 3);
-                var c = Math.pow(s, 3);
-                o = l > .008856 ? l : (o - 16 / 116) / 7.787;
-                a = i > .008856 ? i : (a - 16 / 116) / 7.787;
-                s = c > .008856 ? c : (s - 16 / 116) / 7.787;
-                a *= 95.047;
-                o *= 100;
-                s *= 108.883;
-                return [
-                    a,
-                    o,
-                    s
-                ];
-            };
-            s.lab.lch = function(r) {
-                var e = r[0];
-                var n = r[1];
-                var t = r[2];
-                var a;
-                var o;
-                var s;
-                a = Math.atan2(t, n);
-                o = a * 360 / 2 / Math.PI;
-                if (o < 0) {
-                    o += 360;
-                }
-                s = Math.sqrt(n * n + t * t);
-                return [
-                    e,
-                    s,
-                    o
-                ];
-            };
-            s.lch.lab = function(r) {
-                var e = r[0];
-                var n = r[1];
-                var t = r[2];
-                var a;
-                var o;
-                var s;
-                s = t / 360 * 2 * Math.PI;
-                a = n * Math.cos(s);
-                o = n * Math.sin(s);
-                return [
-                    e,
-                    a,
-                    o
-                ];
-            };
-            s.rgb.ansi16 = function(r) {
-                var e = r[0];
-                var n = r[1];
-                var t = r[2];
-                var a = 1 in arguments ? arguments[1] : s.rgb.hsv(r)[2];
-                a = Math.round(a / 50);
-                if (a === 0) {
-                    return 30;
-                }
-                var o = 30 + (Math.round(t / 255) << 2 | Math.round(n / 255) << 1 | Math.round(e / 255));
-                if (a === 2) {
-                    o += 60;
-                }
-                return o;
-            };
-            s.hsv.ansi16 = function(r) {
-                return s.rgb.ansi16(s.hsv.rgb(r), r[2]);
-            };
-            s.rgb.ansi256 = function(r) {
-                var e = r[0];
-                var n = r[1];
-                var t = r[2];
-                if (e === n && n === t) {
-                    if (e < 8) {
-                        return 16;
-                    }
-                    if (e > 248) {
-                        return 231;
-                    }
-                    return Math.round((e - 8) / 247 * 24) + 232;
-                }
-                var a = 16 + 36 * Math.round(e / 255 * 5) + 6 * Math.round(n / 255 * 5) + Math.round(t / 255 * 5);
-                return a;
-            };
-            s.ansi16.rgb = function(r) {
-                var e = r % 10;
-                if (e === 0 || e === 7) {
-                    if (r > 50) {
-                        e += 3.5;
-                    }
-                    e = e / 10.5 * 255;
-                    return [
-                        e,
-                        e,
-                        e
-                    ];
-                }
-                var n = (~~(r > 50) + 1) * .5;
-                var t = (e & 1) * n * 255;
-                var a = (e >> 1 & 1) * n * 255;
-                var o = (e >> 2 & 1) * n * 255;
-                return [
-                    t,
-                    a,
-                    o
-                ];
-            };
-            s.ansi256.rgb = function(r) {
-                if (r >= 232) {
-                    var e = (r - 232) * 10 + 8;
-                    return [
-                        e,
-                        e,
-                        e
-                    ];
-                }
-                r -= 16;
-                var n;
-                var t = Math.floor(r / 36) / 5 * 255;
-                var a = Math.floor((n = r % 36) / 6) / 5 * 255;
-                var o = n % 6 / 5 * 255;
-                return [
-                    t,
-                    a,
-                    o
-                ];
-            };
-            s.rgb.hex = function(r) {
-                var e = ((Math.round(r[0]) & 255) << 16) + ((Math.round(r[1]) & 255) << 8) + (Math.round(r[2]) & 255);
-                var n = e.toString(16).toUpperCase();
-                return "000000".substring(n.length) + n;
-            };
-            s.hex.rgb = function(r) {
-                var e = r.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i);
-                if (!e) {
-                    return [
-                        0,
-                        0,
-                        0
-                    ];
-                }
-                var n = e[0];
-                if (e[0].length === 3) {
-                    n = n.split("").map(function(r) {
-                        return r + r;
-                    }).join("");
-                }
-                var t = parseInt(n, 16);
-                var a = t >> 16 & 255;
-                var o = t >> 8 & 255;
-                var s = t & 255;
-                return [
-                    a,
-                    o,
-                    s
-                ];
-            };
-            s.rgb.hcg = function(r) {
-                var e = r[0] / 255;
-                var n = r[1] / 255;
-                var t = r[2] / 255;
-                var a = Math.max(Math.max(e, n), t);
-                var o = Math.min(Math.min(e, n), t);
-                var s = a - o;
-                var l;
-                var i;
-                if (s < 1) {
-                    l = o / (1 - s);
-                } else {
-                    l = 0;
-                }
-                if (s <= 0) {
-                    i = 0;
-                } else if (a === e) {
-                    i = (n - t) / s % 6;
-                } else if (a === n) {
-                    i = 2 + (t - e) / s;
-                } else {
-                    i = 4 + (e - n) / s + 4;
-                }
-                i /= 6;
-                i %= 1;
-                return [
-                    i * 360,
-                    s * 100,
-                    l * 100
-                ];
-            };
-            s.hsl.hcg = function(r) {
-                var e = r[1] / 100;
-                var n = r[2] / 100;
-                var t = 1;
-                var a = 0;
-                if (n < .5) {
-                    t = 2 * e * n;
-                } else {
-                    t = 2 * e * (1 - n);
-                }
-                if (t < 1) {
-                    a = (n - .5 * t) / (1 - t);
-                }
-                return [
-                    r[0],
-                    t * 100,
-                    a * 100
-                ];
-            };
-            s.hsv.hcg = function(r) {
-                var e = r[1] / 100;
-                var n = r[2] / 100;
-                var t = e * n;
-                var a = 0;
-                if (t < 1) {
-                    a = (n - t) / (1 - t);
-                }
-                return [
-                    r[0],
-                    t * 100,
-                    a * 100
-                ];
-            };
-            s.hcg.rgb = function(r) {
-                var e = r[0] / 360;
-                var n = r[1] / 100;
-                var t = r[2] / 100;
-                if (n === 0) {
-                    return [
-                        t * 255,
-                        t * 255,
-                        t * 255
-                    ];
-                }
-                var a = [
-                    0,
-                    0,
-                    0
-                ];
-                var o = e % 1 * 6;
-                var s = o % 1;
-                var l = 1 - s;
-                var i = 0;
-                switch(Math.floor(o)){
-                    case 0:
-                        a[0] = 1;
-                        a[1] = s;
-                        a[2] = 0;
-                        break;
-                    case 1:
-                        a[0] = l;
-                        a[1] = 1;
-                        a[2] = 0;
-                        break;
-                    case 2:
-                        a[0] = 0;
-                        a[1] = 1;
-                        a[2] = s;
-                        break;
-                    case 3:
-                        a[0] = 0;
-                        a[1] = l;
-                        a[2] = 1;
-                        break;
-                    case 4:
-                        a[0] = s;
-                        a[1] = 0;
-                        a[2] = 1;
-                        break;
-                    default:
-                        a[0] = 1;
-                        a[1] = 0;
-                        a[2] = l;
-                }
-                i = (1 - n) * t;
-                return [
-                    (n * a[0] + i) * 255,
-                    (n * a[1] + i) * 255,
-                    (n * a[2] + i) * 255
-                ];
-            };
-            s.hcg.hsv = function(r) {
-                var e = r[1] / 100;
-                var n = r[2] / 100;
-                var t = e + n * (1 - e);
-                var a = 0;
-                if (t > 0) {
-                    a = e / t;
-                }
-                return [
-                    r[0],
-                    a * 100,
-                    t * 100
-                ];
-            };
-            s.hcg.hsl = function(r) {
-                var e = r[1] / 100;
-                var n = r[2] / 100;
-                var t = n * (1 - e) + .5 * e;
-                var a = 0;
-                if (t > 0 && t < .5) {
-                    a = e / (2 * t);
-                } else if (t >= .5 && t < 1) {
-                    a = e / (2 * (1 - t));
-                }
-                return [
-                    r[0],
-                    a * 100,
-                    t * 100
-                ];
-            };
-            s.hcg.hwb = function(r) {
-                var e = r[1] / 100;
-                var n = r[2] / 100;
-                var t = e + n * (1 - e);
-                return [
-                    r[0],
-                    (t - e) * 100,
-                    (1 - t) * 100
-                ];
-            };
-            s.hwb.hcg = function(r) {
-                var e = r[1] / 100;
-                var n = r[2] / 100;
-                var t = 1 - n;
-                var a = t - e;
-                var o = 0;
-                if (a < 1) {
-                    o = (t - a) / (1 - a);
-                }
-                return [
-                    r[0],
-                    a * 100,
-                    o * 100
-                ];
-            };
-            s.apple.rgb = function(r) {
-                return [
-                    r[0] / 65535 * 255,
-                    r[1] / 65535 * 255,
-                    r[2] / 65535 * 255
-                ];
-            };
-            s.rgb.apple = function(r) {
-                return [
-                    r[0] / 255 * 65535,
-                    r[1] / 255 * 65535,
-                    r[2] / 255 * 65535
-                ];
-            };
-            s.gray.rgb = function(r) {
-                return [
-                    r[0] / 100 * 255,
-                    r[0] / 100 * 255,
-                    r[0] / 100 * 255
-                ];
-            };
-            s.gray.hsl = s.gray.hsv = function(r) {
-                return [
-                    0,
-                    0,
-                    r[0]
-                ];
-            };
-            s.gray.hwb = function(r) {
-                return [
-                    0,
-                    100,
-                    r[0]
-                ];
-            };
-            s.gray.cmyk = function(r) {
-                return [
-                    0,
-                    0,
-                    0,
-                    r[0]
-                ];
-            };
-            s.gray.lab = function(r) {
-                return [
-                    r[0],
-                    0,
-                    0
-                ];
-            };
-            s.gray.hex = function(r) {
-                var e = Math.round(r[0] / 100 * 255) & 255;
-                var n = (e << 16) + (e << 8) + e;
-                var t = n.toString(16).toUpperCase();
-                return "000000".substring(t.length) + t;
-            };
-            s.rgb.gray = function(r) {
-                var e = (r[0] + r[1] + r[2]) / 3;
-                return [
-                    e / 255 * 100
-                ];
-            };
-        },
-        54: (r, e, n)=>{
-            var t = n(117);
-            var a = n(528);
-            var o = {};
-            var s = Object.keys(t);
-            function wrapRaw(r) {
-                var wrappedFn = function(e) {
-                    if (e === undefined || e === null) {
-                        return e;
-                    }
-                    if (arguments.length > 1) {
-                        e = Array.prototype.slice.call(arguments);
-                    }
-                    return r(e);
-                };
-                if ("conversion" in r) {
-                    wrappedFn.conversion = r.conversion;
-                }
-                return wrappedFn;
-            }
-            function wrapRounded(r) {
-                var wrappedFn = function(e) {
-                    if (e === undefined || e === null) {
-                        return e;
-                    }
-                    if (arguments.length > 1) {
-                        e = Array.prototype.slice.call(arguments);
-                    }
-                    var n = r(e);
-                    if (typeof n === "object") {
-                        for(var t = n.length, a = 0; a < t; a++){
-                            n[a] = Math.round(n[a]);
-                        }
-                    }
-                    return n;
-                };
-                if ("conversion" in r) {
-                    wrappedFn.conversion = r.conversion;
-                }
-                return wrappedFn;
-            }
-            s.forEach(function(r) {
-                o[r] = {};
-                Object.defineProperty(o[r], "channels", {
-                    value: t[r].channels
-                });
-                Object.defineProperty(o[r], "labels", {
-                    value: t[r].labels
-                });
-                var e = a(r);
-                var n = Object.keys(e);
-                n.forEach(function(n) {
-                    var t = e[n];
-                    o[r][n] = wrapRounded(t);
-                    o[r][n].raw = wrapRaw(t);
-                });
-            });
-            r.exports = o;
-        },
-        528: (r, e, n)=>{
-            var t = n(117);
-            function buildGraph() {
-                var r = {};
-                var e = Object.keys(t);
-                for(var n = e.length, a = 0; a < n; a++){
-                    r[e[a]] = {
-                        distance: -1,
-                        parent: null
-                    };
-                }
-                return r;
-            }
-            function deriveBFS(r) {
-                var e = buildGraph();
-                var n = [
-                    r
-                ];
-                e[r].distance = 0;
-                while(n.length){
-                    var a = n.pop();
-                    var o = Object.keys(t[a]);
-                    for(var s = o.length, l = 0; l < s; l++){
-                        var i = o[l];
-                        var c = e[i];
-                        if (c.distance === -1) {
-                            c.distance = e[a].distance + 1;
-                            c.parent = a;
-                            n.unshift(i);
-                        }
-                    }
-                }
-                return e;
-            }
-            function link(r, e) {
-                return function(n) {
-                    return e(r(n));
-                };
-            }
-            function wrapConversion(r, e) {
-                var n = [
-                    e[r].parent,
-                    r
-                ];
-                var a = t[e[r].parent][r];
-                var o = e[r].parent;
-                while(e[o].parent){
-                    n.unshift(e[o].parent);
-                    a = link(t[e[o].parent][o], a);
-                    o = e[o].parent;
-                }
-                a.conversion = n;
-                return a;
-            }
-            r.exports = function(r) {
-                var e = deriveBFS(r);
-                var n = {};
-                var t = Object.keys(e);
-                for(var a = t.length, o = 0; o < a; o++){
-                    var s = t[o];
-                    var l = e[s];
-                    if (l.parent === null) {
-                        continue;
-                    }
-                    n[s] = wrapConversion(s, e);
-                }
-                return n;
-            };
-        },
-        251: (r)=>{
-            "use strict";
-            r.exports = {
-                aliceblue: [
-                    240,
-                    248,
-                    255
-                ],
-                antiquewhite: [
-                    250,
-                    235,
-                    215
-                ],
-                aqua: [
-                    0,
-                    255,
-                    255
-                ],
-                aquamarine: [
-                    127,
-                    255,
-                    212
-                ],
-                azure: [
-                    240,
-                    255,
-                    255
-                ],
-                beige: [
-                    245,
-                    245,
-                    220
-                ],
-                bisque: [
-                    255,
-                    228,
-                    196
-                ],
-                black: [
-                    0,
-                    0,
-                    0
-                ],
-                blanchedalmond: [
-                    255,
-                    235,
-                    205
-                ],
-                blue: [
-                    0,
-                    0,
-                    255
-                ],
-                blueviolet: [
-                    138,
-                    43,
-                    226
-                ],
-                brown: [
-                    165,
-                    42,
-                    42
-                ],
-                burlywood: [
-                    222,
-                    184,
-                    135
-                ],
-                cadetblue: [
-                    95,
-                    158,
-                    160
-                ],
-                chartreuse: [
-                    127,
-                    255,
-                    0
-                ],
-                chocolate: [
-                    210,
-                    105,
-                    30
-                ],
-                coral: [
-                    255,
-                    127,
-                    80
-                ],
-                cornflowerblue: [
-                    100,
-                    149,
-                    237
-                ],
-                cornsilk: [
-                    255,
-                    248,
-                    220
-                ],
-                crimson: [
-                    220,
-                    20,
-                    60
-                ],
-                cyan: [
-                    0,
-                    255,
-                    255
-                ],
-                darkblue: [
-                    0,
-                    0,
-                    139
-                ],
-                darkcyan: [
-                    0,
-                    139,
-                    139
-                ],
-                darkgoldenrod: [
-                    184,
-                    134,
-                    11
-                ],
-                darkgray: [
-                    169,
-                    169,
-                    169
-                ],
-                darkgreen: [
-                    0,
-                    100,
-                    0
-                ],
-                darkgrey: [
-                    169,
-                    169,
-                    169
-                ],
-                darkkhaki: [
-                    189,
-                    183,
-                    107
-                ],
-                darkmagenta: [
-                    139,
-                    0,
-                    139
-                ],
-                darkolivegreen: [
-                    85,
-                    107,
-                    47
-                ],
-                darkorange: [
-                    255,
-                    140,
-                    0
-                ],
-                darkorchid: [
-                    153,
-                    50,
-                    204
-                ],
-                darkred: [
-                    139,
-                    0,
-                    0
-                ],
-                darksalmon: [
-                    233,
-                    150,
-                    122
-                ],
-                darkseagreen: [
-                    143,
-                    188,
-                    143
-                ],
-                darkslateblue: [
-                    72,
-                    61,
-                    139
-                ],
-                darkslategray: [
-                    47,
-                    79,
-                    79
-                ],
-                darkslategrey: [
-                    47,
-                    79,
-                    79
-                ],
-                darkturquoise: [
-                    0,
-                    206,
-                    209
-                ],
-                darkviolet: [
-                    148,
-                    0,
-                    211
-                ],
-                deeppink: [
-                    255,
-                    20,
-                    147
-                ],
-                deepskyblue: [
-                    0,
-                    191,
-                    255
-                ],
-                dimgray: [
-                    105,
-                    105,
-                    105
-                ],
-                dimgrey: [
-                    105,
-                    105,
-                    105
-                ],
-                dodgerblue: [
-                    30,
-                    144,
-                    255
-                ],
-                firebrick: [
-                    178,
-                    34,
-                    34
-                ],
-                floralwhite: [
-                    255,
-                    250,
-                    240
-                ],
-                forestgreen: [
-                    34,
-                    139,
-                    34
-                ],
-                fuchsia: [
-                    255,
-                    0,
-                    255
-                ],
-                gainsboro: [
-                    220,
-                    220,
-                    220
-                ],
-                ghostwhite: [
-                    248,
-                    248,
-                    255
-                ],
-                gold: [
-                    255,
-                    215,
-                    0
-                ],
-                goldenrod: [
-                    218,
-                    165,
-                    32
-                ],
-                gray: [
-                    128,
-                    128,
-                    128
-                ],
-                green: [
-                    0,
-                    128,
-                    0
-                ],
-                greenyellow: [
-                    173,
-                    255,
-                    47
-                ],
-                grey: [
-                    128,
-                    128,
-                    128
-                ],
-                honeydew: [
-                    240,
-                    255,
-                    240
-                ],
-                hotpink: [
-                    255,
-                    105,
-                    180
-                ],
-                indianred: [
-                    205,
-                    92,
-                    92
-                ],
-                indigo: [
-                    75,
-                    0,
-                    130
-                ],
-                ivory: [
-                    255,
-                    255,
-                    240
-                ],
-                khaki: [
-                    240,
-                    230,
-                    140
-                ],
-                lavender: [
-                    230,
-                    230,
-                    250
-                ],
-                lavenderblush: [
-                    255,
-                    240,
-                    245
-                ],
-                lawngreen: [
-                    124,
-                    252,
-                    0
-                ],
-                lemonchiffon: [
-                    255,
-                    250,
-                    205
-                ],
-                lightblue: [
-                    173,
-                    216,
-                    230
-                ],
-                lightcoral: [
-                    240,
-                    128,
-                    128
-                ],
-                lightcyan: [
-                    224,
-                    255,
-                    255
-                ],
-                lightgoldenrodyellow: [
-                    250,
-                    250,
-                    210
-                ],
-                lightgray: [
-                    211,
-                    211,
-                    211
-                ],
-                lightgreen: [
-                    144,
-                    238,
-                    144
-                ],
-                lightgrey: [
-                    211,
-                    211,
-                    211
-                ],
-                lightpink: [
-                    255,
-                    182,
-                    193
-                ],
-                lightsalmon: [
-                    255,
-                    160,
-                    122
-                ],
-                lightseagreen: [
-                    32,
-                    178,
-                    170
-                ],
-                lightskyblue: [
-                    135,
-                    206,
-                    250
-                ],
-                lightslategray: [
-                    119,
-                    136,
-                    153
-                ],
-                lightslategrey: [
-                    119,
-                    136,
-                    153
-                ],
-                lightsteelblue: [
-                    176,
-                    196,
-                    222
-                ],
-                lightyellow: [
-                    255,
-                    255,
-                    224
-                ],
-                lime: [
-                    0,
-                    255,
-                    0
-                ],
-                limegreen: [
-                    50,
-                    205,
-                    50
-                ],
-                linen: [
-                    250,
-                    240,
-                    230
-                ],
-                magenta: [
-                    255,
-                    0,
-                    255
-                ],
-                maroon: [
-                    128,
-                    0,
-                    0
-                ],
-                mediumaquamarine: [
-                    102,
-                    205,
-                    170
-                ],
-                mediumblue: [
-                    0,
-                    0,
-                    205
-                ],
-                mediumorchid: [
-                    186,
-                    85,
-                    211
-                ],
-                mediumpurple: [
-                    147,
-                    112,
-                    219
-                ],
-                mediumseagreen: [
-                    60,
-                    179,
-                    113
-                ],
-                mediumslateblue: [
-                    123,
-                    104,
-                    238
-                ],
-                mediumspringgreen: [
-                    0,
-                    250,
-                    154
-                ],
-                mediumturquoise: [
-                    72,
-                    209,
-                    204
-                ],
-                mediumvioletred: [
-                    199,
-                    21,
-                    133
-                ],
-                midnightblue: [
-                    25,
-                    25,
-                    112
-                ],
-                mintcream: [
-                    245,
-                    255,
-                    250
-                ],
-                mistyrose: [
-                    255,
-                    228,
-                    225
-                ],
-                moccasin: [
-                    255,
-                    228,
-                    181
-                ],
-                navajowhite: [
-                    255,
-                    222,
-                    173
-                ],
-                navy: [
-                    0,
-                    0,
-                    128
-                ],
-                oldlace: [
-                    253,
-                    245,
-                    230
-                ],
-                olive: [
-                    128,
-                    128,
-                    0
-                ],
-                olivedrab: [
-                    107,
-                    142,
-                    35
-                ],
-                orange: [
-                    255,
-                    165,
-                    0
-                ],
-                orangered: [
-                    255,
-                    69,
-                    0
-                ],
-                orchid: [
-                    218,
-                    112,
-                    214
-                ],
-                palegoldenrod: [
-                    238,
-                    232,
-                    170
-                ],
-                palegreen: [
-                    152,
-                    251,
-                    152
-                ],
-                paleturquoise: [
-                    175,
-                    238,
-                    238
-                ],
-                palevioletred: [
-                    219,
-                    112,
-                    147
-                ],
-                papayawhip: [
-                    255,
-                    239,
-                    213
-                ],
-                peachpuff: [
-                    255,
-                    218,
-                    185
-                ],
-                peru: [
-                    205,
-                    133,
-                    63
-                ],
-                pink: [
-                    255,
-                    192,
-                    203
-                ],
-                plum: [
-                    221,
-                    160,
-                    221
-                ],
-                powderblue: [
-                    176,
-                    224,
-                    230
-                ],
-                purple: [
-                    128,
-                    0,
-                    128
-                ],
-                rebeccapurple: [
-                    102,
-                    51,
-                    153
-                ],
-                red: [
-                    255,
-                    0,
-                    0
-                ],
-                rosybrown: [
-                    188,
-                    143,
-                    143
-                ],
-                royalblue: [
-                    65,
-                    105,
-                    225
-                ],
-                saddlebrown: [
-                    139,
-                    69,
-                    19
-                ],
-                salmon: [
-                    250,
-                    128,
-                    114
-                ],
-                sandybrown: [
-                    244,
-                    164,
-                    96
-                ],
-                seagreen: [
-                    46,
-                    139,
-                    87
-                ],
-                seashell: [
-                    255,
-                    245,
-                    238
-                ],
-                sienna: [
-                    160,
-                    82,
-                    45
-                ],
-                silver: [
-                    192,
-                    192,
-                    192
-                ],
-                skyblue: [
-                    135,
-                    206,
-                    235
-                ],
-                slateblue: [
-                    106,
-                    90,
-                    205
-                ],
-                slategray: [
-                    112,
-                    128,
-                    144
-                ],
-                slategrey: [
-                    112,
-                    128,
-                    144
-                ],
-                snow: [
-                    255,
-                    250,
-                    250
-                ],
-                springgreen: [
-                    0,
-                    255,
-                    127
-                ],
-                steelblue: [
-                    70,
-                    130,
-                    180
-                ],
-                tan: [
-                    210,
-                    180,
-                    140
-                ],
-                teal: [
-                    0,
-                    128,
-                    128
-                ],
-                thistle: [
-                    216,
-                    191,
-                    216
-                ],
-                tomato: [
-                    255,
-                    99,
-                    71
-                ],
-                turquoise: [
-                    64,
-                    224,
-                    208
-                ],
-                violet: [
-                    238,
-                    130,
-                    238
-                ],
-                wheat: [
-                    245,
-                    222,
-                    179
-                ],
-                white: [
-                    255,
-                    255,
-                    255
-                ],
-                whitesmoke: [
-                    245,
-                    245,
-                    245
-                ],
-                yellow: [
-                    255,
-                    255,
-                    0
-                ],
-                yellowgreen: [
-                    154,
-                    205,
-                    50
-                ]
-            };
-        },
-        379: (r)=>{
-            "use strict";
-            var e = /[|\\{}()[\]^$+*?.]/g;
-            r.exports = function(r) {
-                if (typeof r !== "string") {
-                    throw new TypeError("Expected a string");
-                }
-                return r.replace(e, "\\$&");
-            };
-        },
-        343: (r)=>{
-            "use strict";
-            r.exports = (r, e)=>{
-                e = e || process.argv;
-                const n = r.startsWith("-") ? "" : r.length === 1 ? "-" : "--";
-                const t = e.indexOf(n + r);
-                const a = e.indexOf("--");
-                return t !== -1 && (a === -1 ? true : t < a);
-            };
-        },
-        220: (r, e, n)=>{
-            "use strict";
-            const t = n(37);
-            const a = n(343);
-            const o = process.env;
-            let s;
-            if (a("no-color") || a("no-colors") || a("color=false")) {
-                s = false;
-            } else if (a("color") || a("colors") || a("color=true") || a("color=always")) {
-                s = true;
-            }
-            if ("FORCE_COLOR" in o) {
-                s = o.FORCE_COLOR.length === 0 || parseInt(o.FORCE_COLOR, 10) !== 0;
-            }
-            function translateLevel(r) {
-                if (r === 0) {
-                    return false;
-                }
-                return {
-                    level: r,
-                    hasBasic: true,
-                    has256: r >= 2,
-                    has16m: r >= 3
-                };
-            }
-            function supportsColor(r) {
-                if (s === false) {
-                    return 0;
-                }
-                if (a("color=16m") || a("color=full") || a("color=truecolor")) {
-                    return 3;
-                }
-                if (a("color=256")) {
-                    return 2;
-                }
-                if (r && !r.isTTY && s !== true) {
-                    return 0;
-                }
-                const e = s ? 1 : 0;
-                if (process.platform === "win32") {
-                    const r = t.release().split(".");
-                    if (Number(process.versions.node.split(".")[0]) >= 8 && Number(r[0]) >= 10 && Number(r[2]) >= 10586) {
-                        return Number(r[2]) >= 14931 ? 3 : 2;
-                    }
-                    return 1;
-                }
-                if ("CI" in o) {
-                    if ([
-                        "TRAVIS",
-                        "CIRCLECI",
-                        "APPVEYOR",
-                        "GITLAB_CI"
-                    ].some((r)=>r in o) || o.CI_NAME === "codeship") {
-                        return 1;
-                    }
-                    return e;
-                }
-                if ("TEAMCITY_VERSION" in o) {
-                    return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(o.TEAMCITY_VERSION) ? 1 : 0;
-                }
-                if (o.COLORTERM === "truecolor") {
-                    return 3;
-                }
-                if ("TERM_PROGRAM" in o) {
-                    const r = parseInt((o.TERM_PROGRAM_VERSION || "").split(".")[0], 10);
-                    switch(o.TERM_PROGRAM){
-                        case "iTerm.app":
-                            return r >= 3 ? 3 : 2;
-                        case "Apple_Terminal":
-                            return 2;
-                    }
-                }
-                if (/-256(color)?$/i.test(o.TERM)) {
-                    return 2;
-                }
-                if (/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(o.TERM)) {
-                    return 1;
-                }
-                if ("COLORTERM" in o) {
-                    return 1;
-                }
-                if (o.TERM === "dumb") {
-                    return e;
-                }
-                return e;
-            }
-            function getSupportLevel(r) {
-                const e = supportsColor(r);
-                return translateLevel(e);
-            }
-            r.exports = {
-                supportsColor: getSupportLevel,
-                stdout: getSupportLevel(process.stdout),
-                stderr: getSupportLevel(process.stderr)
-            };
-        },
-        37: (r)=>{
-            "use strict";
-            r.exports = __webpack_require__(2037);
-        }
-    };
-    var e = {};
-    function __nccwpck_require__(n) {
-        var t = e[n];
-        if (t !== undefined) {
-            return t.exports;
-        }
-        var a = e[n] = {
-            id: n,
-            loaded: false,
-            exports: {}
-        };
-        var o = true;
-        try {
-            r[n](a, a.exports, __nccwpck_require__);
-            o = false;
-        } finally{
-            if (o) delete e[n];
-        }
-        a.loaded = true;
-        return a.exports;
-    }
-    (()=>{
-        __nccwpck_require__.nmd = (r)=>{
-            r.paths = [];
-            if (!r.children) r.children = [];
-            return r;
-        };
-    })();
-    if (typeof __nccwpck_require__ !== "undefined") __nccwpck_require__.ab = __dirname + "/";
-    var n = __nccwpck_require__(148);
-    module.exports = n;
-})();
-
-
-/***/ }),
-
-/***/ 2250:
+/***/ 6926:
 /***/ ((module, exports, __webpack_require__) => {
 
-var __WEBPACK_AMD_DEFINE_RESULT__;
-(()=>{
-    var i = {
-        412: function(i, s) {
-            /*!@license
- * UAParser.js v0.7.28
- * Lightweight JavaScript-based User-Agent string parser
- * https://github.com/faisalman/ua-parser-js
- *
- * Copyright © 2012-2021 Faisal Salman <f@faisalman.com>
- * Licensed under MIT License
- */ (function(e, o) {
-                "use strict";
-                var r = "0.7.28", a = "", n = "?", t = "function", l = "undefined", w = "object", d = "string", b = "major", u = "model", c = "name", m = "type", p = "vendor", f = "version", h = "architecture", g = "console", v = "mobile", x = "tablet", k = "smarttv", _ = "wearable", y = "embedded", S = 255;
-                var E = {
-                    extend: function(i, s) {
-                        var e = {};
-                        for(var o in i){
-                            if (s[o] && s[o].length % 2 === 0) {
-                                e[o] = s[o].concat(i[o]);
-                            } else {
-                                e[o] = i[o];
-                            }
-                        }
-                        return e;
-                    },
-                    has: function(i, s) {
-                        return typeof i === d ? s.toLowerCase().indexOf(i.toLowerCase()) !== -1 : false;
-                    },
-                    lowerize: function(i) {
-                        return i.toLowerCase();
-                    },
-                    major: function(i) {
-                        return typeof i === d ? i.replace(/[^\d\.]/g, "").split(".")[0] : o;
-                    },
-                    trim: function(i, s) {
-                        i = i.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
-                        return typeof s === l ? i : i.substring(0, S);
-                    }
-                };
-                var A = {
-                    rgx: function(i, s) {
-                        var e = 0, r, a, n, l, d, b;
-                        while(e < s.length && !d){
-                            var u = s[e], c = s[e + 1];
-                            r = a = 0;
-                            while(r < u.length && !d){
-                                d = u[r++].exec(i);
-                                if (!!d) {
-                                    for(n = 0; n < c.length; n++){
-                                        b = d[++a];
-                                        l = c[n];
-                                        if (typeof l === w && l.length > 0) {
-                                            if (l.length == 2) {
-                                                if (typeof l[1] == t) {
-                                                    this[l[0]] = l[1].call(this, b);
-                                                } else {
-                                                    this[l[0]] = l[1];
-                                                }
-                                            } else if (l.length == 3) {
-                                                if (typeof l[1] === t && !(l[1].exec && l[1].test)) {
-                                                    this[l[0]] = b ? l[1].call(this, b, l[2]) : o;
-                                                } else {
-                                                    this[l[0]] = b ? b.replace(l[1], l[2]) : o;
-                                                }
-                                            } else if (l.length == 4) {
-                                                this[l[0]] = b ? l[3].call(this, b.replace(l[1], l[2])) : o;
-                                            }
-                                        } else {
-                                            this[l] = b ? b : o;
-                                        }
-                                    }
-                                }
-                            }
-                            e += 2;
-                        }
-                    },
-                    str: function(i, s) {
-                        for(var e in s){
-                            if (typeof s[e] === w && s[e].length > 0) {
-                                for(var r = 0; r < s[e].length; r++){
-                                    if (E.has(s[e][r], i)) {
-                                        return e === n ? o : e;
-                                    }
-                                }
-                            } else if (E.has(s[e], i)) {
-                                return e === n ? o : e;
-                            }
-                        }
-                        return i;
-                    }
-                };
-                var N = {
-                    browser: {
-                        oldSafari: {
-                            version: {
-                                "1.0": "/8",
-                                1.2: "/1",
-                                1.3: "/3",
-                                "2.0": "/412",
-                                "2.0.2": "/416",
-                                "2.0.3": "/417",
-                                "2.0.4": "/419",
-                                "?": "/"
-                            }
-                        },
-                        oldEdge: {
-                            version: {
-                                .1: "12.",
-                                21: "13.",
-                                31: "14.",
-                                39: "15.",
-                                41: "16.",
-                                42: "17.",
-                                44: "18."
-                            }
-                        }
-                    },
-                    os: {
-                        windows: {
-                            version: {
-                                ME: "4.90",
-                                "NT 3.11": "NT3.51",
-                                "NT 4.0": "NT4.0",
-                                2e3: "NT 5.0",
-                                XP: [
-                                    "NT 5.1",
-                                    "NT 5.2"
-                                ],
-                                Vista: "NT 6.0",
-                                7: "NT 6.1",
-                                8: "NT 6.2",
-                                8.1: "NT 6.3",
-                                10: [
-                                    "NT 6.4",
-                                    "NT 10.0"
-                                ],
-                                RT: "ARM"
-                            }
-                        }
-                    }
-                };
-                var T = {
-                    browser: [
-                        [
-                            /\b(?:crmo|crios)\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Chrome"
-                            ]
-                        ],
-                        [
-                            /edg(?:e|ios|a)?\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Edge"
-                            ]
-                        ],
-                        [
-                            /(opera\smini)\/([\w\.-]+)/i,
-                            /(opera\s[mobiletab]{3,6})\b.+version\/([\w\.-]+)/i,
-                            /(opera)(?:.+version\/|[\/\s]+)([\w\.]+)/i
-                        ],
-                        [
-                            c,
-                            f
-                        ],
-                        [
-                            /opios[\/\s]+([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Opera Mini"
-                            ]
-                        ],
-                        [
-                            /\sopr\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Opera"
-                            ]
-                        ],
-                        [
-                            /(kindle)\/([\w\.]+)/i,
-                            /(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?([\w\.]*)/i,
-                            /(avant\s|iemobile|slim)(?:browser)?[\/\s]?([\w\.]*)/i,
-                            /(ba?idubrowser)[\/\s]?([\w\.]+)/i,
-                            /(?:ms|\()(ie)\s([\w\.]+)/i,
-                            /(flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark|qupzilla|falkon)\/([\w\.-]+)/i,
-                            /(rekonq|puffin|brave|whale|qqbrowserlite|qq)\/([\w\.]+)/i,
-                            /(weibo)__([\d\.]+)/i
-                        ],
-                        [
-                            c,
-                            f
-                        ],
-                        [
-                            /(?:[\s\/]uc?\s?browser|(?:juc.+)ucweb)[\/\s]?([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "UCBrowser"
-                            ]
-                        ],
-                        [
-                            /(?:windowswechat)?\sqbcore\/([\w\.]+)\b.*(?:windowswechat)?/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "WeChat(Win) Desktop"
-                            ]
-                        ],
-                        [
-                            /micromessenger\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "WeChat"
-                            ]
-                        ],
-                        [
-                            /konqueror\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Konqueror"
-                            ]
-                        ],
-                        [
-                            /trident.+rv[:\s]([\w\.]{1,9})\b.+like\sgecko/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "IE"
-                            ]
-                        ],
-                        [
-                            /yabrowser\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Yandex"
-                            ]
-                        ],
-                        [
-                            /(avast|avg)\/([\w\.]+)/i
-                        ],
-                        [
-                            [
-                                c,
-                                /(.+)/,
-                                "$1 Secure Browser"
-                            ],
-                            f
-                        ],
-                        [
-                            /focus\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Firefox Focus"
-                            ]
-                        ],
-                        [
-                            /opt\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Opera Touch"
-                            ]
-                        ],
-                        [
-                            /coc_coc_browser\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Coc Coc"
-                            ]
-                        ],
-                        [
-                            /dolfin\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Dolphin"
-                            ]
-                        ],
-                        [
-                            /coast\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Opera Coast"
-                            ]
-                        ],
-                        [
-                            /xiaomi\/miuibrowser\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "MIUI Browser"
-                            ]
-                        ],
-                        [
-                            /fxios\/([\w\.-]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Firefox"
-                            ]
-                        ],
-                        [
-                            /(qihu|qhbrowser|qihoobrowser|360browser)/i
-                        ],
-                        [
-                            [
-                                c,
-                                "360 Browser"
-                            ]
-                        ],
-                        [
-                            /(oculus|samsung|sailfish)browser\/([\w\.]+)/i
-                        ],
-                        [
-                            [
-                                c,
-                                /(.+)/,
-                                "$1 Browser"
-                            ],
-                            f
-                        ],
-                        [
-                            /(comodo_dragon)\/([\w\.]+)/i
-                        ],
-                        [
-                            [
-                                c,
-                                /_/g,
-                                " "
-                            ],
-                            f
-                        ],
-                        [
-                            /\s(electron)\/([\w\.]+)\ssafari/i,
-                            /(tesla)(?:\sqtcarbrowser|\/(20[12]\d\.[\w\.-]+))/i,
-                            /m?(qqbrowser|baiduboxapp|2345Explorer)[\/\s]?([\w\.]+)/i
-                        ],
-                        [
-                            c,
-                            f
-                        ],
-                        [
-                            /(MetaSr)[\/\s]?([\w\.]+)/i,
-                            /(LBBROWSER)/i
-                        ],
-                        [
-                            c
-                        ],
-                        [
-                            /;fbav\/([\w\.]+);/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Facebook"
-                            ]
-                        ],
-                        [
-                            /FBAN\/FBIOS|FB_IAB\/FB4A/i
-                        ],
-                        [
-                            [
-                                c,
-                                "Facebook"
-                            ]
-                        ],
-                        [
-                            /safari\s(line)\/([\w\.]+)/i,
-                            /\b(line)\/([\w\.]+)\/iab/i,
-                            /(chromium|instagram)[\/\s]([\w\.-]+)/i
-                        ],
-                        [
-                            c,
-                            f
-                        ],
-                        [
-                            /\bgsa\/([\w\.]+)\s.*safari\//i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "GSA"
-                            ]
-                        ],
-                        [
-                            /headlesschrome(?:\/([\w\.]+)|\s)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Chrome Headless"
-                            ]
-                        ],
-                        [
-                            /\swv\).+(chrome)\/([\w\.]+)/i
-                        ],
-                        [
-                            [
-                                c,
-                                "Chrome WebView"
-                            ],
-                            f
-                        ],
-                        [
-                            /droid.+\sversion\/([\w\.]+)\b.+(?:mobile\ssafari|safari)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Android Browser"
-                            ]
-                        ],
-                        [
-                            /(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?([\w\.]+)/i
-                        ],
-                        [
-                            c,
-                            f
-                        ],
-                        [
-                            /version\/([\w\.]+)\s.*mobile\/\w+\s(safari)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Mobile Safari"
-                            ]
-                        ],
-                        [
-                            /version\/([\w\.]+)\s.*(mobile\s?safari|safari)/i
-                        ],
-                        [
-                            f,
-                            c
-                        ],
-                        [
-                            /webkit.+?(mobile\s?safari|safari)(\/[\w\.]+)/i
-                        ],
-                        [
-                            c,
-                            [
-                                f,
-                                A.str,
-                                N.browser.oldSafari.version
-                            ]
-                        ],
-                        [
-                            /(webkit|khtml)\/([\w\.]+)/i
-                        ],
-                        [
-                            c,
-                            f
-                        ],
-                        [
-                            /(navigator|netscape)\/([\w\.-]+)/i
-                        ],
-                        [
-                            [
-                                c,
-                                "Netscape"
-                            ],
-                            f
-                        ],
-                        [
-                            /ile\svr;\srv:([\w\.]+)\).+firefox/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Firefox Reality"
-                            ]
-                        ],
-                        [
-                            /ekiohf.+(flow)\/([\w\.]+)/i,
-                            /(swiftfox)/i,
-                            /(icedragon|iceweasel|camino|chimera|fennec|maemo\sbrowser|minimo|conkeror)[\/\s]?([\w\.\+]+)/i,
-                            /(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix|palemoon|basilisk|waterfox)\/([\w\.-]+)$/i,
-                            /(firefox)\/([\w\.]+)\s[\w\s\-]+\/[\w\.]+$/i,
-                            /(mozilla)\/([\w\.]+)\s.+rv\:.+gecko\/\d+/i,
-                            /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|sleipnir)[\/\s]?([\w\.]+)/i,
-                            /(links)\s\(([\w\.]+)/i,
-                            /(gobrowser)\/?([\w\.]*)/i,
-                            /(ice\s?browser)\/v?([\w\._]+)/i,
-                            /(mosaic)[\/\s]([\w\.]+)/i
-                        ],
-                        [
-                            c,
-                            f
-                        ]
-                    ],
-                    cpu: [
-                        [
-                            /(?:(amd|x(?:(?:86|64)[_-])?|wow|win)64)[;\)]/i
-                        ],
-                        [
-                            [
-                                h,
-                                "amd64"
-                            ]
-                        ],
-                        [
-                            /(ia32(?=;))/i
-                        ],
-                        [
-                            [
-                                h,
-                                E.lowerize
-                            ]
-                        ],
-                        [
-                            /((?:i[346]|x)86)[;\)]/i
-                        ],
-                        [
-                            [
-                                h,
-                                "ia32"
-                            ]
-                        ],
-                        [
-                            /\b(aarch64|armv?8e?l?)\b/i
-                        ],
-                        [
-                            [
-                                h,
-                                "arm64"
-                            ]
-                        ],
-                        [
-                            /\b(arm(?:v[67])?ht?n?[fl]p?)\b/i
-                        ],
-                        [
-                            [
-                                h,
-                                "armhf"
-                            ]
-                        ],
-                        [
-                            /windows\s(ce|mobile);\sppc;/i
-                        ],
-                        [
-                            [
-                                h,
-                                "arm"
-                            ]
-                        ],
-                        [
-                            /((?:ppc|powerpc)(?:64)?)(?:\smac|;|\))/i
-                        ],
-                        [
-                            [
-                                h,
-                                /ower/,
-                                "",
-                                E.lowerize
-                            ]
-                        ],
-                        [
-                            /(sun4\w)[;\)]/i
-                        ],
-                        [
-                            [
-                                h,
-                                "sparc"
-                            ]
-                        ],
-                        [
-                            /((?:avr32|ia64(?=;))|68k(?=\))|\barm(?:64|(?=v(?:[1-7]|[5-7]1)l?|;|eabi))|(?=atmel\s)avr|(?:irix|mips|sparc)(?:64)?\b|pa-risc)/i
-                        ],
-                        [
-                            [
-                                h,
-                                E.lowerize
-                            ]
-                        ]
-                    ],
-                    device: [
-                        [
-                            /\b(sch-i[89]0\d|shw-m380s|sm-[pt]\w{2,4}|gt-[pn]\d{2,4}|sgh-t8[56]9|nexus\s10)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Samsung"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /\b((?:s[cgp]h|gt|sm)-\w+|galaxy\snexus)/i,
-                            /\ssamsung[\s-]([\w-]+)/i,
-                            /sec-(sgh\w+)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Samsung"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /\((ip(?:hone|od)[\s\w]*);/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Apple"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /\((ipad);[\w\s\),;-]+apple/i,
-                            /applecoremedia\/[\w\.]+\s\((ipad)/i,
-                            /\b(ipad)\d\d?,\d\d?[;\]].+ios/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Apple"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /\b((?:agr|ags[23]|bah2?|sht?)-a?[lw]\d{2})/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Huawei"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /d\/huawei([\w\s-]+)[;\)]/i,
-                            /\b(nexus\s6p|vog-[at]?l\d\d|ane-[at]?l[x\d]\d|eml-a?l\d\da?|lya-[at]?l\d[\dc]|clt-a?l\d\di?|ele-l\d\d)/i,
-                            /\b(\w{2,4}-[atu][ln][01259][019])[;\)\s]/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Huawei"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /\b(poco[\s\w]+)(?:\sbuild|\))/i,
-                            /\b;\s(\w+)\sbuild\/hm\1/i,
-                            /\b(hm[\s\-_]?note?[\s_]?(?:\d\w)?)\sbuild/i,
-                            /\b(redmi[\s\-_]?(?:note|k)?[\w\s_]+)(?:\sbuild|\))/i,
-                            /\b(mi[\s\-_]?(?:a\d|one|one[\s_]plus|note lte)?[\s_]?(?:\d?\w?)[\s_]?(?:plus)?)\sbuild/i
-                        ],
-                        [
-                            [
-                                u,
-                                /_/g,
-                                " "
-                            ],
-                            [
-                                p,
-                                "Xiaomi"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /\b(mi[\s\-_]?(?:pad)(?:[\w\s_]+))(?:\sbuild|\))/i
-                        ],
-                        [
-                            [
-                                u,
-                                /_/g,
-                                " "
-                            ],
-                            [
-                                p,
-                                "Xiaomi"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /;\s(\w+)\sbuild.+\soppo/i,
-                            /\s(cph[12]\d{3}|p(?:af|c[al]|d\w|e[ar])[mt]\d0|x9007)\b/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "OPPO"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /\svivo\s(\w+)(?:\sbuild|\))/i,
-                            /\s(v[12]\d{3}\w?[at])(?:\sbuild|;)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Vivo"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /\s(rmx[12]\d{3})(?:\sbuild|;)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Realme"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /\s(milestone|droid(?:[2-4x]|\s(?:bionic|x2|pro|razr))?:?(\s4g)?)\b[\w\s]+build\//i,
-                            /\smot(?:orola)?[\s-](\w*)/i,
-                            /((?:moto[\s\w\(\)]+|xt\d{3,4}|nexus\s6)(?=\sbuild|\)))/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Motorola"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /\s(mz60\d|xoom[\s2]{0,2})\sbuild\//i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Motorola"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /((?=lg)?[vl]k\-?\d{3})\sbuild|\s3\.[\s\w;-]{10}lg?-([06cv9]{3,4})/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "LG"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /(lm-?f100[nv]?|nexus\s[45])/i,
-                            /lg[e;\s\/-]+((?!browser|netcast)\w+)/i,
-                            /\blg(\-?[\d\w]+)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "LG"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /(ideatab[\w\-\s]+)/i,
-                            /lenovo\s?(s(?:5000|6000)(?:[\w-]+)|tab(?:[\s\w]+)|yt[\d\w-]{6}|tb[\d\w-]{6})/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Lenovo"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /(?:maemo|nokia).*(n900|lumia\s\d+)/i,
-                            /nokia[\s_-]?([\w\.-]*)/i
-                        ],
-                        [
-                            [
-                                u,
-                                /_/g,
-                                " "
-                            ],
-                            [
-                                p,
-                                "Nokia"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /droid.+;\s(pixel\sc)[\s)]/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Google"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /droid.+;\s(pixel[\s\daxl]{0,6})(?:\sbuild|\))/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Google"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /droid.+\s([c-g]\d{4}|so[-l]\w+|xq-a\w[4-7][12])(?=\sbuild\/|\).+chrome\/(?![1-6]{0,1}\d\.))/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Sony"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /sony\stablet\s[ps]\sbuild\//i,
-                            /(?:sony)?sgp\w+(?:\sbuild\/|\))/i
-                        ],
-                        [
-                            [
-                                u,
-                                "Xperia Tablet"
-                            ],
-                            [
-                                p,
-                                "Sony"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /\s(kb2005|in20[12]5|be20[12][59])\b/i,
-                            /\ba000(1)\sbuild/i,
-                            /\boneplus\s(a\d{4})[\s)]/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "OnePlus"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /(alexa)webm/i,
-                            /(kf[a-z]{2}wi)(\sbuild\/|\))/i,
-                            /(kf[a-z]+)(\sbuild\/|\)).+silk\//i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Amazon"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /(sd|kf)[0349hijorstuw]+(\sbuild\/|\)).+silk\//i
-                        ],
-                        [
-                            [
-                                u,
-                                "Fire Phone"
-                            ],
-                            [
-                                p,
-                                "Amazon"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /\((playbook);[\w\s\),;-]+(rim)/i
-                        ],
-                        [
-                            u,
-                            p,
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /((?:bb[a-f]|st[hv])100-\d)/i,
-                            /\(bb10;\s(\w+)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "BlackBerry"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /(?:\b|asus_)(transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+|nexus\s7|padfone|p00[cj])/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "ASUS"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /\s(z[es]6[027][01][km][ls]|zenfone\s\d\w?)\b/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "ASUS"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /(nexus\s9)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "HTC"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /(htc)[;_\s-]{1,2}([\w\s]+(?=\)|\sbuild)|\w+)/i,
-                            /(zte)-(\w*)/i,
-                            /(alcatel|geeksphone|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]*)/i
-                        ],
-                        [
-                            p,
-                            [
-                                u,
-                                /_/g,
-                                " "
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /droid[x\d\.\s;]+\s([ab][1-7]\-?[0178a]\d\d?)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Acer"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /droid.+;\s(m[1-5]\snote)\sbuild/i,
-                            /\bmz-([\w-]{2,})/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Meizu"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron)[\s_-]?([\w-]*)/i,
-                            /(hp)\s([\w\s]+\w)/i,
-                            /(asus)-?(\w+)/i,
-                            /(microsoft);\s(lumia[\s\w]+)/i,
-                            /(lenovo)[_\s-]?([\w-]+)/i,
-                            /linux;.+(jolla);/i,
-                            /droid.+;\s(oppo)\s?([\w\s]+)\sbuild/i
-                        ],
-                        [
-                            p,
-                            u,
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /(archos)\s(gamepad2?)/i,
-                            /(hp).+(touchpad(?!.+tablet)|tablet)/i,
-                            /(kindle)\/([\w\.]+)/i,
-                            /\s(nook)[\w\s]+build\/(\w+)/i,
-                            /(dell)\s(strea[kpr\s\d]*[\dko])/i,
-                            /[;\/]\s?(le[\s\-]+pan)[\s\-]+(\w{1,9})\sbuild/i,
-                            /[;\/]\s?(trinity)[\-\s]*(t\d{3})\sbuild/i,
-                            /\b(gigaset)[\s\-]+(q\w{1,9})\sbuild/i,
-                            /\b(vodafone)\s([\w\s]+)(?:\)|\sbuild)/i
-                        ],
-                        [
-                            p,
-                            u,
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /\s(surface\sduo)\s/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Microsoft"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /droid\s[\d\.]+;\s(fp\du?)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Fairphone"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /\s(u304aa)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "AT&T"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /sie-(\w*)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Siemens"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?(rct\w+)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "RCA"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /[;\/\s](venue[\d\s]{2,7})\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Dell"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?(q(?:mv|ta)\w+)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Verizon"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /[;\/]\s(?:barnes[&\s]+noble\s|bn[rt])([\w\s\+]*)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Barnes & Noble"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /[;\/]\s(tm\d{3}\w+)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "NuVision"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /;\s(k88)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "ZTE"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /;\s(nx\d{3}j)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "ZTE"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?(gen\d{3})\sbuild.*49h/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Swiss"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?(zur\d{3})\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Swiss"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?((zeki)?tb.*\b)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Zeki"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /[;\/]\s([yr]\d{2})\sbuild/i,
-                            /[;\/]\s(dragon[\-\s]+touch\s|dt)(\w{5})\sbuild/i
-                        ],
-                        [
-                            [
-                                p,
-                                "Dragon Touch"
-                            ],
-                            u,
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?(ns-?\w{0,9})\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Insignia"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?((nxa|Next)-?\w{0,9})\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "NextBook"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?(xtreme\_)?(v(1[045]|2[015]|[3469]0|7[05]))\sbuild/i
-                        ],
-                        [
-                            [
-                                p,
-                                "Voice"
-                            ],
-                            u,
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?(lvtel\-)?(v1[12])\sbuild/i
-                        ],
-                        [
-                            [
-                                p,
-                                "LvTel"
-                            ],
-                            u,
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /;\s(ph-1)\s/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Essential"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?(v(100md|700na|7011|917g).*\b)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Envizen"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?(trio[\s\w\-\.]+)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "MachSpeed"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /[;\/]\s?tu_(1491)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Rotor"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /(shield[\w\s]+)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Nvidia"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /(sprint)\s(\w+)/i
-                        ],
-                        [
-                            p,
-                            u,
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /(kin\.[onetw]{3})/i
-                        ],
-                        [
-                            [
-                                u,
-                                /\./g,
-                                " "
-                            ],
-                            [
-                                p,
-                                "Microsoft"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /droid\s[\d\.]+;\s(cc6666?|et5[16]|mc[239][23]x?|vc8[03]x?)\)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Zebra"
-                            ],
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /droid\s[\d\.]+;\s(ec30|ps20|tc[2-8]\d[kx])\)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Zebra"
-                            ],
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /\s(ouya)\s/i,
-                            /(nintendo)\s([wids3utch]+)/i
-                        ],
-                        [
-                            p,
-                            u,
-                            [
-                                m,
-                                g
-                            ]
-                        ],
-                        [
-                            /droid.+;\s(shield)\sbuild/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Nvidia"
-                            ],
-                            [
-                                m,
-                                g
-                            ]
-                        ],
-                        [
-                            /(playstation\s[345portablevi]+)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Sony"
-                            ],
-                            [
-                                m,
-                                g
-                            ]
-                        ],
-                        [
-                            /[\s\(;](xbox(?:\sone)?(?!;\sxbox))[\s\);]/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Microsoft"
-                            ],
-                            [
-                                m,
-                                g
-                            ]
-                        ],
-                        [
-                            /smart-tv.+(samsung)/i
-                        ],
-                        [
-                            p,
-                            [
-                                m,
-                                k
-                            ]
-                        ],
-                        [
-                            /hbbtv.+maple;(\d+)/i
-                        ],
-                        [
-                            [
-                                u,
-                                /^/,
-                                "SmartTV"
-                            ],
-                            [
-                                p,
-                                "Samsung"
-                            ],
-                            [
-                                m,
-                                k
-                            ]
-                        ],
-                        [
-                            /(?:linux;\snetcast.+smarttv|lg\snetcast\.tv-201\d)/i
-                        ],
-                        [
-                            [
-                                p,
-                                "LG"
-                            ],
-                            [
-                                m,
-                                k
-                            ]
-                        ],
-                        [
-                            /(apple)\s?tv/i
-                        ],
-                        [
-                            p,
-                            [
-                                u,
-                                "Apple TV"
-                            ],
-                            [
-                                m,
-                                k
-                            ]
-                        ],
-                        [
-                            /crkey/i
-                        ],
-                        [
-                            [
-                                u,
-                                "Chromecast"
-                            ],
-                            [
-                                p,
-                                "Google"
-                            ],
-                            [
-                                m,
-                                k
-                            ]
-                        ],
-                        [
-                            /droid.+aft([\w])(\sbuild\/|\))/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Amazon"
-                            ],
-                            [
-                                m,
-                                k
-                            ]
-                        ],
-                        [
-                            /\(dtv[\);].+(aquos)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Sharp"
-                            ],
-                            [
-                                m,
-                                k
-                            ]
-                        ],
-                        [
-                            /hbbtv\/\d+\.\d+\.\d+\s+\([\w\s]*;\s*(\w[^;]*);([^;]*)/i
-                        ],
-                        [
-                            [
-                                p,
-                                E.trim
-                            ],
-                            [
-                                u,
-                                E.trim
-                            ],
-                            [
-                                m,
-                                k
-                            ]
-                        ],
-                        [
-                            /[\s\/\(](android\s|smart[-\s]?|opera\s)tv[;\)\s]/i
-                        ],
-                        [
-                            [
-                                m,
-                                k
-                            ]
-                        ],
-                        [
-                            /((pebble))app\/[\d\.]+\s/i
-                        ],
-                        [
-                            p,
-                            u,
-                            [
-                                m,
-                                _
-                            ]
-                        ],
-                        [
-                            /droid.+;\s(glass)\s\d/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Google"
-                            ],
-                            [
-                                m,
-                                _
-                            ]
-                        ],
-                        [
-                            /droid\s[\d\.]+;\s(wt63?0{2,3})\)/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Zebra"
-                            ],
-                            [
-                                m,
-                                _
-                            ]
-                        ],
-                        [
-                            /(tesla)(?:\sqtcarbrowser|\/20[12]\d\.[\w\.-]+)/i
-                        ],
-                        [
-                            p,
-                            [
-                                m,
-                                y
-                            ]
-                        ],
-                        [
-                            /droid .+?; ([^;]+?)(?: build|\) applewebkit).+? mobile safari/i
-                        ],
-                        [
-                            u,
-                            [
-                                m,
-                                v
-                            ]
-                        ],
-                        [
-                            /droid .+?;\s([^;]+?)(?: build|\) applewebkit).+?(?! mobile) safari/i
-                        ],
-                        [
-                            u,
-                            [
-                                m,
-                                x
-                            ]
-                        ],
-                        [
-                            /\s(tablet|tab)[;\/]/i,
-                            /\s(mobile)(?:[;\/]|\ssafari)/i
-                        ],
-                        [
-                            [
-                                m,
-                                E.lowerize
-                            ]
-                        ],
-                        [
-                            /(android[\w\.\s\-]{0,9});.+build/i
-                        ],
-                        [
-                            u,
-                            [
-                                p,
-                                "Generic"
-                            ]
-                        ],
-                        [
-                            /(phone)/i
-                        ],
-                        [
-                            [
-                                m,
-                                v
-                            ]
-                        ]
-                    ],
-                    engine: [
-                        [
-                            /windows.+\sedge\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "EdgeHTML"
-                            ]
-                        ],
-                        [
-                            /webkit\/537\.36.+chrome\/(?!27)([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Blink"
-                            ]
-                        ],
-                        [
-                            /(presto)\/([\w\.]+)/i,
-                            /(webkit|trident|netfront|netsurf|amaya|lynx|w3m|goanna)\/([\w\.]+)/i,
-                            /ekioh(flow)\/([\w\.]+)/i,
-                            /(khtml|tasman|links)[\/\s]\(?([\w\.]+)/i,
-                            /(icab)[\/\s]([23]\.[\d\.]+)/i
-                        ],
-                        [
-                            c,
-                            f
-                        ],
-                        [
-                            /rv\:([\w\.]{1,9})\b.+(gecko)/i
-                        ],
-                        [
-                            f,
-                            c
-                        ]
-                    ],
-                    os: [
-                        [
-                            /microsoft\s(windows)\s(vista|xp)/i
-                        ],
-                        [
-                            c,
-                            f
-                        ],
-                        [
-                            /(windows)\snt\s6\.2;\s(arm)/i,
-                            /(windows\sphone(?:\sos)*)[\s\/]?([\d\.\s\w]*)/i,
-                            /(windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)(?!.+xbox)/i
-                        ],
-                        [
-                            c,
-                            [
-                                f,
-                                A.str,
-                                N.os.windows.version
-                            ]
-                        ],
-                        [
-                            /(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i
-                        ],
-                        [
-                            [
-                                c,
-                                "Windows"
-                            ],
-                            [
-                                f,
-                                A.str,
-                                N.os.windows.version
-                            ]
-                        ],
-                        [
-                            /ip[honead]{2,4}\b(?:.*os\s([\w]+)\slike\smac|;\sopera)/i,
-                            /cfnetwork\/.+darwin/i
-                        ],
-                        [
-                            [
-                                f,
-                                /_/g,
-                                "."
-                            ],
-                            [
-                                c,
-                                "iOS"
-                            ]
-                        ],
-                        [
-                            /(mac\sos\sx)\s?([\w\s\.]*)/i,
-                            /(macintosh|mac(?=_powerpc)\s)(?!.+haiku)/i
-                        ],
-                        [
-                            [
-                                c,
-                                "Mac OS"
-                            ],
-                            [
-                                f,
-                                /_/g,
-                                "."
-                            ]
-                        ],
-                        [
-                            /(android|webos|palm\sos|qnx|bada|rim\stablet\sos|meego|sailfish|contiki)[\/\s-]?([\w\.]*)/i,
-                            /(blackberry)\w*\/([\w\.]*)/i,
-                            /(tizen|kaios)[\/\s]([\w\.]+)/i,
-                            /\((series40);/i
-                        ],
-                        [
-                            c,
-                            f
-                        ],
-                        [
-                            /\(bb(10);/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "BlackBerry"
-                            ]
-                        ],
-                        [
-                            /(?:symbian\s?os|symbos|s60(?=;)|series60)[\/\s-]?([\w\.]*)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Symbian"
-                            ]
-                        ],
-                        [
-                            /mozilla.+\(mobile;.+gecko.+firefox/i
-                        ],
-                        [
-                            [
-                                c,
-                                "Firefox OS"
-                            ]
-                        ],
-                        [
-                            /web0s;.+rt(tv)/i,
-                            /\b(?:hp)?wos(?:browser)?\/([\w\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "webOS"
-                            ]
-                        ],
-                        [
-                            /crkey\/([\d\.]+)/i
-                        ],
-                        [
-                            f,
-                            [
-                                c,
-                                "Chromecast"
-                            ]
-                        ],
-                        [
-                            /(cros)\s[\w]+\s([\w\.]+\w)/i
-                        ],
-                        [
-                            [
-                                c,
-                                "Chromium OS"
-                            ],
-                            f
-                        ],
-                        [
-                            /(nintendo|playstation)\s([wids345portablevuch]+)/i,
-                            /(xbox);\s+xbox\s([^\);]+)/i,
-                            /(mint)[\/\s\(\)]?(\w*)/i,
-                            /(mageia|vectorlinux)[;\s]/i,
-                            /(joli|[kxln]?ubuntu|debian|suse|opensuse|gentoo|arch(?=\slinux)|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus|raspbian)(?:\sgnu\/linux)?(?:\slinux)?[\/\s-]?(?!chrom|package)([\w\.-]*)/i,
-                            /(hurd|linux)\s?([\w\.]*)/i,
-                            /(gnu)\s?([\w\.]*)/i,
-                            /\s([frentopc-]{0,4}bsd|dragonfly)\s?(?!amd|[ix346]{1,2}86)([\w\.]*)/i,
-                            /(haiku)\s(\w+)/i
-                        ],
-                        [
-                            c,
-                            f
-                        ],
-                        [
-                            /(sunos)\s?([\w\.\d]*)/i
-                        ],
-                        [
-                            [
-                                c,
-                                "Solaris"
-                            ],
-                            f
-                        ],
-                        [
-                            /((?:open)?solaris)[\/\s-]?([\w\.]*)/i,
-                            /(aix)\s((\d)(?=\.|\)|\s)[\w\.])*/i,
-                            /(plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos|openvms|fuchsia)/i,
-                            /(unix)\s?([\w\.]*)/i
-                        ],
-                        [
-                            c,
-                            f
-                        ]
-                    ]
-                };
-                var UAParser = function(i, s) {
-                    if (typeof i === "object") {
-                        s = i;
-                        i = o;
-                    }
-                    if (!(this instanceof UAParser)) {
-                        return new UAParser(i, s).getResult();
-                    }
-                    var r = i || (typeof e !== "undefined" && e.navigator && e.navigator.userAgent ? e.navigator.userAgent : a);
-                    var n = s ? E.extend(T, s) : T;
-                    this.getBrowser = function() {
-                        var i = {
-                            name: o,
-                            version: o
-                        };
-                        A.rgx.call(i, r, n.browser);
-                        i.major = E.major(i.version);
-                        return i;
-                    };
-                    this.getCPU = function() {
-                        var i = {
-                            architecture: o
-                        };
-                        A.rgx.call(i, r, n.cpu);
-                        return i;
-                    };
-                    this.getDevice = function() {
-                        var i = {
-                            vendor: o,
-                            model: o,
-                            type: o
-                        };
-                        A.rgx.call(i, r, n.device);
-                        return i;
-                    };
-                    this.getEngine = function() {
-                        var i = {
-                            name: o,
-                            version: o
-                        };
-                        A.rgx.call(i, r, n.engine);
-                        return i;
-                    };
-                    this.getOS = function() {
-                        var i = {
-                            name: o,
-                            version: o
-                        };
-                        A.rgx.call(i, r, n.os);
-                        return i;
-                    };
-                    this.getResult = function() {
-                        return {
-                            ua: this.getUA(),
-                            browser: this.getBrowser(),
-                            engine: this.getEngine(),
-                            os: this.getOS(),
-                            device: this.getDevice(),
-                            cpu: this.getCPU()
-                        };
-                    };
-                    this.getUA = function() {
-                        return r;
-                    };
-                    this.setUA = function(i) {
-                        r = typeof i === d && i.length > S ? E.trim(i, S) : i;
-                        return this;
-                    };
-                    this.setUA(r);
-                    return this;
-                };
-                UAParser.VERSION = r;
-                UAParser.BROWSER = {
-                    NAME: c,
-                    MAJOR: b,
-                    VERSION: f
-                };
-                UAParser.CPU = {
-                    ARCHITECTURE: h
-                };
-                UAParser.DEVICE = {
-                    MODEL: u,
-                    VENDOR: p,
-                    TYPE: m,
-                    CONSOLE: g,
-                    MOBILE: v,
-                    SMARTTV: k,
-                    TABLET: x,
-                    WEARABLE: _,
-                    EMBEDDED: y
-                };
-                UAParser.ENGINE = {
-                    NAME: c,
-                    VERSION: f
-                };
-                UAParser.OS = {
-                    NAME: c,
-                    VERSION: f
-                };
-                if (typeof s !== l) {
-                    if ("object" !== l && i.exports) {
-                        s = i.exports = UAParser;
-                    }
-                    s.UAParser = UAParser;
-                } else {
-                    if (true) {
-                        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
-                            return UAParser;
-                        }).call(exports, __webpack_require__, exports, module),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-                    } else {}
-                }
-                var z = typeof e !== "undefined" && (e.jQuery || e.Zepto);
-                if (z && !z.ua) {
-                    var O = new UAParser;
-                    z.ua = O.getResult();
-                    z.ua.get = function() {
-                        return O.getUA();
-                    };
-                    z.ua.set = function(i) {
-                        O.setUA(i);
-                        var s = O.getResult();
-                        for(var e in s){
-                            z.ua[e] = s[e];
-                        }
-                    };
-                }
-            })( false ? 0 : this);
-        }
-    };
-    var s = {};
-    function __nccwpck_require__(e) {
-        var o = s[e];
-        if (o !== undefined) {
-            return o.exports;
-        }
-        var r = s[e] = {
-            exports: {}
-        };
-        var a = true;
-        try {
-            i[e].call(r.exports, r, r.exports, __nccwpck_require__);
-            a = false;
-        } finally{
-            if (a) delete s[e];
-        }
-        return r.exports;
-    }
-    if (typeof __nccwpck_require__ !== "undefined") __nccwpck_require__.ab = __dirname + "/";
-    var e = __nccwpck_require__(412);
-    module.exports = e;
-})();
-
-
-/***/ }),
-
-/***/ 2642:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
+/* __next_internal_client_entry_do_not_use__  cjs */ 
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 Object.defineProperty(exports, "default", ({
     enumerable: true,
     get: function() {
-        return _default;
+        return RenderFromTemplateContext;
     }
 }));
-let chalk;
-if (false) {} else {
-    chalk = __webpack_require__(2312);
+const _interop_require_wildcard = __webpack_require__(4009);
+const _react = /*#__PURE__*/ _interop_require_wildcard._(__webpack_require__(8038));
+const _approutercontext = __webpack_require__(7085);
+function RenderFromTemplateContext() {
+    const children = (0, _react.useContext)(_approutercontext.TemplateContext);
+    return /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, children);
 }
-const _default = chalk; //# sourceMappingURL=chalk.js.map
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=render-from-template-context.js.map
 
 
 /***/ }),
 
-/***/ 4561:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 4173:
+/***/ ((module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    getCookieParser: function() {
-        return getCookieParser;
-    },
-    sendStatusCode: function() {
-        return sendStatusCode;
-    },
-    redirect: function() {
-        return redirect;
-    },
-    checkIsOnDemandRevalidate: function() {
-        return checkIsOnDemandRevalidate;
-    },
-    COOKIE_NAME_PRERENDER_BYPASS: function() {
-        return COOKIE_NAME_PRERENDER_BYPASS;
-    },
-    COOKIE_NAME_PRERENDER_DATA: function() {
-        return COOKIE_NAME_PRERENDER_DATA;
-    },
-    RESPONSE_LIMIT_DEFAULT: function() {
-        return RESPONSE_LIMIT_DEFAULT;
-    },
-    SYMBOL_PREVIEW_DATA: function() {
-        return SYMBOL_PREVIEW_DATA;
-    },
-    SYMBOL_CLEARED_COOKIES: function() {
-        return SYMBOL_CLEARED_COOKIES;
-    },
-    clearPreviewData: function() {
-        return clearPreviewData;
-    },
-    ApiError: function() {
-        return ApiError;
-    },
-    sendError: function() {
-        return sendError;
-    },
-    setLazyProp: function() {
-        return setLazyProp;
-    }
-});
-const _headers = __webpack_require__(3423);
-const _constants = __webpack_require__(2078);
-function getCookieParser(headers) {
-    return function parseCookie() {
-        const { cookie } = headers;
-        if (!cookie) {
-            return {};
-        }
-        const { parse: parseCookieFn } = __webpack_require__(2184);
-        return parseCookieFn(Array.isArray(cookie) ? cookie.join("; ") : cookie);
-    };
-}
-function sendStatusCode(res, statusCode) {
-    res.statusCode = statusCode;
-    return res;
-}
-function redirect(res, statusOrUrl, url) {
-    if (typeof statusOrUrl === "string") {
-        url = statusOrUrl;
-        statusOrUrl = 307;
-    }
-    if (typeof statusOrUrl !== "number" || typeof url !== "string") {
-        throw new Error(`Invalid redirect arguments. Please use a single argument URL, e.g. res.redirect('/destination') or use a status code and URL, e.g. res.redirect(307, '/destination').`);
-    }
-    res.writeHead(statusOrUrl, {
-        Location: url
-    });
-    res.write(url);
-    res.end();
-    return res;
-}
-function checkIsOnDemandRevalidate(req, previewProps) {
-    const headers = _headers.HeadersAdapter.from(req.headers);
-    const previewModeId = headers.get(_constants.PRERENDER_REVALIDATE_HEADER);
-    const isOnDemandRevalidate = previewModeId === previewProps.previewModeId;
-    const revalidateOnlyGenerated = headers.has(_constants.PRERENDER_REVALIDATE_ONLY_GENERATED_HEADER);
-    return {
-        isOnDemandRevalidate,
-        revalidateOnlyGenerated
-    };
-}
-const COOKIE_NAME_PRERENDER_BYPASS = `__prerender_bypass`;
-const COOKIE_NAME_PRERENDER_DATA = `__next_preview_data`;
-const RESPONSE_LIMIT_DEFAULT = 4 * 1024 * 1024;
-const SYMBOL_PREVIEW_DATA = Symbol(COOKIE_NAME_PRERENDER_DATA);
-const SYMBOL_CLEARED_COOKIES = Symbol(COOKIE_NAME_PRERENDER_BYPASS);
-function clearPreviewData(res, options = {}) {
-    if (SYMBOL_CLEARED_COOKIES in res) {
-        return res;
-    }
-    const { serialize } = __webpack_require__(2184);
-    const previous = res.getHeader("Set-Cookie");
-    res.setHeader(`Set-Cookie`, [
-        ...typeof previous === "string" ? [
-            previous
-        ] : Array.isArray(previous) ? previous : [],
-        serialize(COOKIE_NAME_PRERENDER_BYPASS, "", {
-            // To delete a cookie, set `expires` to a date in the past:
-            // https://tools.ietf.org/html/rfc6265#section-4.1.1
-            // `Max-Age: 0` is not valid, thus ignored, and the cookie is persisted.
-            expires: new Date(0),
-            httpOnly: true,
-            sameSite:  true ? "none" : 0,
-            secure: "production" !== "development",
-            path: "/",
-            ...options.path !== undefined ? {
-                path: options.path
-            } : undefined
-        }),
-        serialize(COOKIE_NAME_PRERENDER_DATA, "", {
-            // To delete a cookie, set `expires` to a date in the past:
-            // https://tools.ietf.org/html/rfc6265#section-4.1.1
-            // `Max-Age: 0` is not valid, thus ignored, and the cookie is persisted.
-            expires: new Date(0),
-            httpOnly: true,
-            sameSite:  true ? "none" : 0,
-            secure: "production" !== "development",
-            path: "/",
-            ...options.path !== undefined ? {
-                path: options.path
-            } : undefined
-        })
-    ]);
-    Object.defineProperty(res, SYMBOL_CLEARED_COOKIES, {
-        value: true,
-        enumerable: false
-    });
-    return res;
-}
-class ApiError extends Error {
-    constructor(statusCode, message){
-        super(message);
-        this.statusCode = statusCode;
-    }
-}
-function sendError(res, statusCode, message) {
-    res.statusCode = statusCode;
-    res.statusMessage = message;
-    res.end(message);
-}
-function setLazyProp({ req }, prop, getter) {
-    const opts = {
-        configurable: true,
-        enumerable: true
-    };
-    const optsReset = {
-        ...opts,
-        writable: true
-    };
-    Object.defineProperty(req, prop, {
-        ...opts,
-        get: ()=>{
-            const value = getter();
-            // we set the property on the object to avoid recalculating it
-            Object.defineProperty(req, prop, {
-                ...optsReset,
-                value
-            });
-            return value;
-        },
-        set: (value)=>{
-            Object.defineProperty(req, prop, {
-                ...optsReset,
-                value
-            });
-        }
-    });
-} //# sourceMappingURL=index.js.map
-
-
-/***/ }),
-
-/***/ 2146:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "DraftModeProvider", ({
+Object.defineProperty(exports, "applyFlightData", ({
     enumerable: true,
     get: function() {
-        return DraftModeProvider;
+        return applyFlightData;
     }
 }));
-const _apiutils = __webpack_require__(4561);
-class DraftModeProvider {
-    constructor(previewProps, req, cookies, mutableCookies){
-        var _cookies_get;
-        // The logic for draftMode() is very similar to tryGetPreviewData()
-        // but Draft Mode does not have any data associated with it.
-        const isOnDemandRevalidate = previewProps && (0, _apiutils.checkIsOnDemandRevalidate)(req, previewProps).isOnDemandRevalidate;
-        const cookieValue = (_cookies_get = cookies.get(_apiutils.COOKIE_NAME_PRERENDER_BYPASS)) == null ? void 0 : _cookies_get.value;
-        this.isEnabled = Boolean(!isOnDemandRevalidate && cookieValue && previewProps && cookieValue === previewProps.previewModeId);
-        this._previewModeId = previewProps == null ? void 0 : previewProps.previewModeId;
-        this._mutableCookies = mutableCookies;
-    }
-    enable() {
-        if (!this._previewModeId) {
-            throw new Error("Invariant: previewProps missing previewModeId this should never happen");
-        }
-        this._mutableCookies.set({
-            name: _apiutils.COOKIE_NAME_PRERENDER_BYPASS,
-            value: this._previewModeId,
-            httpOnly: true,
-            sameSite:  true ? "none" : 0,
-            secure: "production" !== "development",
-            path: "/"
-        });
-    }
-    disable() {
-        // To delete a cookie, set `expires` to a date in the past:
-        // https://tools.ietf.org/html/rfc6265#section-4.1.1
-        // `Max-Age: 0` is not valid, thus ignored, and the cookie is persisted.
-        this._mutableCookies.set({
-            name: _apiutils.COOKIE_NAME_PRERENDER_BYPASS,
-            value: "",
-            httpOnly: true,
-            sameSite:  true ? "none" : 0,
-            secure: "production" !== "development",
-            path: "/",
-            expires: new Date(0)
-        });
-    }
-} //# sourceMappingURL=draft-mode-provider.js.map
-
-
-/***/ }),
-
-/***/ 5208:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "RequestAsyncStorageWrapper", ({
-    enumerable: true,
-    get: function() {
-        return RequestAsyncStorageWrapper;
-    }
-}));
-const _approuterheaders = __webpack_require__(3909);
-const _headers = __webpack_require__(3423);
-const _requestcookies = __webpack_require__(9934);
-const _cookies = __webpack_require__(1220);
-const _draftmodeprovider = __webpack_require__(2146);
-function getHeaders(headers) {
-    const cleaned = _headers.HeadersAdapter.from(headers);
-    for (const param of _approuterheaders.FLIGHT_PARAMETERS){
-        cleaned.delete(param.toString().toLowerCase());
-    }
-    return _headers.HeadersAdapter.seal(cleaned);
-}
-function getCookies(headers) {
-    const cookies = new _cookies.RequestCookies(_headers.HeadersAdapter.from(headers));
-    return _requestcookies.RequestCookiesAdapter.seal(cookies);
-}
-function getMutableCookies(headers, res) {
-    const cookies = new _cookies.RequestCookies(_headers.HeadersAdapter.from(headers));
-    return _requestcookies.MutableRequestCookiesAdapter.wrap(cookies, res);
-}
-const RequestAsyncStorageWrapper = {
-    /**
-   * Wrap the callback with the given store so it can access the underlying
-   * store using hooks.
-   *
-   * @param storage underlying storage object returned by the module
-   * @param context context to seed the store
-   * @param callback function to call within the scope of the context
-   * @returns the result returned by the callback
-   */ wrap (storage, { req, res, renderOpts }, callback) {
-        let previewProps = undefined;
-        if (renderOpts && "previewProps" in renderOpts) {
-            // TODO: investigate why previewProps isn't on RenderOpts
-            previewProps = renderOpts.previewProps;
-        }
-        const cache = {};
-        const store = {
-            get headers () {
-                if (!cache.headers) {
-                    // Seal the headers object that'll freeze out any methods that could
-                    // mutate the underlying data.
-                    cache.headers = getHeaders(req.headers);
-                }
-                return cache.headers;
-            },
-            get cookies () {
-                if (!cache.cookies) {
-                    // Seal the cookies object that'll freeze out any methods that could
-                    // mutate the underlying data.
-                    cache.cookies = getCookies(req.headers);
-                }
-                return cache.cookies;
-            },
-            get mutableCookies () {
-                if (!cache.mutableCookies) {
-                    cache.mutableCookies = getMutableCookies(req.headers, res);
-                }
-                return cache.mutableCookies;
-            },
-            get draftMode () {
-                if (!cache.draftMode) {
-                    cache.draftMode = new _draftmodeprovider.DraftModeProvider(previewProps, req, this.cookies, this.mutableCookies);
-                }
-                return cache.draftMode;
-            }
-        };
-        return storage.run(store, callback, store);
-    }
-}; //# sourceMappingURL=request-async-storage-wrapper.js.map
-
-
-/***/ }),
-
-/***/ 3204:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "StaticGenerationAsyncStorageWrapper", ({
-    enumerable: true,
-    get: function() {
-        return StaticGenerationAsyncStorageWrapper;
-    }
-}));
-const StaticGenerationAsyncStorageWrapper = {
-    wrap (storage, { pathname, renderOpts }, callback) {
-        /**
-     * Rules of Static & Dynamic HTML:
-     *
-     *    1.) We must generate static HTML unless the caller explicitly opts
-     *        in to dynamic HTML support.
-     *
-     *    2.) If dynamic HTML support is requested, we must honor that request
-     *        or throw an error. It is the sole responsibility of the caller to
-     *        ensure they aren't e.g. requesting dynamic HTML for an AMP page.
-     *
-     *    3.) If the request is in draft mode, we must generate dynamic HTML.
-     *
-     * These rules help ensure that other existing features like request caching,
-     * coalescing, and ISR continue working as intended.
-     */ const isStaticGeneration = !renderOpts.supportsDynamicHTML && !renderOpts.isDraftMode;
-        const store = {
-            isStaticGeneration,
-            pathname,
-            originalPathname: renderOpts.originalPathname,
-            incrementalCache: // so that it can access the fs cache without mocks
-            renderOpts.incrementalCache || globalThis.__incrementalCache,
-            isRevalidate: renderOpts.isRevalidate,
-            isPrerendering: renderOpts.nextExport,
-            fetchCache: renderOpts.fetchCache,
-            isOnDemandRevalidate: renderOpts.isOnDemandRevalidate,
-            isDraftMode: renderOpts.isDraftMode
-        };
-        // TODO: remove this when we resolve accessing the store outside the execution context
-        renderOpts.store = store;
-        return storage.run(store, callback, store);
-    }
-}; //# sourceMappingURL=static-generation-async-storage-wrapper.js.map
-
-
-/***/ }),
-
-/***/ 9513:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "RouteKind", ({
-    enumerable: true,
-    get: function() {
-        return RouteKind;
-    }
-}));
-var RouteKind;
-(function(RouteKind) {
-    RouteKind[/**
-   * `PAGES` represents all the React pages that are under `pages/`.
-   */ "PAGES"] = "PAGES";
-    RouteKind[/**
-   * `PAGES_API` represents all the API routes under `pages/api/`.
-   */ "PAGES_API"] = "PAGES_API";
-    RouteKind[/**
-   * `APP_PAGE` represents all the React pages that are under `app/` with the
-   * filename of `page.{j,t}s{,x}`.
-   */ "APP_PAGE"] = "APP_PAGE";
-    RouteKind[/**
-   * `APP_ROUTE` represents all the API routes and metadata routes that are under `app/` with the
-   * filename of `route.{j,t}s{,x}`.
-   */ "APP_ROUTE"] = "APP_ROUTE";
-})(RouteKind || (RouteKind = {})); //# sourceMappingURL=route-kind.js.map
-
-
-/***/ }),
-
-/***/ 5298:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "autoImplementMethods", ({
-    enumerable: true,
-    get: function() {
-        return autoImplementMethods;
-    }
-}));
-const _http = __webpack_require__(7961);
-const _responsehandlers = __webpack_require__(1332);
-const AUTOMATIC_ROUTE_METHODS = [
-    "HEAD",
-    "OPTIONS"
-];
-function autoImplementMethods(handlers) {
-    // Loop through all the HTTP methods to create the initial methods object.
-    // Each of the methods will be set to the the 405 response handler.
-    const methods = _http.HTTP_METHODS.reduce((acc, method)=>({
-            ...acc,
-            // If the userland module implements the method, then use it. Otherwise,
-            // use the 405 response handler.
-            [method]: handlers[method] ?? _responsehandlers.handleMethodNotAllowedResponse
-        }), {});
-    // Get all the methods that could be automatically implemented that were not
-    // implemented by the userland module.
-    const implemented = new Set(_http.HTTP_METHODS.filter((method)=>handlers[method]));
-    const missing = AUTOMATIC_ROUTE_METHODS.filter((method)=>!implemented.has(method));
-    // Loop over the missing methods to automatically implement them if we can.
-    for (const method of missing){
-        // If the userland module doesn't implement the HEAD method, then
-        // we'll automatically implement it by calling the GET method (if it
-        // exists).
-        if (method === "HEAD") {
-            // If the userland module doesn't implement the GET method, then
-            // we're done.
-            if (!handlers.GET) break;
-            // Implement the HEAD method by calling the GET method.
-            methods.HEAD = handlers.GET;
-            // Mark it as implemented.
-            implemented.add("HEAD");
-            continue;
-        }
-        // If OPTIONS is not provided then implement it.
-        if (method === "OPTIONS") {
-            // TODO: check if HEAD is implemented, if so, use it to add more headers
-            // Get all the methods that were implemented by the userland module.
-            const allow = [
-                "OPTIONS",
-                ...implemented
-            ];
-            // If the list of methods doesn't include HEAD, but it includes GET, then
-            // add HEAD as it's automatically implemented.
-            if (!implemented.has("HEAD") && implemented.has("GET")) {
-                allow.push("HEAD");
-            }
-            // Sort and join the list with commas to create the `Allow` header. See:
-            // https://httpwg.org/specs/rfc9110.html#field.allow
-            const headers = {
-                Allow: allow.sort().join(", ")
-            };
-            // Implement the OPTIONS method by returning a 204 response with the
-            // `Allow` header.
-            methods.OPTIONS = ()=>new Response(null, {
-                    status: 204,
-                    headers
-                });
-            // Mark this method as implemented.
-            implemented.add("OPTIONS");
-            continue;
-        }
-        throw new Error(`Invariant: should handle all automatic implementable methods, got method: ${method}`);
-    }
-    return methods;
-} //# sourceMappingURL=auto-implement-methods.js.map
-
-
-/***/ }),
-
-/***/ 6341:
-/***/ ((__unused_webpack_module, exports) => {
-
-/**
- * Cleans a URL by stripping the protocol, host, and search params.
- *
- * @param urlString the url to clean
- * @returns the cleaned url
- */ 
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "cleanURL", ({
-    enumerable: true,
-    get: function() {
-        return cleanURL;
-    }
-}));
-function cleanURL(urlString) {
-    const url = new URL(urlString);
-    url.host = "localhost:3000";
-    url.search = "";
-    url.protocol = "http";
-    return url.toString();
-} //# sourceMappingURL=clean-url.js.map
-
-
-/***/ }),
-
-/***/ 3884:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "getNonStaticMethods", ({
-    enumerable: true,
-    get: function() {
-        return getNonStaticMethods;
-    }
-}));
-const NON_STATIC_METHODS = [
-    "OPTIONS",
-    "POST",
-    "PUT",
-    "DELETE",
-    "PATCH"
-];
-function getNonStaticMethods(handlers) {
-    // We can currently only statically optimize if only GET/HEAD are used as
-    // prerender can't be used conditionally based on the method currently.
-    const methods = NON_STATIC_METHODS.filter((method)=>handlers[method]);
-    if (methods.length === 0) return false;
-    return methods;
-} //# sourceMappingURL=get-non-static-methods.js.map
-
-
-/***/ }),
-
-/***/ 8636:
-/***/ ((__unused_webpack_module, exports) => {
-
-/**
- * Get pathname from absolute path.
- *
- * @param absolutePath the absolute path
- * @returns the pathname
- */ 
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "getPathnameFromAbsolutePath", ({
-    enumerable: true,
-    get: function() {
-        return getPathnameFromAbsolutePath;
-    }
-}));
-function getPathnameFromAbsolutePath(absolutePath) {
-    // Remove prefix including app dir
-    let appDir = "/app/";
-    if (!absolutePath.includes(appDir)) {
-        appDir = "\\app\\";
-    }
-    const [, ...parts] = absolutePath.split(appDir);
-    const relativePath = appDir[0] + parts.join(appDir);
-    // remove extension
-    const pathname = relativePath.split(".").slice(0, -1).join(".");
-    return pathname;
-} //# sourceMappingURL=get-pathname-from-absolute-path.js.map
-
-
-/***/ }),
-
-/***/ 5807:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "proxyRequest", ({
-    enumerable: true,
-    get: function() {
-        return proxyRequest;
-    }
-}));
-const _cookies = __webpack_require__(1749);
-const _nexturl = __webpack_require__(2284);
-const _cleanurl = __webpack_require__(6341);
-function proxyRequest(request, { dynamic }, hooks) {
-    function handleNextUrlBailout(prop) {
-        switch(prop){
-            case "search":
-            case "searchParams":
-            case "toString":
-            case "href":
-            case "origin":
-                hooks.staticGenerationBailout(`nextUrl.${prop}`);
-                return;
-            default:
-                return;
-        }
-    }
-    const cache = {};
-    const handleForceStatic = (url, prop)=>{
-        switch(prop){
-            case "search":
-                return "";
-            case "searchParams":
-                if (!cache.searchParams) cache.searchParams = new URLSearchParams();
-                return cache.searchParams;
-            case "url":
-            case "href":
-                if (!cache.url) cache.url = (0, _cleanurl.cleanURL)(url);
-                return cache.url;
-            case "toJSON":
-            case "toString":
-                if (!cache.url) cache.url = (0, _cleanurl.cleanURL)(url);
-                if (!cache.toString) cache.toString = ()=>cache.url;
-                return cache.toString;
-            case "headers":
-                if (!cache.headers) cache.headers = new Headers();
-                return cache.headers;
-            case "cookies":
-                if (!cache.headers) cache.headers = new Headers();
-                if (!cache.cookies) cache.cookies = new _cookies.RequestCookies(cache.headers);
-                return cache.cookies;
-            case "clone":
-                if (!cache.url) cache.url = (0, _cleanurl.cleanURL)(url);
-                return ()=>new _nexturl.NextURL(cache.url);
-            default:
-                break;
-        }
-    };
-    const wrappedNextUrl = new Proxy(request.nextUrl, {
-        get (target, prop) {
-            handleNextUrlBailout(prop);
-            if (dynamic === "force-static" && typeof prop === "string") {
-                const result = handleForceStatic(target.href, prop);
-                if (result !== undefined) return result;
-            }
-            const value = target[prop];
-            if (typeof value === "function") {
-                return value.bind(target);
-            }
-            return value;
-        },
-        set (target, prop, value) {
-            handleNextUrlBailout(prop);
-            target[prop] = value;
-            return true;
-        }
-    });
-    const handleReqBailout = (prop)=>{
-        switch(prop){
-            case "headers":
-                hooks.headerHooks.headers();
-                return;
-            // if request.url is accessed directly instead of
-            // request.nextUrl we bail since it includes query
-            // values that can be relied on dynamically
-            case "url":
-            case "body":
-            case "blob":
-            case "json":
-            case "text":
-            case "arrayBuffer":
-            case "formData":
-                hooks.staticGenerationBailout(`request.${prop}`);
-                return;
-            default:
-                return;
-        }
-    };
-    return new Proxy(request, {
-        get (target, prop) {
-            handleReqBailout(prop);
-            if (prop === "nextUrl") {
-                return wrappedNextUrl;
-            }
-            if (dynamic === "force-static" && typeof prop === "string") {
-                const result = handleForceStatic(target.url, prop);
-                if (result !== undefined) return result;
-            }
-            const value = target[prop];
-            if (typeof value === "function") {
-                return value.bind(target);
-            }
-            return value;
-        },
-        set (target, prop, value) {
-            handleReqBailout(prop);
-            target[prop] = value;
-            return true;
-        }
-    });
-} //# sourceMappingURL=proxy-request.js.map
-
-
-/***/ }),
-
-/***/ 7864:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "resolveHandlerError", ({
-    enumerable: true,
-    get: function() {
-        return resolveHandlerError;
-    }
-}));
-const _notfound = __webpack_require__(2241);
-const _redirect = __webpack_require__(5287);
-const _responsehandlers = __webpack_require__(1332);
-function resolveHandlerError(err) {
-    if ((0, _redirect.isRedirectError)(err)) {
-        const redirect = (0, _redirect.getURLFromRedirectError)(err);
-        if (!redirect) {
-            throw new Error("Invariant: Unexpected redirect url format");
-        }
-        // This is a redirect error! Send the redirect response.
-        return (0, _responsehandlers.handleTemporaryRedirectResponse)(redirect, err.mutableCookies);
-    }
-    if ((0, _notfound.isNotFoundError)(err)) {
-        // This is a not found error! Send the not found response.
-        return (0, _responsehandlers.handleNotFoundResponse)();
-    }
-    // Return false to indicate that this is not a handled error.
-    return false;
-} //# sourceMappingURL=resolve-handler-error.js.map
-
-
-/***/ }),
-
-/***/ 9692:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    AppRouteRouteModule: function() {
-        return AppRouteRouteModule;
-    },
-    default: function() {
-        return _default;
-    }
-});
-const _routemodule = __webpack_require__(6649);
-const _requestasyncstoragewrapper = __webpack_require__(5208);
-const _staticgenerationasyncstoragewrapper = __webpack_require__(3204);
-const _responsehandlers = __webpack_require__(1332);
-const _http = __webpack_require__(7961);
-const _patchfetch = __webpack_require__(2181);
-const _tracer = __webpack_require__(9553);
-const _constants = __webpack_require__(845);
-const _getpathnamefromabsolutepath = __webpack_require__(8636);
-const _proxyrequest = __webpack_require__(5807);
-const _resolvehandlererror = __webpack_require__(7864);
-const _log = /*#__PURE__*/ _interop_require_wildcard(__webpack_require__(7057));
-const _autoimplementmethods = __webpack_require__(5298);
-const _getnonstaticmethods = __webpack_require__(3884);
-const _requestcookies = __webpack_require__(9934);
-const _routekind = __webpack_require__(9513);
-function _getRequireWildcardCache(nodeInterop) {
-    if (typeof WeakMap !== "function") return null;
-    var cacheBabelInterop = new WeakMap();
-    var cacheNodeInterop = new WeakMap();
-    return (_getRequireWildcardCache = function(nodeInterop) {
-        return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
-    })(nodeInterop);
-}
-function _interop_require_wildcard(obj, nodeInterop) {
-    if (!nodeInterop && obj && obj.__esModule) {
-        return obj;
-    }
-    if (obj === null || typeof obj !== "object" && typeof obj !== "function") {
-        return {
-            default: obj
-        };
-    }
-    var cache = _getRequireWildcardCache(nodeInterop);
-    if (cache && cache.has(obj)) {
-        return cache.get(obj);
-    }
-    var newObj = {};
-    var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
-    for(var key in obj){
-        if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
-            var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
-            if (desc && (desc.get || desc.set)) {
-                Object.defineProperty(newObj, key, desc);
-            } else {
-                newObj[key] = obj[key];
-            }
-        }
-    }
-    newObj.default = obj;
-    if (cache) {
-        cache.set(obj, newObj);
-    }
-    return newObj;
-}
-// These are imported weirdly like this because of the way that the bundling
-// works. We need to import the built files from the dist directory, but we
-// can't do that directly because we need types from the source files. So we
-// import the types from the source files and then import the built files.
-const { requestAsyncStorage } = __webpack_require__(1715);
-const { staticGenerationAsyncStorage } = __webpack_require__(3539);
-const serverHooks = __webpack_require__(1651);
-const headerHooks = __webpack_require__(4937);
-const { staticGenerationBailout } = __webpack_require__(6164);
-const { actionAsyncStorage } = __webpack_require__(4876);
-class AppRouteRouteModule extends _routemodule.RouteModule {
-    static is(route) {
-        return route.definition.kind === _routekind.RouteKind.APP_ROUTE;
-    }
-    constructor({ userland, definition, resolvedPagePath, nextConfigOutput }){
-        super({
-            userland,
-            definition
-        });
-        /**
-   * A reference to the request async storage.
-   */ this.requestAsyncStorage = requestAsyncStorage;
-        /**
-   * A reference to the static generation async storage.
-   */ this.staticGenerationAsyncStorage = staticGenerationAsyncStorage;
-        /**
-   * An interface to call server hooks which interact with the underlying
-   * storage.
-   */ this.serverHooks = serverHooks;
-        /**
-   * An interface to call header hooks which interact with the underlying
-   * request storage.
-   */ this.headerHooks = headerHooks;
-        /**
-   * An interface to call static generation bailout hooks which interact with
-   * the underlying static generation storage.
-   */ this.staticGenerationBailout = staticGenerationBailout;
-        /**
-   * A reference to the mutation related async storage, such as mutations of
-   * cookies.
-   */ this.actionAsyncStorage = actionAsyncStorage;
-        this.resolvedPagePath = resolvedPagePath;
-        this.nextConfigOutput = nextConfigOutput;
-        // Automatically implement some methods if they aren't implemented by the
-        // userland module.
-        this.methods = (0, _autoimplementmethods.autoImplementMethods)(userland);
-        // Get the non-static methods for this route.
-        this.nonStaticMethods = (0, _getnonstaticmethods.getNonStaticMethods)(userland);
-        // Get the dynamic property from the userland module.
-        this.dynamic = this.userland.dynamic;
-        if (this.nextConfigOutput === "export") {
-            if (!this.dynamic || this.dynamic === "auto") {
-                this.dynamic = "error";
-            } else if (this.dynamic === "force-dynamic") {
-                throw new Error(`export const dynamic = "force-dynamic" on page "${definition.pathname}" cannot be used with "output: export". See more info here: https://nextjs.org/docs/advanced-features/static-html-export`);
-            }
-        }
-        // We only warn in development after here, so return if we're not in
-        // development.
-        if (false) {}
-    }
-    /**
-   * Resolves the handler function for the given method.
-   *
-   * @param method the requested method
-   * @returns the handler function for the given method
-   */ resolve(method) {
-        // Ensure that the requested method is a valid method (to prevent RCE's).
-        if (!(0, _http.isHTTPMethod)(method)) return _responsehandlers.handleBadRequestResponse;
-        // Return the handler.
-        return this.methods[method];
-    }
-    /**
-   * Executes the route handler.
-   */ async execute(request, context) {
-        // Get the handler function for the given method.
-        const handler = this.resolve(request.method);
-        // Get the context for the request.
-        const requestContext = {
-            req: request
-        };
-        requestContext.renderOpts = {
-            previewProps: context.prerenderManifest.preview
-        };
-        // Get the context for the static generation.
-        const staticGenerationContext = {
-            pathname: this.definition.pathname,
-            renderOpts: // the default values.
-            context.staticGenerationContext ?? {
-                supportsDynamicHTML: false
-            }
-        };
-        // Add the fetchCache option to the renderOpts.
-        staticGenerationContext.renderOpts.fetchCache = this.userland.fetchCache;
-        // Run the handler with the request AsyncLocalStorage to inject the helper
-        // support. We set this to `unknown` because the type is not known until
-        // runtime when we do a instanceof check below.
-        const response = await this.actionAsyncStorage.run({
-            isAppRoute: true
-        }, ()=>{
-            return _requestasyncstoragewrapper.RequestAsyncStorageWrapper.wrap(this.requestAsyncStorage, requestContext, ()=>{
-                return _staticgenerationasyncstoragewrapper.StaticGenerationAsyncStorageWrapper.wrap(this.staticGenerationAsyncStorage, staticGenerationContext, (staticGenerationStore)=>{
-                    var _getTracer_getRootSpanAttributes;
-                    // Check to see if we should bail out of static generation based on
-                    // having non-static methods.
-                    if (this.nonStaticMethods) {
-                        this.staticGenerationBailout(`non-static methods used ${this.nonStaticMethods.join(", ")}`);
-                    }
-                    // Update the static generation store based on the dynamic property.
-                    switch(this.dynamic){
-                        case "force-dynamic":
-                            // The dynamic property is set to force-dynamic, so we should
-                            // force the page to be dynamic.
-                            staticGenerationStore.forceDynamic = true;
-                            this.staticGenerationBailout(`force-dynamic`, {
-                                dynamic: this.dynamic
-                            });
-                            break;
-                        case "force-static":
-                            // The dynamic property is set to force-static, so we should
-                            // force the page to be static.
-                            staticGenerationStore.forceStatic = true;
-                            break;
-                        case "error":
-                            // The dynamic property is set to error, so we should throw an
-                            // error if the page is being statically generated.
-                            staticGenerationStore.dynamicShouldError = true;
-                            break;
-                        default:
-                            break;
-                    }
-                    // If the static generation store does not have a revalidate value
-                    // set, then we should set it the revalidate value from the userland
-                    // module or default to false.
-                    staticGenerationStore.revalidate ??= this.userland.revalidate ?? false;
-                    // Wrap the request so we can add additional functionality to cases
-                    // that might change it's output or affect the rendering.
-                    const wrappedRequest = (0, _proxyrequest.proxyRequest)(request, {
-                        dynamic: this.dynamic
-                    }, {
-                        headerHooks: this.headerHooks,
-                        serverHooks: this.serverHooks,
-                        staticGenerationBailout: this.staticGenerationBailout
-                    });
-                    // TODO: propagate this pathname from route matcher
-                    const route = (0, _getpathnamefromabsolutepath.getPathnameFromAbsolutePath)(this.resolvedPagePath);
-                    (_getTracer_getRootSpanAttributes = (0, _tracer.getTracer)().getRootSpanAttributes()) == null ? void 0 : _getTracer_getRootSpanAttributes.set("next.route", route);
-                    return (0, _tracer.getTracer)().trace(_constants.AppRouteRouteHandlersSpan.runHandler, {
-                        spanName: `executing api route (app) ${route}`,
-                        attributes: {
-                            "next.route": route
-                        }
-                    }, async ()=>{
-                        var _staticGenerationStore_tags;
-                        // Patch the global fetch.
-                        (0, _patchfetch.patchFetch)({
-                            serverHooks: this.serverHooks,
-                            staticGenerationAsyncStorage: this.staticGenerationAsyncStorage
-                        });
-                        const res = await handler(wrappedRequest, {
-                            params: context.params
-                        });
-                        context.staticGenerationContext.fetchMetrics = staticGenerationStore.fetchMetrics;
-                        await Promise.all(staticGenerationStore.pendingRevalidates || []);
-                        (0, _patchfetch.addImplicitTags)(staticGenerationStore);
-                        context.staticGenerationContext.fetchTags = (_staticGenerationStore_tags = staticGenerationStore.tags) == null ? void 0 : _staticGenerationStore_tags.join(",");
-                        // It's possible cookies were set in the handler, so we need
-                        // to merge the modified cookies and the returned response
-                        // here.
-                        const requestStore = this.requestAsyncStorage.getStore();
-                        if (requestStore && requestStore.mutableCookies) {
-                            const headers = new Headers(res.headers);
-                            if ((0, _requestcookies.appendMutableCookies)(headers, requestStore.mutableCookies)) {
-                                return new Response(res.body, {
-                                    status: res.status,
-                                    statusText: res.statusText,
-                                    headers
-                                });
-                            }
-                        }
-                        return res;
-                    });
-                });
-            });
-        });
-        // If the handler did't return a valid response, then return the internal
-        // error response.
-        if (!(response instanceof Response)) {
-            // TODO: validate the correct handling behavior, maybe log something?
-            return (0, _responsehandlers.handleInternalServerErrorResponse)();
-        }
-        if (response.headers.has("x-middleware-rewrite")) {
-            // TODO: move this error into the `NextResponse.rewrite()` function.
-            // TODO-APP: re-enable support below when we can proxy these type of requests
-            throw new Error("NextResponse.rewrite() was used in a app route handler, this is not currently supported. Please remove the invocation to continue.");
-        // // This is a rewrite created via `NextResponse.rewrite()`. We need to send
-        // // the response up so it can be handled by the backing server.
-        // // If the server is running in minimal mode, we just want to forward the
-        // // response (including the rewrite headers) upstream so it can perform the
-        // // redirect for us, otherwise return with the special condition so this
-        // // server can perform a rewrite.
-        // if (!minimalMode) {
-        //   return { response, condition: 'rewrite' }
-        // }
-        // // Relativize the url so it's relative to the base url. This is so the
-        // // outgoing headers upstream can be relative.
-        // const rewritePath = response.headers.get('x-middleware-rewrite')!
-        // const initUrl = getRequestMeta(req, '__NEXT_INIT_URL')!
-        // const { pathname } = parseUrl(relativizeURL(rewritePath, initUrl))
-        // response.headers.set('x-middleware-rewrite', pathname)
-        }
-        if (response.headers.get("x-middleware-next") === "1") {
-            // TODO: move this error into the `NextResponse.next()` function.
-            throw new Error("NextResponse.next() was used in a app route handler, this is not supported. See here for more info: https://nextjs.org/docs/messages/next-response-next-in-app-route-handler");
-        }
-        return response;
-    }
-    async handle(request, context) {
-        try {
-            // Execute the route to get the response.
-            const response = await this.execute(request, context);
-            // The response was handled, return it.
-            return response;
-        } catch (err) {
-            // Try to resolve the error to a response, else throw it again.
-            const response = (0, _resolvehandlererror.resolveHandlerError)(err);
-            if (!response) throw err;
-            // The response was resolved, return it.
-            return response;
-        }
-    }
-}
-const _default = AppRouteRouteModule; //# sourceMappingURL=module.js.map
-
-
-/***/ }),
-
-/***/ 1332:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    handleTemporaryRedirectResponse: function() {
-        return handleTemporaryRedirectResponse;
-    },
-    handleBadRequestResponse: function() {
-        return handleBadRequestResponse;
-    },
-    handleNotFoundResponse: function() {
-        return handleNotFoundResponse;
-    },
-    handleMethodNotAllowedResponse: function() {
-        return handleMethodNotAllowedResponse;
-    },
-    handleInternalServerErrorResponse: function() {
-        return handleInternalServerErrorResponse;
-    }
-});
-const _requestcookies = __webpack_require__(9934);
-function handleTemporaryRedirectResponse(url, mutableCookies) {
-    const headers = new Headers({
-        location: url
-    });
-    (0, _requestcookies.appendMutableCookies)(headers, mutableCookies);
-    return new Response(null, {
-        status: 307,
-        headers
-    });
-}
-function handleBadRequestResponse() {
-    return new Response(null, {
-        status: 400
-    });
-}
-function handleNotFoundResponse() {
-    return new Response(null, {
-        status: 404
-    });
-}
-function handleMethodNotAllowedResponse() {
-    return new Response(null, {
-        status: 405
-    });
-}
-function handleInternalServerErrorResponse() {
-    return new Response(null, {
-        status: 500
-    });
-} //# sourceMappingURL=response-handlers.js.map
-
-
-/***/ }),
-
-/***/ 6649:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "RouteModule", ({
-    enumerable: true,
-    get: function() {
-        return RouteModule;
-    }
-}));
-class RouteModule {
-    constructor({ userland, definition }){
-        this.userland = userland;
-        this.definition = definition;
-    }
-} //# sourceMappingURL=route-module.js.map
-
-
-/***/ }),
-
-/***/ 2181:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    addImplicitTags: function() {
-        return addImplicitTags;
-    },
-    patchFetch: function() {
-        return patchFetch;
-    }
-});
-const _constants = __webpack_require__(845);
-const _tracer = __webpack_require__(9553);
-const _constants1 = __webpack_require__(2078);
-const isEdgeRuntime = "nodejs" === "edge";
-function addImplicitTags(staticGenerationStore) {
-    const newTags = [];
-    const pathname = staticGenerationStore == null ? void 0 : staticGenerationStore.originalPathname;
-    if (!pathname) {
-        return newTags;
-    }
-    if (!Array.isArray(staticGenerationStore.tags)) {
-        staticGenerationStore.tags = [];
-    }
-    if (!staticGenerationStore.tags.includes(pathname)) {
-        staticGenerationStore.tags.push(pathname);
-    }
-    newTags.push(pathname);
-    return newTags;
-}
-function trackFetchMetric(staticGenerationStore, ctx) {
-    if (!staticGenerationStore) return;
-    if (!staticGenerationStore.fetchMetrics) {
-        staticGenerationStore.fetchMetrics = [];
-    }
-    const dedupeFields = [
-        "url",
-        "status",
-        "method"
-    ];
-    // don't add metric if one already exists for the fetch
-    if (staticGenerationStore.fetchMetrics.some((metric)=>{
-        return dedupeFields.every((field)=>metric[field] === ctx[field]);
-    })) {
-        return;
-    }
-    staticGenerationStore.fetchMetrics.push({
-        url: ctx.url,
-        cacheStatus: ctx.cacheStatus,
-        status: ctx.status,
-        method: ctx.method,
-        start: ctx.start,
-        end: Date.now(),
-        idx: staticGenerationStore.nextFetchId || 0
-    });
-}
-function patchFetch({ serverHooks, staticGenerationAsyncStorage }) {
-    if (!globalThis._nextOriginalFetch) {
-        globalThis._nextOriginalFetch = globalThis.fetch;
-    }
-    if (globalThis.fetch.__nextPatched) return;
-    const { DynamicServerError } = serverHooks;
-    const originFetch = globalThis._nextOriginalFetch;
-    globalThis.fetch = async (input, init)=>{
-        var _init_method;
-        let url;
-        try {
-            url = new URL(input instanceof Request ? input.url : input);
-            url.username = "";
-            url.password = "";
-        } catch  {
-            // Error caused by malformed URL should be handled by native fetch
-            url = undefined;
-        }
-        const fetchUrl = (url == null ? void 0 : url.href) ?? "";
-        const fetchStart = Date.now();
-        const method = (init == null ? void 0 : (_init_method = init.method) == null ? void 0 : _init_method.toUpperCase()) || "GET";
-        return await (0, _tracer.getTracer)().trace(_constants.AppRenderSpan.fetch, {
-            kind: _tracer.SpanKind.CLIENT,
-            spanName: [
-                "fetch",
-                method,
-                fetchUrl
-            ].filter(Boolean).join(" "),
-            attributes: {
-                "http.url": fetchUrl,
-                "http.method": method,
-                "net.peer.name": url == null ? void 0 : url.hostname,
-                "net.peer.port": (url == null ? void 0 : url.port) || undefined
-            }
-        }, async ()=>{
-            var _ref, _getRequestMeta;
-            const staticGenerationStore = staticGenerationAsyncStorage.getStore();
-            const isRequestInput = input && typeof input === "object" && typeof input.method === "string";
-            const getRequestMeta = (field)=>{
-                let value = isRequestInput ? input[field] : null;
-                return value || (init == null ? void 0 : init[field]);
-            };
-            // If the staticGenerationStore is not available, we can't do any
-            // special treatment of fetch, therefore fallback to the original
-            // fetch implementation.
-            if (!staticGenerationStore || ((_ref = init == null ? void 0 : init.next) == null ? void 0 : _ref.internal) || staticGenerationStore.isDraftMode) {
-                return originFetch(input, init);
-            }
-            let revalidate = undefined;
-            const getNextField = (field)=>{
-                var _init_next, _init_next1, _input_next;
-                return typeof (init == null ? void 0 : (_init_next = init.next) == null ? void 0 : _init_next[field]) !== "undefined" ? init == null ? void 0 : (_init_next1 = init.next) == null ? void 0 : _init_next1[field] : isRequestInput ? (_input_next = input.next) == null ? void 0 : _input_next[field] : undefined;
-            };
-            // RequestInit doesn't keep extra fields e.g. next so it's
-            // only available if init is used separate
-            let curRevalidate = getNextField("revalidate");
-            const tags = getNextField("tags") || [];
-            if (Array.isArray(tags)) {
-                if (!staticGenerationStore.tags) {
-                    staticGenerationStore.tags = [];
-                }
-                for (const tag of tags){
-                    if (!staticGenerationStore.tags.includes(tag)) {
-                        staticGenerationStore.tags.push(tag);
-                    }
-                }
-            }
-            const implicitTags = addImplicitTags(staticGenerationStore);
-            for (const tag of implicitTags || []){
-                if (!tags.includes(tag)) {
-                    tags.push(tag);
-                }
-            }
-            const isOnlyCache = staticGenerationStore.fetchCache === "only-cache";
-            const isForceCache = staticGenerationStore.fetchCache === "force-cache";
-            const isDefaultCache = staticGenerationStore.fetchCache === "default-cache";
-            const isDefaultNoStore = staticGenerationStore.fetchCache === "default-no-store";
-            const isOnlyNoStore = staticGenerationStore.fetchCache === "only-no-store";
-            const isForceNoStore = staticGenerationStore.fetchCache === "force-no-store";
-            let _cache = getRequestMeta("cache");
-            if (typeof _cache === "string" && typeof curRevalidate !== "undefined") {
-                console.warn(`Warning: fetch for ${fetchUrl} on ${staticGenerationStore.pathname} specified "cache: ${_cache}" and "revalidate: ${curRevalidate}", only one should be specified.`);
-                _cache = undefined;
-            }
-            if (_cache === "force-cache") {
-                curRevalidate = false;
-            }
-            if ([
-                "no-cache",
-                "no-store"
-            ].includes(_cache || "")) {
-                curRevalidate = 0;
-            }
-            if (typeof curRevalidate === "number" || curRevalidate === false) {
-                revalidate = curRevalidate;
-            }
-            let cacheReason = "";
-            const _headers = getRequestMeta("headers");
-            const initHeaders = typeof (_headers == null ? void 0 : _headers.get) === "function" ? _headers : new Headers(_headers || {});
-            const hasUnCacheableHeader = initHeaders.get("authorization") || initHeaders.get("cookie");
-            const isUnCacheableMethod = ![
-                "get",
-                "head"
-            ].includes(((_getRequestMeta = getRequestMeta("method")) == null ? void 0 : _getRequestMeta.toLowerCase()) || "get");
-            // if there are authorized headers or a POST method and
-            // dynamic data usage was present above the tree we bail
-            // e.g. if cookies() is used before an authed/POST fetch
-            const autoNoCache = (hasUnCacheableHeader || isUnCacheableMethod) && staticGenerationStore.revalidate === 0;
-            if (isForceNoStore) {
-                revalidate = 0;
-                cacheReason = "fetchCache = force-no-store";
-            }
-            if (isOnlyNoStore) {
-                if (_cache === "force-cache" || revalidate === 0) {
-                    throw new Error(`cache: 'force-cache' used on fetch for ${fetchUrl} with 'export const fetchCache = 'only-no-store'`);
-                }
-                revalidate = 0;
-                cacheReason = "fetchCache = only-no-store";
-            }
-            if (isOnlyCache && _cache === "no-store") {
-                throw new Error(`cache: 'no-store' used on fetch for ${fetchUrl} with 'export const fetchCache = 'only-cache'`);
-            }
-            if (isForceCache && (typeof curRevalidate === "undefined" || curRevalidate === 0)) {
-                cacheReason = "fetchCache = force-cache";
-                revalidate = false;
-            }
-            if (typeof revalidate === "undefined") {
-                if (isDefaultCache) {
-                    revalidate = false;
-                    cacheReason = "fetchCache = default-cache";
-                } else if (autoNoCache) {
-                    revalidate = 0;
-                    cacheReason = "auto no cache";
-                } else if (isDefaultNoStore) {
-                    revalidate = 0;
-                    cacheReason = "fetchCache = default-no-store";
-                } else {
-                    cacheReason = "auto cache";
-                    revalidate = typeof staticGenerationStore.revalidate === "boolean" || typeof staticGenerationStore.revalidate === "undefined" ? false : staticGenerationStore.revalidate;
-                }
-            } else if (!cacheReason) {
-                cacheReason = `revalidate: ${revalidate}`;
-            }
-            if (// revalidate although if it occurs during build we do
-            !autoNoCache && (typeof staticGenerationStore.revalidate === "undefined" || typeof revalidate === "number" && (staticGenerationStore.revalidate === false || typeof staticGenerationStore.revalidate === "number" && revalidate < staticGenerationStore.revalidate))) {
-                staticGenerationStore.revalidate = revalidate;
-            }
-            const isCacheableRevalidate = typeof revalidate === "number" && revalidate > 0 || revalidate === false;
-            let cacheKey;
-            if (staticGenerationStore.incrementalCache && isCacheableRevalidate) {
-                try {
-                    cacheKey = await staticGenerationStore.incrementalCache.fetchCacheKey(fetchUrl, isRequestInput ? input : init);
-                } catch (err) {
-                    console.error(`Failed to generate cache key for`, input);
-                }
-            }
-            const requestInputFields = [
-                "cache",
-                "credentials",
-                "headers",
-                "integrity",
-                "keepalive",
-                "method",
-                "mode",
-                "redirect",
-                "referrer",
-                "referrerPolicy",
-                "signal",
-                "window",
-                "duplex"
-            ];
-            if (isRequestInput) {
-                const reqInput = input;
-                const reqOptions = {
-                    body: reqInput._ogBody || reqInput.body
-                };
-                for (const field of requestInputFields){
-                    // @ts-expect-error custom fields
-                    reqOptions[field] = reqInput[field];
-                }
-                input = new Request(reqInput.url, reqOptions);
-            } else if (init) {
-                const initialInit = init;
-                init = {
-                    body: init._ogBody || init.body
-                };
-                for (const field of requestInputFields){
-                    // @ts-expect-error custom fields
-                    init[field] = initialInit[field];
-                }
-            }
-            const fetchIdx = staticGenerationStore.nextFetchId ?? 1;
-            staticGenerationStore.nextFetchId = fetchIdx + 1;
-            const normalizedRevalidate = typeof revalidate !== "number" ? _constants1.CACHE_ONE_YEAR : revalidate;
-            const doOriginalFetch = async (isStale)=>{
-                // add metadata to init without editing the original
-                const clonedInit = {
-                    ...init,
-                    next: {
-                        ...init == null ? void 0 : init.next,
-                        fetchType: "origin",
-                        fetchIdx
-                    }
-                };
-                return originFetch(input, clonedInit).then(async (res)=>{
-                    if (!isStale) {
-                        trackFetchMetric(staticGenerationStore, {
-                            start: fetchStart,
-                            url: fetchUrl,
-                            cacheReason,
-                            cacheStatus: "miss",
-                            status: res.status,
-                            method: clonedInit.method || "GET"
-                        });
-                    }
-                    if (res.status === 200 && staticGenerationStore.incrementalCache && cacheKey && isCacheableRevalidate) {
-                        const bodyBuffer = Buffer.from(await res.arrayBuffer());
-                        try {
-                            await staticGenerationStore.incrementalCache.set(cacheKey, {
-                                kind: "FETCH",
-                                data: {
-                                    headers: Object.fromEntries(res.headers.entries()),
-                                    body: bodyBuffer.toString("base64"),
-                                    status: res.status,
-                                    tags,
-                                    url: res.url
-                                },
-                                revalidate: normalizedRevalidate
-                            }, revalidate, true, fetchUrl, fetchIdx);
-                        } catch (err) {
-                            console.warn(`Failed to set fetch cache`, input, err);
-                        }
-                        const response = new Response(bodyBuffer, {
-                            headers: new Headers(res.headers),
-                            status: res.status
-                        });
-                        Object.defineProperty(response, "url", {
-                            value: res.url
-                        });
-                        return response;
-                    }
-                    return res;
-                });
-            };
-            if (cacheKey && (staticGenerationStore == null ? void 0 : staticGenerationStore.incrementalCache)) {
-                const entry = staticGenerationStore.isOnDemandRevalidate ? null : await staticGenerationStore.incrementalCache.get(cacheKey, true, revalidate, fetchUrl, fetchIdx);
-                if ((entry == null ? void 0 : entry.value) && entry.value.kind === "FETCH") {
-                    const currentTags = entry.value.data.tags;
-                    // when stale and is revalidating we wait for fresh data
-                    // so the revalidated entry has the updated data
-                    if (!(staticGenerationStore.isRevalidate && entry.isStale)) {
-                        if (entry.isStale) {
-                            if (!staticGenerationStore.pendingRevalidates) {
-                                staticGenerationStore.pendingRevalidates = [];
-                            }
-                            staticGenerationStore.pendingRevalidates.push(doOriginalFetch(true).catch(console.error));
-                        } else if (tags && !tags.every((tag)=>{
-                            return currentTags == null ? void 0 : currentTags.includes(tag);
-                        })) {
-                            var _staticGenerationStore_incrementalCache;
-                            // if new tags are being added we need to set even if
-                            // the data isn't stale
-                            if (!entry.value.data.tags) {
-                                entry.value.data.tags = [];
-                            }
-                            for (const tag of tags){
-                                if (!entry.value.data.tags.includes(tag)) {
-                                    entry.value.data.tags.push(tag);
-                                }
-                            }
-                            (_staticGenerationStore_incrementalCache = staticGenerationStore.incrementalCache) == null ? void 0 : _staticGenerationStore_incrementalCache.set(cacheKey, entry.value, revalidate, true, fetchUrl, fetchIdx);
-                        }
-                        const resData = entry.value.data;
-                        let decodedBody;
-                        if (false) {} else {
-                            decodedBody = Buffer.from(resData.body, "base64").subarray();
-                        }
-                        trackFetchMetric(staticGenerationStore, {
-                            start: fetchStart,
-                            url: fetchUrl,
-                            cacheReason,
-                            cacheStatus: "hit",
-                            status: resData.status || 200,
-                            method: (init == null ? void 0 : init.method) || "GET"
-                        });
-                        const response = new Response(decodedBody, {
-                            headers: resData.headers,
-                            status: resData.status
-                        });
-                        Object.defineProperty(response, "url", {
-                            value: entry.value.data.url
-                        });
-                        return response;
-                    }
-                }
-            }
-            if (staticGenerationStore.isStaticGeneration) {
-                if (init && typeof init === "object") {
-                    const cache = init.cache;
-                    // Delete `cache` property as Cloudflare Workers will throw an error
-                    if (isEdgeRuntime) {
-                        delete init.cache;
-                    }
-                    if (cache === "no-store") {
-                        staticGenerationStore.revalidate = 0;
-                        const dynamicUsageReason = `no-store fetch ${input}${staticGenerationStore.pathname ? ` ${staticGenerationStore.pathname}` : ""}`;
-                        const err = new DynamicServerError(dynamicUsageReason);
-                        staticGenerationStore.dynamicUsageErr = err;
-                        staticGenerationStore.dynamicUsageStack = err.stack;
-                        staticGenerationStore.dynamicUsageDescription = dynamicUsageReason;
-                    }
-                    const hasNextConfig = "next" in init;
-                    const next = init.next || {};
-                    if (typeof next.revalidate === "number" && (typeof staticGenerationStore.revalidate === "undefined" || typeof staticGenerationStore.revalidate === "number" && next.revalidate < staticGenerationStore.revalidate)) {
-                        const forceDynamic = staticGenerationStore.forceDynamic;
-                        if (!forceDynamic || next.revalidate !== 0) {
-                            staticGenerationStore.revalidate = next.revalidate;
-                        }
-                        if (!forceDynamic && next.revalidate === 0) {
-                            const dynamicUsageReason = `revalidate: ${next.revalidate} fetch ${input}${staticGenerationStore.pathname ? ` ${staticGenerationStore.pathname}` : ""}`;
-                            const err = new DynamicServerError(dynamicUsageReason);
-                            staticGenerationStore.dynamicUsageErr = err;
-                            staticGenerationStore.dynamicUsageStack = err.stack;
-                            staticGenerationStore.dynamicUsageDescription = dynamicUsageReason;
-                        }
-                    }
-                    if (hasNextConfig) delete init.next;
-                }
-            }
-            return doOriginalFetch();
-        });
-    };
-    globalThis.fetch.__nextGetStaticStore = ()=>{
-        return staticGenerationAsyncStorage;
-    };
-    globalThis.fetch.__nextPatched = true;
-} //# sourceMappingURL=patch-fetch.js.map
-
-
-/***/ }),
-
-/***/ 845:
-/***/ ((__unused_webpack_module, exports) => {
-
-/**
- * Contains predefined constants for the trace span name in next/server.
- *
- * Currently, next/server/tracer is internal implementation only for tracking
- * next.js's implementation only with known span names defined here.
- **/ // eslint typescript has a bug with TS enums
-/* eslint-disable no-shadow */ 
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    NextVanillaSpanAllowlist: function() {
-        return NextVanillaSpanAllowlist;
-    },
-    BaseServerSpan: function() {
-        return BaseServerSpan;
-    },
-    LoadComponentsSpan: function() {
-        return LoadComponentsSpan;
-    },
-    NextServerSpan: function() {
-        return NextServerSpan;
-    },
-    NextNodeServerSpan: function() {
-        return NextNodeServerSpan;
-    },
-    StartServerSpan: function() {
-        return StartServerSpan;
-    },
-    RenderSpan: function() {
-        return RenderSpan;
-    },
-    RouterSpan: function() {
-        return RouterSpan;
-    },
-    AppRenderSpan: function() {
-        return AppRenderSpan;
-    },
-    NodeSpan: function() {
-        return NodeSpan;
-    },
-    AppRouteRouteHandlersSpan: function() {
-        return AppRouteRouteHandlersSpan;
-    },
-    ResolveMetadataSpan: function() {
-        return ResolveMetadataSpan;
-    }
-});
-var BaseServerSpan;
-(function(BaseServerSpan) {
-    BaseServerSpan["handleRequest"] = "BaseServer.handleRequest";
-    BaseServerSpan["run"] = "BaseServer.run";
-    BaseServerSpan["pipe"] = "BaseServer.pipe";
-    BaseServerSpan["getStaticHTML"] = "BaseServer.getStaticHTML";
-    BaseServerSpan["render"] = "BaseServer.render";
-    BaseServerSpan["renderToResponseWithComponents"] = "BaseServer.renderToResponseWithComponents";
-    BaseServerSpan["renderToResponse"] = "BaseServer.renderToResponse";
-    BaseServerSpan["renderToHTML"] = "BaseServer.renderToHTML";
-    BaseServerSpan["renderError"] = "BaseServer.renderError";
-    BaseServerSpan["renderErrorToResponse"] = "BaseServer.renderErrorToResponse";
-    BaseServerSpan["renderErrorToHTML"] = "BaseServer.renderErrorToHTML";
-    BaseServerSpan["render404"] = "BaseServer.render404";
-})(BaseServerSpan || (BaseServerSpan = {}));
-var LoadComponentsSpan;
-(function(LoadComponentsSpan) {
-    LoadComponentsSpan["loadDefaultErrorComponents"] = "LoadComponents.loadDefaultErrorComponents";
-    LoadComponentsSpan["loadComponents"] = "LoadComponents.loadComponents";
-})(LoadComponentsSpan || (LoadComponentsSpan = {}));
-var NextServerSpan;
-(function(NextServerSpan) {
-    NextServerSpan["getRequestHandler"] = "NextServer.getRequestHandler";
-    NextServerSpan["getServer"] = "NextServer.getServer";
-    NextServerSpan["getServerRequestHandler"] = "NextServer.getServerRequestHandler";
-    NextServerSpan["createServer"] = "createServer.createServer";
-})(NextServerSpan || (NextServerSpan = {}));
-var NextNodeServerSpan;
-(function(NextNodeServerSpan) {
-    NextNodeServerSpan["compression"] = "NextNodeServer.compression";
-    NextNodeServerSpan["getBuildId"] = "NextNodeServer.getBuildId";
-    NextNodeServerSpan["generateStaticRoutes"] = "NextNodeServer.generateStaticRoutes";
-    NextNodeServerSpan["generateFsStaticRoutes"] = "NextNodeServer.generateFsStaticRoutes";
-    NextNodeServerSpan["generatePublicRoutes"] = "NextNodeServer.generatePublicRoutes";
-    NextNodeServerSpan["generateImageRoutes"] = "NextNodeServer.generateImageRoutes.route";
-    NextNodeServerSpan["sendRenderResult"] = "NextNodeServer.sendRenderResult";
-    NextNodeServerSpan["sendStatic"] = "NextNodeServer.sendStatic";
-    NextNodeServerSpan["proxyRequest"] = "NextNodeServer.proxyRequest";
-    NextNodeServerSpan["runApi"] = "NextNodeServer.runApi";
-    NextNodeServerSpan["render"] = "NextNodeServer.render";
-    NextNodeServerSpan["renderHTML"] = "NextNodeServer.renderHTML";
-    NextNodeServerSpan["imageOptimizer"] = "NextNodeServer.imageOptimizer";
-    NextNodeServerSpan["getPagePath"] = "NextNodeServer.getPagePath";
-    NextNodeServerSpan["getRoutesManifest"] = "NextNodeServer.getRoutesManifest";
-    NextNodeServerSpan["findPageComponents"] = "NextNodeServer.findPageComponents";
-    NextNodeServerSpan["getFontManifest"] = "NextNodeServer.getFontManifest";
-    NextNodeServerSpan["getServerComponentManifest"] = "NextNodeServer.getServerComponentManifest";
-    NextNodeServerSpan["getRequestHandler"] = "NextNodeServer.getRequestHandler";
-    NextNodeServerSpan["renderToHTML"] = "NextNodeServer.renderToHTML";
-    NextNodeServerSpan["renderError"] = "NextNodeServer.renderError";
-    NextNodeServerSpan["renderErrorToHTML"] = "NextNodeServer.renderErrorToHTML";
-    NextNodeServerSpan["render404"] = "NextNodeServer.render404";
-    NextNodeServerSpan["route"] = "route";
-    NextNodeServerSpan["onProxyReq"] = "onProxyReq";
-    NextNodeServerSpan["apiResolver"] = "apiResolver";
-})(NextNodeServerSpan || (NextNodeServerSpan = {}));
-var StartServerSpan;
-(function(StartServerSpan) {
-    StartServerSpan["startServer"] = "startServer.startServer";
-})(StartServerSpan || (StartServerSpan = {}));
-var RenderSpan;
-(function(RenderSpan) {
-    RenderSpan["getServerSideProps"] = "Render.getServerSideProps";
-    RenderSpan["getStaticProps"] = "Render.getStaticProps";
-    RenderSpan["renderToString"] = "Render.renderToString";
-    RenderSpan["renderDocument"] = "Render.renderDocument";
-    RenderSpan["createBodyResult"] = "Render.createBodyResult";
-})(RenderSpan || (RenderSpan = {}));
-var AppRenderSpan;
-(function(AppRenderSpan) {
-    AppRenderSpan["renderToString"] = "AppRender.renderToString";
-    AppRenderSpan["renderToReadableStream"] = "AppRender.renderToReadableStream";
-    AppRenderSpan["getBodyResult"] = "AppRender.getBodyResult";
-    AppRenderSpan["fetch"] = "AppRender.fetch";
-})(AppRenderSpan || (AppRenderSpan = {}));
-var RouterSpan;
-(function(RouterSpan) {
-    RouterSpan["executeRoute"] = "Router.executeRoute";
-})(RouterSpan || (RouterSpan = {}));
-var NodeSpan;
-(function(NodeSpan) {
-    NodeSpan["runHandler"] = "Node.runHandler";
-})(NodeSpan || (NodeSpan = {}));
-var AppRouteRouteHandlersSpan;
-(function(AppRouteRouteHandlersSpan) {
-    AppRouteRouteHandlersSpan["runHandler"] = "AppRouteRouteHandlers.runHandler";
-})(AppRouteRouteHandlersSpan || (AppRouteRouteHandlersSpan = {}));
-var ResolveMetadataSpan;
-(function(ResolveMetadataSpan) {
-    ResolveMetadataSpan["generateMetadata"] = "ResolveMetadata.generateMetadata";
-})(ResolveMetadataSpan || (ResolveMetadataSpan = {}));
-const NextVanillaSpanAllowlist = [
-    "BaseServer.handleRequest",
-    "Render.getServerSideProps",
-    "Render.getStaticProps",
-    "AppRender.fetch",
-    "AppRender.getBodyResult",
-    "Render.renderDocument",
-    "Node.runHandler",
-    "AppRouteRouteHandlers.runHandler",
-    "ResolveMetadata.generateMetadata"
-]; //# sourceMappingURL=constants.js.map
-
-
-/***/ }),
-
-/***/ 9553:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    getTracer: function() {
-        return getTracer;
-    },
-    SpanStatusCode: function() {
-        return SpanStatusCode;
-    },
-    SpanKind: function() {
-        return SpanKind;
-    }
-});
-const _constants = __webpack_require__(845);
-let api;
-// we want to allow users to use their own version of @opentelemetry/api if they
-// want to, so we try to require it first, and if it fails we fall back to the
-// version that is bundled with Next.js
-// this is because @opentelemetry/api has to be synced with the version of
-// @opentelemetry/tracing that is used, and we don't want to force users to use
-// the version that is bundled with Next.js.
-// the API is ~stable, so this should be fine
-if (false) {} else {
-    try {
-        api = __webpack_require__(1149);
-    } catch (err) {
-        api = __webpack_require__(1149);
-    }
-}
-const { context, trace, SpanStatusCode, SpanKind } = api;
-const isPromise = (p)=>{
-    return p !== null && typeof p === "object" && typeof p.then === "function";
-};
-const closeSpanWithError = (span, error)=>{
-    if (error) {
-        span.recordException(error);
-    }
-    span.setStatus({
-        code: SpanStatusCode.ERROR,
-        message: error == null ? void 0 : error.message
-    });
-    span.end();
-};
-/** we use this map to propagate attributes from nested spans to the top span */ const rootSpanAttributesStore = new Map();
-const rootSpanIdKey = api.createContextKey("next.rootSpanId");
-let lastSpanId = 0;
-const getSpanId = ()=>lastSpanId++;
-class NextTracerImpl {
-    /**
-   * Returns an instance to the trace with configured name.
-   * Since wrap / trace can be defined in any place prior to actual trace subscriber initialization,
-   * This should be lazily evaluated.
-   */ getTracerInstance() {
-        return trace.getTracer("next.js", "0.0.1");
-    }
-    getContext() {
-        return context;
-    }
-    getActiveScopeSpan() {
-        return trace.getSpan(context == null ? void 0 : context.active());
-    }
-    trace(...args) {
-        const [type, fnOrOptions, fnOrEmpty] = args;
-        // coerce options form overload
-        const { fn, options } = typeof fnOrOptions === "function" ? {
-            fn: fnOrOptions,
-            options: {}
-        } : {
-            fn: fnOrEmpty,
-            options: {
-                ...fnOrOptions
-            }
-        };
-        if (!_constants.NextVanillaSpanAllowlist.includes(type) && process.env.NEXT_OTEL_VERBOSE !== "1" || options.hideSpan) {
-            return fn();
-        }
-        const spanName = options.spanName ?? type;
-        // Trying to get active scoped span to assign parent. If option specifies parent span manually, will try to use it.
-        let spanContext = this.getSpanContext((options == null ? void 0 : options.parentSpan) ?? this.getActiveScopeSpan());
-        let isRootSpan = false;
-        if (!spanContext) {
-            spanContext = api.ROOT_CONTEXT;
-            isRootSpan = true;
-        }
-        const spanId = getSpanId();
-        options.attributes = {
-            "next.span_name": spanName,
-            "next.span_type": type,
-            ...options.attributes
-        };
-        return api.context.with(spanContext.setValue(rootSpanIdKey, spanId), ()=>this.getTracerInstance().startActiveSpan(spanName, options, (span)=>{
-                const onCleanup = ()=>{
-                    rootSpanAttributesStore.delete(spanId);
-                };
-                if (isRootSpan) {
-                    rootSpanAttributesStore.set(spanId, new Map(Object.entries(options.attributes ?? {})));
-                }
-                try {
-                    if (fn.length > 1) {
-                        return fn(span, (err)=>closeSpanWithError(span, err));
-                    }
-                    const result = fn(span);
-                    if (isPromise(result)) {
-                        result.then(()=>span.end(), (err)=>closeSpanWithError(span, err)).finally(onCleanup);
-                    } else {
-                        span.end();
-                        onCleanup();
-                    }
-                    return result;
-                } catch (err) {
-                    closeSpanWithError(span, err);
-                    onCleanup();
-                    throw err;
-                }
-            }));
-    }
-    wrap(...args) {
-        const tracer = this;
-        const [name, options, fn] = args.length === 3 ? args : [
-            args[0],
-            {},
-            args[1]
-        ];
-        if (!_constants.NextVanillaSpanAllowlist.includes(name) && process.env.NEXT_OTEL_VERBOSE !== "1") {
-            return fn;
-        }
-        return function() {
-            let optionsObj = options;
-            if (typeof optionsObj === "function" && typeof fn === "function") {
-                optionsObj = optionsObj.apply(this, arguments);
-            }
-            const lastArgId = arguments.length - 1;
-            const cb = arguments[lastArgId];
-            if (typeof cb === "function") {
-                const scopeBoundCb = tracer.getContext().bind(context.active(), cb);
-                return tracer.trace(name, optionsObj, (_span, done)=>{
-                    arguments[lastArgId] = function(err) {
-                        done == null ? void 0 : done(err);
-                        return scopeBoundCb.apply(this, arguments);
-                    };
-                    return fn.apply(this, arguments);
-                });
-            } else {
-                return tracer.trace(name, optionsObj, ()=>fn.apply(this, arguments));
-            }
-        };
-    }
-    startSpan(...args) {
-        const [type, options] = args;
-        const spanContext = this.getSpanContext((options == null ? void 0 : options.parentSpan) ?? this.getActiveScopeSpan());
-        return this.getTracerInstance().startSpan(type, options, spanContext);
-    }
-    getSpanContext(parentSpan) {
-        const spanContext = parentSpan ? trace.setSpan(context.active(), parentSpan) : undefined;
-        return spanContext;
-    }
-    getRootSpanAttributes() {
-        const spanId = context.active().getValue(rootSpanIdKey);
-        return rootSpanAttributesStore.get(spanId);
-    }
-}
-const getTracer = (()=>{
-    const tracer = new NextTracerImpl();
-    return ()=>tracer;
-})(); //# sourceMappingURL=tracer.js.map
-
-
-/***/ }),
-
-/***/ 2394:
-/***/ (() => {
-
-/**
- * Polyfills the `Headers.getAll(name)` method so it'll work in the edge
- * runtime.
- */ 
-if (!("getAll" in Headers.prototype)) {
-    // @ts-expect-error - this is polyfilling this method so it doesn't exist yet
-    Headers.prototype.getAll = function(name) {
-        name = name.toLowerCase();
-        if (name !== "set-cookie") throw new Error("Headers.getAll is only supported for Set-Cookie header");
-        const headers = [
-            ...this.entries()
-        ].filter(([key])=>key === name);
-        return headers.map(([, value])=>value);
-    };
-} //# sourceMappingURL=node-polyfill-headers.js.map
-
-
-/***/ }),
-
-/***/ 5737:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    PageSignatureError: function() {
-        return PageSignatureError;
-    },
-    RemovedPageError: function() {
-        return RemovedPageError;
-    },
-    RemovedUAError: function() {
-        return RemovedUAError;
-    }
-});
-class PageSignatureError extends Error {
-    constructor({ page }){
-        super(`The middleware "${page}" accepts an async API directly with the form:
-  
-  export function middleware(request, event) {
-    return NextResponse.redirect('/new-location')
-  }
-  
-  Read more: https://nextjs.org/docs/messages/middleware-new-signature
-  `);
-    }
-}
-class RemovedPageError extends Error {
-    constructor(){
-        super(`The request.page has been deprecated in favour of \`URLPattern\`.
-  Read more: https://nextjs.org/docs/messages/middleware-request-page
-  `);
-    }
-}
-class RemovedUAError extends Error {
-    constructor(){
-        super(`The request.ua has been removed in favour of \`userAgent\` function.
-  Read more: https://nextjs.org/docs/messages/middleware-parse-user-agent
-  `);
-    }
-} //# sourceMappingURL=error.js.map
-
-
-/***/ }),
-
-/***/ 7961:
-/***/ ((__unused_webpack_module, exports) => {
-
-/**
- * List of valid HTTP methods that can be implemented by Next.js's Custom App
- * Routes.
- */ 
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    HTTP_METHODS: function() {
-        return HTTP_METHODS;
-    },
-    isHTTPMethod: function() {
-        return isHTTPMethod;
-    }
-});
-const HTTP_METHODS = [
-    "GET",
-    "HEAD",
-    "OPTIONS",
-    "POST",
-    "PUT",
-    "DELETE",
-    "PATCH"
-];
-function isHTTPMethod(maybeMethod) {
-    return HTTP_METHODS.includes(maybeMethod);
-} //# sourceMappingURL=http.js.map
-
-
-/***/ }),
-
-/***/ 2419:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "NextURL", ({
-    enumerable: true,
-    get: function() {
-        return NextURL;
-    }
-}));
-const _detectdomainlocale = __webpack_require__(6688);
-const _formatnextpathnameinfo = __webpack_require__(4826);
-const _gethostname = __webpack_require__(8363);
-const _getnextpathnameinfo = __webpack_require__(1614);
-const REGEX_LOCALHOST_HOSTNAME = /(?!^https?:\/\/)(127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}|::1|localhost)/;
-function parseURL(url, base) {
-    return new URL(String(url).replace(REGEX_LOCALHOST_HOSTNAME, "localhost"), base && String(base).replace(REGEX_LOCALHOST_HOSTNAME, "localhost"));
-}
-const Internal = Symbol("NextURLInternal");
-class NextURL {
-    constructor(input, baseOrOpts, opts){
-        let base;
-        let options;
-        if (typeof baseOrOpts === "object" && "pathname" in baseOrOpts || typeof baseOrOpts === "string") {
-            base = baseOrOpts;
-            options = opts || {};
-        } else {
-            options = opts || baseOrOpts || {};
-        }
-        this[Internal] = {
-            url: parseURL(input, base ?? options.base),
-            options: options,
-            basePath: ""
-        };
-        this.analyze();
-    }
-    analyze() {
-        var _this_Internal_options_nextConfig, _this_Internal_options_nextConfig_i18n, _this_Internal_domainLocale, _this_Internal_options_nextConfig1, _this_Internal_options_nextConfig_i18n1;
-        const info = (0, _getnextpathnameinfo.getNextPathnameInfo)(this[Internal].url.pathname, {
-            nextConfig: this[Internal].options.nextConfig,
-            parseData: !undefined,
-            i18nProvider: this[Internal].options.i18nProvider
-        });
-        const hostname = (0, _gethostname.getHostname)(this[Internal].url, this[Internal].options.headers);
-        this[Internal].domainLocale = this[Internal].options.i18nProvider ? this[Internal].options.i18nProvider.detectDomainLocale(hostname) : (0, _detectdomainlocale.detectDomainLocale)((_this_Internal_options_nextConfig = this[Internal].options.nextConfig) == null ? void 0 : (_this_Internal_options_nextConfig_i18n = _this_Internal_options_nextConfig.i18n) == null ? void 0 : _this_Internal_options_nextConfig_i18n.domains, hostname);
-        const defaultLocale = ((_this_Internal_domainLocale = this[Internal].domainLocale) == null ? void 0 : _this_Internal_domainLocale.defaultLocale) || ((_this_Internal_options_nextConfig1 = this[Internal].options.nextConfig) == null ? void 0 : (_this_Internal_options_nextConfig_i18n1 = _this_Internal_options_nextConfig1.i18n) == null ? void 0 : _this_Internal_options_nextConfig_i18n1.defaultLocale);
-        this[Internal].url.pathname = info.pathname;
-        this[Internal].defaultLocale = defaultLocale;
-        this[Internal].basePath = info.basePath ?? "";
-        this[Internal].buildId = info.buildId;
-        this[Internal].locale = info.locale ?? defaultLocale;
-        this[Internal].trailingSlash = info.trailingSlash;
-    }
-    formatPathname() {
-        return (0, _formatnextpathnameinfo.formatNextPathnameInfo)({
-            basePath: this[Internal].basePath,
-            buildId: this[Internal].buildId,
-            defaultLocale: !this[Internal].options.forceLocale ? this[Internal].defaultLocale : undefined,
-            locale: this[Internal].locale,
-            pathname: this[Internal].url.pathname,
-            trailingSlash: this[Internal].trailingSlash
-        });
-    }
-    formatSearch() {
-        return this[Internal].url.search;
-    }
-    get buildId() {
-        return this[Internal].buildId;
-    }
-    set buildId(buildId) {
-        this[Internal].buildId = buildId;
-    }
-    get locale() {
-        return this[Internal].locale ?? "";
-    }
-    set locale(locale) {
-        var _this_Internal_options_nextConfig, _this_Internal_options_nextConfig_i18n;
-        if (!this[Internal].locale || !((_this_Internal_options_nextConfig = this[Internal].options.nextConfig) == null ? void 0 : (_this_Internal_options_nextConfig_i18n = _this_Internal_options_nextConfig.i18n) == null ? void 0 : _this_Internal_options_nextConfig_i18n.locales.includes(locale))) {
-            throw new TypeError(`The NextURL configuration includes no locale "${locale}"`);
-        }
-        this[Internal].locale = locale;
-    }
-    get defaultLocale() {
-        return this[Internal].defaultLocale;
-    }
-    get domainLocale() {
-        return this[Internal].domainLocale;
-    }
-    get searchParams() {
-        return this[Internal].url.searchParams;
-    }
-    get host() {
-        return this[Internal].url.host;
-    }
-    set host(value) {
-        this[Internal].url.host = value;
-    }
-    get hostname() {
-        return this[Internal].url.hostname;
-    }
-    set hostname(value) {
-        this[Internal].url.hostname = value;
-    }
-    get port() {
-        return this[Internal].url.port;
-    }
-    set port(value) {
-        this[Internal].url.port = value;
-    }
-    get protocol() {
-        return this[Internal].url.protocol;
-    }
-    set protocol(value) {
-        this[Internal].url.protocol = value;
-    }
-    get href() {
-        const pathname = this.formatPathname();
-        const search = this.formatSearch();
-        return `${this.protocol}//${this.host}${pathname}${search}${this.hash}`;
-    }
-    set href(url) {
-        this[Internal].url = parseURL(url);
-        this.analyze();
-    }
-    get origin() {
-        return this[Internal].url.origin;
-    }
-    get pathname() {
-        return this[Internal].url.pathname;
-    }
-    set pathname(value) {
-        this[Internal].url.pathname = value;
-    }
-    get hash() {
-        return this[Internal].url.hash;
-    }
-    set hash(value) {
-        this[Internal].url.hash = value;
-    }
-    get search() {
-        return this[Internal].url.search;
-    }
-    set search(value) {
-        this[Internal].url.search = value;
-    }
-    get password() {
-        return this[Internal].url.password;
-    }
-    set password(value) {
-        this[Internal].url.password = value;
-    }
-    get username() {
-        return this[Internal].url.username;
-    }
-    set username(value) {
-        this[Internal].url.username = value;
-    }
-    get basePath() {
-        return this[Internal].basePath;
-    }
-    set basePath(value) {
-        this[Internal].basePath = value.startsWith("/") ? value : `/${value}`;
-    }
-    toString() {
-        return this.href;
-    }
-    toJSON() {
-        return this.href;
-    }
-    [Symbol.for("edge-runtime.inspect.custom")]() {
-        return {
-            href: this.href,
-            origin: this.origin,
-            protocol: this.protocol,
-            username: this.username,
-            password: this.password,
-            host: this.host,
-            hostname: this.hostname,
-            port: this.port,
-            pathname: this.pathname,
-            search: this.search,
-            searchParams: this.searchParams,
-            hash: this.hash
-        };
-    }
-    clone() {
-        return new NextURL(String(this), this[Internal].options);
-    }
-} //# sourceMappingURL=next-url.js.map
-
-
-/***/ }),
-
-/***/ 2284:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "NextURL", ({
-    enumerable: true,
-    get: function() {
-        return NextURL;
-    }
-}));
-const _detectdomainlocale = __webpack_require__(2080);
-const _formatnextpathnameinfo = __webpack_require__(4714);
-const _gethostname = __webpack_require__(2661);
-const _getnextpathnameinfo = __webpack_require__(2669);
-const REGEX_LOCALHOST_HOSTNAME = /(?!^https?:\/\/)(127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}|::1|localhost)/;
-function parseURL(url, base) {
-    return new URL(String(url).replace(REGEX_LOCALHOST_HOSTNAME, "localhost"), base && String(base).replace(REGEX_LOCALHOST_HOSTNAME, "localhost"));
-}
-const Internal = Symbol("NextURLInternal");
-class NextURL {
-    constructor(input, baseOrOpts, opts){
-        let base;
-        let options;
-        if (typeof baseOrOpts === "object" && "pathname" in baseOrOpts || typeof baseOrOpts === "string") {
-            base = baseOrOpts;
-            options = opts || {};
-        } else {
-            options = opts || baseOrOpts || {};
-        }
-        this[Internal] = {
-            url: parseURL(input, base ?? options.base),
-            options: options,
-            basePath: ""
-        };
-        this.analyze();
-    }
-    analyze() {
-        var _this_Internal_options_nextConfig, _this_Internal_options_nextConfig_i18n, _this_Internal_domainLocale, _this_Internal_options_nextConfig1, _this_Internal_options_nextConfig_i18n1;
-        const info = (0, _getnextpathnameinfo.getNextPathnameInfo)(this[Internal].url.pathname, {
-            nextConfig: this[Internal].options.nextConfig,
-            parseData: !undefined,
-            i18nProvider: this[Internal].options.i18nProvider
-        });
-        const hostname = (0, _gethostname.getHostname)(this[Internal].url, this[Internal].options.headers);
-        this[Internal].domainLocale = this[Internal].options.i18nProvider ? this[Internal].options.i18nProvider.detectDomainLocale(hostname) : (0, _detectdomainlocale.detectDomainLocale)((_this_Internal_options_nextConfig = this[Internal].options.nextConfig) == null ? void 0 : (_this_Internal_options_nextConfig_i18n = _this_Internal_options_nextConfig.i18n) == null ? void 0 : _this_Internal_options_nextConfig_i18n.domains, hostname);
-        const defaultLocale = ((_this_Internal_domainLocale = this[Internal].domainLocale) == null ? void 0 : _this_Internal_domainLocale.defaultLocale) || ((_this_Internal_options_nextConfig1 = this[Internal].options.nextConfig) == null ? void 0 : (_this_Internal_options_nextConfig_i18n1 = _this_Internal_options_nextConfig1.i18n) == null ? void 0 : _this_Internal_options_nextConfig_i18n1.defaultLocale);
-        this[Internal].url.pathname = info.pathname;
-        this[Internal].defaultLocale = defaultLocale;
-        this[Internal].basePath = info.basePath ?? "";
-        this[Internal].buildId = info.buildId;
-        this[Internal].locale = info.locale ?? defaultLocale;
-        this[Internal].trailingSlash = info.trailingSlash;
-    }
-    formatPathname() {
-        return (0, _formatnextpathnameinfo.formatNextPathnameInfo)({
-            basePath: this[Internal].basePath,
-            buildId: this[Internal].buildId,
-            defaultLocale: !this[Internal].options.forceLocale ? this[Internal].defaultLocale : undefined,
-            locale: this[Internal].locale,
-            pathname: this[Internal].url.pathname,
-            trailingSlash: this[Internal].trailingSlash
-        });
-    }
-    formatSearch() {
-        return this[Internal].url.search;
-    }
-    get buildId() {
-        return this[Internal].buildId;
-    }
-    set buildId(buildId) {
-        this[Internal].buildId = buildId;
-    }
-    get locale() {
-        return this[Internal].locale ?? "";
-    }
-    set locale(locale) {
-        var _this_Internal_options_nextConfig, _this_Internal_options_nextConfig_i18n;
-        if (!this[Internal].locale || !((_this_Internal_options_nextConfig = this[Internal].options.nextConfig) == null ? void 0 : (_this_Internal_options_nextConfig_i18n = _this_Internal_options_nextConfig.i18n) == null ? void 0 : _this_Internal_options_nextConfig_i18n.locales.includes(locale))) {
-            throw new TypeError(`The NextURL configuration includes no locale "${locale}"`);
-        }
-        this[Internal].locale = locale;
-    }
-    get defaultLocale() {
-        return this[Internal].defaultLocale;
-    }
-    get domainLocale() {
-        return this[Internal].domainLocale;
-    }
-    get searchParams() {
-        return this[Internal].url.searchParams;
-    }
-    get host() {
-        return this[Internal].url.host;
-    }
-    set host(value) {
-        this[Internal].url.host = value;
-    }
-    get hostname() {
-        return this[Internal].url.hostname;
-    }
-    set hostname(value) {
-        this[Internal].url.hostname = value;
-    }
-    get port() {
-        return this[Internal].url.port;
-    }
-    set port(value) {
-        this[Internal].url.port = value;
-    }
-    get protocol() {
-        return this[Internal].url.protocol;
-    }
-    set protocol(value) {
-        this[Internal].url.protocol = value;
-    }
-    get href() {
-        const pathname = this.formatPathname();
-        const search = this.formatSearch();
-        return `${this.protocol}//${this.host}${pathname}${search}${this.hash}`;
-    }
-    set href(url) {
-        this[Internal].url = parseURL(url);
-        this.analyze();
-    }
-    get origin() {
-        return this[Internal].url.origin;
-    }
-    get pathname() {
-        return this[Internal].url.pathname;
-    }
-    set pathname(value) {
-        this[Internal].url.pathname = value;
-    }
-    get hash() {
-        return this[Internal].url.hash;
-    }
-    set hash(value) {
-        this[Internal].url.hash = value;
-    }
-    get search() {
-        return this[Internal].url.search;
-    }
-    set search(value) {
-        this[Internal].url.search = value;
-    }
-    get password() {
-        return this[Internal].url.password;
-    }
-    set password(value) {
-        this[Internal].url.password = value;
-    }
-    get username() {
-        return this[Internal].url.username;
-    }
-    set username(value) {
-        this[Internal].url.username = value;
-    }
-    get basePath() {
-        return this[Internal].basePath;
-    }
-    set basePath(value) {
-        this[Internal].basePath = value.startsWith("/") ? value : `/${value}`;
-    }
-    toString() {
-        return this.href;
-    }
-    toJSON() {
-        return this.href;
-    }
-    [Symbol.for("edge-runtime.inspect.custom")]() {
-        return {
-            href: this.href,
-            origin: this.origin,
-            protocol: this.protocol,
-            username: this.username,
-            password: this.password,
-            host: this.host,
-            hostname: this.hostname,
-            port: this.port,
-            pathname: this.pathname,
-            search: this.search,
-            searchParams: this.searchParams,
-            hash: this.hash
-        };
-    }
-    clone() {
-        return new NextURL(String(this), this[Internal].options);
-    }
-} //# sourceMappingURL=next-url.js.map
-
-
-/***/ }),
-
-/***/ 3423:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    ReadonlyHeadersError: function() {
-        return ReadonlyHeadersError;
-    },
-    HeadersAdapter: function() {
-        return HeadersAdapter;
-    }
-});
-const _reflect = __webpack_require__(794);
-class ReadonlyHeadersError extends Error {
-    constructor(){
-        super("Headers cannot be modified. Read more: https://nextjs.org/docs/app/api-reference/functions/headers");
-    }
-    static callable() {
-        throw new ReadonlyHeadersError();
-    }
-}
-class HeadersAdapter extends Headers {
-    constructor(headers){
-        // We've already overridden the methods that would be called, so we're just
-        // calling the super constructor to ensure that the instanceof check works.
-        super();
-        this.headers = new Proxy(headers, {
-            get (target, prop, receiver) {
-                // Because this is just an object, we expect that all "get" operations
-                // are for properties. If it's a "get" for a symbol, we'll just return
-                // the symbol.
-                if (typeof prop === "symbol") {
-                    return _reflect.ReflectAdapter.get(target, prop, receiver);
-                }
-                const lowercased = prop.toLowerCase();
-                // Let's find the original casing of the key. This assumes that there is
-                // no mixed case keys (e.g. "Content-Type" and "content-type") in the
-                // headers object.
-                const original = Object.keys(headers).find((o)=>o.toLowerCase() === lowercased);
-                // If the original casing doesn't exist, return undefined.
-                if (typeof original === "undefined") return;
-                // If the original casing exists, return the value.
-                return _reflect.ReflectAdapter.get(target, original, receiver);
-            },
-            set (target, prop, value, receiver) {
-                if (typeof prop === "symbol") {
-                    return _reflect.ReflectAdapter.set(target, prop, value, receiver);
-                }
-                const lowercased = prop.toLowerCase();
-                // Let's find the original casing of the key. This assumes that there is
-                // no mixed case keys (e.g. "Content-Type" and "content-type") in the
-                // headers object.
-                const original = Object.keys(headers).find((o)=>o.toLowerCase() === lowercased);
-                // If the original casing doesn't exist, use the prop as the key.
-                return _reflect.ReflectAdapter.set(target, original ?? prop, value, receiver);
-            },
-            has (target, prop) {
-                if (typeof prop === "symbol") return _reflect.ReflectAdapter.has(target, prop);
-                const lowercased = prop.toLowerCase();
-                // Let's find the original casing of the key. This assumes that there is
-                // no mixed case keys (e.g. "Content-Type" and "content-type") in the
-                // headers object.
-                const original = Object.keys(headers).find((o)=>o.toLowerCase() === lowercased);
-                // If the original casing doesn't exist, return false.
-                if (typeof original === "undefined") return false;
-                // If the original casing exists, return true.
-                return _reflect.ReflectAdapter.has(target, original);
-            },
-            deleteProperty (target, prop) {
-                if (typeof prop === "symbol") return _reflect.ReflectAdapter.deleteProperty(target, prop);
-                const lowercased = prop.toLowerCase();
-                // Let's find the original casing of the key. This assumes that there is
-                // no mixed case keys (e.g. "Content-Type" and "content-type") in the
-                // headers object.
-                const original = Object.keys(headers).find((o)=>o.toLowerCase() === lowercased);
-                // If the original casing doesn't exist, return true.
-                if (typeof original === "undefined") return true;
-                // If the original casing exists, delete the property.
-                return _reflect.ReflectAdapter.deleteProperty(target, original);
-            }
-        });
-    }
-    /**
-   * Seals a Headers instance to prevent modification by throwing an error when
-   * any mutating method is called.
-   */ static seal(headers) {
-        return new Proxy(headers, {
-            get (target, prop, receiver) {
-                switch(prop){
-                    case "append":
-                    case "delete":
-                    case "set":
-                        return ReadonlyHeadersError.callable;
-                    default:
-                        return _reflect.ReflectAdapter.get(target, prop, receiver);
-                }
-            }
-        });
-    }
-    /**
-   * Merges a header value into a string. This stores multiple values as an
-   * array, so we need to merge them into a string.
-   *
-   * @param value a header value
-   * @returns a merged header value (a string)
-   */ merge(value) {
-        if (Array.isArray(value)) return value.join(", ");
-        return value;
-    }
-    /**
-   * Creates a Headers instance from a plain object or a Headers instance.
-   *
-   * @param headers a plain object or a Headers instance
-   * @returns a headers instance
-   */ static from(headers) {
-        if (headers instanceof Headers) return headers;
-        return new HeadersAdapter(headers);
-    }
-    append(name, value) {
-        const existing = this.headers[name];
-        if (typeof existing === "string") {
-            this.headers[name] = [
-                existing,
-                value
-            ];
-        } else if (Array.isArray(existing)) {
-            existing.push(value);
-        } else {
-            this.headers[name] = value;
-        }
-    }
-    delete(name) {
-        delete this.headers[name];
-    }
-    get(name) {
-        const value = this.headers[name];
-        if (typeof value !== "undefined") return this.merge(value);
-        return null;
-    }
-    has(name) {
-        return typeof this.headers[name] !== "undefined";
-    }
-    set(name, value) {
-        this.headers[name] = value;
-    }
-    forEach(callbackfn, thisArg) {
-        for (const [name, value] of this.entries()){
-            callbackfn.call(thisArg, value, name, this);
-        }
-    }
-    *entries() {
-        for (const key of Object.keys(this.headers)){
-            const name = key.toLowerCase();
-            // We assert here that this is a string because we got it from the
-            // Object.keys() call above.
-            const value = this.get(name);
-            yield [
-                name,
-                value
-            ];
-        }
-    }
-    *keys() {
-        for (const key of Object.keys(this.headers)){
-            const name = key.toLowerCase();
-            yield name;
-        }
-    }
-    *values() {
-        for (const key of Object.keys(this.headers)){
-            // We assert here that this is a string because we got it from the
-            // Object.keys() call above.
-            const value = this.get(key);
-            yield value;
-        }
-    }
-    [Symbol.iterator]() {
-        return this.entries();
-    }
-} //# sourceMappingURL=headers.js.map
-
-
-/***/ }),
-
-/***/ 794:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "ReflectAdapter", ({
-    enumerable: true,
-    get: function() {
-        return ReflectAdapter;
-    }
-}));
-class ReflectAdapter {
-    static get(target, prop, receiver) {
-        const value = Reflect.get(target, prop, receiver);
-        if (typeof value === "function") {
-            return value.bind(target);
-        }
-        return value;
-    }
-    static set(target, prop, value, receiver) {
-        return Reflect.set(target, prop, value, receiver);
-    }
-    static has(target, prop) {
-        return Reflect.has(target, prop);
-    }
-    static deleteProperty(target, prop) {
-        return Reflect.deleteProperty(target, prop);
-    }
-} //# sourceMappingURL=reflect.js.map
-
-
-/***/ }),
-
-/***/ 9934:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    ReadonlyRequestCookiesError: function() {
-        return ReadonlyRequestCookiesError;
-    },
-    RequestCookiesAdapter: function() {
-        return RequestCookiesAdapter;
-    },
-    getModifiedCookieValues: function() {
-        return getModifiedCookieValues;
-    },
-    appendMutableCookies: function() {
-        return appendMutableCookies;
-    },
-    MutableRequestCookiesAdapter: function() {
-        return MutableRequestCookiesAdapter;
-    }
-});
-const _cookies = __webpack_require__(1220);
-const _reflect = __webpack_require__(794);
-class ReadonlyRequestCookiesError extends Error {
-    constructor(){
-        super("Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#cookiessetname-value-options");
-    }
-    static callable() {
-        throw new ReadonlyRequestCookiesError();
-    }
-}
-class RequestCookiesAdapter {
-    static seal(cookies) {
-        return new Proxy(cookies, {
-            get (target, prop, receiver) {
-                switch(prop){
-                    case "clear":
-                    case "delete":
-                    case "set":
-                        return ReadonlyRequestCookiesError.callable;
-                    default:
-                        return _reflect.ReflectAdapter.get(target, prop, receiver);
-                }
-            }
-        });
-    }
-}
-const SYMBOL_MODIFY_COOKIE_VALUES = Symbol.for("next.mutated.cookies");
-function getModifiedCookieValues(cookies) {
-    const modified = cookies[SYMBOL_MODIFY_COOKIE_VALUES];
-    if (!modified || !Array.isArray(modified) || modified.length === 0) {
-        return [];
-    }
-    return modified;
-}
-function appendMutableCookies(headers, mutableCookies) {
-    const modifiedCookieValues = getModifiedCookieValues(mutableCookies);
-    if (modifiedCookieValues.length === 0) {
+const _approutercontext = __webpack_require__(7085);
+const _filllazyitemstillleafwithhead = __webpack_require__(2684);
+const _fillcachewithnewsubtreedata = __webpack_require__(8921);
+function applyFlightData(existingCache, cache, flightDataPath, wasPrefetched) {
+    if (wasPrefetched === void 0) wasPrefetched = false;
+    // The one before last item is the router state tree patch
+    const [treePatch, subTreeData, head] = flightDataPath.slice(-3);
+    // Handles case where prefetch only returns the router tree patch without rendered components.
+    if (subTreeData === null) {
         return false;
     }
-    // Return a new response that extends the response with
-    // the modified cookies as fallbacks. `res`' cookies
-    // will still take precedence.
-    const resCookies = new _cookies.ResponseCookies(headers);
-    const returnedCookies = resCookies.getAll();
-    // Set the modified cookies as fallbacks.
-    for (const cookie of modifiedCookieValues){
-        resCookies.set(cookie);
-    }
-    // Set the original cookies as the final values.
-    for (const cookie of returnedCookies){
-        resCookies.set(cookie);
+    if (flightDataPath.length === 3) {
+        cache.status = _approutercontext.CacheStates.READY;
+        cache.subTreeData = subTreeData;
+        (0, _filllazyitemstillleafwithhead.fillLazyItemsTillLeafWithHead)(cache, existingCache, treePatch, head, wasPrefetched);
+    } else {
+        // Copy subTreeData for the root node of the cache.
+        cache.status = _approutercontext.CacheStates.READY;
+        cache.subTreeData = existingCache.subTreeData;
+        cache.parallelRoutes = new Map(existingCache.parallelRoutes);
+        // Create a copy of the existing cache with the subTreeData applied.
+        (0, _fillcachewithnewsubtreedata.fillCacheWithNewSubTreeData)(cache, existingCache, flightDataPath, wasPrefetched);
     }
     return true;
 }
-class MutableRequestCookiesAdapter {
-    static wrap(cookies, res) {
-        const responseCookes = new _cookies.ResponseCookies(new Headers());
-        for (const cookie of cookies.getAll()){
-            responseCookes.set(cookie);
-        }
-        let modifiedValues = [];
-        const modifiedCookies = new Set();
-        const updateResponseCookies = ()=>{
-            var _fetch___nextGetStaticStore;
-            // TODO-APP: change method of getting staticGenerationAsyncStore
-            const staticGenerationAsyncStore = fetch.__nextGetStaticStore == null ? void 0 : (_fetch___nextGetStaticStore = fetch.__nextGetStaticStore()) == null ? void 0 : _fetch___nextGetStaticStore.getStore();
-            if (staticGenerationAsyncStore) {
-                staticGenerationAsyncStore.pathWasRevalidated = true;
-            }
-            const allCookies = responseCookes.getAll();
-            modifiedValues = allCookies.filter((c)=>modifiedCookies.has(c.name));
-            if (res) {
-                const serializedCookies = [];
-                for (const cookie of modifiedValues){
-                    const tempCookies = new _cookies.ResponseCookies(new Headers());
-                    tempCookies.set(cookie);
-                    serializedCookies.push(tempCookies.toString());
-                }
-                res.setHeader("Set-Cookie", serializedCookies);
-            }
-        };
-        return new Proxy(responseCookes, {
-            get (target, prop, receiver) {
-                switch(prop){
-                    // A special symbol to get the modified cookie values
-                    case SYMBOL_MODIFY_COOKIE_VALUES:
-                        return modifiedValues;
-                    // TODO: Throw error if trying to set a cookie after the response
-                    // headers have been set.
-                    case "delete":
-                        return function(...args) {
-                            modifiedCookies.add(typeof args[0] === "string" ? args[0] : args[0].name);
-                            try {
-                                target.delete(...args);
-                            } finally{
-                                updateResponseCookies();
-                            }
-                        };
-                    case "set":
-                        return function(...args) {
-                            modifiedCookies.add(typeof args[0] === "string" ? args[0] : args[0].name);
-                            try {
-                                return target.set(...args);
-                            } finally{
-                                updateResponseCookies();
-                            }
-                        };
-                    default:
-                        return _reflect.ReflectAdapter.get(target, prop, receiver);
-                }
-            }
-        });
-    }
-} //# sourceMappingURL=request-cookies.js.map
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=apply-flight-data.js.map
 
 
 /***/ }),
 
-/***/ 3425:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 3914:
+/***/ ((module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    RequestCookies: function() {
-        return _cookies.RequestCookies;
-    },
-    ResponseCookies: function() {
-        return _cookies.ResponseCookies;
-    }
-});
-const _cookies = __webpack_require__(6528); //# sourceMappingURL=cookies.js.map
-
-
-/***/ }),
-
-/***/ 1220:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    RequestCookies: function() {
-        return _cookies.RequestCookies;
-    },
-    ResponseCookies: function() {
-        return _cookies.ResponseCookies;
-    }
-});
-const _cookies = __webpack_require__(1749); //# sourceMappingURL=cookies.js.map
-
-
-/***/ }),
-
-/***/ 9374:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-var __webpack_unused_export__;
-
-__webpack_unused_export__ = ({
-    value: true
-});
-Object.defineProperty(exports, "E", ({
+Object.defineProperty(exports, "applyRouterStatePatchToTree", ({
     enumerable: true,
     get: function() {
-        return ImageResponse;
+        return applyRouterStatePatchToTree;
     }
 }));
-class ImageResponse {
-    static #_ = (()=>{
-        this.displayName = "NextImageResponse";
-    })();
+const _matchsegments = __webpack_require__(7618);
+/**
+ * Deep merge of the two router states. Parallel route keys are preserved if the patch doesn't have them.
+ */ function applyPatch(initialTree, patchTree) {
+    const [initialSegment, initialParallelRoutes] = initialTree;
+    const [patchSegment, patchParallelRoutes] = patchTree;
+    // if the applied patch segment is __DEFAULT__ then we can ignore it and return the initial tree
+    // this is because the __DEFAULT__ segment is used as a placeholder on navigation
+    if (patchSegment === "__DEFAULT__" && initialSegment !== "__DEFAULT__") {
+        return initialTree;
+    }
+    if ((0, _matchsegments.matchSegment)(initialSegment, patchSegment)) {
+        const newParallelRoutes = {};
+        for(const key in initialParallelRoutes){
+            const isInPatchTreeParallelRoutes = typeof patchParallelRoutes[key] !== "undefined";
+            if (isInPatchTreeParallelRoutes) {
+                newParallelRoutes[key] = applyPatch(initialParallelRoutes[key], patchParallelRoutes[key]);
+            } else {
+                newParallelRoutes[key] = initialParallelRoutes[key];
+            }
+        }
+        for(const key in patchParallelRoutes){
+            if (newParallelRoutes[key]) {
+                continue;
+            }
+            newParallelRoutes[key] = patchParallelRoutes[key];
+        }
+        const tree = [
+            initialSegment,
+            newParallelRoutes
+        ];
+        if (initialTree[2]) {
+            tree[2] = initialTree[2];
+        }
+        if (initialTree[3]) {
+            tree[3] = initialTree[3];
+        }
+        if (initialTree[4]) {
+            tree[4] = initialTree[4];
+        }
+        return tree;
+    }
+    return patchTree;
+}
+function applyRouterStatePatchToTree(flightSegmentPath, flightRouterState, treePatch) {
+    const [segment, parallelRoutes, , , isRootLayout] = flightRouterState;
+    // Root refresh
+    if (flightSegmentPath.length === 1) {
+        const tree = applyPatch(flightRouterState, treePatch);
+        return tree;
+    }
+    const [currentSegment, parallelRouteKey] = flightSegmentPath;
+    // Tree path returned from the server should always match up with the current tree in the browser
+    if (!(0, _matchsegments.matchSegment)(currentSegment, segment)) {
+        return null;
+    }
+    const lastSegment = flightSegmentPath.length === 2;
+    let parallelRoutePatch;
+    if (lastSegment) {
+        parallelRoutePatch = applyPatch(parallelRoutes[parallelRouteKey], treePatch);
+    } else {
+        parallelRoutePatch = applyRouterStatePatchToTree(flightSegmentPath.slice(2), parallelRoutes[parallelRouteKey], treePatch);
+        if (parallelRoutePatch === null) {
+            return null;
+        }
+    }
+    const tree = [
+        flightSegmentPath[0],
+        {
+            ...parallelRoutes,
+            [parallelRouteKey]: parallelRoutePatch
+        }
+    ];
+    // Current segment is the root layout
+    if (isRootLayout) {
+        tree[4] = true;
+    }
+    return tree;
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=apply-router-state-patch-to-tree.js.map
+
+
+/***/ }),
+
+/***/ 9089:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    extractPathFromFlightRouterState: function() {
+        return extractPathFromFlightRouterState;
+    },
+    computeChangedPath: function() {
+        return computeChangedPath;
+    }
+});
+const _interceptionroutes = __webpack_require__(6624);
+const _matchsegments = __webpack_require__(7618);
+const segmentToPathname = (segment)=>{
+    if (typeof segment === "string") {
+        return segment;
+    }
+    return segment[1];
+};
+function normalizePathname(pathname) {
+    return pathname.split("/").reduce((acc, segment)=>{
+        if (segment === "" || segment.startsWith("(") && segment.endsWith(")")) {
+            return acc;
+        }
+        return acc + "/" + segment;
+    }, "") || "/";
+}
+function extractPathFromFlightRouterState(flightRouterState) {
+    const segment = Array.isArray(flightRouterState[0]) ? flightRouterState[0][1] : flightRouterState[0];
+    if (segment === "__DEFAULT__" || _interceptionroutes.INTERCEPTION_ROUTE_MARKERS.some((m)=>segment.startsWith(m))) return undefined;
+    if (segment.startsWith("__PAGE__")) return "";
+    const path = [
+        segment
+    ];
+    var _flightRouterState_;
+    const parallelRoutes = (_flightRouterState_ = flightRouterState[1]) != null ? _flightRouterState_ : {};
+    const childrenPath = parallelRoutes.children ? extractPathFromFlightRouterState(parallelRoutes.children) : undefined;
+    if (childrenPath !== undefined) {
+        path.push(childrenPath);
+    } else {
+        for (const [key, value] of Object.entries(parallelRoutes)){
+            if (key === "children") continue;
+            const childPath = extractPathFromFlightRouterState(value);
+            if (childPath !== undefined) {
+                path.push(childPath);
+            }
+        }
+    }
+    // TODO-APP: optimise this, it's not ideal to join and split
+    return normalizePathname(path.join("/"));
+}
+function computeChangedPathImpl(treeA, treeB) {
+    const [segmentA, parallelRoutesA] = treeA;
+    const [segmentB, parallelRoutesB] = treeB;
+    const normalizedSegmentA = segmentToPathname(segmentA);
+    const normalizedSegmentB = segmentToPathname(segmentB);
+    if (_interceptionroutes.INTERCEPTION_ROUTE_MARKERS.some((m)=>normalizedSegmentA.startsWith(m) || normalizedSegmentB.startsWith(m))) {
+        return "";
+    }
+    if (!(0, _matchsegments.matchSegment)(segmentA, segmentB)) {
+        var _extractPathFromFlightRouterState;
+        // once we find where the tree changed, we compute the rest of the path by traversing the tree
+        return (_extractPathFromFlightRouterState = extractPathFromFlightRouterState(treeB)) != null ? _extractPathFromFlightRouterState : "";
+    }
+    for(const parallelRouterKey in parallelRoutesA){
+        if (parallelRoutesB[parallelRouterKey]) {
+            const changedPath = computeChangedPathImpl(parallelRoutesA[parallelRouterKey], parallelRoutesB[parallelRouterKey]);
+            if (changedPath !== null) {
+                return segmentToPathname(segmentB) + "/" + changedPath;
+            }
+        }
+    }
+    return null;
+}
+function computeChangedPath(treeA, treeB) {
+    const changedPath = computeChangedPathImpl(treeA, treeB);
+    if (changedPath == null || changedPath === "/") {
+        return changedPath;
+    }
+    // lightweight normalization to remove route groups
+    return normalizePathname(changedPath);
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=compute-changed-path.js.map
+
+
+/***/ }),
+
+/***/ 4331:
+/***/ ((module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "createHrefFromUrl", ({
+    enumerable: true,
+    get: function() {
+        return createHrefFromUrl;
+    }
+}));
+function createHrefFromUrl(url, includeHash) {
+    if (includeHash === void 0) includeHash = true;
+    return url.pathname + url.search + (includeHash ? url.hash : "");
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=create-href-from-url.js.map
+
+
+/***/ }),
+
+/***/ 1684:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "createInitialRouterState", ({
+    enumerable: true,
+    get: function() {
+        return createInitialRouterState;
+    }
+}));
+const _approutercontext = __webpack_require__(7085);
+const _createhreffromurl = __webpack_require__(4331);
+const _filllazyitemstillleafwithhead = __webpack_require__(2684);
+const _computechangedpath = __webpack_require__(9089);
+function createInitialRouterState(param) {
+    let { buildId, initialTree, children, initialCanonicalUrl, initialParallelRoutes, isServer, location, initialHead } = param;
+    const cache = {
+        status: _approutercontext.CacheStates.READY,
+        data: null,
+        subTreeData: children,
+        // The cache gets seeded during the first render. `initialParallelRoutes` ensures the cache from the first render is there during the second render.
+        parallelRoutes: isServer ? new Map() : initialParallelRoutes
+    };
+    // When the cache hasn't been seeded yet we fill the cache with the head.
+    if (initialParallelRoutes === null || initialParallelRoutes.size === 0) {
+        (0, _filllazyitemstillleafwithhead.fillLazyItemsTillLeafWithHead)(cache, undefined, initialTree, initialHead);
+    }
+    var _ref;
+    return {
+        buildId,
+        tree: initialTree,
+        cache,
+        prefetchCache: new Map(),
+        pushRef: {
+            pendingPush: false,
+            mpaNavigation: false
+        },
+        focusAndScrollRef: {
+            apply: false,
+            hashFragment: null,
+            segmentPaths: []
+        },
+        canonicalUrl: // This is safe to do as canonicalUrl can't be rendered, it's only used to control the history updates in the useEffect further down in this file.
+        location ? (0, _createhreffromurl.createHrefFromUrl)(location) : initialCanonicalUrl,
+        nextUrl: (_ref = (0, _computechangedpath.extractPathFromFlightRouterState)(initialTree) || (location == null ? void 0 : location.pathname)) != null ? _ref : null
+    };
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=create-initial-router-state.js.map
+
+
+/***/ }),
+
+/***/ 8503:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "createOptimisticTree", ({
+    enumerable: true,
+    get: function() {
+        return createOptimisticTree;
+    }
+}));
+const _matchsegments = __webpack_require__(7618);
+function createOptimisticTree(segments, flightRouterState, parentRefetch) {
+    const [existingSegment, existingParallelRoutes, url, refresh, isRootLayout] = flightRouterState || [
+        null,
+        {}
+    ];
+    const segment = segments[0];
+    const isLastSegment = segments.length === 1;
+    const segmentMatches = existingSegment !== null && (0, _matchsegments.matchSegment)(existingSegment, segment);
+    // if there are multiple parallel routes at this level, we need to refetch here
+    // to ensure we get the correct tree. This is because we don't know which
+    // parallel route will match the next segment.
+    const hasMultipleParallelRoutes = Object.keys(existingParallelRoutes).length > 1;
+    const shouldRefetchThisLevel = !flightRouterState || !segmentMatches || hasMultipleParallelRoutes;
+    let parallelRoutes = {};
+    if (existingSegment !== null && segmentMatches) {
+        parallelRoutes = existingParallelRoutes;
+    }
+    let childTree;
+    // if there's multiple parallel routes at this level, we shouldn't create an
+    // optimistic tree for the next level because we don't know which one will
+    // match the next segment.
+    if (!isLastSegment && !hasMultipleParallelRoutes) {
+        const childItem = createOptimisticTree(segments.slice(1), parallelRoutes ? parallelRoutes.children : null, parentRefetch || shouldRefetchThisLevel);
+        childTree = childItem;
+    }
+    const result = [
+        segment,
+        {
+            ...parallelRoutes,
+            ...childTree ? {
+                children: childTree
+            } : {}
+        }
+    ];
+    if (url) {
+        result[2] = url;
+    }
+    if (!parentRefetch && shouldRefetchThisLevel) {
+        result[3] = "refetch";
+    } else if (segmentMatches && refresh) {
+        result[3] = refresh;
+    }
+    if (segmentMatches && isRootLayout) {
+        result[4] = isRootLayout;
+    }
+    return result;
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=create-optimistic-tree.js.map
+
+
+/***/ }),
+
+/***/ 4621:
+/***/ ((module, exports) => {
+
+/**
+ * Create data fetching record for Promise.
+ */ // TODO-APP: change `any` to type inference.
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "createRecordFromThenable", ({
+    enumerable: true,
+    get: function() {
+        return createRecordFromThenable;
+    }
+}));
+function createRecordFromThenable(thenable) {
+    thenable.status = "pending";
+    thenable.then((value)=>{
+        if (thenable.status === "pending") {
+            thenable.status = "fulfilled";
+            thenable.value = value;
+        }
+    }, (err)=>{
+        if (thenable.status === "pending") {
+            thenable.status = "rejected";
+            thenable.value = err;
+        }
+    });
+    return thenable;
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=create-record-from-thenable.js.map
+
+
+/***/ }),
+
+/***/ 8870:
+/***/ ((module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "createRouterCacheKey", ({
+    enumerable: true,
+    get: function() {
+        return createRouterCacheKey;
+    }
+}));
+function createRouterCacheKey(segment, withoutSearchParameters) {
+    if (withoutSearchParameters === void 0) withoutSearchParameters = false;
+    return Array.isArray(segment) ? segment[0] + "|" + segment[1] + "|" + segment[2] : withoutSearchParameters && segment.startsWith("__PAGE__") ? "__PAGE__" : segment;
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=create-router-cache-key.js.map
+
+
+/***/ }),
+
+/***/ 8080:
+/***/ ((module, exports, __webpack_require__) => {
+
+/* __next_internal_client_entry_do_not_use__  cjs */ 
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "fetchServerResponse", ({
+    enumerable: true,
+    get: function() {
+        return fetchServerResponse;
+    }
+}));
+const _client = __webpack_require__(7897);
+const _approuterheaders = __webpack_require__(6265);
+const _approuter = __webpack_require__(2987);
+const _appcallserver = __webpack_require__(6937);
+const _routerreducertypes = __webpack_require__(2836);
+const _hash = __webpack_require__(199);
+function doMpaNavigation(url) {
+    return [
+        (0, _approuter.urlToUrlWithoutFlightMarker)(url).toString(),
+        undefined
+    ];
+}
+async function fetchServerResponse(url, flightRouterState, nextUrl, currentBuildId, prefetchKind) {
+    const headers = {
+        // Enable flight response
+        [_approuterheaders.RSC]: "1",
+        // Provide the current router state
+        [_approuterheaders.NEXT_ROUTER_STATE_TREE]: encodeURIComponent(JSON.stringify(flightRouterState))
+    };
+    /**
+   * Three cases:
+   * - `prefetchKind` is `undefined`, it means it's a normal navigation, so we want to prefetch the page data fully
+   * - `prefetchKind` is `full` - we want to prefetch the whole page so same as above
+   * - `prefetchKind` is `auto` - if the page is dynamic, prefetch the page data partially, if static prefetch the page data fully
+   */ if (prefetchKind === _routerreducertypes.PrefetchKind.AUTO) {
+        headers[_approuterheaders.NEXT_ROUTER_PREFETCH] = "1";
+    }
+    if (nextUrl) {
+        headers[_approuterheaders.NEXT_URL] = nextUrl;
+    }
+    const uniqueCacheQuery = (0, _hash.hexHash)([
+        headers[_approuterheaders.NEXT_ROUTER_PREFETCH] || "0",
+        headers[_approuterheaders.NEXT_ROUTER_STATE_TREE]
+    ].join(","));
+    try {
+        let fetchUrl = new URL(url);
+        if (true) {
+            if (false) {}
+        }
+        // Add unique cache query to avoid caching conflicts on CDN which don't respect to Vary header
+        fetchUrl.searchParams.set(_approuterheaders.NEXT_RSC_UNION_QUERY, uniqueCacheQuery);
+        const res = await fetch(fetchUrl, {
+            // Backwards compat for older browsers. `same-origin` is the default in modern browsers.
+            credentials: "same-origin",
+            headers
+        });
+        const responseUrl = (0, _approuter.urlToUrlWithoutFlightMarker)(res.url);
+        const canonicalUrl = res.redirected ? responseUrl : undefined;
+        const contentType = res.headers.get("content-type") || "";
+        let isFlightResponse = contentType === _approuterheaders.RSC_CONTENT_TYPE_HEADER;
+        if (true) {
+            if (false) {}
+        }
+        // If fetch returns something different than flight response handle it like a mpa navigation
+        // If the fetch was not 200, we also handle it like a mpa navigation
+        if (!isFlightResponse || !res.ok) {
+            return doMpaNavigation(responseUrl.toString());
+        }
+        // Handle the `fetch` readable stream that can be unwrapped by `React.use`.
+        const [buildId, flightData] = await (0, _client.createFromFetch)(Promise.resolve(res), {
+            callServer: _appcallserver.callServer
+        });
+        if (currentBuildId !== buildId) {
+            return doMpaNavigation(res.url);
+        }
+        return [
+            flightData,
+            canonicalUrl
+        ];
+    } catch (err) {
+        console.error("Failed to fetch RSC payload. Falling back to browser navigation.", err);
+        // If fetch fails handle it like a mpa navigation
+        // TODO-APP: Add a test for the case where a CORS request fails, e.g. external url redirect coming from the response.
+        // See https://github.com/vercel/next.js/issues/43605#issuecomment-1451617521 for a reproduction.
+        return [
+            url.toString(),
+            undefined
+        ];
+    }
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=fetch-server-response.js.map
+
+
+/***/ }),
+
+/***/ 9996:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "fillCacheWithDataProperty", ({
+    enumerable: true,
+    get: function() {
+        return fillCacheWithDataProperty;
+    }
+}));
+const _approutercontext = __webpack_require__(7085);
+const _createroutercachekey = __webpack_require__(8870);
+function fillCacheWithDataProperty(newCache, existingCache, flightSegmentPath, fetchResponse, bailOnParallelRoutes) {
+    if (bailOnParallelRoutes === void 0) bailOnParallelRoutes = false;
+    const isLastEntry = flightSegmentPath.length <= 2;
+    const [parallelRouteKey, segment] = flightSegmentPath;
+    const cacheKey = (0, _createroutercachekey.createRouterCacheKey)(segment);
+    const existingChildSegmentMap = existingCache.parallelRoutes.get(parallelRouteKey);
+    if (!existingChildSegmentMap || bailOnParallelRoutes && existingCache.parallelRoutes.size > 1) {
+        // Bailout because the existing cache does not have the path to the leaf node
+        // or the existing cache has multiple parallel routes
+        // Will trigger lazy fetch in layout-router because of missing segment
+        return {
+            bailOptimistic: true
+        };
+    }
+    let childSegmentMap = newCache.parallelRoutes.get(parallelRouteKey);
+    if (!childSegmentMap || childSegmentMap === existingChildSegmentMap) {
+        childSegmentMap = new Map(existingChildSegmentMap);
+        newCache.parallelRoutes.set(parallelRouteKey, childSegmentMap);
+    }
+    const existingChildCacheNode = existingChildSegmentMap.get(cacheKey);
+    let childCacheNode = childSegmentMap.get(cacheKey);
+    // In case of last segment start off the fetch at this level and don't copy further down.
+    if (isLastEntry) {
+        if (!childCacheNode || !childCacheNode.data || childCacheNode === existingChildCacheNode) {
+            childSegmentMap.set(cacheKey, {
+                status: _approutercontext.CacheStates.DATA_FETCH,
+                data: fetchResponse(),
+                subTreeData: null,
+                parallelRoutes: new Map()
+            });
+        }
+        return;
+    }
+    if (!childCacheNode || !existingChildCacheNode) {
+        // Start fetch in the place where the existing cache doesn't have the data yet.
+        if (!childCacheNode) {
+            childSegmentMap.set(cacheKey, {
+                status: _approutercontext.CacheStates.DATA_FETCH,
+                data: fetchResponse(),
+                subTreeData: null,
+                parallelRoutes: new Map()
+            });
+        }
+        return;
+    }
+    if (childCacheNode === existingChildCacheNode) {
+        childCacheNode = {
+            status: childCacheNode.status,
+            data: childCacheNode.data,
+            subTreeData: childCacheNode.subTreeData,
+            parallelRoutes: new Map(childCacheNode.parallelRoutes)
+        };
+        childSegmentMap.set(cacheKey, childCacheNode);
+    }
+    return fillCacheWithDataProperty(childCacheNode, existingChildCacheNode, flightSegmentPath.slice(2), fetchResponse);
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=fill-cache-with-data-property.js.map
+
+
+/***/ }),
+
+/***/ 8921:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "fillCacheWithNewSubTreeData", ({
+    enumerable: true,
+    get: function() {
+        return fillCacheWithNewSubTreeData;
+    }
+}));
+const _approutercontext = __webpack_require__(7085);
+const _invalidatecachebyrouterstate = __webpack_require__(1727);
+const _filllazyitemstillleafwithhead = __webpack_require__(2684);
+const _createroutercachekey = __webpack_require__(8870);
+function fillCacheWithNewSubTreeData(newCache, existingCache, flightDataPath, wasPrefetched) {
+    const isLastEntry = flightDataPath.length <= 5;
+    const [parallelRouteKey, segment] = flightDataPath;
+    const cacheKey = (0, _createroutercachekey.createRouterCacheKey)(segment);
+    const existingChildSegmentMap = existingCache.parallelRoutes.get(parallelRouteKey);
+    if (!existingChildSegmentMap) {
+        // Bailout because the existing cache does not have the path to the leaf node
+        // Will trigger lazy fetch in layout-router because of missing segment
+        return;
+    }
+    let childSegmentMap = newCache.parallelRoutes.get(parallelRouteKey);
+    if (!childSegmentMap || childSegmentMap === existingChildSegmentMap) {
+        childSegmentMap = new Map(existingChildSegmentMap);
+        newCache.parallelRoutes.set(parallelRouteKey, childSegmentMap);
+    }
+    const existingChildCacheNode = existingChildSegmentMap.get(cacheKey);
+    let childCacheNode = childSegmentMap.get(cacheKey);
+    if (isLastEntry) {
+        if (!childCacheNode || !childCacheNode.data || childCacheNode === existingChildCacheNode) {
+            childCacheNode = {
+                status: _approutercontext.CacheStates.READY,
+                data: null,
+                subTreeData: flightDataPath[3],
+                // Ensure segments other than the one we got data for are preserved.
+                parallelRoutes: existingChildCacheNode ? new Map(existingChildCacheNode.parallelRoutes) : new Map()
+            };
+            if (existingChildCacheNode) {
+                (0, _invalidatecachebyrouterstate.invalidateCacheByRouterState)(childCacheNode, existingChildCacheNode, flightDataPath[2]);
+            }
+            (0, _filllazyitemstillleafwithhead.fillLazyItemsTillLeafWithHead)(childCacheNode, existingChildCacheNode, flightDataPath[2], flightDataPath[4], wasPrefetched);
+            childSegmentMap.set(cacheKey, childCacheNode);
+        }
+        return;
+    }
+    if (!childCacheNode || !existingChildCacheNode) {
+        // Bailout because the existing cache does not have the path to the leaf node
+        // Will trigger lazy fetch in layout-router because of missing segment
+        return;
+    }
+    if (childCacheNode === existingChildCacheNode) {
+        childCacheNode = {
+            status: childCacheNode.status,
+            data: childCacheNode.data,
+            subTreeData: childCacheNode.subTreeData,
+            parallelRoutes: new Map(childCacheNode.parallelRoutes)
+        };
+        childSegmentMap.set(cacheKey, childCacheNode);
+    }
+    fillCacheWithNewSubTreeData(childCacheNode, existingChildCacheNode, flightDataPath.slice(2), wasPrefetched);
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=fill-cache-with-new-subtree-data.js.map
+
+
+/***/ }),
+
+/***/ 2684:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "fillLazyItemsTillLeafWithHead", ({
+    enumerable: true,
+    get: function() {
+        return fillLazyItemsTillLeafWithHead;
+    }
+}));
+const _approutercontext = __webpack_require__(7085);
+const _createroutercachekey = __webpack_require__(8870);
+function fillLazyItemsTillLeafWithHead(newCache, existingCache, routerState, head, wasPrefetched) {
+    const isLastSegment = Object.keys(routerState[1]).length === 0;
+    if (isLastSegment) {
+        newCache.head = head;
+        return;
+    }
+    // Remove segment that we got data for so that it is filled in during rendering of subTreeData.
+    for(const key in routerState[1]){
+        const parallelRouteState = routerState[1][key];
+        const segmentForParallelRoute = parallelRouteState[0];
+        const cacheKey = (0, _createroutercachekey.createRouterCacheKey)(segmentForParallelRoute);
+        if (existingCache) {
+            const existingParallelRoutesCacheNode = existingCache.parallelRoutes.get(key);
+            if (existingParallelRoutesCacheNode) {
+                let parallelRouteCacheNode = new Map(existingParallelRoutesCacheNode);
+                const existingCacheNode = parallelRouteCacheNode.get(cacheKey);
+                const newCacheNode = wasPrefetched && existingCacheNode ? {
+                    status: existingCacheNode.status,
+                    data: existingCacheNode.data,
+                    subTreeData: existingCacheNode.subTreeData,
+                    parallelRoutes: new Map(existingCacheNode.parallelRoutes)
+                } : {
+                    status: _approutercontext.CacheStates.LAZY_INITIALIZED,
+                    data: null,
+                    subTreeData: null,
+                    parallelRoutes: new Map(existingCacheNode == null ? void 0 : existingCacheNode.parallelRoutes)
+                };
+                // Overrides the cache key with the new cache node.
+                parallelRouteCacheNode.set(cacheKey, newCacheNode);
+                // Traverse deeper to apply the head / fill lazy items till the head.
+                fillLazyItemsTillLeafWithHead(newCacheNode, existingCacheNode, parallelRouteState, head, wasPrefetched);
+                newCache.parallelRoutes.set(key, parallelRouteCacheNode);
+                continue;
+            }
+        }
+        const newCacheNode = {
+            status: _approutercontext.CacheStates.LAZY_INITIALIZED,
+            data: null,
+            subTreeData: null,
+            parallelRoutes: new Map()
+        };
+        const existingParallelRoutes = newCache.parallelRoutes.get(key);
+        if (existingParallelRoutes) {
+            existingParallelRoutes.set(cacheKey, newCacheNode);
+        } else {
+            newCache.parallelRoutes.set(key, new Map([
+                [
+                    cacheKey,
+                    newCacheNode
+                ]
+            ]));
+        }
+        fillLazyItemsTillLeafWithHead(newCacheNode, undefined, parallelRouteState, head, wasPrefetched);
+    }
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=fill-lazy-items-till-leaf-with-head.js.map
+
+
+/***/ }),
+
+/***/ 6489:
+/***/ ((module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    PrefetchCacheEntryStatus: function() {
+        return PrefetchCacheEntryStatus;
+    },
+    getPrefetchEntryCacheStatus: function() {
+        return getPrefetchEntryCacheStatus;
+    }
+});
+const FIVE_MINUTES = 5 * 60 * 1000;
+const THIRTY_SECONDS = 30 * 1000;
+var PrefetchCacheEntryStatus;
+(function(PrefetchCacheEntryStatus) {
+    PrefetchCacheEntryStatus["fresh"] = "fresh";
+    PrefetchCacheEntryStatus["reusable"] = "reusable";
+    PrefetchCacheEntryStatus["expired"] = "expired";
+    PrefetchCacheEntryStatus["stale"] = "stale";
+})(PrefetchCacheEntryStatus || (PrefetchCacheEntryStatus = {}));
+function getPrefetchEntryCacheStatus(param) {
+    let { kind, prefetchTime, lastUsedTime } = param;
+    // if the cache entry was prefetched or read less than 30s ago, then we want to re-use it
+    if (Date.now() < (lastUsedTime != null ? lastUsedTime : prefetchTime) + THIRTY_SECONDS) {
+        return lastUsedTime ? "reusable" : "fresh";
+    }
+    // if the cache entry was prefetched less than 5 mins ago, then we want to re-use only the loading state
+    if (kind === "auto") {
+        if (Date.now() < prefetchTime + FIVE_MINUTES) {
+            return "stale";
+        }
+    }
+    // if the cache entry was prefetched less than 5 mins ago and was a "full" prefetch, then we want to re-use it "full
+    if (kind === "full") {
+        if (Date.now() < prefetchTime + FIVE_MINUTES) {
+            return "reusable";
+        }
+    }
+    return "expired";
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=get-prefetch-cache-entry-status.js.map
+
+
+/***/ }),
+
+/***/ 7462:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "handleMutable", ({
+    enumerable: true,
+    get: function() {
+        return handleMutable;
+    }
+}));
+const _computechangedpath = __webpack_require__(9089);
+function handleMutable(state, mutable) {
+    var _mutable_shouldScroll;
+    // shouldScroll is true by default, can override to false.
+    const shouldScroll = (_mutable_shouldScroll = mutable.shouldScroll) != null ? _mutable_shouldScroll : true;
+    var _mutable_scrollableSegments, _computeChangedPath;
+    return {
+        buildId: state.buildId,
+        // Set href.
+        canonicalUrl: mutable.canonicalUrl != null ? mutable.canonicalUrl === state.canonicalUrl ? state.canonicalUrl : mutable.canonicalUrl : state.canonicalUrl,
+        pushRef: {
+            pendingPush: mutable.pendingPush != null ? mutable.pendingPush : state.pushRef.pendingPush,
+            mpaNavigation: mutable.mpaNavigation != null ? mutable.mpaNavigation : state.pushRef.mpaNavigation
+        },
+        // All navigation requires scroll and focus management to trigger.
+        focusAndScrollRef: {
+            apply: shouldScroll ? (mutable == null ? void 0 : mutable.scrollableSegments) !== undefined ? true : state.focusAndScrollRef.apply : false,
+            hashFragment: shouldScroll ? mutable.hashFragment && mutable.hashFragment !== "" ? decodeURIComponent(mutable.hashFragment.slice(1)) : state.focusAndScrollRef.hashFragment : null,
+            segmentPaths: shouldScroll ? (_mutable_scrollableSegments = mutable == null ? void 0 : mutable.scrollableSegments) != null ? _mutable_scrollableSegments : state.focusAndScrollRef.segmentPaths : []
+        },
+        // Apply cache.
+        cache: mutable.cache ? mutable.cache : state.cache,
+        prefetchCache: mutable.prefetchCache ? mutable.prefetchCache : state.prefetchCache,
+        // Apply patched router state.
+        tree: mutable.patchedTree !== undefined ? mutable.patchedTree : state.tree,
+        nextUrl: mutable.patchedTree !== undefined ? (_computeChangedPath = (0, _computechangedpath.computeChangedPath)(state.tree, mutable.patchedTree)) != null ? _computeChangedPath : state.canonicalUrl : state.nextUrl
+    };
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=handle-mutable.js.map
+
+
+/***/ }),
+
+/***/ 8457:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "invalidateCacheBelowFlightSegmentPath", ({
+    enumerable: true,
+    get: function() {
+        return invalidateCacheBelowFlightSegmentPath;
+    }
+}));
+const _createroutercachekey = __webpack_require__(8870);
+function invalidateCacheBelowFlightSegmentPath(newCache, existingCache, flightSegmentPath) {
+    const isLastEntry = flightSegmentPath.length <= 2;
+    const [parallelRouteKey, segment] = flightSegmentPath;
+    const cacheKey = (0, _createroutercachekey.createRouterCacheKey)(segment);
+    const existingChildSegmentMap = existingCache.parallelRoutes.get(parallelRouteKey);
+    if (!existingChildSegmentMap) {
+        // Bailout because the existing cache does not have the path to the leaf node
+        // Will trigger lazy fetch in layout-router because of missing segment
+        return;
+    }
+    let childSegmentMap = newCache.parallelRoutes.get(parallelRouteKey);
+    if (!childSegmentMap || childSegmentMap === existingChildSegmentMap) {
+        childSegmentMap = new Map(existingChildSegmentMap);
+        newCache.parallelRoutes.set(parallelRouteKey, childSegmentMap);
+    }
+    // In case of last entry don't copy further down.
+    if (isLastEntry) {
+        childSegmentMap.delete(cacheKey);
+        return;
+    }
+    const existingChildCacheNode = existingChildSegmentMap.get(cacheKey);
+    let childCacheNode = childSegmentMap.get(cacheKey);
+    if (!childCacheNode || !existingChildCacheNode) {
+        // Bailout because the existing cache does not have the path to the leaf node
+        // Will trigger lazy fetch in layout-router because of missing segment
+        return;
+    }
+    if (childCacheNode === existingChildCacheNode) {
+        childCacheNode = {
+            status: childCacheNode.status,
+            data: childCacheNode.data,
+            subTreeData: childCacheNode.subTreeData,
+            parallelRoutes: new Map(childCacheNode.parallelRoutes)
+        };
+        childSegmentMap.set(cacheKey, childCacheNode);
+    }
+    invalidateCacheBelowFlightSegmentPath(childCacheNode, existingChildCacheNode, flightSegmentPath.slice(2));
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=invalidate-cache-below-flight-segmentpath.js.map
+
+
+/***/ }),
+
+/***/ 1727:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "invalidateCacheByRouterState", ({
+    enumerable: true,
+    get: function() {
+        return invalidateCacheByRouterState;
+    }
+}));
+const _createroutercachekey = __webpack_require__(8870);
+function invalidateCacheByRouterState(newCache, existingCache, routerState) {
+    // Remove segment that we got data for so that it is filled in during rendering of subTreeData.
+    for(const key in routerState[1]){
+        const segmentForParallelRoute = routerState[1][key][0];
+        const cacheKey = (0, _createroutercachekey.createRouterCacheKey)(segmentForParallelRoute);
+        const existingParallelRoutesCacheNode = existingCache.parallelRoutes.get(key);
+        if (existingParallelRoutesCacheNode) {
+            let parallelRouteCacheNode = new Map(existingParallelRoutesCacheNode);
+            parallelRouteCacheNode.delete(cacheKey);
+            newCache.parallelRoutes.set(key, parallelRouteCacheNode);
+        }
+    }
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=invalidate-cache-by-router-state.js.map
+
+
+/***/ }),
+
+/***/ 2615:
+/***/ ((module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "isNavigatingToNewRootLayout", ({
+    enumerable: true,
+    get: function() {
+        return isNavigatingToNewRootLayout;
+    }
+}));
+function isNavigatingToNewRootLayout(currentTree, nextTree) {
+    // Compare segments
+    const currentTreeSegment = currentTree[0];
+    const nextTreeSegment = nextTree[0];
+    // If any segment is different before we find the root layout, the root layout has changed.
+    // E.g. /same/(group1)/layout.js -> /same/(group2)/layout.js
+    // First segment is 'same' for both, keep looking. (group1) changed to (group2) before the root layout was found, it must have changed.
+    if (Array.isArray(currentTreeSegment) && Array.isArray(nextTreeSegment)) {
+        // Compare dynamic param name and type but ignore the value, different values would not affect the current root layout
+        // /[name] - /slug1 and /slug2, both values (slug1 & slug2) still has the same layout /[name]/layout.js
+        if (currentTreeSegment[0] !== nextTreeSegment[0] || currentTreeSegment[2] !== nextTreeSegment[2]) {
+            return true;
+        }
+    } else if (currentTreeSegment !== nextTreeSegment) {
+        return true;
+    }
+    // Current tree root layout found
+    if (currentTree[4]) {
+        // If the next tree doesn't have the root layout flag, it must have changed.
+        return !nextTree[4];
+    }
+    // Current tree  didn't have its root layout here, must have changed.
+    if (nextTree[4]) {
+        return true;
+    }
+    // We can't assume it's `parallelRoutes.children` here in case the root layout is `app/@something/layout.js`
+    // But it's not possible to be more than one parallelRoutes before the root layout is found
+    // TODO-APP: change to traverse all parallel routes
+    const currentTreeChild = Object.values(currentTree[1])[0];
+    const nextTreeChild = Object.values(nextTree[1])[0];
+    if (!currentTreeChild || !nextTreeChild) return true;
+    return isNavigatingToNewRootLayout(currentTreeChild, nextTreeChild);
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=is-navigating-to-new-root-layout.js.map
+
+
+/***/ }),
+
+/***/ 2401:
+/***/ ((module, exports) => {
+
+/**
+ * Read record value or throw Promise if it's not resolved yet.
+ */ 
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "readRecordValue", ({
+    enumerable: true,
+    get: function() {
+        return readRecordValue;
+    }
+}));
+function readRecordValue(thenable) {
+    // @ts-expect-error TODO: fix type
+    if (thenable.status === "fulfilled") {
+        // @ts-expect-error TODO: fix type
+        return thenable.value;
+    } else {
+        throw thenable;
+    }
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=read-record-value.js.map
+
+
+/***/ }),
+
+/***/ 7300:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "fastRefreshReducer", ({
+    enumerable: true,
+    get: function() {
+        return fastRefreshReducer;
+    }
+}));
+const _fetchserverresponse = __webpack_require__(8080);
+const _createrecordfromthenable = __webpack_require__(4621);
+const _readrecordvalue = __webpack_require__(2401);
+const _createhreffromurl = __webpack_require__(4331);
+const _applyrouterstatepatchtotree = __webpack_require__(3914);
+const _isnavigatingtonewrootlayout = __webpack_require__(2615);
+const _navigatereducer = __webpack_require__(9962);
+const _handlemutable = __webpack_require__(7462);
+const _applyflightdata = __webpack_require__(4173);
+// A version of refresh reducer that keeps the cache around instead of wiping all of it.
+function fastRefreshReducerImpl(state, action) {
+    const { cache, mutable, origin } = action;
+    const href = state.canonicalUrl;
+    const isForCurrentTree = JSON.stringify(mutable.previousTree) === JSON.stringify(state.tree);
+    if (isForCurrentTree) {
+        return (0, _handlemutable.handleMutable)(state, mutable);
+    }
+    if (!cache.data) {
+        // TODO-APP: verify that `href` is not an external url.
+        // Fetch data from the root of the tree.
+        cache.data = (0, _createrecordfromthenable.createRecordFromThenable)((0, _fetchserverresponse.fetchServerResponse)(new URL(href, origin), [
+            state.tree[0],
+            state.tree[1],
+            state.tree[2],
+            "refetch"
+        ], state.nextUrl, state.buildId));
+    }
+    const [flightData, canonicalUrlOverride] = (0, _readrecordvalue.readRecordValue)(cache.data);
+    // Handle case when navigating to page in `pages` from `app`
+    if (typeof flightData === "string") {
+        return (0, _navigatereducer.handleExternalUrl)(state, mutable, flightData, state.pushRef.pendingPush);
+    }
+    // Remove cache.data as it has been resolved at this point.
+    cache.data = null;
+    let currentTree = state.tree;
+    let currentCache = state.cache;
+    for (const flightDataPath of flightData){
+        // FlightDataPath with more than two items means unexpected Flight data was returned
+        if (flightDataPath.length !== 3) {
+            // TODO-APP: handle this case better
+            console.log("REFRESH FAILED");
+            return state;
+        }
+        // Given the path can only have two items the items are only the router state and subTreeData for the root.
+        const [treePatch] = flightDataPath;
+        const newTree = (0, _applyrouterstatepatchtotree.applyRouterStatePatchToTree)([
+            ""
+        ], currentTree, treePatch);
+        if (newTree === null) {
+            throw new Error("SEGMENT MISMATCH");
+        }
+        if ((0, _isnavigatingtonewrootlayout.isNavigatingToNewRootLayout)(currentTree, newTree)) {
+            return (0, _navigatereducer.handleExternalUrl)(state, mutable, href, state.pushRef.pendingPush);
+        }
+        const canonicalUrlOverrideHref = canonicalUrlOverride ? (0, _createhreffromurl.createHrefFromUrl)(canonicalUrlOverride) : undefined;
+        if (canonicalUrlOverride) {
+            mutable.canonicalUrl = canonicalUrlOverrideHref;
+        }
+        const applied = (0, _applyflightdata.applyFlightData)(currentCache, cache, flightDataPath);
+        if (applied) {
+            mutable.cache = cache;
+            currentCache = cache;
+        }
+        mutable.previousTree = currentTree;
+        mutable.patchedTree = newTree;
+        mutable.canonicalUrl = href;
+        currentTree = newTree;
+    }
+    return (0, _handlemutable.handleMutable)(state, mutable);
+}
+function fastRefreshReducerNoop(state, _action) {
+    return state;
+}
+const fastRefreshReducer =  true ? fastRefreshReducerNoop : 0;
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=fast-refresh-reducer.js.map
+
+
+/***/ }),
+
+/***/ 1333:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "findHeadInCache", ({
+    enumerable: true,
+    get: function() {
+        return findHeadInCache;
+    }
+}));
+const _createroutercachekey = __webpack_require__(8870);
+function findHeadInCache(cache, parallelRoutes) {
+    const isLastItem = Object.keys(parallelRoutes).length === 0;
+    if (isLastItem) {
+        return cache.head;
+    }
+    for(const key in parallelRoutes){
+        const [segment, childParallelRoutes] = parallelRoutes[key];
+        const childSegmentMap = cache.parallelRoutes.get(key);
+        if (!childSegmentMap) {
+            continue;
+        }
+        const cacheKey = (0, _createroutercachekey.createRouterCacheKey)(segment);
+        const cacheNode = childSegmentMap.get(cacheKey);
+        if (!cacheNode) {
+            continue;
+        }
+        const item = findHeadInCache(cacheNode, childParallelRoutes);
+        if (item) {
+            return item;
+        }
+    }
+    return undefined;
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=find-head-in-cache.js.map
+
+
+/***/ }),
+
+/***/ 7741:
+/***/ ((module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "getSegmentValue", ({
+    enumerable: true,
+    get: function() {
+        return getSegmentValue;
+    }
+}));
+function getSegmentValue(segment) {
+    return Array.isArray(segment) ? segment[1] : segment;
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=get-segment-value.js.map
+
+
+/***/ }),
+
+/***/ 9962:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    handleExternalUrl: function() {
+        return handleExternalUrl;
+    },
+    navigateReducer: function() {
+        return navigateReducer;
+    }
+});
+const _approutercontext = __webpack_require__(7085);
+const _fetchserverresponse = __webpack_require__(8080);
+const _createrecordfromthenable = __webpack_require__(4621);
+const _readrecordvalue = __webpack_require__(2401);
+const _createhreffromurl = __webpack_require__(4331);
+const _invalidatecachebelowflightsegmentpath = __webpack_require__(8457);
+const _fillcachewithdataproperty = __webpack_require__(9996);
+const _createoptimistictree = __webpack_require__(8503);
+const _applyrouterstatepatchtotree = __webpack_require__(3914);
+const _shouldhardnavigate = __webpack_require__(8072);
+const _isnavigatingtonewrootlayout = __webpack_require__(2615);
+const _routerreducertypes = __webpack_require__(2836);
+const _handlemutable = __webpack_require__(7462);
+const _applyflightdata = __webpack_require__(4173);
+const _getprefetchcacheentrystatus = __webpack_require__(6489);
+const _pruneprefetchcache = __webpack_require__(7025);
+const _prefetchreducer = __webpack_require__(1910);
+function handleExternalUrl(state, mutable, url, pendingPush) {
+    mutable.previousTree = state.tree;
+    mutable.mpaNavigation = true;
+    mutable.canonicalUrl = url;
+    mutable.pendingPush = pendingPush;
+    mutable.scrollableSegments = undefined;
+    return (0, _handlemutable.handleMutable)(state, mutable);
+}
+function generateSegmentsFromPatch(flightRouterPatch) {
+    const segments = [];
+    const [segment, parallelRoutes] = flightRouterPatch;
+    if (Object.keys(parallelRoutes).length === 0) {
+        return [
+            [
+                segment
+            ]
+        ];
+    }
+    for (const [parallelRouteKey, parallelRoute] of Object.entries(parallelRoutes)){
+        for (const childSegment of generateSegmentsFromPatch(parallelRoute)){
+            // If the segment is empty, it means we are at the root of the tree
+            if (segment === "") {
+                segments.push([
+                    parallelRouteKey,
+                    ...childSegment
+                ]);
+            } else {
+                segments.push([
+                    segment,
+                    parallelRouteKey,
+                    ...childSegment
+                ]);
+            }
+        }
+    }
+    return segments;
+}
+function addRefetchToLeafSegments(newCache, currentCache, flightSegmentPath, treePatch, data) {
+    let appliedPatch = false;
+    newCache.status = _approutercontext.CacheStates.READY;
+    newCache.subTreeData = currentCache.subTreeData;
+    newCache.parallelRoutes = new Map(currentCache.parallelRoutes);
+    const segmentPathsToFill = generateSegmentsFromPatch(treePatch).map((segment)=>[
+            ...flightSegmentPath,
+            ...segment
+        ]);
+    for (const segmentPaths of segmentPathsToFill){
+        const res = (0, _fillcachewithdataproperty.fillCacheWithDataProperty)(newCache, currentCache, segmentPaths, data);
+        if (!(res == null ? void 0 : res.bailOptimistic)) {
+            appliedPatch = true;
+        }
+    }
+    return appliedPatch;
+}
+function navigateReducer(state, action) {
+    const { url, isExternalUrl, navigateType, cache, mutable, forceOptimisticNavigation, shouldScroll } = action;
+    const { pathname, hash } = url;
+    const href = (0, _createhreffromurl.createHrefFromUrl)(url);
+    const pendingPush = navigateType === "push";
+    // we want to prune the prefetch cache on every navigation to avoid it growing too large
+    (0, _pruneprefetchcache.prunePrefetchCache)(state.prefetchCache);
+    const isForCurrentTree = JSON.stringify(mutable.previousTree) === JSON.stringify(state.tree);
+    if (isForCurrentTree) {
+        return (0, _handlemutable.handleMutable)(state, mutable);
+    }
+    if (isExternalUrl) {
+        return handleExternalUrl(state, mutable, url.toString(), pendingPush);
+    }
+    let prefetchValues = state.prefetchCache.get((0, _createhreffromurl.createHrefFromUrl)(url, false));
+    if (forceOptimisticNavigation && (prefetchValues == null ? void 0 : prefetchValues.kind) !== _routerreducertypes.PrefetchKind.TEMPORARY) {
+        const segments = pathname.split("/");
+        // TODO-APP: figure out something better for index pages
+        segments.push("__PAGE__");
+        // Optimistic tree case.
+        // If the optimistic tree is deeper than the current state leave that deeper part out of the fetch
+        const optimisticTree = (0, _createoptimistictree.createOptimisticTree)(segments, state.tree, false);
+        // we need a copy of the cache in case we need to revert to it
+        const temporaryCacheNode = {
+            ...cache
+        };
+        // Copy subTreeData for the root node of the cache.
+        // Note: didn't do it above because typescript doesn't like it.
+        temporaryCacheNode.status = _approutercontext.CacheStates.READY;
+        temporaryCacheNode.subTreeData = state.cache.subTreeData;
+        temporaryCacheNode.parallelRoutes = new Map(state.cache.parallelRoutes);
+        let data;
+        const fetchResponse = ()=>{
+            if (!data) {
+                data = (0, _createrecordfromthenable.createRecordFromThenable)((0, _fetchserverresponse.fetchServerResponse)(url, optimisticTree, state.nextUrl, state.buildId));
+            }
+            return data;
+        };
+        // TODO-APP: segments.slice(1) strips '', we can get rid of '' altogether.
+        // TODO-APP: re-evaluate if we need to strip the last segment
+        const optimisticFlightSegmentPath = segments.slice(1).map((segment)=>[
+                "children",
+                segment
+            ]).flat();
+        // Copy existing cache nodes as far as possible and fill in `data` property with the started data fetch.
+        // The `data` property is used to suspend in layout-router during render if it hasn't resolved yet by the time it renders.
+        const res = (0, _fillcachewithdataproperty.fillCacheWithDataProperty)(temporaryCacheNode, state.cache, optimisticFlightSegmentPath, fetchResponse, true);
+        // If optimistic fetch couldn't happen it falls back to the non-optimistic case.
+        if (!(res == null ? void 0 : res.bailOptimistic)) {
+            mutable.previousTree = state.tree;
+            mutable.patchedTree = optimisticTree;
+            mutable.pendingPush = pendingPush;
+            mutable.hashFragment = hash;
+            mutable.shouldScroll = shouldScroll;
+            mutable.scrollableSegments = [];
+            mutable.cache = temporaryCacheNode;
+            mutable.canonicalUrl = href;
+            state.prefetchCache.set((0, _createhreffromurl.createHrefFromUrl)(url, false), {
+                data: Promise.resolve(data),
+                // this will make sure that the entry will be discarded after 30s
+                kind: _routerreducertypes.PrefetchKind.TEMPORARY,
+                prefetchTime: Date.now(),
+                treeAtTimeOfPrefetch: state.tree,
+                lastUsedTime: Date.now()
+            });
+            return (0, _handlemutable.handleMutable)(state, mutable);
+        }
+    }
+    // If we don't have a prefetch value, we need to create one
+    if (!prefetchValues) {
+        const data = (0, _createrecordfromthenable.createRecordFromThenable)((0, _fetchserverresponse.fetchServerResponse)(url, state.tree, state.nextUrl, state.buildId, // in order to simulate the behavior of the prefetch cache
+         false ? 0 : undefined));
+        const newPrefetchValue = {
+            data: Promise.resolve(data),
+            // this will make sure that the entry will be discarded after 30s
+            kind:  false ? 0 : _routerreducertypes.PrefetchKind.TEMPORARY,
+            prefetchTime: Date.now(),
+            treeAtTimeOfPrefetch: state.tree,
+            lastUsedTime: null
+        };
+        state.prefetchCache.set((0, _createhreffromurl.createHrefFromUrl)(url, false), newPrefetchValue);
+        prefetchValues = newPrefetchValue;
+    }
+    const prefetchEntryCacheStatus = (0, _getprefetchcacheentrystatus.getPrefetchEntryCacheStatus)(prefetchValues);
+    // The one before last item is the router state tree patch
+    const { treeAtTimeOfPrefetch, data } = prefetchValues;
+    _prefetchreducer.prefetchQueue.bump(data);
+    // Unwrap cache data with `use` to suspend here (in the reducer) until the fetch resolves.
+    const [flightData, canonicalUrlOverride] = (0, _readrecordvalue.readRecordValue)(data);
+    // important: we should only mark the cache node as dirty after we unsuspend from the call above
+    prefetchValues.lastUsedTime = Date.now();
+    // Handle case when navigating to page in `pages` from `app`
+    if (typeof flightData === "string") {
+        return handleExternalUrl(state, mutable, flightData, pendingPush);
+    }
+    let currentTree = state.tree;
+    let currentCache = state.cache;
+    let scrollableSegments = [];
+    for (const flightDataPath of flightData){
+        const flightSegmentPath = flightDataPath.slice(0, -4);
+        // The one before last item is the router state tree patch
+        const treePatch = flightDataPath.slice(-3)[0];
+        // TODO-APP: remove ''
+        const flightSegmentPathWithLeadingEmpty = [
+            "",
+            ...flightSegmentPath
+        ];
+        // Create new tree based on the flightSegmentPath and router state patch
+        let newTree = (0, _applyrouterstatepatchtotree.applyRouterStatePatchToTree)(flightSegmentPathWithLeadingEmpty, currentTree, treePatch);
+        // If the tree patch can't be applied to the current tree then we use the tree at time of prefetch
+        // TODO-APP: This should instead fill in the missing pieces in `currentTree` with the data from `treeAtTimeOfPrefetch`, then apply the patch.
+        if (newTree === null) {
+            newTree = (0, _applyrouterstatepatchtotree.applyRouterStatePatchToTree)(flightSegmentPathWithLeadingEmpty, treeAtTimeOfPrefetch, treePatch);
+        }
+        if (newTree !== null) {
+            if ((0, _isnavigatingtonewrootlayout.isNavigatingToNewRootLayout)(currentTree, newTree)) {
+                return handleExternalUrl(state, mutable, href, pendingPush);
+            }
+            let applied = (0, _applyflightdata.applyFlightData)(currentCache, cache, flightDataPath, prefetchValues.kind === "auto" && prefetchEntryCacheStatus === _getprefetchcacheentrystatus.PrefetchCacheEntryStatus.reusable);
+            if (!applied && prefetchEntryCacheStatus === _getprefetchcacheentrystatus.PrefetchCacheEntryStatus.stale) {
+                applied = addRefetchToLeafSegments(cache, currentCache, flightSegmentPath, treePatch, ()=>(0, _fetchserverresponse.fetchServerResponse)(url, currentTree, state.nextUrl, state.buildId));
+            }
+            const hardNavigate = (0, _shouldhardnavigate.shouldHardNavigate)(flightSegmentPathWithLeadingEmpty, currentTree);
+            if (hardNavigate) {
+                cache.status = _approutercontext.CacheStates.READY;
+                // Copy subTreeData for the root node of the cache.
+                cache.subTreeData = currentCache.subTreeData;
+                (0, _invalidatecachebelowflightsegmentpath.invalidateCacheBelowFlightSegmentPath)(cache, currentCache, flightSegmentPath);
+                // Ensure the existing cache value is used when the cache was not invalidated.
+                mutable.cache = cache;
+            } else if (applied) {
+                mutable.cache = cache;
+            }
+            currentCache = cache;
+            currentTree = newTree;
+            for (const subSegment of generateSegmentsFromPatch(treePatch)){
+                const scrollableSegmentPath = [
+                    ...flightSegmentPath,
+                    ...subSegment
+                ];
+                // Filter out the __DEFAULT__ paths as they shouldn't be scrolled to in this case.
+                if (scrollableSegmentPath[scrollableSegmentPath.length - 1] !== "__DEFAULT__") {
+                    scrollableSegments.push(scrollableSegmentPath);
+                }
+            }
+        }
+    }
+    mutable.previousTree = state.tree;
+    mutable.patchedTree = currentTree;
+    mutable.canonicalUrl = canonicalUrlOverride ? (0, _createhreffromurl.createHrefFromUrl)(canonicalUrlOverride) : href;
+    mutable.pendingPush = pendingPush;
+    mutable.scrollableSegments = scrollableSegments;
+    mutable.hashFragment = hash;
+    mutable.shouldScroll = shouldScroll;
+    return (0, _handlemutable.handleMutable)(state, mutable);
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=navigate-reducer.js.map
+
+
+/***/ }),
+
+/***/ 1910:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    prefetchQueue: function() {
+        return prefetchQueue;
+    },
+    prefetchReducer: function() {
+        return prefetchReducer;
+    }
+});
+const _createhreffromurl = __webpack_require__(4331);
+const _fetchserverresponse = __webpack_require__(8080);
+const _routerreducertypes = __webpack_require__(2836);
+const _createrecordfromthenable = __webpack_require__(4621);
+const _pruneprefetchcache = __webpack_require__(7025);
+const _approuterheaders = __webpack_require__(6265);
+const _promisequeue = __webpack_require__(8811);
+const prefetchQueue = new _promisequeue.PromiseQueue(5);
+function prefetchReducer(state, action) {
+    // let's prune the prefetch cache before we do anything else
+    (0, _pruneprefetchcache.prunePrefetchCache)(state.prefetchCache);
+    const { url } = action;
+    url.searchParams.delete(_approuterheaders.NEXT_RSC_UNION_QUERY);
+    const href = (0, _createhreffromurl.createHrefFromUrl)(url, false);
+    const cacheEntry = state.prefetchCache.get(href);
+    if (cacheEntry) {
+        /**
+     * If the cache entry present was marked as temporary, it means that we prefetched it from the navigate reducer,
+     * where we didn't have the prefetch intent. We want to update it to the new, more accurate, kind here.
+     */ if (cacheEntry.kind === _routerreducertypes.PrefetchKind.TEMPORARY) {
+            state.prefetchCache.set(href, {
+                ...cacheEntry,
+                kind: action.kind
+            });
+        }
+        /**
+     * if the prefetch action was a full prefetch and that the current cache entry wasn't one, we want to re-prefetch,
+     * otherwise we can re-use the current cache entry
+     **/ if (!(cacheEntry.kind === _routerreducertypes.PrefetchKind.AUTO && action.kind === _routerreducertypes.PrefetchKind.FULL)) {
+            return state;
+        }
+    }
+    // fetchServerResponse is intentionally not awaited so that it can be unwrapped in the navigate-reducer
+    const serverResponse = (0, _createrecordfromthenable.createRecordFromThenable)(prefetchQueue.enqueue(()=>(0, _fetchserverresponse.fetchServerResponse)(url, state.tree, state.nextUrl, state.buildId, action.kind)));
+    // Create new tree based on the flightSegmentPath and router state patch
+    state.prefetchCache.set(href, {
+        // Create new tree based on the flightSegmentPath and router state patch
+        treeAtTimeOfPrefetch: state.tree,
+        data: serverResponse,
+        kind: action.kind,
+        prefetchTime: Date.now(),
+        lastUsedTime: null
+    });
+    return state;
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=prefetch-reducer.js.map
+
+
+/***/ }),
+
+/***/ 7025:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "prunePrefetchCache", ({
+    enumerable: true,
+    get: function() {
+        return prunePrefetchCache;
+    }
+}));
+const _getprefetchcacheentrystatus = __webpack_require__(6489);
+function prunePrefetchCache(prefetchCache) {
+    for (const [href, prefetchCacheEntry] of prefetchCache){
+        if ((0, _getprefetchcacheentrystatus.getPrefetchEntryCacheStatus)(prefetchCacheEntry) === _getprefetchcacheentrystatus.PrefetchCacheEntryStatus.expired) {
+            prefetchCache.delete(href);
+        }
+    }
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=prune-prefetch-cache.js.map
+
+
+/***/ }),
+
+/***/ 9082:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "refreshReducer", ({
+    enumerable: true,
+    get: function() {
+        return refreshReducer;
+    }
+}));
+const _fetchserverresponse = __webpack_require__(8080);
+const _createrecordfromthenable = __webpack_require__(4621);
+const _readrecordvalue = __webpack_require__(2401);
+const _createhreffromurl = __webpack_require__(4331);
+const _applyrouterstatepatchtotree = __webpack_require__(3914);
+const _isnavigatingtonewrootlayout = __webpack_require__(2615);
+const _navigatereducer = __webpack_require__(9962);
+const _handlemutable = __webpack_require__(7462);
+const _approutercontext = __webpack_require__(7085);
+const _filllazyitemstillleafwithhead = __webpack_require__(2684);
+function refreshReducer(state, action) {
+    const { cache, mutable, origin } = action;
+    const href = state.canonicalUrl;
+    let currentTree = state.tree;
+    const isForCurrentTree = JSON.stringify(mutable.previousTree) === JSON.stringify(currentTree);
+    if (isForCurrentTree) {
+        return (0, _handlemutable.handleMutable)(state, mutable);
+    }
+    if (!cache.data) {
+        // TODO-APP: verify that `href` is not an external url.
+        // Fetch data from the root of the tree.
+        cache.data = (0, _createrecordfromthenable.createRecordFromThenable)((0, _fetchserverresponse.fetchServerResponse)(new URL(href, origin), [
+            currentTree[0],
+            currentTree[1],
+            currentTree[2],
+            "refetch"
+        ], state.nextUrl, state.buildId));
+    }
+    const [flightData, canonicalUrlOverride] = (0, _readrecordvalue.readRecordValue)(cache.data);
+    // Handle case when navigating to page in `pages` from `app`
+    if (typeof flightData === "string") {
+        return (0, _navigatereducer.handleExternalUrl)(state, mutable, flightData, state.pushRef.pendingPush);
+    }
+    // Remove cache.data as it has been resolved at this point.
+    cache.data = null;
+    for (const flightDataPath of flightData){
+        // FlightDataPath with more than two items means unexpected Flight data was returned
+        if (flightDataPath.length !== 3) {
+            // TODO-APP: handle this case better
+            console.log("REFRESH FAILED");
+            return state;
+        }
+        // Given the path can only have two items the items are only the router state and subTreeData for the root.
+        const [treePatch] = flightDataPath;
+        const newTree = (0, _applyrouterstatepatchtotree.applyRouterStatePatchToTree)([
+            ""
+        ], currentTree, treePatch);
+        if (newTree === null) {
+            throw new Error("SEGMENT MISMATCH");
+        }
+        if ((0, _isnavigatingtonewrootlayout.isNavigatingToNewRootLayout)(currentTree, newTree)) {
+            return (0, _navigatereducer.handleExternalUrl)(state, mutable, href, state.pushRef.pendingPush);
+        }
+        const canonicalUrlOverrideHref = canonicalUrlOverride ? (0, _createhreffromurl.createHrefFromUrl)(canonicalUrlOverride) : undefined;
+        if (canonicalUrlOverride) {
+            mutable.canonicalUrl = canonicalUrlOverrideHref;
+        }
+        // The one before last item is the router state tree patch
+        const [subTreeData, head] = flightDataPath.slice(-2);
+        // Handles case where prefetch only returns the router tree patch without rendered components.
+        if (subTreeData !== null) {
+            cache.status = _approutercontext.CacheStates.READY;
+            cache.subTreeData = subTreeData;
+            (0, _filllazyitemstillleafwithhead.fillLazyItemsTillLeafWithHead)(cache, undefined, treePatch, head);
+            mutable.cache = cache;
+            mutable.prefetchCache = new Map();
+        }
+        mutable.previousTree = currentTree;
+        mutable.patchedTree = newTree;
+        mutable.canonicalUrl = href;
+        currentTree = newTree;
+    }
+    return (0, _handlemutable.handleMutable)(state, mutable);
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=refresh-reducer.js.map
+
+
+/***/ }),
+
+/***/ 9425:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "restoreReducer", ({
+    enumerable: true,
+    get: function() {
+        return restoreReducer;
+    }
+}));
+const _createhreffromurl = __webpack_require__(4331);
+function restoreReducer(state, action) {
+    const { url, tree } = action;
+    const href = (0, _createhreffromurl.createHrefFromUrl)(url);
+    return {
+        buildId: state.buildId,
+        // Set canonical url
+        canonicalUrl: href,
+        pushRef: state.pushRef,
+        focusAndScrollRef: state.focusAndScrollRef,
+        cache: state.cache,
+        prefetchCache: state.prefetchCache,
+        // Restore provided tree
+        tree: tree,
+        nextUrl: url.pathname
+    };
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=restore-reducer.js.map
+
+
+/***/ }),
+
+/***/ 7238:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "serverActionReducer", ({
+    enumerable: true,
+    get: function() {
+        return serverActionReducer;
+    }
+}));
+const _appcallserver = __webpack_require__(6937);
+const _approuterheaders = __webpack_require__(6265);
+const _createrecordfromthenable = __webpack_require__(4621);
+const _readrecordvalue = __webpack_require__(2401);
+const _client = __webpack_require__(7897);
+const _routerreducertypes = __webpack_require__(2836);
+const _addbasepath = __webpack_require__(4578);
+const _createhreffromurl = __webpack_require__(4331);
+const _redirect = __webpack_require__(2622);
+async function fetchServerAction(state, param) {
+    let { actionId, actionArgs } = param;
+    const body = await (0, _client.encodeReply)(actionArgs);
+    const res = await fetch("", {
+        method: "POST",
+        headers: {
+            Accept: _approuterheaders.RSC_CONTENT_TYPE_HEADER,
+            "Next-Action": actionId,
+            [_approuterheaders.NEXT_ROUTER_STATE_TREE]: JSON.stringify(state.tree),
+            ... false ? 0 : {},
+            ...state.nextUrl ? {
+                [_approuterheaders.NEXT_URL]: state.nextUrl
+            } : {}
+        },
+        body
+    });
+    const location = res.headers.get("x-action-redirect");
+    let revalidatedParts;
+    try {
+        const revalidatedHeader = JSON.parse(res.headers.get("x-action-revalidated") || "[[],0,0]");
+        revalidatedParts = {
+            paths: revalidatedHeader[0] || [],
+            tag: !!revalidatedHeader[1],
+            cookie: revalidatedHeader[2]
+        };
+    } catch (e) {
+        revalidatedParts = {
+            paths: [],
+            tag: false,
+            cookie: false
+        };
+    }
+    const redirectLocation = location ? new URL((0, _addbasepath.addBasePath)(location), window.location.origin) : undefined;
+    let isFlightResponse = res.headers.get("content-type") === _approuterheaders.RSC_CONTENT_TYPE_HEADER;
+    if (isFlightResponse) {
+        const response = await (0, _client.createFromFetch)(Promise.resolve(res), {
+            callServer: _appcallserver.callServer
+        });
+        // if it was a redirection, then result is just a regular RSC payload
+        if (location) {
+            const [, payload] = response;
+            return {
+                actionFlightData: payload == null ? void 0 : payload[1],
+                redirectLocation,
+                revalidatedParts
+            };
+        // otherwise it's a tuple of [actionResult, actionFlightData]
+        } else {
+            const [actionResult, [, actionFlightData]] = response != null ? response : [];
+            return {
+                actionResult,
+                actionFlightData,
+                redirectLocation,
+                revalidatedParts
+            };
+        }
+    }
+    return {
+        redirectLocation,
+        revalidatedParts
+    };
+}
+function serverActionReducer(state, action) {
+    // the action could be called twice so we need to check if we already have applied it
+    if (action.mutable.serverActionApplied) {
+        return state;
+    }
+    if (!action.mutable.inFlightServerAction) {
+        action.mutable.previousTree = state.tree;
+        action.mutable.previousUrl = state.canonicalUrl;
+        action.mutable.inFlightServerAction = (0, _createrecordfromthenable.createRecordFromThenable)(fetchServerAction(state, action));
+    }
+    try {
+        // suspends until the server action is resolved.
+        const { actionResult, actionFlightData, redirectLocation, revalidatedParts } = (0, _readrecordvalue.readRecordValue)(action.mutable.inFlightServerAction);
+        // Invalidate the cache for the revalidated parts. This has to be done before the
+        // cache is updated with the action's flight data again.
+        if (revalidatedParts.tag || revalidatedParts.cookie) {
+            // Invalidate everything if the tag is set.
+            state.prefetchCache.clear();
+        } else if (revalidatedParts.paths.length > 0) {
+            // Invalidate all subtrees that are below the revalidated paths, and invalidate
+            // all the prefetch cache.
+            // TODO-APP: Currently the prefetch cache doesn't have subtree information,
+            // so we need to invalidate the entire cache if a path was revalidated.
+            state.prefetchCache.clear();
+        }
+        if (redirectLocation) {
+            // the redirection might have a flight data associated with it, so we'll populate the cache with it
+            if (actionFlightData) {
+                const href = (0, _createhreffromurl.createHrefFromUrl)(redirectLocation, false);
+                const previousCacheEntry = state.prefetchCache.get(href);
+                var _previousCacheEntry_kind;
+                state.prefetchCache.set(href, {
+                    data: (0, _createrecordfromthenable.createRecordFromThenable)(Promise.resolve([
+                        actionFlightData,
+                        // TODO-APP: verify the logic around canonical URL overrides
+                        undefined
+                    ])),
+                    kind: (_previousCacheEntry_kind = previousCacheEntry == null ? void 0 : previousCacheEntry.kind) != null ? _previousCacheEntry_kind : _routerreducertypes.PrefetchKind.TEMPORARY,
+                    prefetchTime: Date.now(),
+                    treeAtTimeOfPrefetch: action.mutable.previousTree,
+                    lastUsedTime: null
+                });
+            }
+            // we throw the redirection in the action handler so that it is caught during render
+            action.reject((0, _redirect.getRedirectError)(redirectLocation.toString(), _redirect.RedirectType.push));
+        } else {
+            if (actionFlightData) {
+                const href = (0, _createhreffromurl.createHrefFromUrl)(new URL(action.mutable.previousUrl, window.location.origin), false);
+                const previousCacheEntry = state.prefetchCache.get(href);
+                var _previousCacheEntry_kind1;
+                state.prefetchCache.set((0, _createhreffromurl.createHrefFromUrl)(new URL(action.mutable.previousUrl, window.location.origin), false), {
+                    data: (0, _createrecordfromthenable.createRecordFromThenable)(Promise.resolve([
+                        actionFlightData,
+                        // TODO-APP: verify the logic around canonical URL overrides
+                        undefined
+                    ])),
+                    kind: (_previousCacheEntry_kind1 = previousCacheEntry == null ? void 0 : previousCacheEntry.kind) != null ? _previousCacheEntry_kind1 : _routerreducertypes.PrefetchKind.TEMPORARY,
+                    prefetchTime: Date.now(),
+                    treeAtTimeOfPrefetch: action.mutable.previousTree,
+                    lastUsedTime: null
+                });
+                // this is an intentional hack around React: we want to update the tree in a new render
+                setTimeout(()=>{
+                    action.changeByServerResponse(action.mutable.previousTree, actionFlightData, undefined);
+                });
+            }
+            action.resolve(actionResult);
+        }
+    } catch (e) {
+        if (e.status === "rejected") {
+            action.reject(e.value);
+        } else {
+            throw e;
+        }
+    }
+    action.mutable.serverActionApplied = true;
+    return state;
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=server-action-reducer.js.map
+
+
+/***/ }),
+
+/***/ 5022:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "serverPatchReducer", ({
+    enumerable: true,
+    get: function() {
+        return serverPatchReducer;
+    }
+}));
+const _createhreffromurl = __webpack_require__(4331);
+const _applyrouterstatepatchtotree = __webpack_require__(3914);
+const _isnavigatingtonewrootlayout = __webpack_require__(2615);
+const _navigatereducer = __webpack_require__(9962);
+const _applyflightdata = __webpack_require__(4173);
+const _handlemutable = __webpack_require__(7462);
+function serverPatchReducer(state, action) {
+    const { flightData, previousTree, overrideCanonicalUrl, cache, mutable } = action;
+    const isForCurrentTree = JSON.stringify(previousTree) === JSON.stringify(state.tree);
+    // When a fetch is slow to resolve it could be that you navigated away while the request was happening or before the reducer runs.
+    // In that case opt-out of applying the patch given that the data could be stale.
+    if (!isForCurrentTree) {
+        // TODO-APP: Handle tree mismatch
+        console.log("TREE MISMATCH");
+        // Keep everything as-is.
+        return state;
+    }
+    if (mutable.previousTree) {
+        return (0, _handlemutable.handleMutable)(state, mutable);
+    }
+    // Handle case when navigating to page in `pages` from `app`
+    if (typeof flightData === "string") {
+        return (0, _navigatereducer.handleExternalUrl)(state, mutable, flightData, state.pushRef.pendingPush);
+    }
+    let currentTree = state.tree;
+    let currentCache = state.cache;
+    for (const flightDataPath of flightData){
+        // Slices off the last segment (which is at -4) as it doesn't exist in the tree yet
+        const flightSegmentPath = flightDataPath.slice(0, -4);
+        const [treePatch] = flightDataPath.slice(-3, -2);
+        const newTree = (0, _applyrouterstatepatchtotree.applyRouterStatePatchToTree)([
+            "",
+            ...flightSegmentPath
+        ], currentTree, treePatch);
+        if (newTree === null) {
+            throw new Error("SEGMENT MISMATCH");
+        }
+        if ((0, _isnavigatingtonewrootlayout.isNavigatingToNewRootLayout)(currentTree, newTree)) {
+            return (0, _navigatereducer.handleExternalUrl)(state, mutable, state.canonicalUrl, state.pushRef.pendingPush);
+        }
+        const canonicalUrlOverrideHref = overrideCanonicalUrl ? (0, _createhreffromurl.createHrefFromUrl)(overrideCanonicalUrl) : undefined;
+        if (canonicalUrlOverrideHref) {
+            mutable.canonicalUrl = canonicalUrlOverrideHref;
+        }
+        (0, _applyflightdata.applyFlightData)(currentCache, cache, flightDataPath);
+        mutable.previousTree = currentTree;
+        mutable.patchedTree = newTree;
+        mutable.cache = cache;
+        currentCache = cache;
+        currentTree = newTree;
+    }
+    return (0, _handlemutable.handleMutable)(state, mutable);
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=server-patch-reducer.js.map
+
+
+/***/ }),
+
+/***/ 2836:
+/***/ ((module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    PrefetchKind: function() {
+        return PrefetchKind;
+    },
+    ACTION_REFRESH: function() {
+        return ACTION_REFRESH;
+    },
+    ACTION_NAVIGATE: function() {
+        return ACTION_NAVIGATE;
+    },
+    ACTION_RESTORE: function() {
+        return ACTION_RESTORE;
+    },
+    ACTION_SERVER_PATCH: function() {
+        return ACTION_SERVER_PATCH;
+    },
+    ACTION_PREFETCH: function() {
+        return ACTION_PREFETCH;
+    },
+    ACTION_FAST_REFRESH: function() {
+        return ACTION_FAST_REFRESH;
+    },
+    ACTION_SERVER_ACTION: function() {
+        return ACTION_SERVER_ACTION;
+    }
+});
+const ACTION_REFRESH = "refresh";
+const ACTION_NAVIGATE = "navigate";
+const ACTION_RESTORE = "restore";
+const ACTION_SERVER_PATCH = "server-patch";
+const ACTION_PREFETCH = "prefetch";
+const ACTION_FAST_REFRESH = "fast-refresh";
+const ACTION_SERVER_ACTION = "server-action";
+var PrefetchKind;
+(function(PrefetchKind) {
+    PrefetchKind["AUTO"] = "auto";
+    PrefetchKind["FULL"] = "full";
+    PrefetchKind["TEMPORARY"] = "temporary";
+})(PrefetchKind || (PrefetchKind = {}));
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=router-reducer-types.js.map
+
+
+/***/ }),
+
+/***/ 7189:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "reducer", ({
+    enumerable: true,
+    get: function() {
+        return reducer;
+    }
+}));
+const _routerreducertypes = __webpack_require__(2836);
+const _navigatereducer = __webpack_require__(9962);
+const _serverpatchreducer = __webpack_require__(5022);
+const _restorereducer = __webpack_require__(9425);
+const _refreshreducer = __webpack_require__(9082);
+const _prefetchreducer = __webpack_require__(1910);
+const _fastrefreshreducer = __webpack_require__(7300);
+const _serveractionreducer = __webpack_require__(7238);
+/**
+ * Reducer that handles the app-router state updates.
+ */ function clientReducer(state, action) {
+    switch(action.type){
+        case _routerreducertypes.ACTION_NAVIGATE:
+            {
+                return (0, _navigatereducer.navigateReducer)(state, action);
+            }
+        case _routerreducertypes.ACTION_SERVER_PATCH:
+            {
+                return (0, _serverpatchreducer.serverPatchReducer)(state, action);
+            }
+        case _routerreducertypes.ACTION_RESTORE:
+            {
+                return (0, _restorereducer.restoreReducer)(state, action);
+            }
+        case _routerreducertypes.ACTION_REFRESH:
+            {
+                return (0, _refreshreducer.refreshReducer)(state, action);
+            }
+        case _routerreducertypes.ACTION_FAST_REFRESH:
+            {
+                return (0, _fastrefreshreducer.fastRefreshReducer)(state, action);
+            }
+        case _routerreducertypes.ACTION_PREFETCH:
+            {
+                return (0, _prefetchreducer.prefetchReducer)(state, action);
+            }
+        case _routerreducertypes.ACTION_SERVER_ACTION:
+            {
+                return (0, _serveractionreducer.serverActionReducer)(state, action);
+            }
+        // This case should never be hit as dispatch is strongly typed.
+        default:
+            throw new Error("Unknown action");
+    }
+}
+function serverReducer(state, _action) {
+    return state;
+}
+const reducer =  true ? serverReducer : 0;
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=router-reducer.js.map
+
+
+/***/ }),
+
+/***/ 8072:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "shouldHardNavigate", ({
+    enumerable: true,
+    get: function() {
+        return shouldHardNavigate;
+    }
+}));
+const _matchsegments = __webpack_require__(7618);
+function shouldHardNavigate(flightSegmentPath, flightRouterState) {
+    const [segment, parallelRoutes] = flightRouterState;
+    // TODO-APP: Check if `as` can be replaced.
+    const [currentSegment, parallelRouteKey] = flightSegmentPath;
+    // Check if current segment matches the existing segment.
+    if (!(0, _matchsegments.matchSegment)(currentSegment, segment)) {
+        // If dynamic parameter in tree doesn't match up with segment path a hard navigation is triggered.
+        if (Array.isArray(currentSegment)) {
+            return true;
+        }
+        // If the existing segment did not match soft navigation is triggered.
+        return false;
+    }
+    const lastSegment = flightSegmentPath.length <= 2;
+    if (lastSegment) {
+        return false;
+    }
+    return shouldHardNavigate(flightSegmentPath.slice(2), parallelRoutes[parallelRouteKey]);
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=should-hard-navigate.js.map
+
+
+/***/ }),
+
+/***/ 8437:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "createSearchParamsBailoutProxy", ({
+    enumerable: true,
+    get: function() {
+        return createSearchParamsBailoutProxy;
+    }
+}));
+const _staticgenerationbailout = __webpack_require__(8862);
+function createSearchParamsBailoutProxy() {
+    return new Proxy({}, {
+        get (_target, prop) {
+            // React adds some properties on the object when serializing for client components
+            if (typeof prop === "string") {
+                (0, _staticgenerationbailout.staticGenerationBailout)("searchParams." + prop);
+            }
+        }
+    });
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=searchparams-bailout-proxy.js.map
+
+
+/***/ }),
+
+/***/ 8862:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "staticGenerationBailout", ({
+    enumerable: true,
+    get: function() {
+        return staticGenerationBailout;
+    }
+}));
+const _hooksservercontext = __webpack_require__(8047);
+const _staticgenerationasyncstorage = __webpack_require__(3539);
+class StaticGenBailoutError extends Error {
     constructor(...args){
-        // @ts-expect-error - process.turbopack is a custom property
-        if (false) {} else {
-            const readable = new ReadableStream({
-                async start (controller) {
-                    const OGImageResponse = // as the auto resolving is not working
-                    (await Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 4021))).ImageResponse;
-                    const imageResponse = new OGImageResponse(...args);
-                    if (!imageResponse.body) {
-                        return controller.close();
-                    }
-                    const reader = imageResponse.body.getReader();
-                    while(true){
-                        const { done, value } = await reader.read();
-                        if (done) {
-                            return controller.close();
-                        }
-                        controller.enqueue(value);
-                    }
-                }
-            });
-            const options = args[1] || {};
-            return new Response(readable, {
-                headers: {
-                    "content-type": "image/png",
-                    "cache-control":  false ? 0 : "public, immutable, no-transform, max-age=31536000",
-                    ...options.headers
-                },
-                status: options.status,
-                statusText: options.statusText
-            });
-        }
+        super(...args);
+        this.code = "NEXT_STATIC_GEN_BAILOUT";
     }
-} //# sourceMappingURL=image-response.js.map
+}
+const staticGenerationBailout = (reason, opts)=>{
+    const staticGenerationStore = _staticgenerationasyncstorage.staticGenerationAsyncStorage.getStore();
+    if (staticGenerationStore == null ? void 0 : staticGenerationStore.forceStatic) {
+        return true;
+    }
+    if (staticGenerationStore == null ? void 0 : staticGenerationStore.dynamicShouldError) {
+        const { dynamic = "error", link } = opts || {};
+        const suffix = link ? " See more info here: " + link : "";
+        throw new StaticGenBailoutError('Page with `dynamic = "' + dynamic + "\"` couldn't be rendered statically because it used `" + reason + "`." + suffix);
+    }
+    if (staticGenerationStore) {
+        staticGenerationStore.revalidate = 0;
+    }
+    if (staticGenerationStore == null ? void 0 : staticGenerationStore.isStaticGeneration) {
+        const err = new _hooksservercontext.DynamicServerError(reason);
+        staticGenerationStore.dynamicUsageDescription = reason;
+        staticGenerationStore.dynamicUsageStack = err.stack;
+        throw err;
+    }
+    return false;
+};
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=static-generation-bailout.js.map
 
 
 /***/ }),
 
-/***/ 7336:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 4282:
+/***/ ((module, exports, __webpack_require__) => {
 
-
+/* __next_internal_client_entry_do_not_use__  cjs */ 
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
-0 && (0);
-function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
-        enumerable: true,
-        get: all[name]
-    });
-}
-_export(exports, {
-    INTERNALS: function() {
-        return INTERNALS;
-    },
-    NextRequest: function() {
-        return NextRequest;
-    }
-});
-const _nexturl = __webpack_require__(2419);
-const _utils = __webpack_require__(9537);
-const _error = __webpack_require__(5737);
-const _cookies = __webpack_require__(3425);
-const INTERNALS = Symbol("internal request");
-class NextRequest extends Request {
-    constructor(input, init = {}){
-        const url = typeof input !== "string" && "url" in input ? input.url : String(input);
-        (0, _utils.validateURL)(url);
-        super(url, init);
-        const nextUrl = new _nexturl.NextURL(url, {
-            headers: (0, _utils.toNodeOutgoingHttpHeaders)(this.headers),
-            nextConfig: init.nextConfig
-        });
-        this[INTERNALS] = {
-            cookies: new _cookies.RequestCookies(this.headers),
-            geo: init.geo || {},
-            ip: init.ip,
-            nextUrl,
-            url:  false ? 0 : nextUrl.toString()
-        };
-    }
-    [Symbol.for("edge-runtime.inspect.custom")]() {
-        return {
-            cookies: this.cookies,
-            geo: this.geo,
-            ip: this.ip,
-            nextUrl: this.nextUrl,
-            url: this.url,
-            // rest of props come from Request
-            bodyUsed: this.bodyUsed,
-            cache: this.cache,
-            credentials: this.credentials,
-            destination: this.destination,
-            headers: Object.fromEntries(this.headers),
-            integrity: this.integrity,
-            keepalive: this.keepalive,
-            method: this.method,
-            mode: this.mode,
-            redirect: this.redirect,
-            referrer: this.referrer,
-            referrerPolicy: this.referrerPolicy,
-            signal: this.signal
-        };
-    }
-    get cookies() {
-        return this[INTERNALS].cookies;
-    }
-    get geo() {
-        return this[INTERNALS].geo;
-    }
-    get ip() {
-        return this[INTERNALS].ip;
-    }
-    get nextUrl() {
-        return this[INTERNALS].nextUrl;
-    }
-    /**
-   * @deprecated
-   * `page` has been deprecated in favour of `URLPattern`.
-   * Read more: https://nextjs.org/docs/messages/middleware-request-page
-   */ get page() {
-        throw new _error.RemovedPageError();
-    }
-    /**
-   * @deprecated
-   * `ua` has been removed in favour of \`userAgent\` function.
-   * Read more: https://nextjs.org/docs/messages/middleware-parse-user-agent
-   */ get ua() {
-        throw new _error.RemovedUAError();
-    }
-    get url() {
-        return this[INTERNALS].url;
-    }
-} //# sourceMappingURL=request.js.map
-
-
-/***/ }),
-
-/***/ 4415:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-var __webpack_unused_export__;
-
-__webpack_unused_export__ = ({
-    value: true
-});
-Object.defineProperty(exports, "x", ({
+Object.defineProperty(exports, "default", ({
     enumerable: true,
     get: function() {
-        return NextResponse;
+        return StaticGenerationSearchParamsBailoutProvider;
     }
 }));
-const _nexturl = __webpack_require__(2419);
-const _utils = __webpack_require__(9537);
-const _cookies = __webpack_require__(3425);
-const INTERNALS = Symbol("internal response");
-const REDIRECTS = new Set([
-    301,
-    302,
-    303,
-    307,
-    308
-]);
-function handleMiddlewareField(init, headers) {
-    var _init_request;
-    if (init == null ? void 0 : (_init_request = init.request) == null ? void 0 : _init_request.headers) {
-        if (!(init.request.headers instanceof Headers)) {
-            throw new Error("request.headers must be an instance of Headers");
-        }
-        const keys = [];
-        for (const [key, value] of init.request.headers){
-            headers.set("x-middleware-request-" + key, value);
-            keys.push(key);
-        }
-        headers.set("x-middleware-override-headers", keys.join(","));
-    }
+const _interop_require_default = __webpack_require__(2147);
+const _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(8038));
+const _searchparamsbailoutproxy = __webpack_require__(8437);
+function StaticGenerationSearchParamsBailoutProvider(param) {
+    let { Component, propsForComponent } = param;
+    const searchParams = (0, _searchparamsbailoutproxy.createSearchParamsBailoutProxy)();
+    return /*#__PURE__*/ _react.default.createElement(Component, {
+        searchParams: searchParams,
+        ...propsForComponent
+    });
 }
-class NextResponse extends Response {
-    constructor(body, init = {}){
-        super(body, init);
-        this[INTERNALS] = {
-            cookies: new _cookies.ResponseCookies(this.headers),
-            url: init.url ? new _nexturl.NextURL(init.url, {
-                headers: (0, _utils.toNodeOutgoingHttpHeaders)(this.headers),
-                nextConfig: init.nextConfig
-            }) : undefined
-        };
-    }
-    [Symbol.for("edge-runtime.inspect.custom")]() {
-        return {
-            cookies: this.cookies,
-            url: this.url,
-            // rest of props come from Response
-            body: this.body,
-            bodyUsed: this.bodyUsed,
-            headers: Object.fromEntries(this.headers),
-            ok: this.ok,
-            redirected: this.redirected,
-            status: this.status,
-            statusText: this.statusText,
-            type: this.type
-        };
-    }
-    get cookies() {
-        return this[INTERNALS].cookies;
-    }
-    static json(body, init) {
-        // @ts-expect-error This is not in lib/dom right now, and we can't augment it.
-        const response = Response.json(body, init);
-        return new NextResponse(response.body, response);
-    }
-    static redirect(url, init) {
-        const status = typeof init === "number" ? init : (init == null ? void 0 : init.status) ?? 307;
-        if (!REDIRECTS.has(status)) {
-            throw new RangeError('Failed to execute "redirect" on "response": Invalid status code');
-        }
-        const initObj = typeof init === "object" ? init : {};
-        const headers = new Headers(initObj == null ? void 0 : initObj.headers);
-        headers.set("Location", (0, _utils.validateURL)(url));
-        return new NextResponse(null, {
-            ...initObj,
-            headers,
-            status
-        });
-    }
-    static rewrite(destination, init) {
-        const headers = new Headers(init == null ? void 0 : init.headers);
-        headers.set("x-middleware-rewrite", (0, _utils.validateURL)(destination));
-        handleMiddlewareField(init, headers);
-        return new NextResponse(null, {
-            ...init,
-            headers
-        });
-    }
-    static next(init) {
-        const headers = new Headers(init == null ? void 0 : init.headers);
-        headers.set("x-middleware-next", "1");
-        handleMiddlewareField(init, headers);
-        return new NextResponse(null, {
-            ...init,
-            headers
-        });
-    }
-} //# sourceMappingURL=response.js.map
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=static-generation-searchparams-bailout-provider.js.map
 
 
 /***/ }),
 
-/***/ 3889:
+/***/ 7951:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "useReducerWithReduxDevtools", ({
+    enumerable: true,
+    get: function() {
+        return useReducerWithReduxDevtools;
+    }
+}));
+const _react = __webpack_require__(8038);
+function normalizeRouterState(val) {
+    if (val instanceof Map) {
+        const obj = {};
+        for (const [key, value] of val.entries()){
+            if (typeof value === "function") {
+                obj[key] = "fn()";
+                continue;
+            }
+            if (typeof value === "object" && value !== null) {
+                if (value.$$typeof) {
+                    obj[key] = value.$$typeof.toString();
+                    continue;
+                }
+                if (value._bundlerConfig) {
+                    obj[key] = "FlightData";
+                    continue;
+                }
+            }
+            obj[key] = normalizeRouterState(value);
+        }
+        return obj;
+    }
+    if (typeof val === "object" && val !== null) {
+        const obj = {};
+        for(const key in val){
+            const value = val[key];
+            if (typeof value === "function") {
+                obj[key] = "fn()";
+                continue;
+            }
+            if (typeof value === "object" && value !== null) {
+                if (value.$$typeof) {
+                    obj[key] = value.$$typeof.toString();
+                    continue;
+                }
+                if (value.hasOwnProperty("_bundlerConfig")) {
+                    obj[key] = "FlightData";
+                    continue;
+                }
+            }
+            obj[key] = normalizeRouterState(value);
+        }
+        return obj;
+    }
+    if (Array.isArray(val)) {
+        return val.map(normalizeRouterState);
+    }
+    return val;
+}
+function devToolReducer(fn, ref) {
+    return (state, action)=>{
+        const res = fn(state, action);
+        if (ref.current) {
+            ref.current.send(action, normalizeRouterState(res));
+        }
+        return res;
+    };
+}
+function useReducerWithReduxDevtoolsNoop(fn, initialState) {
+    const [state, dispatch] = (0, _react.useReducer)(fn, initialState);
+    return [
+        state,
+        dispatch,
+        ()=>{}
+    ];
+}
+function useReducerWithReduxDevtoolsImpl(fn, initialState) {
+    const devtoolsConnectionRef = (0, _react.useRef)();
+    const enabledRef = (0, _react.useRef)();
+    (0, _react.useEffect)(()=>{
+        if (devtoolsConnectionRef.current || enabledRef.current === false) {
+            return;
+        }
+        if (enabledRef.current === undefined && typeof window.__REDUX_DEVTOOLS_EXTENSION__ === "undefined") {
+            enabledRef.current = false;
+            return;
+        }
+        devtoolsConnectionRef.current = window.__REDUX_DEVTOOLS_EXTENSION__.connect({
+            instanceId: 8000,
+            name: "next-router"
+        });
+        if (devtoolsConnectionRef.current) {
+            devtoolsConnectionRef.current.init(normalizeRouterState(initialState));
+        }
+        return ()=>{
+            devtoolsConnectionRef.current = undefined;
+        };
+    }, [
+        initialState
+    ]);
+    const [state, dispatch] = (0, _react.useReducer)(devToolReducer(/* logReducer( */ fn /*)*/ , devtoolsConnectionRef), initialState);
+    const sync = (0, _react.useCallback)(()=>{
+        if (devtoolsConnectionRef.current) {
+            devtoolsConnectionRef.current.send({
+                type: "RENDER_SYNC"
+            }, normalizeRouterState(state));
+        }
+    }, [
+        state
+    ]);
+    return [
+        state,
+        dispatch,
+        sync
+    ];
+}
+const useReducerWithReduxDevtools =  false ? 0 : useReducerWithReduxDevtoolsNoop;
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=use-reducer-with-devtools.js.map
+
+
+/***/ }),
+
+/***/ 1094:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "normalizePathTrailingSlash", ({
+    enumerable: true,
+    get: function() {
+        return normalizePathTrailingSlash;
+    }
+}));
+const _removetrailingslash = __webpack_require__(3750);
+const _parsepath = __webpack_require__(8231);
+const normalizePathTrailingSlash = (path)=>{
+    if (!path.startsWith("/") || undefined) {
+        return path;
+    }
+    const { pathname, query, hash } = (0, _parsepath.parsePath)(path);
+    if (false) {}
+    return "" + (0, _removetrailingslash.removeTrailingSlash)(pathname) + query + hash;
+};
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=normalize-trailing-slash.js.map
+
+
+/***/ }),
+
+/***/ 9708:
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+/* __next_internal_client_entry_do_not_use__  cjs */ 
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    suspense: function() {
+        return suspense;
+    },
+    NoSSR: function() {
+        return NoSSR;
+    }
+});
+const _interop_require_default = __webpack_require__(2147);
+const _react = /*#__PURE__*/ _interop_require_default._(__webpack_require__(8038));
+const _nossrerror = __webpack_require__(827);
+function suspense() {
+    const error = new Error(_nossrerror.NEXT_DYNAMIC_NO_SSR_CODE);
+    error.digest = _nossrerror.NEXT_DYNAMIC_NO_SSR_CODE;
+    throw error;
+}
+function NoSSR(param) {
+    let { children } = param;
+    if (true) {
+        suspense();
+    }
+    return children;
+} //# sourceMappingURL=dynamic-no-ssr.js.map
+
+
+/***/ }),
+
+/***/ 827:
+/***/ ((__unused_webpack_module, exports) => {
+
+// This has to be a shared module which is shared between client component error boundary and dynamic component
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "NEXT_DYNAMIC_NO_SSR_CODE", ({
+    enumerable: true,
+    get: function() {
+        return NEXT_DYNAMIC_NO_SSR_CODE;
+    }
+}));
+const NEXT_DYNAMIC_NO_SSR_CODE = "NEXT_DYNAMIC_NO_SSR_CODE"; //# sourceMappingURL=no-ssr-error.js.map
+
+
+/***/ }),
+
+/***/ 1363:
+/***/ ((__unused_webpack_module, exports) => {
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */ // Modified from https://github.com/facebook/react/blob/main/packages/react-server-dom-webpack/src/ReactFlightWebpackNodeRegister.js
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "createProxy", ({
+    enumerable: true,
+    get: function() {
+        return createProxy;
+    }
+}));
+const CLIENT_REFERENCE = Symbol.for("react.client.reference");
+const PROMISE_PROTOTYPE = Promise.prototype;
+const deepProxyHandlers = {
+    get: function(target, name, _receiver) {
+        switch(name){
+            // These names are read by the Flight runtime if you end up using the exports object.
+            case "$$typeof":
+                // These names are a little too common. We should probably have a way to
+                // have the Flight runtime extract the inner target instead.
+                return target.$$typeof;
+            case "$$id":
+                return target.$$id;
+            case "$$async":
+                return target.$$async;
+            case "name":
+                return target.name;
+            case "displayName":
+                return undefined;
+            // We need to special case this because createElement reads it if we pass this
+            // reference.
+            case "defaultProps":
+                return undefined;
+            // Avoid this attempting to be serialized.
+            case "toJSON":
+                return undefined;
+            case Symbol.toPrimitive.toString():
+                // @ts-ignore
+                return Object.prototype[Symbol.toPrimitive];
+            case "Provider":
+                throw new Error(`Cannot render a Client Context Provider on the Server. ` + `Instead, you can export a Client Component wrapper ` + `that itself renders a Client Context Provider.`);
+            default:
+                break;
+        }
+        const expression = String(target.name) + "." + String(name);
+        throw new Error(`Cannot access ${expression} on the server. ` + "You cannot dot into a client module from a server component. " + "You can only pass the imported name through.");
+    },
+    set: function() {
+        throw new Error("Cannot assign to a client module from a server module.");
+    }
+};
+const proxyHandlers = {
+    get: function(target, name, _receiver) {
+        switch(name){
+            // These names are read by the Flight runtime if you end up using the exports object.
+            case "$$typeof":
+                return target.$$typeof;
+            case "$$id":
+                return target.$$id;
+            case "$$async":
+                return target.$$async;
+            case "name":
+                return target.name;
+            // We need to special case this because createElement reads it if we pass this
+            // reference.
+            case "defaultProps":
+                return undefined;
+            // Avoid this attempting to be serialized.
+            case "toJSON":
+                return undefined;
+            case Symbol.toPrimitive.toString():
+                // @ts-ignore
+                return Object.prototype[Symbol.toPrimitive];
+            case "__esModule":
+                // Something is conditionally checking which export to use. We'll pretend to be
+                // an ESM compat module but then we'll check again on the client.
+                const moduleId = target.$$id;
+                target.default = Object.defineProperties(function() {
+                    throw new Error(`Attempted to call the default export of ${moduleId} from the server ` + `but it's on the client. It's not possible to invoke a client function from ` + `the server, it can only be rendered as a Component or passed to props of a ` + `Client Component.`);
+                }, {
+                    $$typeof: {
+                        value: CLIENT_REFERENCE
+                    },
+                    // This a placeholder value that tells the client to conditionally use the
+                    // whole object or just the default export.
+                    $$id: {
+                        value: target.$$id + "#"
+                    },
+                    $$async: {
+                        value: target.$$async
+                    }
+                });
+                return true;
+            case "then":
+                if (target.then) {
+                    // Use a cached value
+                    return target.then;
+                }
+                if (!target.$$async) {
+                    // If this module is expected to return a Promise (such as an AsyncModule) then
+                    // we should resolve that with a client reference that unwraps the Promise on
+                    // the client.
+                    const clientReference = Object.defineProperties({}, {
+                        $$typeof: {
+                            value: CLIENT_REFERENCE
+                        },
+                        $$id: {
+                            value: target.$$id
+                        },
+                        $$async: {
+                            value: true
+                        }
+                    });
+                    const proxy = new Proxy(clientReference, proxyHandlers);
+                    // Treat this as a resolved Promise for React's use()
+                    target.status = "fulfilled";
+                    target.value = proxy;
+                    const then = target.then = Object.defineProperties(function then(resolve, _reject) {
+                        // Expose to React.
+                        return Promise.resolve(resolve(proxy));
+                    }, // export then we should treat it as a reference to that name.
+                    {
+                        $$typeof: {
+                            value: CLIENT_REFERENCE
+                        },
+                        $$id: {
+                            value: target.$$id
+                        },
+                        $$async: {
+                            value: false
+                        }
+                    });
+                    return then;
+                } else {
+                    // Since typeof .then === 'function' is a feature test we'd continue recursing
+                    // indefinitely if we return a function. Instead, we return an object reference
+                    // if we check further.
+                    return undefined;
+                }
+            default:
+                break;
+        }
+        let cachedReference = target[name];
+        if (!cachedReference) {
+            const reference = Object.defineProperties(function() {
+                throw new Error(`Attempted to call ${String(name)}() from the server but ${String(name)} is on the client. ` + `It's not possible to invoke a client function from the server, it can ` + `only be rendered as a Component or passed to props of a Client Component.`);
+            }, {
+                $$typeof: {
+                    value: CLIENT_REFERENCE
+                },
+                $$id: {
+                    value: target.$$id + "#" + name
+                },
+                $$async: {
+                    value: target.$$async
+                }
+            });
+            cachedReference = target[name] = new Proxy(reference, deepProxyHandlers);
+        }
+        return cachedReference;
+    },
+    getPrototypeOf (_target) {
+        // Pretend to be a Promise in case anyone asks.
+        return PROMISE_PROTOTYPE;
+    },
+    set: function() {
+        throw new Error("Cannot assign to a client module from a server module.");
+    }
+};
+function createProxy(moduleId) {
+    const clientReference = Object.defineProperties({}, {
+        $$typeof: {
+            value: CLIENT_REFERENCE
+        },
+        // Represents the whole Module object instead of a particular import.
+        $$id: {
+            value: moduleId
+        },
+        $$async: {
+            value: false
+        }
+    });
+    return new Proxy(clientReference, proxyHandlers);
+} //# sourceMappingURL=module-proxy.js.map
+
+
+/***/ }),
+
+/***/ 8225:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/* __next_internal_client_entry_do_not_use__  cjs */ 
+const { createProxy } = __webpack_require__(1363);
+module.exports = createProxy("/Users/mpng/coding/project/learntech-landingpage-next-js/node_modules/next/dist/client/components/app-router.js");
+ //# sourceMappingURL=app-router.js.map
+
+
+/***/ }),
+
+/***/ 1823:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/* __next_internal_client_entry_do_not_use__  cjs */ 
+const { createProxy } = __webpack_require__(1363);
+module.exports = createProxy("/Users/mpng/coding/project/learntech-landingpage-next-js/node_modules/next/dist/client/components/error-boundary.js");
+ //# sourceMappingURL=error-boundary.js.map
+
+
+/***/ }),
+
+/***/ 1651:
+/***/ ((module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    DYNAMIC_ERROR_CODE: function() {
+        return DYNAMIC_ERROR_CODE;
+    },
+    DynamicServerError: function() {
+        return DynamicServerError;
+    }
+});
+const DYNAMIC_ERROR_CODE = "DYNAMIC_SERVER_USAGE";
+class DynamicServerError extends Error {
+    constructor(type){
+        super("Dynamic server usage: " + type);
+        this.digest = DYNAMIC_ERROR_CODE;
+    }
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=hooks-server-context.js.map
+
+
+/***/ }),
+
+/***/ 7149:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/* __next_internal_client_entry_do_not_use__  cjs */ 
+const { createProxy } = __webpack_require__(1363);
+module.exports = createProxy("/Users/mpng/coding/project/learntech-landingpage-next-js/node_modules/next/dist/client/components/layout-router.js");
+ //# sourceMappingURL=layout-router.js.map
+
+
+/***/ }),
+
+/***/ 9278:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/* __next_internal_client_entry_do_not_use__  cjs */ 
+const { createProxy } = __webpack_require__(1363);
+module.exports = createProxy("/Users/mpng/coding/project/learntech-landingpage-next-js/node_modules/next/dist/client/components/render-from-template-context.js");
+ //# sourceMappingURL=render-from-template-context.js.map
+
+
+/***/ }),
+
+/***/ 9444:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "createSearchParamsBailoutProxy", ({
+    enumerable: true,
+    get: function() {
+        return createSearchParamsBailoutProxy;
+    }
+}));
+const _staticgenerationbailout = __webpack_require__(6164);
+function createSearchParamsBailoutProxy() {
+    return new Proxy({}, {
+        get (_target, prop) {
+            // React adds some properties on the object when serializing for client components
+            if (typeof prop === "string") {
+                (0, _staticgenerationbailout.staticGenerationBailout)("searchParams." + prop);
+            }
+        }
+    });
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=searchparams-bailout-proxy.js.map
+
+
+/***/ }),
+
+/***/ 6164:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "staticGenerationBailout", ({
+    enumerable: true,
+    get: function() {
+        return staticGenerationBailout;
+    }
+}));
+const _hooksservercontext = __webpack_require__(1651);
+const _staticgenerationasyncstorage = __webpack_require__(3539);
+class StaticGenBailoutError extends Error {
+    constructor(...args){
+        super(...args);
+        this.code = "NEXT_STATIC_GEN_BAILOUT";
+    }
+}
+const staticGenerationBailout = (reason, opts)=>{
+    const staticGenerationStore = _staticgenerationasyncstorage.staticGenerationAsyncStorage.getStore();
+    if (staticGenerationStore == null ? void 0 : staticGenerationStore.forceStatic) {
+        return true;
+    }
+    if (staticGenerationStore == null ? void 0 : staticGenerationStore.dynamicShouldError) {
+        const { dynamic = "error", link } = opts || {};
+        const suffix = link ? " See more info here: " + link : "";
+        throw new StaticGenBailoutError('Page with `dynamic = "' + dynamic + "\"` couldn't be rendered statically because it used `" + reason + "`." + suffix);
+    }
+    if (staticGenerationStore) {
+        staticGenerationStore.revalidate = 0;
+    }
+    if (staticGenerationStore == null ? void 0 : staticGenerationStore.isStaticGeneration) {
+        const err = new _hooksservercontext.DynamicServerError(reason);
+        staticGenerationStore.dynamicUsageDescription = reason;
+        staticGenerationStore.dynamicUsageStack = err.stack;
+        throw err;
+    }
+    return false;
+};
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=static-generation-bailout.js.map
+
+
+/***/ }),
+
+/***/ 6345:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/* __next_internal_client_entry_do_not_use__  cjs */ 
+const { createProxy } = __webpack_require__(1363);
+module.exports = createProxy("/Users/mpng/coding/project/learntech-landingpage-next-js/node_modules/next/dist/client/components/static-generation-searchparams-bailout-provider.js");
+ //# sourceMappingURL=static-generation-searchparams-bailout-provider.js.map
+
+
+/***/ }),
+
+/***/ 5153:
+/***/ ((__unused_webpack_module, exports) => {
+
+/**
+ * @license React
+ * react-dom-server-rendering-stub.production.min.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */ 
+var d = {
+    usingClientEntryPoint: !1,
+    Events: null,
+    Dispatcher: {
+        current: null
+    }
+};
+function e(b) {
+    for(var a = "https://reactjs.org/docs/error-decoder.html?invariant=" + b, c = 1; c < arguments.length; c++)a += "&args[]=" + encodeURIComponent(arguments[c]);
+    return "Minified React error #" + b + "; visit " + a + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
+}
+var f = d.Dispatcher;
+exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = d;
+exports.createPortal = function() {
+    throw Error(e(448));
+};
+exports.experimental_useFormStatus = function() {
+    throw Error(e(248));
+};
+exports.flushSync = function() {
+    throw Error(e(449));
+};
+exports.preconnect = function(b, a) {
+    var c = f.current;
+    c && c.preconnect(b, a);
+};
+exports.prefetchDNS = function(b) {
+    var a = f.current;
+    a && a.prefetchDNS(b);
+};
+exports.preinit = function(b, a) {
+    var c = f.current;
+    c && c.preinit(b, a);
+};
+exports.preload = function(b, a) {
+    var c = f.current;
+    c && c.preload(b, a);
+};
+exports.unstable_batchedUpdates = function(b, a) {
+    return b(a);
+};
+exports.version = "18.3.0-canary-9377e1010-20230712";
+
+
+/***/ }),
+
+/***/ 2060:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+
+if (true) {
+    module.exports = __webpack_require__(5153);
+} else {}
+
+
+/***/ }),
+
+/***/ 9200:
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+/**
+ * @license React
+ * react-server-dom-webpack-server.edge.production.min.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */ 
+var aa = __webpack_require__(2947), ba = __webpack_require__(2060), l = null, m = 0;
+function n(a, b) {
+    if (0 !== b.byteLength) if (512 < b.byteLength) 0 < m && (a.enqueue(new Uint8Array(l.buffer, 0, m)), l = new Uint8Array(512), m = 0), a.enqueue(b);
+    else {
+        var d = l.length - m;
+        d < b.byteLength && (0 === d ? a.enqueue(l) : (l.set(b.subarray(0, d), m), a.enqueue(l), b = b.subarray(d)), l = new Uint8Array(512), m = 0);
+        l.set(b, m);
+        m += b.byteLength;
+    }
+    return !0;
+}
+var p = new TextEncoder;
+function ca(a, b) {
+    "function" === typeof a.error ? a.error(b) : a.close();
+}
+var q = Symbol.for("react.client.reference"), t = Symbol.for("react.server.reference");
+function u(a, b, d) {
+    return Object.defineProperties(a, {
+        $$typeof: {
+            value: q
+        },
+        $$id: {
+            value: b
+        },
+        $$async: {
+            value: d
+        }
+    });
+}
+var da = Function.prototype.bind, ea = Array.prototype.slice;
+function fa() {
+    var a = da.apply(this, arguments);
+    if (this.$$typeof === t) {
+        var b = ea.call(arguments, 1);
+        a.$$typeof = t;
+        a.$$id = this.$$id;
+        a.$$bound = this.$$bound ? this.$$bound.concat(b) : b;
+    }
+    return a;
+}
+var ha = Promise.prototype, ia = {
+    get: function(a, b) {
+        switch(b){
+            case "$$typeof":
+                return a.$$typeof;
+            case "$$id":
+                return a.$$id;
+            case "$$async":
+                return a.$$async;
+            case "name":
+                return a.name;
+            case "displayName":
+                return;
+            case "defaultProps":
+                return;
+            case "toJSON":
+                return;
+            case Symbol.toPrimitive:
+                return Object.prototype[Symbol.toPrimitive];
+            case "Provider":
+                throw Error("Cannot render a Client Context Provider on the Server. Instead, you can export a Client Component wrapper that itself renders a Client Context Provider.");
+        }
+        throw Error("Cannot access " + (String(a.name) + "." + String(b)) + " on the server. You cannot dot into a client module from a server component. You can only pass the imported name through.");
+    },
+    set: function() {
+        throw Error("Cannot assign to a client module from a server module.");
+    }
+}, ja = {
+    get: function(a, b) {
+        switch(b){
+            case "$$typeof":
+                return a.$$typeof;
+            case "$$id":
+                return a.$$id;
+            case "$$async":
+                return a.$$async;
+            case "name":
+                return a.name;
+            case "defaultProps":
+                return;
+            case "toJSON":
+                return;
+            case Symbol.toPrimitive:
+                return Object.prototype[Symbol.toPrimitive];
+            case "__esModule":
+                var d = a.$$id;
+                a.default = u(function() {
+                    throw Error("Attempted to call the default export of " + d + " from the server but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+                }, a.$$id + "#", a.$$async);
+                return !0;
+            case "then":
+                if (a.then) return a.then;
+                if (a.$$async) return;
+                var c = u({}, a.$$id, !0), e = new Proxy(c, ja);
+                a.status = "fulfilled";
+                a.value = e;
+                return a.then = u(function(f) {
+                    return Promise.resolve(f(e));
+                }, a.$$id + "#then", !1);
+        }
+        c = a[b];
+        c || (c = u(function() {
+            throw Error("Attempted to call " + String(b) + "() from the server but " + String(b) + " is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+        }, a.$$id + "#" + b, a.$$async), Object.defineProperty(c, "name", {
+            value: b
+        }), c = a[b] = new Proxy(c, ia));
+        return c;
+    },
+    getPrototypeOf: function() {
+        return ha;
+    },
+    set: function() {
+        throw Error("Cannot assign to a client module from a server module.");
+    }
+}, pa = {
+    prefetchDNS: ka,
+    preconnect: la,
+    preload: ma,
+    preinit: na
+};
+function ka(a, b) {
+    if ("string" === typeof a) {
+        var d = v();
+        if (d) {
+            var c = d.hints, e = "D" + a;
+            c.has(e) || (c.add(e), b ? w(d, "D", [
+                a,
+                b
+            ]) : w(d, "D", a), x(d));
+        }
+    }
+}
+function la(a, b) {
+    if ("string" === typeof a) {
+        var d = v();
+        if (d) {
+            var c = d.hints, e = null == b || "string" !== typeof b.crossOrigin ? null : "use-credentials" === b.crossOrigin ? "use-credentials" : "";
+            e = "C" + (null === e ? "null" : e) + "|" + a;
+            c.has(e) || (c.add(e), b ? w(d, "C", [
+                a,
+                b
+            ]) : w(d, "C", a), x(d));
+        }
+    }
+}
+function ma(a, b) {
+    if ("string" === typeof a) {
+        var d = v();
+        if (d) {
+            var c = d.hints, e = "L" + a;
+            c.has(e) || (c.add(e), w(d, "L", [
+                a,
+                b
+            ]), x(d));
+        }
+    }
+}
+function na(a, b) {
+    if ("string" === typeof a) {
+        var d = v();
+        if (d) {
+            var c = d.hints, e = "I" + a;
+            c.has(e) || (c.add(e), w(d, "I", [
+                a,
+                b
+            ]), x(d));
+        }
+    }
+}
+var qa = ba.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.Dispatcher, ra = "function" === typeof AsyncLocalStorage, sa = ra ? new AsyncLocalStorage : null, C = Symbol.for("react.element"), ta = Symbol.for("react.fragment"), ua = Symbol.for("react.provider"), va = Symbol.for("react.server_context"), wa = Symbol.for("react.forward_ref"), xa = Symbol.for("react.suspense"), ya = Symbol.for("react.suspense_list"), za = Symbol.for("react.memo"), D = Symbol.for("react.lazy"), Aa = Symbol.for("react.default_value"), Ba = Symbol.for("react.memo_cache_sentinel"), Ca = Symbol.iterator, E = null;
+function F(a, b) {
+    if (a !== b) {
+        a.context._currentValue = a.parentValue;
+        a = a.parent;
+        var d = b.parent;
+        if (null === a) {
+            if (null !== d) throw Error("The stacks must reach the root at the same time. This is a bug in React.");
+        } else {
+            if (null === d) throw Error("The stacks must reach the root at the same time. This is a bug in React.");
+            F(a, d);
+            b.context._currentValue = b.value;
+        }
+    }
+}
+function Da(a) {
+    a.context._currentValue = a.parentValue;
+    a = a.parent;
+    null !== a && Da(a);
+}
+function Ea(a) {
+    var b = a.parent;
+    null !== b && Ea(b);
+    a.context._currentValue = a.value;
+}
+function Fa(a, b) {
+    a.context._currentValue = a.parentValue;
+    a = a.parent;
+    if (null === a) throw Error("The depth must equal at least at zero before reaching the root. This is a bug in React.");
+    a.depth === b.depth ? F(a, b) : Fa(a, b);
+}
+function Ga(a, b) {
+    var d = b.parent;
+    if (null === d) throw Error("The depth must equal at least at zero before reaching the root. This is a bug in React.");
+    a.depth === d.depth ? F(a, d) : Ga(a, d);
+    b.context._currentValue = b.value;
+}
+function Ha(a) {
+    var b = E;
+    b !== a && (null === b ? Ea(a) : null === a ? Da(b) : b.depth === a.depth ? F(b, a) : b.depth > a.depth ? Fa(b, a) : Ga(b, a), E = a);
+}
+function Ia(a, b) {
+    var d = a._currentValue;
+    a._currentValue = b;
+    var c = E;
+    return E = a = {
+        parent: c,
+        depth: null === c ? 0 : c.depth + 1,
+        context: a,
+        parentValue: d,
+        value: b
+    };
+}
+var Ja = Error("Suspense Exception: This is not a real error! It's an implementation detail of `use` to interrupt the current render. You must either rethrow it immediately, or move the `use` call outside of the `try/catch` block. Capturing without rethrowing will lead to unexpected behavior.\n\nTo handle async errors, wrap your component in an error boundary, or call the promise's `.catch` method and pass the result to `use`");
+function Ka() {}
+function La(a, b, d) {
+    d = a[d];
+    void 0 === d ? a.push(b) : d !== b && (b.then(Ka, Ka), b = d);
+    switch(b.status){
+        case "fulfilled":
+            return b.value;
+        case "rejected":
+            throw b.reason;
+        default:
+            if ("string" !== typeof b.status) switch(a = b, a.status = "pending", a.then(function(c) {
+                if ("pending" === b.status) {
+                    var e = b;
+                    e.status = "fulfilled";
+                    e.value = c;
+                }
+            }, function(c) {
+                if ("pending" === b.status) {
+                    var e = b;
+                    e.status = "rejected";
+                    e.reason = c;
+                }
+            }), b.status){
+                case "fulfilled":
+                    return b.value;
+                case "rejected":
+                    throw b.reason;
+            }
+            G = b;
+            throw Ja;
+    }
+}
+var G = null;
+function Ma() {
+    if (null === G) throw Error("Expected a suspended thenable. This is a bug in React. Please file an issue.");
+    var a = G;
+    G = null;
+    return a;
+}
+var H = null, I = 0, J = null;
+function Na() {
+    var a = J;
+    J = null;
+    return a;
+}
+function Oa(a) {
+    return a._currentValue;
+}
+var Sa = {
+    useMemo: function(a) {
+        return a();
+    },
+    useCallback: function(a) {
+        return a;
+    },
+    useDebugValue: function() {},
+    useDeferredValue: K,
+    useTransition: K,
+    readContext: Oa,
+    useContext: Oa,
+    useReducer: K,
+    useRef: K,
+    useState: K,
+    useInsertionEffect: K,
+    useLayoutEffect: K,
+    useImperativeHandle: K,
+    useEffect: K,
+    useId: Pa,
+    useSyncExternalStore: K,
+    useCacheRefresh: function() {
+        return Qa;
+    },
+    useMemoCache: function(a) {
+        for(var b = Array(a), d = 0; d < a; d++)b[d] = Ba;
+        return b;
+    },
+    use: Ra
+};
+function K() {
+    throw Error("This Hook is not supported in Server Components.");
+}
+function Qa() {
+    throw Error("Refreshing the cache is not supported in Server Components.");
+}
+function Pa() {
+    if (null === H) throw Error("useId can only be used while React is rendering");
+    var a = H.identifierCount++;
+    return ":" + H.identifierPrefix + "S" + a.toString(32) + ":";
+}
+function Ra(a) {
+    if (null !== a && "object" === typeof a || "function" === typeof a) {
+        if ("function" === typeof a.then) {
+            var b = I;
+            I += 1;
+            null === J && (J = []);
+            return La(J, a, b);
+        }
+        if (a.$$typeof === va) return a._currentValue;
+    }
+    throw Error("An unsupported type was passed to use(): " + String(a));
+}
+function Ta() {
+    return (new AbortController).signal;
+}
+function Ua() {
+    var a = v();
+    return a ? a.cache : new Map;
+}
+var Va = {
+    getCacheSignal: function() {
+        var a = Ua(), b = a.get(Ta);
+        void 0 === b && (b = Ta(), a.set(Ta, b));
+        return b;
+    },
+    getCacheForType: function(a) {
+        var b = Ua(), d = b.get(a);
+        void 0 === d && (d = a(), b.set(a, d));
+        return d;
+    }
+}, Wa = Array.isArray;
+function Xa(a) {
+    return Object.prototype.toString.call(a).replace(/^\[object (.*)\]$/, function(b, d) {
+        return d;
+    });
+}
+function Ya(a) {
+    switch(typeof a){
+        case "string":
+            return JSON.stringify(10 >= a.length ? a : a.slice(0, 10) + "...");
+        case "object":
+            if (Wa(a)) return "[...]";
+            a = Xa(a);
+            return "Object" === a ? "{...}" : a;
+        case "function":
+            return "function";
+        default:
+            return String(a);
+    }
+}
+function L(a) {
+    if ("string" === typeof a) return a;
+    switch(a){
+        case xa:
+            return "Suspense";
+        case ya:
+            return "SuspenseList";
+    }
+    if ("object" === typeof a) switch(a.$$typeof){
+        case wa:
+            return L(a.render);
+        case za:
+            return L(a.type);
+        case D:
+            var b = a._payload;
+            a = a._init;
+            try {
+                return L(a(b));
+            } catch (d) {}
+    }
+    return "";
+}
+function M(a, b) {
+    var d = Xa(a);
+    if ("Object" !== d && "Array" !== d) return d;
+    d = -1;
+    var c = 0;
+    if (Wa(a)) {
+        var e = "[";
+        for(var f = 0; f < a.length; f++){
+            0 < f && (e += ", ");
+            var g = a[f];
+            g = "object" === typeof g && null !== g ? M(g) : Ya(g);
+            "" + f === b ? (d = e.length, c = g.length, e += g) : e = 10 > g.length && 40 > e.length + g.length ? e + g : e + "...";
+        }
+        e += "]";
+    } else if (a.$$typeof === C) e = "<" + L(a.type) + "/>";
+    else {
+        e = "{";
+        f = Object.keys(a);
+        for(g = 0; g < f.length; g++){
+            0 < g && (e += ", ");
+            var k = f[g], h = JSON.stringify(k);
+            e += ('"' + k + '"' === h ? k : h) + ": ";
+            h = a[k];
+            h = "object" === typeof h && null !== h ? M(h) : Ya(h);
+            k === b ? (d = e.length, c = h.length, e += h) : e = 10 > h.length && 40 > e.length + h.length ? e + h : e + "...";
+        }
+        e += "}";
+    }
+    return void 0 === b ? e : -1 < d && 0 < c ? (a = " ".repeat(d) + "^".repeat(c), "\n  " + e + "\n  " + a) : "\n  " + e;
+}
+var Za = aa.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, $a = Za.ContextRegistry, N = JSON.stringify, ab = Za.ReactCurrentDispatcher, bb = Za.ReactCurrentCache;
+function cb(a) {
+    console.error(a);
+}
+function db(a, b, d, c, e) {
+    if (null !== bb.current && bb.current !== Va) throw Error("Currently React only supports one RSC renderer at a time.");
+    qa.current = pa;
+    bb.current = Va;
+    var f = new Set, g = [], k = new Set, h = {
+        status: 0,
+        flushScheduled: !1,
+        fatalError: null,
+        destination: null,
+        bundlerConfig: b,
+        cache: new Map,
+        nextChunkId: 0,
+        pendingChunks: 0,
+        hints: k,
+        abortableTasks: f,
+        pingedTasks: g,
+        completedImportChunks: [],
+        completedHintChunks: [],
+        completedRegularChunks: [],
+        completedErrorChunks: [],
+        writtenSymbols: new Map,
+        writtenClientReferences: new Map,
+        writtenServerReferences: new Map,
+        writtenProviders: new Map,
+        identifierPrefix: e || "",
+        identifierCount: 1,
+        onError: void 0 === d ? cb : d,
+        toJSON: function(r, y) {
+            return eb(h, this, r, y);
+        }
+    };
+    h.pendingChunks++;
+    b = fb(c);
+    a = gb(h, a, b, f);
+    g.push(a);
+    return h;
+}
+var O = null;
+function v() {
+    if (O) return O;
+    if (ra) {
+        var a = sa.getStore();
+        if (a) return a;
+    }
+    return null;
+}
+var hb = {};
+function ib(a, b) {
+    a.pendingChunks++;
+    var d = gb(a, null, E, a.abortableTasks);
+    switch(b.status){
+        case "fulfilled":
+            return d.model = b.value, jb(a, d), d.id;
+        case "rejected":
+            var c = P(a, b.reason);
+            Q(a, d.id, c);
+            return d.id;
+        default:
+            "string" !== typeof b.status && (b.status = "pending", b.then(function(e) {
+                "pending" === b.status && (b.status = "fulfilled", b.value = e);
+            }, function(e) {
+                "pending" === b.status && (b.status = "rejected", b.reason = e);
+            }));
+    }
+    b.then(function(e) {
+        d.model = e;
+        jb(a, d);
+    }, function(e) {
+        d.status = 4;
+        e = P(a, e);
+        Q(a, d.id, e);
+        null !== a.destination && R(a, a.destination);
+    });
+    return d.id;
+}
+function kb(a) {
+    if ("fulfilled" === a.status) return a.value;
+    if ("rejected" === a.status) throw a.reason;
+    throw a;
+}
+function lb(a) {
+    switch(a.status){
+        case "fulfilled":
+        case "rejected":
+            break;
+        default:
+            "string" !== typeof a.status && (a.status = "pending", a.then(function(b) {
+                "pending" === a.status && (a.status = "fulfilled", a.value = b);
+            }, function(b) {
+                "pending" === a.status && (a.status = "rejected", a.reason = b);
+            }));
+    }
+    return {
+        $$typeof: D,
+        _payload: a,
+        _init: kb
+    };
+}
+function S(a, b, d, c, e, f) {
+    if (null !== c && void 0 !== c) throw Error("Refs cannot be used in Server Components, nor passed to Client Components.");
+    if ("function" === typeof b) {
+        if (b.$$typeof === q) return [
+            C,
+            b,
+            d,
+            e
+        ];
+        I = 0;
+        J = f;
+        e = b(e);
+        return "object" === typeof e && null !== e && "function" === typeof e.then ? "fulfilled" === e.status ? e.value : lb(e) : e;
+    }
+    if ("string" === typeof b) return [
+        C,
+        b,
+        d,
+        e
+    ];
+    if ("symbol" === typeof b) return b === ta ? e.children : [
+        C,
+        b,
+        d,
+        e
+    ];
+    if (null != b && "object" === typeof b) {
+        if (b.$$typeof === q) return [
+            C,
+            b,
+            d,
+            e
+        ];
+        switch(b.$$typeof){
+            case D:
+                var g = b._init;
+                b = g(b._payload);
+                return S(a, b, d, c, e, f);
+            case wa:
+                return a = b.render, I = 0, J = f, a(e, void 0);
+            case za:
+                return S(a, b.type, d, c, e, f);
+            case ua:
+                return Ia(b._context, e.value), [
+                    C,
+                    b,
+                    d,
+                    {
+                        value: e.value,
+                        children: e.children,
+                        __pop: hb
+                    }
+                ];
+        }
+    }
+    throw Error("Unsupported Server Component type: " + Ya(b));
+}
+function jb(a, b) {
+    var d = a.pingedTasks;
+    d.push(b);
+    1 === d.length && (a.flushScheduled = null !== a.destination, setTimeout(function() {
+        return mb(a);
+    }, 0));
+}
+function gb(a, b, d, c) {
+    var e = {
+        id: a.nextChunkId++,
+        status: 0,
+        model: b,
+        context: d,
+        ping: function() {
+            return jb(a, e);
+        },
+        thenableState: null
+    };
+    c.add(e);
+    return e;
+}
+function T(a) {
+    return "$" + a.toString(16);
+}
+function nb(a, b, d, c) {
+    var e = c.$$async ? c.$$id + "#async" : c.$$id, f = a.writtenClientReferences, g = f.get(e);
+    if (void 0 !== g) return b[0] === C && "1" === d ? "$L" + g.toString(16) : T(g);
+    try {
+        var k = a.bundlerConfig, h = c.$$id;
+        g = "";
+        var r = k[h];
+        if (r) g = r.name;
+        else {
+            var y = h.lastIndexOf("#");
+            -1 !== y && (g = h.slice(y + 1), r = k[h.slice(0, y)]);
+            if (!r) throw Error('Could not find the module "' + h + '" in the React Client Manifest. This is probably a bug in the React Server Components bundler.');
+        }
+        var z = {
+            id: r.id,
+            chunks: r.chunks,
+            name: g,
+            async: !!c.$$async
+        };
+        a.pendingChunks++;
+        var A = a.nextChunkId++, oa = N(z), B = A.toString(16) + ":I" + oa + "\n";
+        var Fb = p.encode(B);
+        a.completedImportChunks.push(Fb);
+        f.set(e, A);
+        return b[0] === C && "1" === d ? "$L" + A.toString(16) : T(A);
+    } catch (Gb) {
+        return a.pendingChunks++, b = a.nextChunkId++, d = P(a, Gb), Q(a, b, d), T(b);
+    }
+}
+function ob(a, b) {
+    a.pendingChunks++;
+    var d = a.nextChunkId++;
+    b = pb(a, d, b);
+    a.completedRegularChunks.push(b);
+    return d;
+}
+function eb(a, b, d, c) {
+    switch(c){
+        case C:
+            return "$";
+    }
+    for(; "object" === typeof c && null !== c && (c.$$typeof === C || c.$$typeof === D);)try {
+        switch(c.$$typeof){
+            case C:
+                var e = c;
+                c = S(a, e.type, e.key, e.ref, e.props, null);
+                break;
+            case D:
+                var f = c._init;
+                c = f(c._payload);
+        }
+    } catch (g) {
+        d = g === Ja ? Ma() : g;
+        if ("object" === typeof d && null !== d && "function" === typeof d.then) return a.pendingChunks++, a = gb(a, c, E, a.abortableTasks), c = a.ping, d.then(c, c), a.thenableState = Na(), "$L" + a.id.toString(16);
+        a.pendingChunks++;
+        c = a.nextChunkId++;
+        d = P(a, d);
+        Q(a, c, d);
+        return "$L" + c.toString(16);
+    }
+    if (null === c) return null;
+    if ("object" === typeof c) {
+        if (c.$$typeof === q) return nb(a, b, d, c);
+        if ("function" === typeof c.then) return "$@" + ib(a, c).toString(16);
+        if (c.$$typeof === ua) return c = c._context._globalName, b = a.writtenProviders, d = b.get(d), void 0 === d && (a.pendingChunks++, d = a.nextChunkId++, b.set(c, d), c = qb(a, d, "$P" + c), a.completedRegularChunks.push(c)), T(d);
+        if (c === hb) {
+            a = E;
+            if (null === a) throw Error("Tried to pop a Context at the root of the app. This is a bug in React.");
+            c = a.parentValue;
+            a.context._currentValue = c === Aa ? a.context._defaultValue : c;
+            E = a.parent;
+            return;
+        }
+        return c instanceof Map ? "$Q" + ob(a, Array.from(c)).toString(16) : c instanceof Set ? "$W" + ob(a, Array.from(c)).toString(16) : !Wa(c) && (null === c || "object" !== typeof c ? a = null : (a = Ca && c[Ca] || c["@@iterator"], a = "function" === typeof a ? a : null), a) ? Array.from(c) : c;
+    }
+    if ("string" === typeof c) {
+        if ("Z" === c[c.length - 1] && b[d] instanceof Date) return "$D" + c;
+        if (1024 <= c.length) return a.pendingChunks += 2, d = a.nextChunkId++, c = p.encode(c), b = c.byteLength, b = d.toString(16) + ":T" + b.toString(16) + ",", b = p.encode(b), a.completedRegularChunks.push(b, c), T(d);
+        a = "$" === c[0] ? "$" + c : c;
+        return a;
+    }
+    if ("boolean" === typeof c) return c;
+    if ("number" === typeof c) return a = c, Number.isFinite(a) ? 0 === a && -Infinity === 1 / a ? "$-0" : a : Infinity === a ? "$Infinity" : -Infinity === a ? "$-Infinity" : "$NaN";
+    if ("undefined" === typeof c) return "$undefined";
+    if ("function" === typeof c) {
+        if (c.$$typeof === q) return nb(a, b, d, c);
+        if (c.$$typeof === t) return d = a.writtenServerReferences, b = d.get(c), void 0 !== b ? a = "$F" + b.toString(16) : (b = c.$$bound, b = {
+            id: c.$$id,
+            bound: b ? Promise.resolve(b) : null
+        }, a = ob(a, b), d.set(c, a), a = "$F" + a.toString(16)), a;
+        if (/^on[A-Z]/.test(d)) throw Error("Event handlers cannot be passed to Client Component props." + M(b, d) + "\nIf you need interactivity, consider converting part of this to a Client Component.");
+        throw Error('Functions cannot be passed directly to Client Components unless you explicitly expose it by marking it with "use server".' + M(b, d));
+    }
+    if ("symbol" === typeof c) {
+        e = a.writtenSymbols;
+        f = e.get(c);
+        if (void 0 !== f) return T(f);
+        f = c.description;
+        if (Symbol.for(f) !== c) throw Error("Only global symbols received from Symbol.for(...) can be passed to Client Components. The symbol Symbol.for(" + (c.description + ") cannot be found among global symbols.") + M(b, d));
+        a.pendingChunks++;
+        d = a.nextChunkId++;
+        b = qb(a, d, "$S" + f);
+        a.completedImportChunks.push(b);
+        e.set(c, d);
+        return T(d);
+    }
+    if ("bigint" === typeof c) return "$n" + c.toString(10);
+    throw Error("Type " + typeof c + " is not supported in Client Component props." + M(b, d));
+}
+function P(a, b) {
+    a = a.onError;
+    b = a(b);
+    if (null != b && "string" !== typeof b) throw Error('onError returned something with a type other than "string". onError should return a string and may return null or undefined but must not return anything else. It received something of type "' + typeof b + '" instead');
+    return b || "";
+}
+function rb(a, b) {
+    null !== a.destination ? (a.status = 2, ca(a.destination, b)) : (a.status = 1, a.fatalError = b);
+}
+function Q(a, b, d) {
+    d = {
+        digest: d
+    };
+    b = b.toString(16) + ":E" + N(d) + "\n";
+    b = p.encode(b);
+    a.completedErrorChunks.push(b);
+}
+function w(a, b, d) {
+    var c = a.nextChunkId++;
+    d = N(d);
+    b = "H" + b;
+    c = c.toString(16) + ":" + b;
+    c = p.encode(c + d + "\n");
+    a.completedHintChunks.push(c);
+}
+function mb(a) {
+    var b = ab.current;
+    ab.current = Sa;
+    var d = O;
+    H = O = a;
+    try {
+        var c = a.pingedTasks;
+        a.pingedTasks = [];
+        for(var e = 0; e < c.length; e++){
+            var f = c[e];
+            var g = a;
+            if (0 === f.status) {
+                Ha(f.context);
+                try {
+                    var k = f.model;
+                    if ("object" === typeof k && null !== k && k.$$typeof === C) {
+                        var h = k, r = f.thenableState;
+                        f.model = k;
+                        k = S(g, h.type, h.key, h.ref, h.props, r);
+                        for(f.thenableState = null; "object" === typeof k && null !== k && k.$$typeof === C;)h = k, f.model = k, k = S(g, h.type, h.key, h.ref, h.props, null);
+                    }
+                    var y = pb(g, f.id, k);
+                    g.completedRegularChunks.push(y);
+                    g.abortableTasks.delete(f);
+                    f.status = 1;
+                } catch (B) {
+                    var z = B === Ja ? Ma() : B;
+                    if ("object" === typeof z && null !== z && "function" === typeof z.then) {
+                        var A = f.ping;
+                        z.then(A, A);
+                        f.thenableState = Na();
+                    } else {
+                        g.abortableTasks.delete(f);
+                        f.status = 4;
+                        var oa = P(g, z);
+                        Q(g, f.id, oa);
+                    }
+                }
+            }
+        }
+        null !== a.destination && R(a, a.destination);
+    } catch (B) {
+        P(a, B), rb(a, B);
+    } finally{
+        ab.current = b, H = null, O = d;
+    }
+}
+function R(a, b) {
+    l = new Uint8Array(512);
+    m = 0;
+    try {
+        for(var d = a.completedImportChunks, c = 0; c < d.length; c++)a.pendingChunks--, n(b, d[c]);
+        d.splice(0, c);
+        var e = a.completedHintChunks;
+        for(c = 0; c < e.length; c++)n(b, e[c]);
+        e.splice(0, c);
+        var f = a.completedRegularChunks;
+        for(c = 0; c < f.length; c++)a.pendingChunks--, n(b, f[c]);
+        f.splice(0, c);
+        var g = a.completedErrorChunks;
+        for(c = 0; c < g.length; c++)a.pendingChunks--, n(b, g[c]);
+        g.splice(0, c);
+    } finally{
+        a.flushScheduled = !1, l && 0 < m && (b.enqueue(new Uint8Array(l.buffer, 0, m)), l = null, m = 0);
+    }
+    0 === a.pendingChunks && b.close();
+}
+function sb(a) {
+    a.flushScheduled = null !== a.destination;
+    ra ? setTimeout(function() {
+        return sa.run(a, mb, a);
+    }, 0) : setTimeout(function() {
+        return mb(a);
+    }, 0);
+}
+function x(a) {
+    if (!1 === a.flushScheduled && 0 === a.pingedTasks.length && null !== a.destination) {
+        var b = a.destination;
+        a.flushScheduled = !0;
+        setTimeout(function() {
+            return R(a, b);
+        }, 0);
+    }
+}
+function tb(a, b) {
+    try {
+        var d = a.abortableTasks;
+        if (0 < d.size) {
+            var c = P(a, void 0 === b ? Error("The render was aborted by the server without a reason.") : b);
+            a.pendingChunks++;
+            var e = a.nextChunkId++;
+            Q(a, e, c);
+            d.forEach(function(f) {
+                f.status = 3;
+                var g = T(e);
+                f = qb(a, f.id, g);
+                a.completedErrorChunks.push(f);
+            });
+            d.clear();
+        }
+        null !== a.destination && R(a, a.destination);
+    } catch (f) {
+        P(a, f), rb(a, f);
+    }
+}
+function fb(a) {
+    if (a) {
+        var b = E;
+        Ha(null);
+        for(var d = 0; d < a.length; d++){
+            var c = a[d], e = c[0];
+            c = c[1];
+            $a[e] || ($a[e] = aa.createServerContext(e, Aa));
+            Ia($a[e], c);
+        }
+        a = E;
+        Ha(b);
+        return a;
+    }
+    return null;
+}
+function pb(a, b, d) {
+    a = N(d, a.toJSON);
+    b = b.toString(16) + ":" + a + "\n";
+    return p.encode(b);
+}
+function qb(a, b, d) {
+    a = N(d);
+    b = b.toString(16) + ":" + a + "\n";
+    return p.encode(b);
+}
+function ub(a, b) {
+    var d = "", c = a[b];
+    if (c) d = c.name;
+    else {
+        var e = b.lastIndexOf("#");
+        -1 !== e && (d = b.slice(e + 1), c = a[b.slice(0, e)]);
+        if (!c) throw Error('Could not find the module "' + b + '" in the React Server Manifest. This is probably a bug in the React Server Components bundler.');
+    }
+    return {
+        id: c.id,
+        chunks: c.chunks,
+        name: d,
+        async: !1
+    };
+}
+var U = new Map;
+function vb(a) {
+    var b = globalThis.__next_require__(a);
+    if ("function" !== typeof b.then || "fulfilled" === b.status) return null;
+    b.then(function(d) {
+        b.status = "fulfilled";
+        b.value = d;
+    }, function(d) {
+        b.status = "rejected";
+        b.reason = d;
+    });
+    return b;
+}
+function wb() {}
+function xb(a) {
+    for(var b = a.chunks, d = [], c = 0; c < b.length; c++){
+        var e = b[c], f = U.get(e);
+        if (void 0 === f) {
+            f = globalThis.__next_chunk_load__(e);
+            d.push(f);
+            var g = U.set.bind(U, e, null);
+            f.then(g, wb);
+            U.set(e, f);
+        } else null !== f && d.push(f);
+    }
+    return a.async ? 0 === d.length ? vb(a.id) : Promise.all(d).then(function() {
+        return vb(a.id);
+    }) : 0 < d.length ? Promise.all(d) : null;
+}
+function V(a) {
+    var b = globalThis.__next_require__(a.id);
+    if (a.async && "function" === typeof b.then) if ("fulfilled" === b.status) b = b.value;
+    else throw b.reason;
+    return "*" === a.name ? b : "" === a.name ? b.__esModule ? b.default : b : b[a.name];
+}
+function W(a, b, d, c) {
+    this.status = a;
+    this.value = b;
+    this.reason = d;
+    this._response = c;
+}
+W.prototype = Object.create(Promise.prototype);
+W.prototype.then = function(a, b) {
+    switch(this.status){
+        case "resolved_model":
+            yb(this);
+    }
+    switch(this.status){
+        case "fulfilled":
+            a(this.value);
+            break;
+        case "pending":
+        case "blocked":
+            a && (null === this.value && (this.value = []), this.value.push(a));
+            b && (null === this.reason && (this.reason = []), this.reason.push(b));
+            break;
+        default:
+            b(this.reason);
+    }
+};
+function zb(a, b) {
+    for(var d = 0; d < a.length; d++)(0, a[d])(b);
+}
+function Ab(a, b) {
+    if ("pending" === a.status || "blocked" === a.status) {
+        var d = a.reason;
+        a.status = "rejected";
+        a.reason = b;
+        null !== d && zb(d, b);
+    }
+}
+function Bb(a, b, d, c, e, f) {
+    var g = ub(a._bundlerConfig, b);
+    a = xb(g);
+    if (d) d = Promise.all([
+        d,
+        a
+    ]).then(function(k) {
+        k = k[0];
+        var h = V(g);
+        return h.bind.apply(h, [
+            null
+        ].concat(k));
+    });
+    else if (a) d = Promise.resolve(a).then(function() {
+        return V(g);
+    });
+    else return V(g);
+    d.then(Cb(c, e, f), Db(c));
+    return null;
+}
+var X = null, Y = null;
+function yb(a) {
+    var b = X, d = Y;
+    X = a;
+    Y = null;
+    try {
+        var c = JSON.parse(a.value, a._response._fromJSON);
+        null !== Y && 0 < Y.deps ? (Y.value = c, a.status = "blocked", a.value = null, a.reason = null) : (a.status = "fulfilled", a.value = c);
+    } catch (e) {
+        a.status = "rejected", a.reason = e;
+    } finally{
+        X = b, Y = d;
+    }
+}
+function Eb(a, b) {
+    a._chunks.forEach(function(d) {
+        "pending" === d.status && Ab(d, b);
+    });
+}
+function Z(a, b) {
+    var d = a._chunks, c = d.get(b);
+    c || (c = a._formData.get(a._prefix + b), c = null != c ? new W("resolved_model", c, null, a) : new W("pending", null, null, a), d.set(b, c));
+    return c;
+}
+function Cb(a, b, d) {
+    if (Y) {
+        var c = Y;
+        c.deps++;
+    } else c = Y = {
+        deps: 1,
+        value: null
+    };
+    return function(e) {
+        b[d] = e;
+        c.deps--;
+        0 === c.deps && "blocked" === a.status && (e = a.value, a.status = "fulfilled", a.value = c.value, null !== e && zb(e, c.value));
+    };
+}
+function Db(a) {
+    return function(b) {
+        return Ab(a, b);
+    };
+}
+function Hb(a, b) {
+    a = Z(a, b);
+    "resolved_model" === a.status && yb(a);
+    if ("fulfilled" !== a.status) throw a.reason;
+    return a.value;
+}
+function Ib(a, b, d, c) {
+    if ("$" === c[0]) switch(c[1]){
+        case "$":
+            return c.slice(1);
+        case "@":
+            return b = parseInt(c.slice(2), 16), Z(a, b);
+        case "S":
+            return Symbol.for(c.slice(2));
+        case "F":
+            return c = parseInt(c.slice(2), 16), c = Hb(a, c), Bb(a, c.id, c.bound, X, b, d);
+        case "Q":
+            return b = parseInt(c.slice(2), 16), a = Hb(a, b), new Map(a);
+        case "W":
+            return b = parseInt(c.slice(2), 16), a = Hb(a, b), new Set(a);
+        case "K":
+            b = c.slice(2);
+            var e = a._prefix + b + "_", f = new FormData;
+            a._formData.forEach(function(g, k) {
+                k.startsWith(e) && f.append(k.slice(e.length), g);
+            });
+            return f;
+        case "I":
+            return Infinity;
+        case "-":
+            return "$-0" === c ? -0 : -Infinity;
+        case "N":
+            return NaN;
+        case "u":
+            return;
+        case "D":
+            return new Date(Date.parse(c.slice(2)));
+        case "n":
+            return BigInt(c.slice(2));
+        default:
+            c = parseInt(c.slice(1), 16);
+            a = Z(a, c);
+            switch(a.status){
+                case "resolved_model":
+                    yb(a);
+            }
+            switch(a.status){
+                case "fulfilled":
+                    return a.value;
+                case "pending":
+                case "blocked":
+                    return c = X, a.then(Cb(c, b, d), Db(c)), null;
+                default:
+                    throw a.reason;
+            }
+    }
+    return c;
+}
+function Jb(a, b) {
+    var d = 2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : new FormData, c = new Map, e = {
+        _bundlerConfig: a,
+        _prefix: b,
+        _formData: d,
+        _chunks: c,
+        _fromJSON: function(f, g) {
+            return "string" === typeof g ? Ib(e, this, f, g) : g;
+        }
+    };
+    return e;
+}
+function Kb(a) {
+    Eb(a, Error("Connection closed."));
+}
+function Lb(a, b, d) {
+    var c = ub(a, b);
+    a = xb(c);
+    return d ? Promise.all([
+        d,
+        a
+    ]).then(function(e) {
+        e = e[0];
+        var f = V(c);
+        return f.bind.apply(f, [
+            null
+        ].concat(e));
+    }) : a ? Promise.resolve(a).then(function() {
+        return V(c);
+    }) : Promise.resolve(V(c));
+}
+exports.createClientModuleProxy = function(a) {
+    a = u({}, a, !1);
+    return new Proxy(a, ja);
+};
+exports.decodeAction = function(a, b) {
+    var d = new FormData, c = null;
+    a.forEach(function(e, f) {
+        if (f.startsWith("$ACTION_")) if (f.startsWith("$ACTION_REF_")) {
+            e = "$ACTION_" + f.slice(12) + ":";
+            e = Jb(b, e, a);
+            Kb(e);
+            e = Z(e, 0);
+            e.then(function() {});
+            if ("fulfilled" !== e.status) throw e.reason;
+            e = e.value;
+            c = Lb(b, e.id, e.bound);
+        } else f.startsWith("$ACTION_ID_") && (e = f.slice(11), c = Lb(b, e, null));
+        else d.append(f, e);
+    });
+    return null === c ? null : c.then(function(e) {
+        return e.bind(null, d);
+    });
+};
+exports.decodeReply = function(a, b) {
+    if ("string" === typeof a) {
+        var d = new FormData;
+        d.append("0", a);
+        a = d;
+    }
+    a = Jb(b, "", a);
+    Kb(a);
+    return Z(a, 0);
+};
+exports.registerClientReference = function(a, b, d) {
+    return u(a, b + "#" + d, !1);
+};
+exports.registerServerReference = function(a, b, d) {
+    return Object.defineProperties(a, {
+        $$typeof: {
+            value: t
+        },
+        $$id: {
+            value: null === d ? b : b + "#" + d
+        },
+        $$bound: {
+            value: null
+        },
+        bind: {
+            value: fa
+        }
+    });
+};
+exports.renderToReadableStream = function(a, b, d) {
+    var c = db(a, b, d ? d.onError : void 0, d ? d.context : void 0, d ? d.identifierPrefix : void 0);
+    if (d && d.signal) {
+        var e = d.signal;
+        if (e.aborted) tb(c, e.reason);
+        else {
+            var f = function() {
+                tb(c, e.reason);
+                e.removeEventListener("abort", f);
+            };
+            e.addEventListener("abort", f);
+        }
+    }
+    return new ReadableStream({
+        type: "bytes",
+        start: function() {
+            sb(c);
+        },
+        pull: function(g) {
+            if (1 === c.status) c.status = 2, ca(g, c.fatalError);
+            else if (2 !== c.status && null === c.destination) {
+                c.destination = g;
+                try {
+                    R(c, g);
+                } catch (k) {
+                    P(c, k), rb(c, k);
+                }
+            }
+        },
+        cancel: function() {}
+    }, {
+        highWaterMark: 0
+    });
+};
+
+
+/***/ }),
+
+/***/ 9642:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+
+if (true) {
+    module.exports = __webpack_require__(9200);
+} else {}
+
+
+/***/ }),
+
+/***/ 9446:
+/***/ ((__unused_webpack_module, exports) => {
+
+/**
+ * @license React
+ * react.shared-subset.production.min.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */ 
+var m = Object.assign, n = {
+    current: null
+};
+function p() {
+    return new Map;
+}
+if ("function" === typeof fetch) {
+    var q = fetch, r = function(a, b) {
+        var d = n.current;
+        if (!d || b && b.signal && b.signal !== d.getCacheSignal()) return q(a, b);
+        if ("string" !== typeof a || b) {
+            var c = "string" === typeof a || a instanceof URL ? new Request(a, b) : a;
+            if ("GET" !== c.method && "HEAD" !== c.method || c.keepalive) return q(a, b);
+            var e = JSON.stringify([
+                c.method,
+                Array.from(c.headers.entries()),
+                c.mode,
+                c.redirect,
+                c.credentials,
+                c.referrer,
+                c.referrerPolicy,
+                c.integrity
+            ]);
+            c = c.url;
+        } else e = '["GET",[],null,"follow",null,null,null,null]', c = a;
+        var f = d.getCacheForType(p);
+        d = f.get(c);
+        if (void 0 === d) a = q(a, b), f.set(c, [
+            e,
+            a
+        ]);
+        else {
+            c = 0;
+            for(f = d.length; c < f; c += 2){
+                var h = d[c + 1];
+                if (d[c] === e) return a = h, a.then(function(g) {
+                    return g.clone();
+                });
+            }
+            a = q(a, b);
+            d.push(e, a);
+        }
+        return a.then(function(g) {
+            return g.clone();
+        });
+    };
+    m(r, q);
+    try {
+        fetch = r;
+    } catch (a) {
+        try {
+            globalThis.fetch = r;
+        } catch (b) {
+            console.warn("React was unable to patch the fetch() function in this environment. Suspensey APIs might not work correctly as a result.");
+        }
+    }
+}
+var t = Symbol.for("react.element"), u = Symbol.for("react.portal"), v = Symbol.for("react.fragment"), w = Symbol.for("react.strict_mode"), x = Symbol.for("react.profiler"), y = Symbol.for("react.provider"), z = Symbol.for("react.server_context"), A = Symbol.for("react.forward_ref"), B = Symbol.for("react.suspense"), C = Symbol.for("react.memo"), aa = Symbol.for("react.lazy"), D = Symbol.for("react.default_value"), E = Symbol.iterator;
+function ba(a) {
+    if (null === a || "object" !== typeof a) return null;
+    a = E && a[E] || a["@@iterator"];
+    return "function" === typeof a ? a : null;
+}
+function F(a) {
+    for(var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, d = 1; d < arguments.length; d++)b += "&args[]=" + encodeURIComponent(arguments[d]);
+    return "Minified React error #" + a + "; visit " + b + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
+}
+var G = {
+    isMounted: function() {
+        return !1;
+    },
+    enqueueForceUpdate: function() {},
+    enqueueReplaceState: function() {},
+    enqueueSetState: function() {}
+}, H = {};
+function I(a, b, d) {
+    this.props = a;
+    this.context = b;
+    this.refs = H;
+    this.updater = d || G;
+}
+I.prototype.isReactComponent = {};
+I.prototype.setState = function(a, b) {
+    if ("object" !== typeof a && "function" !== typeof a && null != a) throw Error(F(85));
+    this.updater.enqueueSetState(this, a, b, "setState");
+};
+I.prototype.forceUpdate = function(a) {
+    this.updater.enqueueForceUpdate(this, a, "forceUpdate");
+};
+function J() {}
+J.prototype = I.prototype;
+function K(a, b, d) {
+    this.props = a;
+    this.context = b;
+    this.refs = H;
+    this.updater = d || G;
+}
+var L = K.prototype = new J;
+L.constructor = K;
+m(L, I.prototype);
+L.isPureReactComponent = !0;
+var M = Array.isArray, N = Object.prototype.hasOwnProperty, O = {
+    current: null
+}, P = {
+    key: !0,
+    ref: !0,
+    __self: !0,
+    __source: !0
+};
+function ca(a, b) {
+    return {
+        $$typeof: t,
+        type: a.type,
+        key: b,
+        ref: a.ref,
+        props: a.props,
+        _owner: a._owner
+    };
+}
+function Q(a) {
+    return "object" === typeof a && null !== a && a.$$typeof === t;
+}
+function escape(a) {
+    var b = {
+        "=": "=0",
+        ":": "=2"
+    };
+    return "$" + a.replace(/[=:]/g, function(d) {
+        return b[d];
+    });
+}
+var R = /\/+/g;
+function S(a, b) {
+    return "object" === typeof a && null !== a && null != a.key ? escape("" + a.key) : b.toString(36);
+}
+function T(a, b, d, c, e) {
+    var f = typeof a;
+    if ("undefined" === f || "boolean" === f) a = null;
+    var h = !1;
+    if (null === a) h = !0;
+    else switch(f){
+        case "string":
+        case "number":
+            h = !0;
+            break;
+        case "object":
+            switch(a.$$typeof){
+                case t:
+                case u:
+                    h = !0;
+            }
+    }
+    if (h) return h = a, e = e(h), a = "" === c ? "." + S(h, 0) : c, M(e) ? (d = "", null != a && (d = a.replace(R, "$&/") + "/"), T(e, b, d, "", function(l) {
+        return l;
+    })) : null != e && (Q(e) && (e = ca(e, d + (!e.key || h && h.key === e.key ? "" : ("" + e.key).replace(R, "$&/") + "/") + a)), b.push(e)), 1;
+    h = 0;
+    c = "" === c ? "." : c + ":";
+    if (M(a)) for(var g = 0; g < a.length; g++){
+        f = a[g];
+        var k = c + S(f, g);
+        h += T(f, b, d, k, e);
+    }
+    else if (k = ba(a), "function" === typeof k) for(a = k.call(a), g = 0; !(f = a.next()).done;)f = f.value, k = c + S(f, g++), h += T(f, b, d, k, e);
+    else if ("object" === f) throw b = String(a), Error(F(31, "[object Object]" === b ? "object with keys {" + Object.keys(a).join(", ") + "}" : b));
+    return h;
+}
+function U(a, b, d) {
+    if (null == a) return a;
+    var c = [], e = 0;
+    T(a, c, "", "", function(f) {
+        return b.call(d, f, e++);
+    });
+    return c;
+}
+function da(a) {
+    if (-1 === a._status) {
+        var b = a._result;
+        b = b();
+        b.then(function(d) {
+            if (0 === a._status || -1 === a._status) a._status = 1, a._result = d;
+        }, function(d) {
+            if (0 === a._status || -1 === a._status) a._status = 2, a._result = d;
+        });
+        -1 === a._status && (a._status = 0, a._result = b);
+    }
+    if (1 === a._status) return a._result.default;
+    throw a._result;
+}
+function ea() {
+    return new WeakMap;
+}
+function V() {
+    return {
+        s: 0,
+        v: void 0,
+        o: null,
+        p: null
+    };
+}
+var W = {
+    current: null
+}, X = {
+    transition: null
+}, Y = {
+    ReactCurrentDispatcher: W,
+    ReactCurrentCache: n,
+    ReactCurrentBatchConfig: X,
+    ReactCurrentOwner: O,
+    ContextRegistry: {}
+}, Z = Y.ContextRegistry;
+exports.Children = {
+    map: U,
+    forEach: function(a, b, d) {
+        U(a, function() {
+            b.apply(this, arguments);
+        }, d);
+    },
+    count: function(a) {
+        var b = 0;
+        U(a, function() {
+            b++;
+        });
+        return b;
+    },
+    toArray: function(a) {
+        return U(a, function(b) {
+            return b;
+        }) || [];
+    },
+    only: function(a) {
+        if (!Q(a)) throw Error(F(143));
+        return a;
+    }
+};
+exports.Fragment = v;
+exports.Profiler = x;
+exports.StrictMode = w;
+exports.Suspense = B;
+exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = Y;
+exports.cache = function(a) {
+    return function() {
+        var b = n.current;
+        if (!b) return a.apply(null, arguments);
+        var d = b.getCacheForType(ea);
+        b = d.get(a);
+        void 0 === b && (b = V(), d.set(a, b));
+        d = 0;
+        for(var c = arguments.length; d < c; d++){
+            var e = arguments[d];
+            if ("function" === typeof e || "object" === typeof e && null !== e) {
+                var f = b.o;
+                null === f && (b.o = f = new WeakMap);
+                b = f.get(e);
+                void 0 === b && (b = V(), f.set(e, b));
+            } else f = b.p, null === f && (b.p = f = new Map), b = f.get(e), void 0 === b && (b = V(), f.set(e, b));
+        }
+        if (1 === b.s) return b.v;
+        if (2 === b.s) throw b.v;
+        try {
+            var h = a.apply(null, arguments);
+            d = b;
+            d.s = 1;
+            return d.v = h;
+        } catch (g) {
+            throw h = b, h.s = 2, h.v = g, g;
+        }
+    };
+};
+exports.cloneElement = function(a, b, d) {
+    if (null === a || void 0 === a) throw Error(F(267, a));
+    var c = m({}, a.props), e = a.key, f = a.ref, h = a._owner;
+    if (null != b) {
+        void 0 !== b.ref && (f = b.ref, h = O.current);
+        void 0 !== b.key && (e = "" + b.key);
+        if (a.type && a.type.defaultProps) var g = a.type.defaultProps;
+        for(k in b)N.call(b, k) && !P.hasOwnProperty(k) && (c[k] = void 0 === b[k] && void 0 !== g ? g[k] : b[k]);
+    }
+    var k = arguments.length - 2;
+    if (1 === k) c.children = d;
+    else if (1 < k) {
+        g = Array(k);
+        for(var l = 0; l < k; l++)g[l] = arguments[l + 2];
+        c.children = g;
+    }
+    return {
+        $$typeof: t,
+        type: a.type,
+        key: e,
+        ref: f,
+        props: c,
+        _owner: h
+    };
+};
+exports.createElement = function(a, b, d) {
+    var c, e = {}, f = null, h = null;
+    if (null != b) for(c in void 0 !== b.ref && (h = b.ref), void 0 !== b.key && (f = "" + b.key), b)N.call(b, c) && !P.hasOwnProperty(c) && (e[c] = b[c]);
+    var g = arguments.length - 2;
+    if (1 === g) e.children = d;
+    else if (1 < g) {
+        for(var k = Array(g), l = 0; l < g; l++)k[l] = arguments[l + 2];
+        e.children = k;
+    }
+    if (a && a.defaultProps) for(c in g = a.defaultProps, g)void 0 === e[c] && (e[c] = g[c]);
+    return {
+        $$typeof: t,
+        type: a,
+        key: f,
+        ref: h,
+        props: e,
+        _owner: O.current
+    };
+};
+exports.createRef = function() {
+    return {
+        current: null
+    };
+};
+exports.createServerContext = function(a, b) {
+    var d = !0;
+    if (!Z[a]) {
+        d = !1;
+        var c = {
+            $$typeof: z,
+            _currentValue: b,
+            _currentValue2: b,
+            _defaultValue: b,
+            _threadCount: 0,
+            Provider: null,
+            Consumer: null,
+            _globalName: a
+        };
+        c.Provider = {
+            $$typeof: y,
+            _context: c
+        };
+        Z[a] = c;
+    }
+    c = Z[a];
+    if (c._defaultValue === D) c._defaultValue = b, c._currentValue === D && (c._currentValue = b), c._currentValue2 === D && (c._currentValue2 = b);
+    else if (d) throw Error(F(429, a));
+    return c;
+};
+exports.forwardRef = function(a) {
+    return {
+        $$typeof: A,
+        render: a
+    };
+};
+exports.isValidElement = Q;
+exports.lazy = function(a) {
+    return {
+        $$typeof: aa,
+        _payload: {
+            _status: -1,
+            _result: a
+        },
+        _init: da
+    };
+};
+exports.memo = function(a, b) {
+    return {
+        $$typeof: C,
+        type: a,
+        compare: void 0 === b ? null : b
+    };
+};
+exports.startTransition = function(a) {
+    var b = X.transition;
+    X.transition = {};
+    try {
+        a();
+    } finally{
+        X.transition = b;
+    }
+};
+exports.use = function(a) {
+    return W.current.use(a);
+};
+exports.useCallback = function(a, b) {
+    return W.current.useCallback(a, b);
+};
+exports.useContext = function(a) {
+    return W.current.useContext(a);
+};
+exports.useDebugValue = function() {};
+exports.useId = function() {
+    return W.current.useId();
+};
+exports.useMemo = function(a, b) {
+    return W.current.useMemo(a, b);
+};
+exports.version = "18.3.0-canary-9377e1010-20230712";
+
+
+/***/ }),
+
+/***/ 2947:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+
+if (true) {
+    module.exports = __webpack_require__(9446);
+} else {}
+
+
+/***/ }),
+
+/***/ 2502:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -10437,40 +6664,133 @@ function _export(target, all) {
     });
 }
 _export(exports, {
-    isBot: function() {
-        return isBot;
+    AppRouter: function() {
+        return AppRouter;
     },
-    userAgentFromString: function() {
-        return userAgentFromString;
+    LayoutRouter: function() {
+        return LayoutRouter;
     },
-    userAgent: function() {
-        return userAgent;
+    RenderFromTemplateContext: function() {
+        return RenderFromTemplateContext;
+    },
+    staticGenerationAsyncStorage: function() {
+        return staticGenerationAsyncStorage;
+    },
+    requestAsyncStorage: function() {
+        return requestAsyncStorage;
+    },
+    actionAsyncStorage: function() {
+        return actionAsyncStorage;
+    },
+    staticGenerationBailout: function() {
+        return staticGenerationBailout;
+    },
+    createSearchParamsBailoutProxy: function() {
+        return createSearchParamsBailoutProxy;
+    },
+    serverHooks: function() {
+        return serverHooks;
+    },
+    renderToReadableStream: function() {
+        return renderToReadableStream;
+    },
+    decodeReply: function() {
+        return decodeReply;
+    },
+    decodeAction: function() {
+        return decodeAction;
+    },
+    preloadStyle: function() {
+        return preloadStyle;
+    },
+    preloadFont: function() {
+        return preloadFont;
+    },
+    preconnect: function() {
+        return preconnect;
+    },
+    StaticGenerationSearchParamsBailoutProvider: function() {
+        return StaticGenerationSearchParamsBailoutProvider;
     }
 });
-const _uaparserjs = /*#__PURE__*/ _interop_require_default(__webpack_require__(2250));
+const { default: AppRouter } = __webpack_require__(8225);
+const { default: LayoutRouter } = __webpack_require__(7149);
+const { default: RenderFromTemplateContext } = __webpack_require__(9278);
+const { staticGenerationAsyncStorage } = __webpack_require__(3539);
+const { requestAsyncStorage } = __webpack_require__(1715);
+const { actionAsyncStorage } = __webpack_require__(4876);
+const { staticGenerationBailout } = __webpack_require__(6164);
+const { default: StaticGenerationSearchParamsBailoutProvider } = __webpack_require__(6345);
+const { createSearchParamsBailoutProxy } = __webpack_require__(9444);
+const serverHooks = __webpack_require__(1651);
+const { renderToReadableStream, decodeReply, decodeAction } = __webpack_require__(9642);
+const { preloadStyle, preloadFont, preconnect } = __webpack_require__(6167); //# sourceMappingURL=entry-base.js.map
+
+
+/***/ }),
+
+/***/ 6167:
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+/*
+
+Files in the rsc directory are meant to be packaged as part of the RSC graph using next-app-loader.
+
+*/ 
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+0 && (0);
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    preloadStyle: function() {
+        return preloadStyle;
+    },
+    preloadFont: function() {
+        return preloadFont;
+    },
+    preconnect: function() {
+        return preconnect;
+    }
+});
+const _reactdom = /*#__PURE__*/ _interop_require_default(__webpack_require__(2060));
 function _interop_require_default(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
     };
 }
-function isBot(input) {
-    return /Googlebot|Mediapartners-Google|AdsBot-Google|googleweblight|Storebot-Google|Google-PageRenderer|Google-InspectionTool|Bingbot|BingPreview|Slurp|DuckDuckBot|baiduspider|yandex|sogou|LinkedInBot|bitlybot|tumblr|vkShare|quora link preview|facebookexternalhit|facebookcatalog|Twitterbot|applebot|redditbot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|ia_archiver/i.test(input);
+const stylePreloadOptions = {
+    as: "style"
+};
+function preloadStyle(href) {
+    _reactdom.default.preload(href, stylePreloadOptions);
 }
-function userAgentFromString(input) {
-    return {
-        ...(0, _uaparserjs.default)(input),
-        isBot: input === undefined ? false : isBot(input)
-    };
+function preloadFont(href, type) {
+    _reactdom.default.preload(href, {
+        as: "font",
+        type
+    });
 }
-function userAgent({ headers }) {
-    return userAgentFromString(headers.get("user-agent") || undefined);
-} //# sourceMappingURL=user-agent.js.map
+function preconnect(href, crossOrigin) {
+    if (typeof crossOrigin === "string") {
+        _reactdom.default.preconnect(href, {
+            crossOrigin
+        });
+    } else {
+        _reactdom.default.preconnect(href);
+    }
+} //# sourceMappingURL=preloads.js.map
 
 
 /***/ }),
 
-/***/ 9537:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 7262:
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({
@@ -10484,842 +6804,242 @@ function _export(target, all) {
     });
 }
 _export(exports, {
-    fromNodeOutgoingHttpHeaders: function() {
-        return fromNodeOutgoingHttpHeaders;
+    AppPageRouteModule: function() {
+        return AppPageRouteModule;
     },
-    splitCookiesString: function() {
-        return splitCookiesString;
-    },
-    toNodeOutgoingHttpHeaders: function() {
-        return toNodeOutgoingHttpHeaders;
-    },
-    validateURL: function() {
-        return validateURL;
+    default: function() {
+        return _default;
     }
 });
-function fromNodeOutgoingHttpHeaders(nodeHeaders) {
-    const headers = new Headers();
-    for (let [key, value] of Object.entries(nodeHeaders)){
-        const values = Array.isArray(value) ? value : [
-            value
-        ];
-        for (let v of values){
-            if (typeof v === "undefined") continue;
-            if (typeof v === "number") {
-                v = v.toString();
-            }
-            headers.append(key, v);
-        }
+const _apprender = __webpack_require__(5868);
+const _routemodule = __webpack_require__(5281);
+class AppPageRouteModule extends _routemodule.RouteModule {
+    handle() {
+        throw new Error("Method not implemented.");
     }
-    return headers;
+    render(req, res, context) {
+        return (0, _apprender.renderToHTMLOrFlight)(req, res, context.page, context.query, context.renderOpts);
+    }
 }
-function splitCookiesString(cookiesString) {
-    var cookiesStrings = [];
-    var pos = 0;
-    var start;
-    var ch;
-    var lastComma;
-    var nextStart;
-    var cookiesSeparatorFound;
-    function skipWhitespace() {
-        while(pos < cookiesString.length && /\s/.test(cookiesString.charAt(pos))){
-            pos += 1;
-        }
-        return pos < cookiesString.length;
-    }
-    function notSpecialChar() {
-        ch = cookiesString.charAt(pos);
-        return ch !== "=" && ch !== ";" && ch !== ",";
-    }
-    while(pos < cookiesString.length){
-        start = pos;
-        cookiesSeparatorFound = false;
-        while(skipWhitespace()){
-            ch = cookiesString.charAt(pos);
-            if (ch === ",") {
-                // ',' is a cookie separator if we have later first '=', not ';' or ','
-                lastComma = pos;
-                pos += 1;
-                skipWhitespace();
-                nextStart = pos;
-                while(pos < cookiesString.length && notSpecialChar()){
-                    pos += 1;
-                }
-                // currently special character
-                if (pos < cookiesString.length && cookiesString.charAt(pos) === "=") {
-                    // we found cookies separator
-                    cookiesSeparatorFound = true;
-                    // pos is inside the next cookie, so back up and return it.
-                    pos = nextStart;
-                    cookiesStrings.push(cookiesString.substring(start, lastComma));
-                    start = pos;
-                } else {
-                    // in param ',' or param separator ';',
-                    // we continue from that comma
-                    pos = lastComma + 1;
-                }
-            } else {
-                pos += 1;
-            }
-        }
-        if (!cookiesSeparatorFound || pos >= cookiesString.length) {
-            cookiesStrings.push(cookiesString.substring(start, cookiesString.length));
-        }
-    }
-    return cookiesStrings;
-}
-function toNodeOutgoingHttpHeaders(headers) {
-    const nodeHeaders = {};
-    const cookies = [];
-    if (headers) {
-        for (const [key, value] of headers.entries()){
-            if (key.toLowerCase() === "set-cookie") {
-                // We may have gotten a comma joined string of cookies, or multiple
-                // set-cookie headers. We need to merge them into one header array
-                // to represent all the cookies.
-                cookies.push(...splitCookiesString(value));
-                nodeHeaders[key] = cookies.length === 1 ? cookies[0] : cookies;
-            } else {
-                nodeHeaders[key] = value;
-            }
-        }
-    }
-    return nodeHeaders;
-}
-function validateURL(url) {
-    try {
-        return String(new URL(String(url)));
-    } catch (error) {
-        throw new Error(`URL is malformed "${String(url)}". Please use only absolute URLs - https://nextjs.org/docs/messages/middleware-relative-urls`, {
-            cause: error
-        });
-    }
-} //# sourceMappingURL=utils.js.map
+const _default = AppPageRouteModule; //# sourceMappingURL=module.js.map
 
 
 /***/ }),
 
-/***/ 8363:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "getHostname", ({
-    enumerable: true,
-    get: function() {
-        return getHostname;
-    }
-}));
-function getHostname(parsed, headers) {
-    // Get the hostname from the headers if it exists, otherwise use the parsed
-    // hostname.
-    let hostname;
-    if ((headers == null ? void 0 : headers.host) && !Array.isArray(headers.host)) {
-        hostname = headers.host.toString().split(":")[0];
-    } else if (parsed.hostname) {
-        hostname = parsed.hostname;
-    } else return;
-    return hostname.toLowerCase();
-} //# sourceMappingURL=get-hostname.js.map
-
-
-/***/ }),
-
-/***/ 2661:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "getHostname", ({
-    enumerable: true,
-    get: function() {
-        return getHostname;
-    }
-}));
-function getHostname(parsed, headers) {
-    // Get the hostname from the headers if it exists, otherwise use the parsed
-    // hostname.
-    let hostname;
-    if ((headers == null ? void 0 : headers.host) && !Array.isArray(headers.host)) {
-        hostname = headers.host.toString().split(":")[0];
-    } else if (parsed.hostname) {
-        hostname = parsed.hostname;
-    } else return;
-    return hostname.toLowerCase();
-} //# sourceMappingURL=get-hostname.js.map
-
-
-/***/ }),
-
-/***/ 6688:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "detectDomainLocale", ({
-    enumerable: true,
-    get: function() {
-        return detectDomainLocale;
-    }
-}));
-function detectDomainLocale(domainItems, hostname, detectedLocale) {
-    if (!domainItems) return;
-    if (detectedLocale) {
-        detectedLocale = detectedLocale.toLowerCase();
-    }
-    for (const item of domainItems){
-        var _item_domain, _item_locales;
-        // remove port if present
-        const domainHostname = (_item_domain = item.domain) == null ? void 0 : _item_domain.split(":")[0].toLowerCase();
-        if (hostname === domainHostname || detectedLocale === item.defaultLocale.toLowerCase() || ((_item_locales = item.locales) == null ? void 0 : _item_locales.some((locale)=>locale.toLowerCase() === detectedLocale))) {
-            return item;
-        }
-    }
-} //# sourceMappingURL=detect-domain-locale.js.map
-
-
-/***/ }),
-
-/***/ 1103:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "normalizeLocalePath", ({
-    enumerable: true,
-    get: function() {
-        return normalizeLocalePath;
-    }
-}));
-function normalizeLocalePath(pathname, locales) {
-    let detectedLocale;
-    // first item will be empty string from splitting at first char
-    const pathnameParts = pathname.split("/");
-    (locales || []).some((locale)=>{
-        if (pathnameParts[1] && pathnameParts[1].toLowerCase() === locale.toLowerCase()) {
-            detectedLocale = locale;
-            pathnameParts.splice(1, 1);
-            pathname = pathnameParts.join("/") || "/";
-            return true;
-        }
-        return false;
-    });
-    return {
-        pathname,
-        detectedLocale
-    };
-} //# sourceMappingURL=normalize-locale-path.js.map
-
-
-/***/ }),
-
-/***/ 8625:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "addLocale", ({
-    enumerable: true,
-    get: function() {
-        return addLocale;
-    }
-}));
-const _addpathprefix = __webpack_require__(2595);
-const _pathhasprefix = __webpack_require__(7454);
-function addLocale(path, locale, defaultLocale, ignorePrefix) {
-    // If no locale was given or the locale is the default locale, we don't need
-    // to prefix the path.
-    if (!locale || locale === defaultLocale) return path;
-    const lower = path.toLowerCase();
-    // If the path is an API path or the path already has the locale prefix, we
-    // don't need to prefix the path.
-    if (!ignorePrefix) {
-        if ((0, _pathhasprefix.pathHasPrefix)(lower, "/api")) return path;
-        if ((0, _pathhasprefix.pathHasPrefix)(lower, "/" + locale.toLowerCase())) return path;
-    }
-    // Add the locale prefix to the path.
-    return (0, _addpathprefix.addPathPrefix)(path, "/" + locale);
-} //# sourceMappingURL=add-locale.js.map
-
-
-/***/ }),
-
-/***/ 4022:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "addLocale", ({
-    enumerable: true,
-    get: function() {
-        return addLocale;
-    }
-}));
-const _addpathprefix = __webpack_require__(9970);
-const _pathhasprefix = __webpack_require__(3676);
-function addLocale(path, locale, defaultLocale, ignorePrefix) {
-    // If no locale was given or the locale is the default locale, we don't need
-    // to prefix the path.
-    if (!locale || locale === defaultLocale) return path;
-    const lower = path.toLowerCase();
-    // If the path is an API path or the path already has the locale prefix, we
-    // don't need to prefix the path.
-    if (!ignorePrefix) {
-        if ((0, _pathhasprefix.pathHasPrefix)(lower, "/api")) return path;
-        if ((0, _pathhasprefix.pathHasPrefix)(lower, "/" + locale.toLowerCase())) return path;
-    }
-    // Add the locale prefix to the path.
-    return (0, _addpathprefix.addPathPrefix)(path, "/" + locale);
-} //# sourceMappingURL=add-locale.js.map
-
-
-/***/ }),
-
-/***/ 2595:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "addPathPrefix", ({
-    enumerable: true,
-    get: function() {
-        return addPathPrefix;
-    }
-}));
-const _parsepath = __webpack_require__(9956);
-function addPathPrefix(path, prefix) {
-    if (!path.startsWith("/") || !prefix) {
-        return path;
-    }
-    const { pathname, query, hash } = (0, _parsepath.parsePath)(path);
-    return "" + prefix + pathname + query + hash;
-} //# sourceMappingURL=add-path-prefix.js.map
-
-
-/***/ }),
-
-/***/ 9970:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "addPathPrefix", ({
-    enumerable: true,
-    get: function() {
-        return addPathPrefix;
-    }
-}));
-const _parsepath = __webpack_require__(4640);
-function addPathPrefix(path, prefix) {
-    if (!path.startsWith("/") || !prefix) {
-        return path;
-    }
-    const { pathname, query, hash } = (0, _parsepath.parsePath)(path);
-    return "" + prefix + pathname + query + hash;
-} //# sourceMappingURL=add-path-prefix.js.map
-
-
-/***/ }),
-
-/***/ 6660:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "addPathSuffix", ({
-    enumerable: true,
-    get: function() {
-        return addPathSuffix;
-    }
-}));
-const _parsepath = __webpack_require__(9956);
-function addPathSuffix(path, suffix) {
-    if (!path.startsWith("/") || !suffix) {
-        return path;
-    }
-    const { pathname, query, hash } = (0, _parsepath.parsePath)(path);
-    return "" + pathname + suffix + query + hash;
-} //# sourceMappingURL=add-path-suffix.js.map
-
-
-/***/ }),
-
-/***/ 6995:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "addPathSuffix", ({
-    enumerable: true,
-    get: function() {
-        return addPathSuffix;
-    }
-}));
-const _parsepath = __webpack_require__(4640);
-function addPathSuffix(path, suffix) {
-    if (!path.startsWith("/") || !suffix) {
-        return path;
-    }
-    const { pathname, query, hash } = (0, _parsepath.parsePath)(path);
-    return "" + pathname + suffix + query + hash;
-} //# sourceMappingURL=add-path-suffix.js.map
-
-
-/***/ }),
-
-/***/ 4826:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "formatNextPathnameInfo", ({
-    enumerable: true,
-    get: function() {
-        return formatNextPathnameInfo;
-    }
-}));
-const _removetrailingslash = __webpack_require__(5105);
-const _addpathprefix = __webpack_require__(2595);
-const _addpathsuffix = __webpack_require__(6660);
-const _addlocale = __webpack_require__(8625);
-function formatNextPathnameInfo(info) {
-    let pathname = (0, _addlocale.addLocale)(info.pathname, info.locale, info.buildId ? undefined : info.defaultLocale, info.ignorePrefix);
-    if (info.buildId || !info.trailingSlash) {
-        pathname = (0, _removetrailingslash.removeTrailingSlash)(pathname);
-    }
-    if (info.buildId) {
-        pathname = (0, _addpathsuffix.addPathSuffix)((0, _addpathprefix.addPathPrefix)(pathname, "/_next/data/" + info.buildId), info.pathname === "/" ? "index.json" : ".json");
-    }
-    pathname = (0, _addpathprefix.addPathPrefix)(pathname, info.basePath);
-    return !info.buildId && info.trailingSlash ? !pathname.endsWith("/") ? (0, _addpathsuffix.addPathSuffix)(pathname, "/") : pathname : (0, _removetrailingslash.removeTrailingSlash)(pathname);
-} //# sourceMappingURL=format-next-pathname-info.js.map
-
-
-/***/ }),
-
-/***/ 4714:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "formatNextPathnameInfo", ({
-    enumerable: true,
-    get: function() {
-        return formatNextPathnameInfo;
-    }
-}));
-const _removetrailingslash = __webpack_require__(468);
-const _addpathprefix = __webpack_require__(9970);
-const _addpathsuffix = __webpack_require__(6995);
-const _addlocale = __webpack_require__(4022);
-function formatNextPathnameInfo(info) {
-    let pathname = (0, _addlocale.addLocale)(info.pathname, info.locale, info.buildId ? undefined : info.defaultLocale, info.ignorePrefix);
-    if (info.buildId || !info.trailingSlash) {
-        pathname = (0, _removetrailingslash.removeTrailingSlash)(pathname);
-    }
-    if (info.buildId) {
-        pathname = (0, _addpathsuffix.addPathSuffix)((0, _addpathprefix.addPathPrefix)(pathname, "/_next/data/" + info.buildId), info.pathname === "/" ? "index.json" : ".json");
-    }
-    pathname = (0, _addpathprefix.addPathPrefix)(pathname, info.basePath);
-    return !info.buildId && info.trailingSlash ? !pathname.endsWith("/") ? (0, _addpathsuffix.addPathSuffix)(pathname, "/") : pathname : (0, _removetrailingslash.removeTrailingSlash)(pathname);
-} //# sourceMappingURL=format-next-pathname-info.js.map
-
-
-/***/ }),
-
-/***/ 1614:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "getNextPathnameInfo", ({
-    enumerable: true,
-    get: function() {
-        return getNextPathnameInfo;
-    }
-}));
-const _normalizelocalepath = __webpack_require__(1103);
-const _removepathprefix = __webpack_require__(1147);
-const _pathhasprefix = __webpack_require__(7454);
-function getNextPathnameInfo(pathname, options) {
-    var _options_nextConfig;
-    const { basePath, i18n, trailingSlash } = (_options_nextConfig = options.nextConfig) != null ? _options_nextConfig : {};
-    const info = {
-        pathname: pathname,
-        trailingSlash: pathname !== "/" ? pathname.endsWith("/") : trailingSlash
-    };
-    if (basePath && (0, _pathhasprefix.pathHasPrefix)(info.pathname, basePath)) {
-        info.pathname = (0, _removepathprefix.removePathPrefix)(info.pathname, basePath);
-        info.basePath = basePath;
-    }
-    if (options.parseData === true && info.pathname.startsWith("/_next/data/") && info.pathname.endsWith(".json")) {
-        const paths = info.pathname.replace(/^\/_next\/data\//, "").replace(/\.json$/, "").split("/");
-        const buildId = paths[0];
-        info.pathname = paths[1] !== "index" ? "/" + paths.slice(1).join("/") : "/";
-        info.buildId = buildId;
-    }
-    // If provided, use the locale route normalizer to detect the locale instead
-    // of the function below.
-    if (options.i18nProvider) {
-        const result = options.i18nProvider.analyze(info.pathname);
-        info.locale = result.detectedLocale;
-        var _result_pathname;
-        info.pathname = (_result_pathname = result.pathname) != null ? _result_pathname : info.pathname;
-    } else if (i18n) {
-        const pathLocale = (0, _normalizelocalepath.normalizeLocalePath)(info.pathname, i18n.locales);
-        info.locale = pathLocale.detectedLocale;
-        var _pathLocale_pathname;
-        info.pathname = (_pathLocale_pathname = pathLocale.pathname) != null ? _pathLocale_pathname : info.pathname;
-    }
-    return info;
-} //# sourceMappingURL=get-next-pathname-info.js.map
-
-
-/***/ }),
-
-/***/ 2669:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "getNextPathnameInfo", ({
-    enumerable: true,
-    get: function() {
-        return getNextPathnameInfo;
-    }
-}));
-const _normalizelocalepath = __webpack_require__(7415);
-const _removepathprefix = __webpack_require__(7656);
-const _pathhasprefix = __webpack_require__(3676);
-function getNextPathnameInfo(pathname, options) {
-    var _options_nextConfig;
-    const { basePath, i18n, trailingSlash } = (_options_nextConfig = options.nextConfig) != null ? _options_nextConfig : {};
-    const info = {
-        pathname: pathname,
-        trailingSlash: pathname !== "/" ? pathname.endsWith("/") : trailingSlash
-    };
-    if (basePath && (0, _pathhasprefix.pathHasPrefix)(info.pathname, basePath)) {
-        info.pathname = (0, _removepathprefix.removePathPrefix)(info.pathname, basePath);
-        info.basePath = basePath;
-    }
-    if (options.parseData === true && info.pathname.startsWith("/_next/data/") && info.pathname.endsWith(".json")) {
-        const paths = info.pathname.replace(/^\/_next\/data\//, "").replace(/\.json$/, "").split("/");
-        const buildId = paths[0];
-        info.pathname = paths[1] !== "index" ? "/" + paths.slice(1).join("/") : "/";
-        info.buildId = buildId;
-    }
-    // If provided, use the locale route normalizer to detect the locale instead
-    // of the function below.
-    if (options.i18nProvider) {
-        const result = options.i18nProvider.analyze(info.pathname);
-        info.locale = result.detectedLocale;
-        var _result_pathname;
-        info.pathname = (_result_pathname = result.pathname) != null ? _result_pathname : info.pathname;
-    } else if (i18n) {
-        const pathLocale = (0, _normalizelocalepath.normalizeLocalePath)(info.pathname, i18n.locales);
-        info.locale = pathLocale.detectedLocale;
-        var _pathLocale_pathname;
-        info.pathname = (_pathLocale_pathname = pathLocale.pathname) != null ? _pathLocale_pathname : info.pathname;
-    }
-    return info;
-} //# sourceMappingURL=get-next-pathname-info.js.map
-
-
-/***/ }),
-
-/***/ 9956:
-/***/ ((__unused_webpack_module, exports) => {
-
-/**
- * Given a path this function will find the pathname, query and hash and return
- * them. This is useful to parse full paths on the client side.
- * @param path A path to parse e.g. /foo/bar?id=1#hash
- */ 
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "parsePath", ({
-    enumerable: true,
-    get: function() {
-        return parsePath;
-    }
-}));
-function parsePath(path) {
-    const hashIndex = path.indexOf("#");
-    const queryIndex = path.indexOf("?");
-    const hasQuery = queryIndex > -1 && (hashIndex < 0 || queryIndex < hashIndex);
-    if (hasQuery || hashIndex > -1) {
-        return {
-            pathname: path.substring(0, hasQuery ? queryIndex : hashIndex),
-            query: hasQuery ? path.substring(queryIndex, hashIndex > -1 ? hashIndex : undefined) : "",
-            hash: hashIndex > -1 ? path.slice(hashIndex) : ""
-        };
-    }
-    return {
-        pathname: path,
-        query: "",
-        hash: ""
-    };
-} //# sourceMappingURL=parse-path.js.map
-
-
-/***/ }),
-
-/***/ 4640:
-/***/ ((__unused_webpack_module, exports) => {
-
-/**
- * Given a path this function will find the pathname, query and hash and return
- * them. This is useful to parse full paths on the client side.
- * @param path A path to parse e.g. /foo/bar?id=1#hash
- */ 
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "parsePath", ({
-    enumerable: true,
-    get: function() {
-        return parsePath;
-    }
-}));
-function parsePath(path) {
-    const hashIndex = path.indexOf("#");
-    const queryIndex = path.indexOf("?");
-    const hasQuery = queryIndex > -1 && (hashIndex < 0 || queryIndex < hashIndex);
-    if (hasQuery || hashIndex > -1) {
-        return {
-            pathname: path.substring(0, hasQuery ? queryIndex : hashIndex),
-            query: hasQuery ? path.substring(queryIndex, hashIndex > -1 ? hashIndex : undefined) : "",
-            hash: hashIndex > -1 ? path.slice(hashIndex) : ""
-        };
-    }
-    return {
-        pathname: path,
-        query: "",
-        hash: ""
-    };
-} //# sourceMappingURL=parse-path.js.map
-
-
-/***/ }),
-
-/***/ 7454:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "pathHasPrefix", ({
-    enumerable: true,
-    get: function() {
-        return pathHasPrefix;
-    }
-}));
-const _parsepath = __webpack_require__(9956);
-function pathHasPrefix(path, prefix) {
-    if (typeof path !== "string") {
-        return false;
-    }
-    const { pathname } = (0, _parsepath.parsePath)(path);
-    return pathname === prefix || pathname.startsWith(prefix + "/");
-} //# sourceMappingURL=path-has-prefix.js.map
-
-
-/***/ }),
-
-/***/ 3676:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "pathHasPrefix", ({
-    enumerable: true,
-    get: function() {
-        return pathHasPrefix;
-    }
-}));
-const _parsepath = __webpack_require__(4640);
-function pathHasPrefix(path, prefix) {
-    if (typeof path !== "string") {
-        return false;
-    }
-    const { pathname } = (0, _parsepath.parsePath)(path);
-    return pathname === prefix || pathname.startsWith(prefix + "/");
-} //# sourceMappingURL=path-has-prefix.js.map
-
-
-/***/ }),
-
-/***/ 1147:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "removePathPrefix", ({
-    enumerable: true,
-    get: function() {
-        return removePathPrefix;
-    }
-}));
-const _pathhasprefix = __webpack_require__(7454);
-function removePathPrefix(path, prefix) {
-    // If the path doesn't start with the prefix we can return it as is. This
-    // protects us from situations where the prefix is a substring of the path
-    // prefix such as:
-    //
-    // For prefix: /blog
-    //
-    //   /blog -> true
-    //   /blog/ -> true
-    //   /blog/1 -> true
-    //   /blogging -> false
-    //   /blogging/ -> false
-    //   /blogging/1 -> false
-    if (!(0, _pathhasprefix.pathHasPrefix)(path, prefix)) {
-        return path;
-    }
-    // Remove the prefix from the path via slicing.
-    const withoutPrefix = path.slice(prefix.length);
-    // If the path without the prefix starts with a `/` we can return it as is.
-    if (withoutPrefix.startsWith("/")) {
-        return withoutPrefix;
-    }
-    // If the path without the prefix doesn't start with a `/` we need to add it
-    // back to the path to make sure it's a valid path.
-    return "/" + withoutPrefix;
-} //# sourceMappingURL=remove-path-prefix.js.map
-
-
-/***/ }),
-
-/***/ 7656:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "removePathPrefix", ({
-    enumerable: true,
-    get: function() {
-        return removePathPrefix;
-    }
-}));
-const _pathhasprefix = __webpack_require__(3676);
-function removePathPrefix(path, prefix) {
-    // If the path doesn't start with the prefix we can return it as is. This
-    // protects us from situations where the prefix is a substring of the path
-    // prefix such as:
-    //
-    // For prefix: /blog
-    //
-    //   /blog -> true
-    //   /blog/ -> true
-    //   /blog/1 -> true
-    //   /blogging -> false
-    //   /blogging/ -> false
-    //   /blogging/1 -> false
-    if (!(0, _pathhasprefix.pathHasPrefix)(path, prefix)) {
-        return path;
-    }
-    // Remove the prefix from the path via slicing.
-    const withoutPrefix = path.slice(prefix.length);
-    // If the path without the prefix starts with a `/` we can return it as is.
-    if (withoutPrefix.startsWith("/")) {
-        return withoutPrefix;
-    }
-    // If the path without the prefix doesn't start with a `/` we need to add it
-    // back to the path to make sure it's a valid path.
-    return "/" + withoutPrefix;
-} //# sourceMappingURL=remove-path-prefix.js.map
-
-
-/***/ }),
-
-/***/ 5105:
-/***/ ((__unused_webpack_module, exports) => {
-
-/**
- * Removes the trailing slash for a given route or page path. Preserves the
- * root page. Examples:
- *   - `/foo/bar/` -> `/foo/bar`
- *   - `/foo/bar` -> `/foo/bar`
- *   - `/` -> `/`
- */ 
-Object.defineProperty(exports, "__esModule", ({
-    value: true
-}));
-Object.defineProperty(exports, "removeTrailingSlash", ({
-    enumerable: true,
-    get: function() {
-        return removeTrailingSlash;
-    }
-}));
-function removeTrailingSlash(route) {
-    return route.replace(/\/$/, "") || "/";
-} //# sourceMappingURL=remove-trailing-slash.js.map
-
-
-/***/ }),
-
-/***/ 514:
+/***/ 4876:
 /***/ ((module, exports, __webpack_require__) => {
 
 
-const serverExports = {
-    NextRequest: (__webpack_require__(7336).NextRequest),
-    NextResponse: (__webpack_require__(4415)/* .NextResponse */ .x),
-    ImageResponse: (__webpack_require__(9374)/* .ImageResponse */ .E),
-    userAgentFromString: (__webpack_require__(3889).userAgentFromString),
-    userAgent: (__webpack_require__(3889).userAgent)
-};
-if (typeof URLPattern !== "undefined") {
-    // eslint-disable-next-line no-undef
-    serverExports.URLPattern = URLPattern;
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "actionAsyncStorage", ({
+    enumerable: true,
+    get: function() {
+        return actionAsyncStorage;
+    }
+}));
+const _asynclocalstorage = __webpack_require__(9775);
+const actionAsyncStorage = (0, _asynclocalstorage.createAsyncLocalStorage)();
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=action-async-storage.js.map
+
+
+/***/ }),
+
+/***/ 9775:
+/***/ ((module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "createAsyncLocalStorage", ({
+    enumerable: true,
+    get: function() {
+        return createAsyncLocalStorage;
+    }
+}));
+const sharedAsyncLocalStorageNotAvailableError = new Error("Invariant: AsyncLocalStorage accessed in runtime where it is not available");
+class FakeAsyncLocalStorage {
+    disable() {
+        throw sharedAsyncLocalStorageNotAvailableError;
+    }
+    getStore() {
+        // This fake implementation of AsyncLocalStorage always returns `undefined`.
+        return undefined;
+    }
+    run() {
+        throw sharedAsyncLocalStorageNotAvailableError;
+    }
+    exit() {
+        throw sharedAsyncLocalStorageNotAvailableError;
+    }
+    enterWith() {
+        throw sharedAsyncLocalStorageNotAvailableError;
+    }
 }
-// https://nodejs.org/api/esm.html#commonjs-namespaces
-// When importing CommonJS modules, the module.exports object is provided as the default export
-module.exports = serverExports;
-// make import { xxx } from 'next/server' work
-exports.NextRequest = serverExports.NextRequest;
-exports.NextResponse = serverExports.NextResponse;
-exports.ImageResponse = serverExports.ImageResponse;
-exports.userAgentFromString = serverExports.userAgentFromString;
-exports.userAgent = serverExports.userAgent;
-exports.URLPattern = serverExports.URLPattern;
+const maybeGlobalAsyncLocalStorage = globalThis.AsyncLocalStorage;
+function createAsyncLocalStorage() {
+    if (maybeGlobalAsyncLocalStorage) {
+        return new maybeGlobalAsyncLocalStorage();
+    }
+    return new FakeAsyncLocalStorage();
+}
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=async-local-storage.js.map
+
+
+/***/ }),
+
+/***/ 1715:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "requestAsyncStorage", ({
+    enumerable: true,
+    get: function() {
+        return requestAsyncStorage;
+    }
+}));
+const _asynclocalstorage = __webpack_require__(9775);
+const requestAsyncStorage = (0, _asynclocalstorage.createAsyncLocalStorage)();
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=request-async-storage.js.map
+
+
+/***/ }),
+
+/***/ 3539:
+/***/ ((module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+Object.defineProperty(exports, "staticGenerationAsyncStorage", ({
+    enumerable: true,
+    get: function() {
+        return staticGenerationAsyncStorage;
+    }
+}));
+const _asynclocalstorage = __webpack_require__(9775);
+const staticGenerationAsyncStorage = (0, _asynclocalstorage.createAsyncLocalStorage)();
+if ((typeof exports.default === "function" || typeof exports.default === "object" && exports.default !== null) && typeof exports.default.__esModule === "undefined") {
+    Object.defineProperty(exports.default, "__esModule", {
+        value: true
+    });
+    Object.assign(exports.default, exports);
+    module.exports = exports.default;
+} //# sourceMappingURL=static-generation-async-storage.js.map
+
+
+/***/ }),
+
+/***/ 8324:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+
+exports._ = exports._class_private_field_loose_base = _class_private_field_loose_base;
+function _class_private_field_loose_base(receiver, privateKey) {
+    if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
+        throw new TypeError("attempted to use private field on non-instance");
+    }
+
+    return receiver;
+}
+
+
+/***/ }),
+
+/***/ 4567:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+
+var id = 0;
+
+exports._ = exports._class_private_field_loose_key = _class_private_field_loose_key;
+function _class_private_field_loose_key(name) {
+    return "__private_" + id++ + "_" + name;
+}
+
+
+/***/ }),
+
+/***/ 2147:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+
+exports._ = exports._interop_require_default = _interop_require_default;
+function _interop_require_default(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+}
+
+
+/***/ }),
+
+/***/ 4009:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+
+function _getRequireWildcardCache(nodeInterop) {
+    if (typeof WeakMap !== "function") return null;
+
+    var cacheBabelInterop = new WeakMap();
+    var cacheNodeInterop = new WeakMap();
+
+    return (_getRequireWildcardCache = function(nodeInterop) {
+        return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+    })(nodeInterop);
+}
+exports._ = exports._interop_require_wildcard = _interop_require_wildcard;
+function _interop_require_wildcard(obj, nodeInterop) {
+    if (!nodeInterop && obj && obj.__esModule) return obj;
+    if (obj === null || typeof obj !== "object" && typeof obj !== "function") return { default: obj };
+
+    var cache = _getRequireWildcardCache(nodeInterop);
+
+    if (cache && cache.has(obj)) return cache.get(obj);
+
+    var newObj = {};
+    var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+
+    for (var key in obj) {
+        if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+            var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+            if (desc && (desc.get || desc.set)) Object.defineProperty(newObj, key, desc);
+            else newObj[key] = obj[key];
+        }
+    }
+
+    newObj.default = obj;
+
+    if (cache) cache.set(obj, newObj);
+
+    return newObj;
+}
 
 
 /***/ })
