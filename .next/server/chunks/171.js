@@ -79,7 +79,7 @@ function RootLayout({ children }) {
                                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                                             className: "header-cta",
                                             children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("a", {
-                                                href: "#pricing",
+                                                href: "/#pricing",
                                                 className: "header-button",
                                                 children: "Mua t\xe0i khoản"
                                             })

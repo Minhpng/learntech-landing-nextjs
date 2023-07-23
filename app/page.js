@@ -249,7 +249,7 @@ export default function Home() {
       </section>
 
       {/* <!-- =========== SECTION KHAI MO ==================== --> */}
-      <section className="section section-khaimo">
+      {/* <section className="section section-khaimo">
         <div className="container">
           <div className="video-wrapper">
             <span className="play-icon">
@@ -271,7 +271,7 @@ export default function Home() {
             <a href="" className="khoa-hoc-detail-button">Xem chi tiết</a>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* <!-- =========== SECTION PRICING ==================== --> */}
       <section id="pricing" className="section section-pricing">
         <div className="container">

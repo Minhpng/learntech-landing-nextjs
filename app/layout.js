@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
                   <img src="/logo.png" alt="Learntech logo" />
                 </div>
                 <div className="header-cta">
-                  <a href="#pricing" className="header-button">Mua tài khoản</a>
+                  <a href="/#pricing" className="header-button">Mua tài khoản</a>
                 </div>
               </div>
             </div>
