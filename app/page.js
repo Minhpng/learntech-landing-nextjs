@@ -423,7 +423,7 @@ export default function Home() {
                   Tiếng Anh của tôi khá, liệu LANG KINGDOM có phù hợp với tôi?
                 </h4>
                 <p className="faq-desc">
-                  Để biết câu trả lời chính xác, hãy tài LANG KINGDOM ngay tại và làm bài test để được LANG KINGDOM đánh giá ngay.
+                  Để biết câu trả lời chính xác, hãy tài LANG KINGDOM ngay và làm bài test để được LANG KINGDOM đánh giá ngay.
                 </p>
               </div>
             </div>
