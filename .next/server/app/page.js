@@ -251,11 +251,7 @@ function Home() {
                                 }),
                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                                     className: "hero-content_body-text",
-                                    children: "Ứng dụng học tiếng Anh online duy nhất nhất gi\xfap bạn hiểu r\xf5 ngọn ng\xe0nh từng từ vựng, cấu tr\xfac c\xe2u, ngữ ph\xe1p v\xe0 văn h\xf3a bản xứ trong từng c\xe2u n\xf3i."
-                                }),
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
-                                    className: "hero-content_body-text",
-                                    children: "Ph\xe1t triển kỹ năng nghe-n\xf3i tiếng Anh bằng c\xe1ch luyện n\xf3i ph\xe2n vai, tăng tốc độ phản xạ nghe hiểu v\xe0 đối đ\xe1p lại trong v\xf2ng dưới 7 gi\xe2y!"
+                                    children: "Ứng dụng tự học tiếng Anh online duy nhất nhất gi\xfap bạn hiểu r\xf5 ngọn ng\xe0nh từng từ vựng, cấu tr\xfac c\xe2u, ngữ ph\xe1p v\xe0 văn h\xf3a bản xứ trong từng c\xe2u n\xf3i."
                                 }),
                                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                                     className: "download-app-cta",
@@ -334,17 +330,21 @@ function Home() {
                                         className: "primary-heading",
                                         children: "Tự học tiếng Anh chưa bao giờ dễ d\xe0ng đến thế"
                                     }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
                                         className: "body-text",
-                                        children: "Ứng dụng Lang Kingdom c\xf3 b\xe0i giảng v\xf4 c\xf9ng chi tiết cho từng c\xe2u/từ/cụm gi\xfap cho việc tự học của bạn v\xf4 c\xf9ng dễ d\xe0ng."
+                                        children: "Ứng dụng luyện n\xf3i tiếng Anh trực tuyến."
                                     }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
                                         className: "body-text",
-                                        children: "Luyện nghe-n\xf3i tiếng Anh qua c\xe1c b\xe0i hội thoại, b\xe0i học đơn giản, gần gũi trong cuộc sống thường ng\xe0y."
+                                        children: "Tự luyện n\xf3i tiếng Anh dễ d\xe0ng th\xf4ng qua c\xe1c mẫu c\xe2u, b\xe0i hội thoại đơn giản, gần gũi với cuộc sống thường ng\xe0y;"
                                     }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
                                         className: "body-text",
-                                        children: "Bạn c\xf3 thể học ở mọi l\xfac mọi nơi, dừng v\xe0 tiếp tục bất cứ khi n\xe0o bạn muốn. Ứng dụng sẽ ghi nhớ tiến tr\xecnh của bạn để bạn lu\xf4n bắt nhịp."
+                                        children: "Tra cứu từ điển từ, cụm, c\xe2u Anh - Việt gi\xfap hiểu r\xf5 ngữ nghĩa v\xe0 c\xe1ch d\xf9ng;"
+                                    }),
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
+                                        className: "body-text",
+                                        children: "Luyện n\xf3i bất cứ nơi đ\xe2u c\xf3 kết nối mạng, dừng v\xe0 tiếp tục luyện\xa0 bất kỳ l\xfac n\xe0o."
                                     })
                                 ]
                             }),
@@ -366,65 +366,43 @@ function Home() {
                     children: [
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
                             className: "primary-heading",
-                            children: "Phương ph\xe1p 6 bước học tiếng Anh với Lang Kingdom"
+                            children: "Phương ph\xe1p tự học tiếng Anh với Lang Kingdom"
                         }),
-                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                             className: "six-methods",
-                            children: [
-                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
-                                    className: "six-methods_block",
-                                    children: [
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
-                                            className: "six-methods_block-item",
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
-                                                className: "heading-4",
-                                                children: "Học chủ động, t\xecm hiểu cặn kẽ. Nghe giảng để hiểu cặn kẽ từng c\xe2u từng từ"
-                                            })
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
-                                            className: "six-methods_block-item",
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
-                                                className: "heading-4",
-                                                children: "L\xe0m b\xe0i tập để nhớ mặt chữ"
-                                            })
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
-                                            className: "six-methods_block-item",
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
-                                                className: "heading-4",
-                                                children: "Nghe cho quen tai - Quen v\xe0 ngấm to\xe0n bộ nội dung (16000 words, 24000 phrases, 14000 sentences) để t\xedch lũy đủ ba loại vốn"
-                                            })
+                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
+                                className: "six-methods_block",
+                                children: [
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
+                                        className: "six-methods_block-item",
+                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
+                                            className: "heading-4",
+                                            children: "Học chủ động, t\xecm hiểu cặn kẽ."
                                         })
-                                    ]
-                                }),
-                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
-                                    className: "six-methods_block counter-set-to",
-                                    counterto: "4",
-                                    children: [
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
-                                            className: "six-methods_block-item",
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
-                                                className: "heading-4",
-                                                children: "Đọc cho quen miệng - Thuộc l\xf2ng v\xe0 phản xạ v\xf4 điều kiện, kh\xf4ng cần suy nghĩ"
-                                            })
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
-                                            className: "six-methods_block-item",
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
-                                                className: "heading-4",
-                                                children: "Kiểm tra phản xạ 7 gi\xe2y để đảm bảo khả năng phản xạ nhanh"
-                                            })
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
-                                            className: "six-methods_block-item",
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
-                                                className: "heading-4",
-                                                children: "Luyện n\xf3i gi\xe1n tiếp để sẵn s\xe0ng ra thực tế"
-                                            })
+                                    }),
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
+                                        className: "six-methods_block-item",
+                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
+                                            className: "heading-4",
+                                            children: "L\xe0m b\xe0i tập để nhớ mặt chữ"
                                         })
-                                    ]
-                                })
-                            ]
+                                    }),
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
+                                        className: "six-methods_block-item",
+                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
+                                            className: "heading-4",
+                                            children: "Nghe cho quen tai - Quen v\xe0 ngấm to\xe0n bộ nội dung (16000 words, 24000 phrases, 14000 sentences) để t\xedch lũy đủ ba loại vốn"
+                                        })
+                                    }),
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
+                                        className: "six-methods_block-item",
+                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
+                                            className: "heading-4",
+                                            children: "Đọc cho quen miệng - Thuộc l\xf2ng v\xe0 phản xạ v\xf4 điều kiện, kh\xf4ng cần suy nghĩ"
+                                        })
+                                    })
+                                ]
+                            })
                         })
                     ]
                 })

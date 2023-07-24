@@ -1,7 +1,7 @@
 {
   "/page": "app/page.js",
-  "/chinh-sach-thanh-toan/page": "app/chinh-sach-thanh-toan/page.js",
   "/chinh-sach-bao-mat/page": "app/chinh-sach-bao-mat/page.js",
+  "/chinh-sach-thanh-toan/page": "app/chinh-sach-thanh-toan/page.js",
   "/payment/page": "app/payment/page.js",
   "/payment/transfer/page": "app/payment/transfer/page.js"
 }

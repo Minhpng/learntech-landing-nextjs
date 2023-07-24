@@ -8,15 +8,15 @@ export default function Home() {
           <div className="hero-content">
             <h1 className="app-name">Lang Kingdom</h1>
             <p className="hero-content_body-text">
-              Ứng dụng học tiếng Anh online duy nhất nhất giúp bạn hiểu rõ ngọn
+              Ứng dụng tự học tiếng Anh online duy nhất nhất giúp bạn hiểu rõ ngọn
               ngành từng từ vựng, cấu trúc câu, ngữ pháp và văn hóa bản xứ trong
               từng câu nói.
             </p>
-            <p className="hero-content_body-text">
+            {/* <p className="hero-content_body-text">
               Phát triển kỹ năng nghe-nói tiếng Anh bằng cách luyện nói phân
               vai, tăng tốc độ phản xạ nghe hiểu và đối đáp lại trong vòng dưới
               7 giây!
-            </p>
+            </p> */}
             <div className="download-app-cta">
               <div className="download-app-button-wrapper">
                 <a target="_blank" href="https://play.google.com/store/apps/details?id=com.langkingdom.langkingdom" className="download-app-button">
@@ -54,15 +54,18 @@ export default function Home() {
               <p className="primary-heading">
                 Tự học tiếng Anh chưa bao giờ dễ dàng đến thế
               </p>
-              <p className="body-text">
-                Ứng dụng Lang Kingdom có bài giảng vô cùng chi tiết cho từng câu/từ/cụm giúp cho việc tự học của bạn vô cùng dễ dàng.
-              </p>
-              <p className="body-text">
-                Luyện nghe-nói tiếng Anh qua các bài hội thoại, bài học đơn giản, gần gũi trong cuộc sống thường ngày.
-              </p>
-              <p className="body-text">
-                Bạn có thể học ở mọi lúc mọi nơi, dừng và tiếp tục bất cứ khi nào bạn muốn. Ứng dụng sẽ ghi nhớ tiến trình của bạn để bạn luôn bắt nhịp.
-              </p>
+              <li className="body-text">
+                Ứng dụng luyện nói tiếng Anh trực tuyến.
+              </li>
+              <li className="body-text">
+                Tự luyện nói tiếng Anh dễ dàng thông qua các mẫu câu, bài hội thoại đơn giản, gần gũi với cuộc sống thường ngày;
+              </li>
+              <li className="body-text">
+                Tra cứu từ điển từ, cụm, câu Anh - Việt giúp hiểu rõ ngữ nghĩa và cách dùng;
+              </li>
+              <li className="body-text">
+                Luyện nói bất cứ nơi đâu có kết nối mạng, dừng và tiếp tục luyện  bất kỳ lúc nào.
+              </li>
 
             </div>
             <div className="app-intro-image">
@@ -77,14 +80,13 @@ export default function Home() {
       <section className="section">
         <div className="container section-methods">
           <h1 className="primary-heading">
-            Phương pháp 6 bước học tiếng Anh với Lang Kingdom
+            Phương pháp tự học tiếng Anh với Lang Kingdom
           </h1>
           <div className="six-methods">
             <ul className="six-methods_block">
               <li className="six-methods_block-item">
                 <h4 className="heading-4">
-                  Học chủ động, tìm hiểu cặn kẽ. Nghe giảng để hiểu cặn kẽ từng
-                  câu từng từ
+                  Học chủ động, tìm hiểu cặn kẽ.
                 </h4>
               </li>
               <li className="six-methods_block-item">
@@ -97,22 +99,10 @@ export default function Home() {
                   vốn
                 </h4>
               </li>
-            </ul>
-            <ul className="six-methods_block counter-set-to" counterto="4">
               <li className="six-methods_block-item">
                 <h4 className="heading-4">
                   Đọc cho quen miệng - Thuộc lòng và phản xạ vô điều kiện, không
                   cần suy nghĩ
-                </h4>
-              </li>
-              <li className="six-methods_block-item">
-                <h4 className="heading-4">
-                  Kiểm tra phản xạ 7 giây để đảm bảo khả năng phản xạ nhanh
-                </h4>
-              </li>
-              <li className="six-methods_block-item">
-                <h4 className="heading-4">
-                  Luyện nói gián tiếp để sẵn sàng ra thực tế
                 </h4>
               </li>
             </ul>
