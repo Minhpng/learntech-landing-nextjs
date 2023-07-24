@@ -4,12 +4,13 @@ function PaymentPolicy() {
             <div className="container">
                 <div className="contentWrapper">
                     <h3 className="primary-heading">Chính sách thanh toán</h3>
-                    <p className="body-text">Quý khách khi hàng https://learntech.vn có thể lựa chọn một trong các hình thức thanh toán sau để thuận tiện và nhanh nhất:</p>
+                    {/* <p className="body-text">Quý khách khi hàng https://learntech.vn có thể thanh toán chuyển khoản theo thông tin tài khoản sau:</p> */}
+                    {/* <p className="body-text">Quý khách khi hàng https://learntech.vn có thể lựa chọn một trong các hình thức thanh toán sau để thuận tiện và nhanh nhất:</p> */}
                     <ul className="ml-50 mb-20">
-                        <li className="body-text">Thanh toán khi nhận hàng: Qúy khách vui lòng thanh toán cho nhân viên vận chuyển</li>
-                        <li className="body-text">Thanh toán qua Visa, Mastercard thông qua Vnpay (hỗ trợ các ngân hàng trong nước) hoặc Paypal (Hỗ trợ ngân hàng trong nước và quốc tế)</li>
-                        <li className="body-text">Thanh toán qua tài khoản Paypal</li>
-                        <li className="body-text">Thanh toán chuyển khoản: quý khách nếu ngại thanh toán tiền mặt có thể chuyển khoản cho chúng tôi theo thông tin tài khoản sau:</li>
+                        {/* <li className="body-text">Thanh toán qua Visa, Mastercard thông qua Vnpay (hỗ trợ các ngân hàng trong nước) hoặc Paypal (Hỗ trợ ngân hàng trong nước và quốc tế)</li>
+                        <li className="body-text">Thanh toán qua tài khoản Paypal</li> */}
+                        <li className="body-text">Quý khách khi hàng https://learntech.vn có thể thanh toán chuyển khoản theo thông tin tài khoản sau:</li>
+                        {/* <li className="body-text">Thanh toán chuyển khoản: quý khách nếu ngại thanh toán tiền mặt có thể chuyển khoản cho chúng tôi theo thông tin tài khoản sau:</li> */}
                         <ul className="ml-50">
                             <li className="body-text"><span className="font-weight-700">Tên Tài Khoản:</span> LEARNTECT CO. LTD</li>
                             <li className="body-text"><span className="font-weight-700">Số Tài Khoản:</span> 2755746868</li>

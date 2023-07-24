@@ -147,7 +147,7 @@ function PaymentPage() {
                     }
 
                 </div>
-                <div className='paymentMethodItem'>
+                {/* <div className='paymentMethodItem'>
                     <div className='methodItemOption'>
                         <input
                             type="radio"
@@ -207,7 +207,7 @@ function PaymentPage() {
                                 </li>
                             </ul>
                         </div> : null}
-                </div>
+                </div> */}
             </div>
             <Link href={`/payment/transfer`} className='processPaymentBtn'>TIẾN HÀNH THANH TOÁN<span>1,440,000đ</span></Link>
         </form>

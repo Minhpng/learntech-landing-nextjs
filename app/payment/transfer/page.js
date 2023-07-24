@@ -50,6 +50,15 @@ function PaymentTransferMethod() {
                         <p className='bankingContentText'><span className='text-gray-400'>(Không bao gồm phí chuyển tiền)</span></p>
                     </div>
                 </div>
+                <div className='bankingInfoItem'>
+                    <div className='bankingHeading'>
+                        <p>Nội dung chuyển khoản</p>
+                    </div>
+                    <span >:</span>
+                    <div className='bankingContentWrapper'>
+                        <p className='bankingContentText'><span className='text-red'>Tên và số điện thoại</span></p>
+                    </div>
+                </div>
             </div>
 
             <div className='bankingDesc'>
