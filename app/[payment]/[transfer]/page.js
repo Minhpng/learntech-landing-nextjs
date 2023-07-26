@@ -1,7 +1,13 @@
 
+'use client'
+import { usePathname } from 'next/navigation';
 import '../payment.css'
 
 function PaymentTransferMethod() {
+
+    const param = usePathname();
+
+    const price = Number(param.split('/').at(-1)).toLocaleString()
 
 
     return (<>
@@ -46,7 +52,9 @@ function PaymentTransferMethod() {
                     </div>
                     <span >:</span>
                     <div className='bankingContentWrapper'>
-                        <p className='bankingContentText'><span className='text-red'>1,440,000đ</span></p>
+                        <p className='bankingContentText'><span className='text-red'>
+                            {price}đ
+                        </span></p>
                         <p className='bankingContentText'><span className='text-gray-400'>(Không bao gồm phí chuyển tiền)</span></p>
                     </div>
                 </div>

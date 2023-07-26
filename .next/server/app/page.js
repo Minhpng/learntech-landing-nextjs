@@ -100,11 +100,27 @@ module.exports = require("next/dist/shared/lib/hooks-client-context");
 
 /***/ }),
 
+/***/ 7160:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router-context");
+
+/***/ }),
+
 /***/ 893:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("next/dist/shared/lib/router/utils/add-path-prefix");
+
+/***/ }),
+
+/***/ 2336:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/format-url");
 
 /***/ }),
 
@@ -124,6 +140,14 @@ module.exports = require("next/dist/shared/lib/router/utils/is-bot");
 
 /***/ }),
 
+/***/ 120:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/is-local-url");
+
+/***/ }),
+
 /***/ 8231:
 /***/ ((module) => {
 
@@ -140,11 +164,27 @@ module.exports = require("next/dist/shared/lib/router/utils/remove-trailing-slas
 
 /***/ }),
 
+/***/ 982:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/resolve-href");
+
+/***/ }),
+
 /***/ 9618:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("next/dist/shared/lib/server-inserted-html");
+
+/***/ }),
+
+/***/ 8423:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/utils");
 
 /***/ }),
 
@@ -213,10 +253,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 3040:
+/***/ 4323:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 6173, 23))
+Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 6173, 23));
+Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 954, 23))
 
 /***/ }),
 
@@ -230,8 +271,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6786);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_script__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4862);
-/* harmony import */ var next_script__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_script__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5124);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var next_script__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4862);
+/* harmony import */ var next_script__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_script__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 function Home() {
@@ -251,7 +295,11 @@ function Home() {
                                 }),
                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
                                     className: "hero-content_body-text",
-                                    children: "Ứng dụng tự học tiếng Anh online duy nhất nhất gi\xfap bạn hiểu r\xf5 ngọn ng\xe0nh từng từ vựng, cấu tr\xfac c\xe2u, ngữ ph\xe1p v\xe0 văn h\xf3a bản xứ trong từng c\xe2u n\xf3i."
+                                    children: "Ứng dụng học tiếng Anh online duy nhất nhất gi\xfap bạn hiểu r\xf5 ngọn ng\xe0nh từng từ vựng, cấu tr\xfac c\xe2u, ngữ ph\xe1p v\xe0 văn h\xf3a bản xứ trong từng c\xe2u n\xf3i."
+                                }),
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("p", {
+                                    className: "hero-content_body-text",
+                                    children: "Ph\xe1t triển kỹ năng nghe-n\xf3i tiếng Anh bằng c\xe1ch luyện n\xf3i ph\xe2n vai, tăng tốc độ phản xạ nghe hiểu v\xe0 đối đ\xe1p lại trong v\xf2ng dưới 7 gi\xe2y!"
                                 }),
                                 /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                                     className: "download-app-cta",
@@ -366,43 +414,65 @@ function Home() {
                     children: [
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h1", {
                             className: "primary-heading",
-                            children: "Phương ph\xe1p tự học tiếng Anh với Lang Kingdom"
+                            children: "Phương ph\xe1p 6 bước học tiếng Anh với Lang Kingdom"
                         }),
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                             className: "six-methods",
-                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
-                                className: "six-methods_block",
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
-                                        className: "six-methods_block-item",
-                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
-                                            className: "heading-4",
-                                            children: "Học chủ động, t\xecm hiểu cặn kẽ."
+                            children: [
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
+                                    className: "six-methods_block",
+                                    children: [
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
+                                            className: "six-methods_block-item",
+                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
+                                                className: "heading-4",
+                                                children: "Học chủ động, t\xecm hiểu cặn kẽ. Nghe giảng để hiểu cặn kẽ từng c\xe2u từng từ"
+                                            })
+                                        }),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
+                                            className: "six-methods_block-item",
+                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
+                                                className: "heading-4",
+                                                children: "L\xe0m b\xe0i tập để nhớ mặt chữ"
+                                            })
+                                        }),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
+                                            className: "six-methods_block-item",
+                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
+                                                className: "heading-4",
+                                                children: "Nghe cho quen tai - Quen v\xe0 ngấm to\xe0n bộ nội dung (16000 words, 24000 phrases, 14000 sentences) để t\xedch lũy đủ ba loại vốn"
+                                            })
                                         })
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
-                                        className: "six-methods_block-item",
-                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
-                                            className: "heading-4",
-                                            children: "L\xe0m b\xe0i tập để nhớ mặt chữ"
+                                    ]
+                                }),
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
+                                    className: "six-methods_block counter-set-to",
+                                    counterto: "4",
+                                    children: [
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
+                                            className: "six-methods_block-item",
+                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
+                                                className: "heading-4",
+                                                children: "Đọc cho quen miệng - Thuộc l\xf2ng v\xe0 phản xạ v\xf4 điều kiện, kh\xf4ng cần suy nghĩ"
+                                            })
+                                        }),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
+                                            className: "six-methods_block-item",
+                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
+                                                className: "heading-4",
+                                                children: "Kiểm tra phản xạ 7 gi\xe2y để đảm bảo khả năng phản xạ nhanh"
+                                            })
+                                        }),
+                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
+                                            className: "six-methods_block-item",
+                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
+                                                className: "heading-4",
+                                                children: "Luyện n\xf3i gi\xe1n tiếp để sẵn s\xe0ng ra thực tế"
+                                            })
                                         })
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
-                                        className: "six-methods_block-item",
-                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
-                                            className: "heading-4",
-                                            children: "Nghe cho quen tai - Quen v\xe0 ngấm to\xe0n bộ nội dung (16000 words, 24000 phrases, 14000 sentences) để t\xedch lũy đủ ba loại vốn"
-                                        })
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("li", {
-                                        className: "six-methods_block-item",
-                                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("h4", {
-                                            className: "heading-4",
-                                            children: "Đọc cho quen miệng - Thuộc l\xf2ng v\xe0 phản xạ v\xf4 điều kiện, kh\xf4ng cần suy nghĩ"
-                                        })
-                                    })
-                                ]
-                            })
+                                    ]
+                                })
+                            ]
                         })
                     ]
                 })
@@ -717,8 +787,8 @@ function Home() {
                                             })
                                         ]
                                     }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("a", {
-                                        href: "/payment",
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_link__WEBPACK_IMPORTED_MODULE_1___default()), {
+                                        href: `/${"payment1"}`,
                                         className: "pricing-buy-button",
                                         children: "Mua t\xe0i khoản"
                                     })
@@ -771,8 +841,8 @@ function Home() {
                                             })
                                         ]
                                     }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("a", {
-                                        href: "/payment",
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_link__WEBPACK_IMPORTED_MODULE_1___default()), {
+                                        href: `/${"payment2"}`,
                                         className: "pricing-buy-button",
                                         children: "Mua t\xe0i khoản"
                                     })
@@ -815,8 +885,8 @@ function Home() {
                                             })
                                         ]
                                     }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("a", {
-                                        href: "/payment",
+                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_link__WEBPACK_IMPORTED_MODULE_1___default()), {
+                                        href: `/${"payment3"}`,
                                         className: "pricing-buy-button",
                                         children: "Mua t\xe0i khoản"
                                     })
@@ -952,10 +1022,10 @@ function Home() {
                     ]
                 })
             }),
-            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_script__WEBPACK_IMPORTED_MODULE_1___default()), {
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_script__WEBPACK_IMPORTED_MODULE_2___default()), {
                 src: "https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"
             }),
-            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_script__WEBPACK_IMPORTED_MODULE_1___default()), {
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_script__WEBPACK_IMPORTED_MODULE_2___default()), {
                 src: "/main.js"
             })
         ]
@@ -972,7 +1042,7 @@ function Home() {
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [218,29,34,171], () => (__webpack_exec__(3714)));
+var __webpack_exports__ = __webpack_require__.X(0, [218,954,840,171], () => (__webpack_exec__(3714)));
 module.exports = __webpack_exports__;
 
 })();

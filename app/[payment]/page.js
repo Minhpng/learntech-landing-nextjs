@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react';
 
 import './payment.css'
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const paymentMethods = {
     transfer: 'chuyen_khoan',
@@ -12,10 +13,30 @@ const paymentMethods = {
 }
 
 
+const packages = {
+    2: {
+        packageName: 'Premium đặc biệt',
+        price: 2590000
+    },
+    1: {
+        packageName: 'Premium 1 năm',
+        price: 1490000
+    },
+    3: {
+        packageName: 'Premium 6 tháng',
+        price: 890000
+    },
+}
+
 function PaymentPage() {
     const [paymentMethod, setMethod] = useState(paymentMethods.transfer)
     const [isVideoOpened, setOpenVideo] = useState(false)
     const [promoCode, setPromoCode] = useState('')
+    const param = usePathname();
+
+    const pack = packages[param.slice(-1)]
+
+    console.log(param);
 
     function handlePaymentMethod(e) {
         const method = e.target.value
@@ -84,8 +105,8 @@ function PaymentPage() {
                     <p className='billingItemMainText'>Số tiền</p>
                 </div>
                 <div className='billingProductItem'>
-                    <p>Lang kingdom Pro 1 năm</p>
-                    <p className='billingItemMainText'>1,490,000đ</p>
+                    <p>{pack.packageName}</p>
+                    <p className='billingItemMainText'>{pack.price.toLocaleString()}</p>
                 </div>
                 <div className='billingProductItem'>
                     <div>
@@ -103,7 +124,7 @@ function PaymentPage() {
                     <p className='billingItemMainText'>
                         Tổng
                     </p>
-                    <p className='billingTotalPrice'>1,440,000đ</p>
+                    <p className='billingTotalPrice'>{`${(pack.price - 50000).toLocaleString()}đ`}</p>
                 </div>
 
                 <div className='paymentDiscount'>
@@ -209,7 +230,7 @@ function PaymentPage() {
                         </div> : null}
                 </div> */}
             </div>
-            <Link href={`/payment/transfer`} className='processPaymentBtn'>TIẾN HÀNH THANH TOÁN<span>1,440,000đ</span></Link>
+            <Link href={`${param}/${(pack.price - 50000)}`} className='processPaymentBtn'>TIẾN HÀNH THANH TOÁN<span>{`${(pack.price - 50000).toLocaleString()}đ`}</span></Link>
         </form>
     </>;
 }

@@ -1,0 +1,7 @@
+{
+  "/page": "/",
+  "/chinh-sach-bao-mat/page": "/chinh-sach-bao-mat",
+  "/chinh-sach-thanh-toan/page": "/chinh-sach-thanh-toan",
+  "/[payment]/page": "/[payment]",
+  "/[payment]/[transfer]/page": "/[payment]/[transfer]"
+}

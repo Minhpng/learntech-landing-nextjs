@@ -1,6 +1,9 @@
+import Link from "next/link";
 import Script from "next/script";
 
 export default function Home() {
+
+
   return (
     <main>
       <section className="section section-hero bg-dark">
@@ -8,15 +11,15 @@ export default function Home() {
           <div className="hero-content">
             <h1 className="app-name">Lang Kingdom</h1>
             <p className="hero-content_body-text">
-              Ứng dụng tự học tiếng Anh online duy nhất nhất giúp bạn hiểu rõ ngọn
+              Ứng dụng học tiếng Anh online duy nhất nhất giúp bạn hiểu rõ ngọn
               ngành từng từ vựng, cấu trúc câu, ngữ pháp và văn hóa bản xứ trong
               từng câu nói.
             </p>
-            {/* <p className="hero-content_body-text">
+            <p className="hero-content_body-text">
               Phát triển kỹ năng nghe-nói tiếng Anh bằng cách luyện nói phân
               vai, tăng tốc độ phản xạ nghe hiểu và đối đáp lại trong vòng dưới
               7 giây!
-            </p> */}
+            </p>
             <div className="download-app-cta">
               <div className="download-app-button-wrapper">
                 <a target="_blank" href="https://play.google.com/store/apps/details?id=com.langkingdom.langkingdom" className="download-app-button">
@@ -54,6 +57,16 @@ export default function Home() {
               <p className="primary-heading">
                 Tự học tiếng Anh chưa bao giờ dễ dàng đến thế
               </p>
+              {/* <p className="body-text">
+                Ứng dụng Lang Kingdom có bài giảng vô cùng chi tiết cho từng câu/từ/cụm giúp cho việc tự học của bạn vô cùng dễ dàng.
+              </p>
+              <p className="body-text">
+                Luyện nghe-nói tiếng Anh qua các bài hội thoại, bài học đơn giản, gần gũi trong cuộc sống thường ngày.
+              </p>
+              <p className="body-text">
+                Bạn có thể học ở mọi lúc mọi nơi, dừng và tiếp tục bất cứ khi nào bạn muốn. Ứng dụng sẽ ghi nhớ tiến trình của bạn để bạn luôn bắt nhịp.
+              </p> */}
+
               <li className="body-text">
                 Ứng dụng luyện nói tiếng Anh trực tuyến.
               </li>
@@ -80,13 +93,14 @@ export default function Home() {
       <section className="section">
         <div className="container section-methods">
           <h1 className="primary-heading">
-            Phương pháp tự học tiếng Anh với Lang Kingdom
+            Phương pháp 6 bước học tiếng Anh với Lang Kingdom
           </h1>
           <div className="six-methods">
             <ul className="six-methods_block">
               <li className="six-methods_block-item">
                 <h4 className="heading-4">
-                  Học chủ động, tìm hiểu cặn kẽ.
+                  Học chủ động, tìm hiểu cặn kẽ. Nghe giảng để hiểu cặn kẽ từng
+                  câu từng từ
                 </h4>
               </li>
               <li className="six-methods_block-item">
@@ -99,10 +113,22 @@ export default function Home() {
                   vốn
                 </h4>
               </li>
+            </ul>
+            <ul className="six-methods_block counter-set-to" counterto="4">
               <li className="six-methods_block-item">
                 <h4 className="heading-4">
                   Đọc cho quen miệng - Thuộc lòng và phản xạ vô điều kiện, không
                   cần suy nghĩ
+                </h4>
+              </li>
+              <li className="six-methods_block-item">
+                <h4 className="heading-4">
+                  Kiểm tra phản xạ 7 giây để đảm bảo khả năng phản xạ nhanh
+                </h4>
+              </li>
+              <li className="six-methods_block-item">
+                <h4 className="heading-4">
+                  Luyện nói gián tiếp để sẵn sàng ra thực tế
                 </h4>
               </li>
             </ul>
@@ -312,7 +338,7 @@ export default function Home() {
                 </li>
               </ul>
 
-              <a href="/payment" className="pricing-buy-button">Mua tài khoản</a>
+              <Link href={`/${'payment1'}`} className="pricing-buy-button">Mua tài khoản</Link>
             </div>
             <div className="pricing-item pricing-primary">
               <div className="pricing-tag-wrapper">
@@ -334,8 +360,8 @@ export default function Home() {
                   người ta không muốn hệ thống hóa cho bạn!"
                 </li>
               </ul>
+              <Link href={`/${'payment2'}`} className="pricing-buy-button">Mua tài khoản</Link>
 
-              <a href="/payment" className="pricing-buy-button">Mua tài khoản</a>
             </div>
 
             <div className="pricing-item">
@@ -357,8 +383,9 @@ export default function Home() {
                   người ta không muốn hệ thống hóa cho bạn!"
                 </li>
               </ul>
+              <Link href={`/${'payment3'}`} className="pricing-buy-button">Mua tài khoản</Link>
 
-              <a href="/payment" className="pricing-buy-button">Mua tài khoản</a>
+              {/* <a href="/payment" className="pricing-buy-button">Mua tài khoản</a> */}
             </div>
           </div>
         </div>
